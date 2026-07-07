@@ -3,9 +3,9 @@
 Übungs‑App (Multiple Choice) zur Vorbereitung auf die Zertifizierung
 **CPSA‑F** (Certified Professional for Software Architecture – Foundation Level).
 Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lokale Datei** (PC/Mac),
-**ohne Installation und ohne Konto**. Enthält **152 eigenständige Fragen** über alle 6 Kapitel des Curriculums.
+**ohne Installation und ohne Konto**. Enthält **206 eigenständige Fragen** über alle 6 Kapitel des Curriculums.
 
-*Version 1.1.0*
+*Version 1.3.0*
 
 ---
 
@@ -143,7 +143,7 @@ Jede Frage nutzt **Checkboxen** und nennt im Kopf, **wie viele Antworten** zu w�
 | **CPSA‑F** | Certified Professional for Software Architecture – **F**oundation Level |
 | **R1 / R2 / R3** | Prüfungsrelevanz je Lernziel: **R1** = kommt sicher dran · **R2** = kann drankommen · **R3** = nicht prüfungsrelevant |
 | **A / P / K** | Fragetypen (siehe Abschnitt 4) |
-| **LZ** | Lernziel (z. B. „LZ 3‑4") – Verweis ins Curriculum |
+| **LZ** | Lernziel (Nummerierung nach Curriculum 2025.1, z. B. „LZ 03‑08") – Verweis ins Curriculum |
 | **arc42** | Bewährte Vorlage/Gliederung für Architekturdokumentation |
 | **ADR** | Architecture Decision Record – dokumentierte Architekturentscheidung |
 | **ATAM** | Architecture Tradeoff Analysis Method – szenariobasierte Bewertungsmethode |
