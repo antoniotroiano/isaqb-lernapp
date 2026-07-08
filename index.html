@@ -116,6 +116,9 @@
   .opt.wrong{border-color:var(--wrong);background:var(--wrong-bg)}
   .opt.wrong .mark{border-color:var(--wrong);background:var(--wrong);color:#fff}
   .opt.disabled{cursor:default}
+  .opt .optbody{flex:1;min-width:0}
+  .optwhy{font-size:.82rem;color:var(--muted);margin-top:5px;line-height:1.4}
+  .revwhy{font-size:.8rem;color:var(--muted);margin-top:4px;line-height:1.4}
   .explain{border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:8px;padding:12px;margin:6px 0 4px;font-size:.9rem}
   .explain b{display:block;margin-bottom:4px}
   .lz{font-size:.76rem;color:var(--muted);margin-top:6px}
@@ -215,7 +218,7 @@
       Inoffizielles Lernwerkzeug. Nicht mit dem iSAQB® verbunden. Fragen sind eigenständig
       formuliert (keine Original-Prüfungsfragen) und dienen nur zur Übung.
       Bedeutung: <b>R1</b> kommt sicher dran · <b>R2</b> kann drankommen · <b>R3</b> nicht prüfungsrelevant.
-      <br>Version 1.3.0
+      <br>Version 1.4.0
     </footer>
   </section>
 
@@ -571,8 +574,14 @@ function renderQuestion(){
     }
     const mark=document.createElement("span"); mark.className="mark";
     mark.textContent = it.submitted ? (q.correct.includes(optIdx)?"✓":(isSel?"✕":"")) : (isSel?"✓":"");
-    const txt=document.createElement("span"); txt.textContent=q.options[optIdx];
-    el.appendChild(mark); el.appendChild(txt);
+    const body=document.createElement("div"); body.className="optbody";
+    const txt=document.createElement("div"); txt.textContent=q.options[optIdx];
+    body.appendChild(txt);
+    if(it.submitted && q.optExpl && q.optExpl[optIdx]){
+      const why=document.createElement("div"); why.className="optwhy"; why.textContent=q.optExpl[optIdx];
+      body.appendChild(why);
+    }
+    el.appendChild(mark); el.appendChild(body);
     if(!it.submitted){
       el.onclick=()=>{
         const i=it.selected.indexOf(optIdx); if(i>=0) it.selected.splice(i,1); else it.selected.push(optIdx);
@@ -750,7 +759,8 @@ function renderReview(){
       q.options.forEach((opt,oi)=>{ const isC=q.correct.includes(oi); const isS=it.selected.includes(oi);
         const cls=isC?"revok":(isS?"revno":""); const pre=isC?"✓ ":(isS?"✗ ":"○ ");
         const suf=isS&&!isC?" — deine Wahl (falsch)":(isC&&!isS?" — richtig (fehlte)":"");
-        h+="<div class='revopt "+cls+"'>"+pre+escapeHtml(opt)+suf+"</div>";
+        const why=(q.optExpl&&q.optExpl[oi])?"<div class='revwhy'>"+escapeHtml(q.optExpl[oi])+"</div>":"";
+        h+="<div class='revopt "+cls+"'>"+pre+escapeHtml(opt)+suf+why+"</div>";
       });
     }
     h+="<div class='explain' style='margin-top:10px'><b>Erklärung</b>"+escapeHtml(q.explanation)+"</div>";
@@ -859,7 +869,7 @@ function solutionHtml(q){
     q.rows.forEach(row=>{ h+="<div class='revrow'>"+escapeHtml(row.text)+"<br><span class='revok'>→ "+escapeHtml(q.categories[row.cat])+"</span></div>"; });
   } else {
     h+="<div class='qtype'>Wählen Sie "+q.correct.length+" Antwort"+(q.correct.length>1?"en":"")+".</div>";
-    q.options.forEach((opt,oi)=>{ const isC=q.correct.includes(oi); h+="<div class='revopt "+(isC?"revok":"")+"'>"+(isC?"✓ ":"○ ")+escapeHtml(opt)+"</div>"; });
+    q.options.forEach((opt,oi)=>{ const isC=q.correct.includes(oi); const why=(q.optExpl&&q.optExpl[oi])?"<div class='revwhy'>"+escapeHtml(q.optExpl[oi])+"</div>":""; h+="<div class='revopt "+(isC?"revok":"")+"'>"+(isC?"✓ ":"○ ")+escapeHtml(opt)+why+"</div>"; });
   }
   h+="<div class='explain' style='margin-top:10px'><b>Erklärung</b>"+escapeHtml(q.explanation)+"</div>";
   return h;
