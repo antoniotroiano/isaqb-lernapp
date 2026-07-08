@@ -397,7 +397,7 @@ const QUESTIONS = [
   "Über den Nutzen herrscht weitgehend Einigkeit."
  ],
  explanation:"Es gibt viele anerkannte Definitionen; der Lehrplan nutzt deren Schnittmenge (Bausteine, Beziehungen, tragende Entscheidungen). Weder mangelnde Reife noch fehlende Einigkeit über den Nutzen sind der Grund."},
-{id:"c1q25",chapter:1,lz:"LZ 01-05",r:"R1",type:"single",
+{id:"c1q25",chapter:1,lz:"LZ 01-05",r:"R3",type:"single",
  q:"Auf welche Ebene zielt der CPSA-Foundation-Stoff in erster Linie?",
  options:[
   "Auf die Softwarearchitektur eines einzelnen Systems.",
@@ -850,7 +850,7 @@ const QUESTIONS = [
   "Auch kritisch eingestellte Betroffene sind relevante Stakeholder."
  ],
  explanation:"Man betrachtet das Umfeld schichtweise (Alexanders „Zwiebel“) und erweitert per Schneeballprinzip. Auch nicht zahlende und kritisch eingestellte Betroffene können relevante Stakeholder sein."},
-{id:"c2q23",chapter:2,lz:"LZ 02-02",r:"R1",type:"single",
+{id:"c2q23",chapter:2,lz:"LZ 02-02",r:"R2",type:"single",
  q:"Was besagt Conways Gesetz im Kontext von Softwarearchitektur?",
  options:[
   "Die Struktur eines Systems spiegelt tendenziell die Kommunikationsstrukturen der entwickelnden Organisation wider.",
@@ -914,7 +914,7 @@ const QUESTIONS = [
   "Auch Randbedingungen sollten dokumentiert werden."
  ],
  explanation:"Randbedingungen sind vorgegebene, kaum beeinflussbare Grenzen (technisch, organisatorisch, rechtlich). Sie sind gerade nicht frei verhandelbar, nicht per se funktional und ebenfalls zu dokumentieren."},
-{id:"c2q27",chapter:2,lz:"LZ 02-01",r:"R2",type:"single",
+{id:"c2q27",chapter:2,lz:"LZ 02-01",r:"R3",type:"single",
  q:"Was beschreibt das Kano-Modell im Umgang mit Anforderungen?",
  options:[
   "Es unterscheidet Basis-, Leistungs- und Begeisterungsmerkmale nach ihrer Wirkung auf die Zufriedenheit.",
@@ -963,7 +963,7 @@ const QUESTIONS = [
   "Information Hiding meint Kapselung, nicht Verschlüsselung des Quellcodes."
  ],
  explanation:"Information Hiding verbirgt Interna hinter einer stabilen Schnittstelle, sodass interne Änderungen die Nutzer nicht betreffen. Es geht nicht um öffentliche Attribute, mitgeänderte Schnittstellen oder Verschlüsselung."},
-{id:"c3q3",chapter:3,lz:"LZ 03-04",r:"R2",type:"single",
+{id:"c3q3",chapter:3,lz:"LZ 03-04",r:"R3",type:"single",
  q:"Wofür steht das 'S' in den SOLID-Prinzipien?",
  options:[
   "Single Responsibility Principle – ein Baustein hat genau eine Verantwortlichkeit (einen Änderungsgrund).",
@@ -995,7 +995,7 @@ const QUESTIONS = [
   "Aufrufe von unten nach oben erzeugen unerwünschte Zyklen."
  ],
  explanation:"Obere Schichten nutzen definierte Dienste darunter; die geordnete Richtung schafft Struktur. Eine Schicht bündelt möglichst ein ähnliches Abstraktionsniveau, und Aufrufe von unten nach oben erzeugen unerwünschte Zyklen."},
-{id:"c3q5",chapter:3,lz:"LZ 03-08",r:"R2",type:"multi",
+{id:"c3q5",chapter:3,lz:"LZ 03-08",r:"R3",type:"multi",
  q:"Welche Aussagen zu Ports & Adapters (hexagonale Architektur) treffen zu?",
  options:[
   "Die fachliche Kernlogik wird von Technik und Infrastruktur entkoppelt.",
@@ -1107,7 +1107,7 @@ const QUESTIONS = [
   "Ständig wechselnde Verdrahtung widerspricht der festen Verarbeitungskette."
  ],
  explanation:"Pipes and Filters passt zu einer festen, mehrstufigen Verarbeitungskette (Ausgabe → Eingabe). Für stark interaktive Dialoge, einen geteilten globalen Zustand oder ständig wechselnde Verdrahtung ist es nicht gedacht."},
-{id:"c3q12",chapter:3,lz:"LZ 03-06",r:"R2",type:"single",
+{id:"c3q12",chapter:3,lz:"LZ 03-06",r:"R3",type:"single",
  q:"Was ist ein zentraler Unterschied zwischen synchroner und asynchroner Kommunikation?",
  options:[
   "Bei synchroner Kommunikation wartet der Aufrufer auf die Antwort, bei asynchroner nicht.",
@@ -1181,7 +1181,7 @@ const QUESTIONS = [
   "Getrennt wird nach Sachthema, nicht nach Entwickler-Zuständigkeit."
  ],
  explanation:"SoC trennt Belange in eigene Bausteine und begünstigt lose Kopplung/hohe Kohäsion (bessere Änder- und Testbarkeit). Das Bündeln vieler Belange oder eine Trennung nach Person widersprechen dem Prinzip."},
-{id:"c3q16",chapter:3,lz:"LZ 03-04",r:"R1",type:"single",
+{id:"c3q16",chapter:3,lz:"LZ 03-04",r:"R3",type:"single",
  q:"Wofür steht das Prinzip DRY?",
  options:[
   "Wissen bzw. Logik soll nicht dupliziert, sondern an einer einzigen Stelle geführt werden.",
@@ -1197,7 +1197,7 @@ const QUESTIONS = [
   "DRY betrifft doppelte Logik, nicht nur doppelte Kommentare."
  ],
  explanation:"DRY führt Wissen/Logik an einer Stelle, damit Änderungen zentral erfolgen. Redundanz als 'Sicherheit', das Zusammenführen zufällig ähnlicher Stellen oder eine Beschränkung auf Kommentare treffen den Kern nicht."},
-{id:"c3q17",chapter:3,lz:"LZ 03-04",r:"R2",type:"single",
+{id:"c3q17",chapter:3,lz:"LZ 03-04",r:"R3",type:"single",
  q:"Was besagt das Prinzip YAGNI?",
  options:[
   "Keine Funktionalität auf Vorrat bauen, die aktuell (noch) nicht gebraucht wird.",
@@ -1229,7 +1229,7 @@ const QUESTIONS = [
   "Muster garantieren nicht kontextunabhängig die beste Lösung."
  ],
  explanation:"Architekturmuster sind bewährte, wiederverwendbare Schablonen und eine gemeinsame Sprache – müssen aber passen. Sie sind kein Einmal-Code und garantieren nicht kontextunabhängig die beste Lösung."},
-{id:"c3q19",chapter:3,lz:"LZ 03-08",r:"R2",type:"single",
+{id:"c3q19",chapter:3,lz:"LZ 03-08",r:"R3",type:"single",
  q:"Was trennt das Muster Model-View-Controller (MVC)?",
  options:[
   "Datenmodell, Darstellung (View) und Steuerung/Interaktion (Controller).",
@@ -1319,7 +1319,7 @@ const QUESTIONS = [
   {text:"Dependency Injection statt fester Instanziierung",cat:1}
  ],
  explanation:"Direkter Zugriff auf Interna und globale veränderliche Zustände erhöhen die Kopplung. Klare Schnittstellen und Dependency Injection verringern sie."},
-{id:"k8",chapter:3,lz:"LZ 03-04",r:"R2",type:"k",points:2,
+{id:"k8",chapter:3,lz:"LZ 03-04",r:"R3",type:"k",points:2,
  q:"Gehört das jeweilige Prinzip zu SOLID?",
  categories:["Teil von SOLID","Nicht Teil von SOLID"],
  rows:[
@@ -1345,7 +1345,7 @@ const QUESTIONS = [
   "Pauschal „alles final“ widerspricht der Offenheit für Erweiterung."
  ],
  explanation:"OCP: offen für Erweiterung, geschlossen für Änderung – neues Verhalten über Abstraktionen ergänzen, ohne erprobten Code anzufassen. Direktes Ändern oder pauschales „alles final“ widersprechen dem Prinzip."},
-{id:"c3q25",chapter:3,lz:"LZ 03-04",r:"R2",type:"single",
+{id:"c3q25",chapter:3,lz:"LZ 03-04",r:"R3",type:"single",
  q:"Was empfiehlt das Interface-Segregation-Prinzip (ISP)?",
  options:[
   "Schmale, rollenspezifische Schnittstellen, damit Clients nur von dem abhängen, was sie wirklich nutzen.",
@@ -1361,7 +1361,7 @@ const QUESTIONS = [
   "Implementierungen direkt anzusprechen widerspricht dem Schnittstellengedanken."
  ],
  explanation:"ISP: keine Abhängigkeit von ungenutzten Methoden → schmale, rollenspezifische Schnittstellen. Eine große Sammel-Schnittstelle ist genau das Gegenteil."},
-{id:"c3q26",chapter:3,lz:"LZ 03-04",r:"R2",type:"single",
+{id:"c3q26",chapter:3,lz:"LZ 03-04",r:"R3",type:"single",
  q:"Was fordert das Liskovsche Substitutionsprinzip (LSP)?",
  options:[
   "Objekte eines Subtyps müssen anstelle ihres Basistyps verwendbar sein, ohne die Korrektheit zu brechen.",
@@ -1377,7 +1377,7 @@ const QUESTIONS = [
   "LSP hat nichts mit dem Kopieren von Code zu tun."
  ],
  explanation:"LSP: ein Subtyp muss den Basistyp überall ersetzen können. Vorbedingungen zu verschärfen bricht LSP; die Ableitungsrichtung ist nicht umgekehrt; mit Code-Kopieren hat es nichts zu tun."},
-{id:"c3q27",chapter:3,lz:"LZ 03-08",r:"R2",type:"single",
+{id:"c3q27",chapter:3,lz:"LZ 03-08",r:"R3",type:"single",
  q:"Was kennzeichnet ein ereignisgetriebenes (Publish/Subscribe-)Muster?",
  options:[
   "Sender veröffentlichen Ereignisse, ohne die Empfänger zu kennen; Empfänger reagieren darauf – lose gekoppelt.",
@@ -1393,7 +1393,7 @@ const QUESTIONS = [
   "Polling beschreibt nicht das ereignisgetriebene Publish/Subscribe-Muster."
  ],
  explanation:"Bei Publish/Subscribe sind Sender und Empfänger über Ereignisse entkoppelt (auch mehrere Empfänger möglich). Direkter Aufruf, Ein-Empfänger-Zwang oder Polling beschreiben es nicht."},
-{id:"c3q28",chapter:3,lz:"LZ 03-08",r:"R2",type:"single",
+{id:"c3q28",chapter:3,lz:"LZ 03-08",r:"R3",type:"single",
  q:"Was beschreibt das Client-Server-Muster?",
  options:[
   "Anfragende Clients nutzen Dienste eines bereitstellenden Servers über eine definierte Schnittstelle.",
@@ -1425,7 +1425,7 @@ const QUESTIONS = [
   "Tiefe Vererbungshierarchien sind nicht generell flexibler als Komposition."
  ],
  explanation:"Komposition ist meist flexibler und weniger fragil als tiefe Vererbung – eine Heuristik, kein Verbot. Vererbung ist nicht generell verboten, und tiefe Hierarchien sind nicht flexibler."},
-{id:"c3q30",chapter:3,lz:"LZ 03-08",r:"R2",type:"multi",
+{id:"c3q30",chapter:3,lz:"LZ 03-08",r:"R3",type:"multi",
  q:"Welche Aussagen zu zustandslosen (stateless) Diensten treffen zu?",
  options:[
   "Anfragen können auf beliebige, gleichwertige Instanzen verteilt werden.",
@@ -1457,7 +1457,7 @@ const QUESTIONS = [
   "Geteilte globale Variablen erhöhen die Kopplung und erschweren Änderungen."
  ],
  explanation:"Modularität, stabile Schnittstellen und geringe Kopplung fördern die Wartbarkeit. Geteilte globale Variablen erhöhen dagegen die Kopplung und erschweren Änderungen."},
-{id:"c3q32",chapter:3,lz:"LZ 03-10",r:"R2",type:"single",
+{id:"c3q32",chapter:3,lz:"LZ 03-10",r:"R3",type:"single",
  q:"Wozu dienen Resilienz-Muster wie Timeout, Retry oder Circuit Breaker?",
  options:[
   "Zum robusten Umgang mit Fehlern und Ausfällen, besonders in verteilten Systemen.",
@@ -1473,7 +1473,7 @@ const QUESTIONS = [
   "Sie ersetzen die Fehlerbehandlung nicht, sondern ergänzen sie."
  ],
  explanation:"Timeout/Retry/Circuit Breaker helfen, mit Fehlern und Ausfällen umzugehen. Sie beschleunigen den Normalfall nicht, garantieren keine Fehlerfreiheit und ersetzen die Fehlerbehandlung nicht."},
-{id:"k9",chapter:3,lz:"LZ 03-06",r:"R2",type:"k",points:2,
+{id:"k9",chapter:3,lz:"LZ 03-06",r:"R3",type:"k",points:2,
  q:"Synchrone oder asynchrone Kommunikation?",
  categories:["Synchron","Asynchron"],
  rows:[
@@ -1483,7 +1483,7 @@ const QUESTIONS = [
   {text:"Ein Ereignis wird veröffentlicht, Empfänger reagieren später.",cat:1}
  ],
  explanation:"Synchron = der Aufrufer wartet blockierend auf die Antwort. Asynchron = Sender und Empfänger sind zeitlich entkoppelt (Queue/Events)."},
-{id:"c3q33",chapter:3,lz:"LZ 03-09",r:"R2",type:"single",
+{id:"c3q33",chapter:3,lz:"LZ 03-09",r:"R3",type:"single",
  q:"Wozu dient das Fassaden-Muster (Facade)?",
  options:[
   "Es bietet einen vereinfachten, einheitlichen Zugang zu einem komplexeren Subsystem.",
@@ -1547,7 +1547,7 @@ const QUESTIONS = [
   "Die bloße Menge an Mustern verbessert ein System nicht automatisch."
  ],
  explanation:"Muster bündeln bewährtes Wissen und schaffen eine gemeinsame Sprache – müssen aber zum Problem passen. Sie ersetzen keine Entscheidungen, und ihre bloße Menge verbessert nichts."},
-{id:"c3q37",chapter:3,lz:"LZ 03-03",r:"R2",type:"single",
+{id:"c3q37",chapter:3,lz:"LZ 03-03",r:"R3",type:"single",
  q:"Was empfiehlt ein fachlich orientierter Schnitt (z. B. bei Domain-Driven Design)?",
  options:[
   "Bausteine entlang fachlicher Grenzen/Domänen schneiden, nicht nur nach technischen Schichten.",
@@ -1579,7 +1579,7 @@ const QUESTIONS = [
   "Kapselung meint nicht das Verschlüsseln von Quellcode."
  ],
  explanation:"Kapselung bündelt Daten und Verhalten und verbirgt den inneren Zustand hinter einer Schnittstelle. Paketierung und Verschlüsselung sind jeweils andere Konzepte."},
-{id:"c3q39",chapter:3,lz:"LZ 03-09",r:"R2",type:"single",
+{id:"c3q39",chapter:3,lz:"LZ 03-09",r:"R3",type:"single",
  q:"Wozu dient das Adapter-Muster?",
  options:[
   "Es verbindet zwei zueinander inkompatible Schnittstellen, sodass sie zusammenarbeiten können.",
@@ -1765,7 +1765,7 @@ const QUESTIONS = [
   "Sie betreffen viele Bausteine, nicht nur die Benutzeroberfläche."
  ],
  explanation:"Querschnittskonzepte (z. B. Persistenz, Sicherheit, Logging) wirken systemweit über viele Bausteine und sind gerade nicht lokal kapselbar. Sie sind technischer Natur, keine bloße Governance und nicht auf die UI beschränkt."},
-{id:"c3q50",chapter:3,lz:"LZ 03-10",r:"R1",type:"single",
+{id:"c3q50",chapter:3,lz:"LZ 03-10",r:"R3",type:"single",
  q:"Wie unterscheiden sich ACID und BASE als Konsistenzansätze bei der Persistenz?",
  options:[
   "ACID betont strikte Konsistenz (klassisch relational); BASE bevorzugt Verfügbarkeit und eventuelle Konsistenz (häufig NoSQL).",
@@ -1781,7 +1781,7 @@ const QUESTIONS = [
   "BASE lockert die Garantien bewusst, ist also nicht strenger."
  ],
  explanation:"ACID = strikte Transaktionskonsistenz (typisch relational), BASE = Verfügbarkeit + eventuelle Konsistenz (typisch NoSQL/verteilt). Die Zuordnung ist nicht vertauscht, und BASE lockert die Garantien bewusst."},
-{id:"c3q51",chapter:3,lz:"LZ 03-10",r:"R2",type:"single",
+{id:"c3q51",chapter:3,lz:"LZ 03-10",r:"R3",type:"single",
  q:"Was besagt das CAP-Theorem für verteilte Datenhaltung?",
  options:[
   "Bei einer Netzwerkpartition muss man zwischen Konsistenz und Verfügbarkeit abwägen – nicht alle drei Ziele sind gleichzeitig voll erreichbar.",
@@ -1965,7 +1965,7 @@ const QUESTIONS = [
   "Sie dienen nicht dazu, die Zahl der Stakeholder zu reduzieren."
  ],
  explanation:"Feedback-Schleifen liefern früh Erkenntnisse über Annahmen und Risiken, sodass man gegensteuern kann. Sie frieren nichts ein, ersetzen keine Doku und reduzieren keine Stakeholder."},
-{id:"c3q61",chapter:3,lz:"LZ 03-05",r:"R2",type:"single",
+{id:"c3q61",chapter:3,lz:"LZ 03-05",r:"R3",type:"single",
  q:"Was kennzeichnet eine „evolutionäre Architektur“ mit Fitnessfunktionen?",
  options:[
   "Automatisierte Kriterien prüfen laufend, ob wichtige Qualitätsmerkmale bei Änderungen erhalten bleiben.",
@@ -2695,7 +2695,7 @@ const QUESTIONS = [
   "Eine Aufwandsschätzung in Personentagen gehört nicht zum Qualitätsszenario."
  ],
  explanation:"Ein Qualitätsszenario nennt Auslöser, Umgebung/Kontext und eine Reaktion mit messbarem Antwortmaß. Eine Aufwandsschätzung gehört nicht dazu."},
-{id:"c5q2",chapter:5,lz:"LZ 05-02",r:"R2",type:"single",
+{id:"c5q2",chapter:5,lz:"LZ 05-02",r:"R3",type:"single",
  q:"Was ist ATAM?",
  options:[
   "Eine szenariobasierte Methode zur qualitativen Architekturbewertung.",
@@ -2743,7 +2743,7 @@ const QUESTIONS = [
   "Ein ATAM-Workshop ist ein qualitatives Verfahren, keine Metrik."
  ],
  explanation:"Kopplungsgrad und zyklomatische Komplexität sind quantitative Metriken. Experteneinschätzung und ATAM-Workshops sind qualitative Verfahren."},
-{id:"c5q5",chapter:5,lz:"LZ 05-02",r:"R2",type:"single",
+{id:"c5q5",chapter:5,lz:"LZ 05-02",r:"R3",type:"single",
  q:"Was ist der Zweck eines Qualitätsbaums (Utility Tree)?",
  options:[
   "Qualitätsziele und zugehörige Szenarien strukturieren und priorisieren, um die Bewertung zu fokussieren.",
@@ -2945,7 +2945,7 @@ const QUESTIONS = [
   "Statische Analyse findet Schwachstellen, behebt sie aber nicht."
  ],
  explanation:"Statische Analyse prüft Code/Struktur ohne Ausführung (Metriken, Regeln, Abhängigkeiten). Sie ist kein Lasttest, kein Workshop und behebt Schwachstellen nicht automatisch."},
-{id:"c5q17",chapter:5,lz:"LZ 05-02",r:"R2",type:"single",
+{id:"c5q17",chapter:5,lz:"LZ 05-02",r:"R3",type:"single",
  q:"Was ist ein Trade-off-Punkt bei der Architekturbewertung (z. B. in ATAM)?",
  options:[
   "Eine Entscheidung, die mehrere Qualitätsmerkmale gegensätzlich beeinflusst.",
@@ -2993,7 +2993,7 @@ const QUESTIONS = [
   "Sie ist früh und wiederholt sinnvoll, nicht nur am Ende."
  ],
  explanation:"Bewertung deckt Risiken auf, braucht Qualitätsziele und kann qualitativ oder quantitativ sein. Sie ist nicht nur am Projektende sinnvoll, sondern früh und wiederholt."},
-{id:"c5q20",chapter:5,lz:"LZ 05-02",r:"R2",type:"single",
+{id:"c5q20",chapter:5,lz:"LZ 05-02",r:"R3",type:"single",
  q:"Was ist ein Sensitivitätspunkt bei einer Architekturbewertung (z. B. in ATAM)?",
  options:[
   "Eine Entscheidung bzw. Eigenschaft, die für genau ein Qualitätsmerkmal besonders ausschlaggebend ist.",
@@ -3009,7 +3009,7 @@ const QUESTIONS = [
   "Ein Sensitivitätspunkt betrifft gerade ein Qualitätsmerkmal."
  ],
  explanation:"Ein Sensitivitätspunkt ist für ein einzelnes Qualitätsmerkmal entscheidend. Wirkt eine Entscheidung gegensätzlich auf mehrere Merkmale, ist es ein Trade-off-Punkt."},
-{id:"c5q21",chapter:5,lz:"LZ 05-02",r:"R2",type:"multi",
+{id:"c5q21",chapter:5,lz:"LZ 05-02",r:"R3",type:"multi",
  q:"Welche Ergebnistypen liefert eine szenariobasierte Bewertung wie ATAM?",
  options:[
   "Risiken und ausdrücklich benannte Nicht-Risiken.",
@@ -3025,7 +3025,7 @@ const QUESTIONS = [
   "Fertiger Quellcode ist kein Ergebnis einer Bewertung."
  ],
  explanation:"ATAM liefert u. a. Risiken, Nicht-Risiken sowie Sensitivitäts- und Trade-off-Punkte. Projektterminpläne oder Quellcode sind keine Ergebnisse einer Architekturbewertung."},
-{id:"c5q22",chapter:5,lz:"LZ 05-02",r:"R2",type:"single",
+{id:"c5q22",chapter:5,lz:"LZ 05-02",r:"R3",type:"single",
  q:"Wie lässt sich ATAM methodisch einordnen?",
  options:[
   "Als szenariobasierte, überwiegend qualitative Bewertungsmethode.",
@@ -3041,7 +3041,7 @@ const QUESTIONS = [
   "ATAM ist gerade früh im Lebenszyklus sinnvoll."
  ],
  explanation:"ATAM ist szenariobasiert und qualitativ (moderierte Analyse mit Stakeholdern anhand von Qualitätsszenarien). Es ist nicht rein metrisch, nicht vollautomatisch und gerade früh im Lebenszyklus sinnvoll."},
-{id:"c5q23",chapter:5,lz:"LZ 05-02",r:"R2",type:"single",
+{id:"c5q23",chapter:5,lz:"LZ 05-02",r:"R3",type:"single",
  q:"Welche Review-Form hat den höchsten Formalisierungsgrad?",
  options:[
   "Die Inspektion – mit Vorbereitung, Protokoll und unabhängigem Moderator.",
