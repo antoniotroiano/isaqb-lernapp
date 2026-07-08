@@ -5,7 +5,7 @@
 Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lokale Datei** (PC/Mac),
 **ohne Installation und ohne Konto**. Enthält **206 eigenständige Fragen** über alle 6 Kapitel des Curriculums.
 
-*Version 1.3.0*
+*Version 1.4.0*
 
 ---
 
@@ -38,7 +38,7 @@ Die Datei **`isaqb-trainer.html`** per **Doppelklick** im Browser öffnen — fe
 
 | Modus | Zweck | Verhalten |
 |---|---|---|
-| **Üben** | Lernen | Sofortiges Feedback **mit Erklärung** nach jeder Frage; kein Timer, keine Punkte. |
+| **Üben** | Lernen | Sofortiges Feedback nach jeder Frage: **pro Antwortoption eine kurze Begründung** (warum richtig bzw. falsch) plus Merksatz; kein Timer, keine Punkte. |
 | **Prüfung simulieren** | Ernstfall proben | Wie die echte Prüfung: **40 Fragen · 75 Min Countdown**, Auswertung **erst am Ende**, Punkte nach offizieller iSAQB‑Bewertung, **60 % zum Bestehen**. |
 | **🔁 Wiederholen** | Langfristig behalten | **Spaced Repetition** (Leitner): übt genau die Fragen, die laut Lernplan heute **fällig** sind. Richtig → längeres Intervall (1 → 3 → 7 → 16 → 35 Tage), falsch → bald wieder. Die Zahl am Button = Anzahl fälliger Fragen. |
 | **🃏 Karteikarten** | Schnell wiederholen | Frage ansehen → **Antwort aufdecken** → Lösung + Erklärung → **„gewusst / nicht gewusst"** selbst einschätzen (fließt in Spaced Repetition & Statistik ein). Ideal für unterwegs. |
