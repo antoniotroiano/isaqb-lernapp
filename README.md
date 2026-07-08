@@ -5,7 +5,7 @@
 Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lokale Datei** (PC/Mac),
 **ohne Installation und ohne Konto**. Enthält **206 eigenständige Fragen** über alle 6 Kapitel des Curriculums.
 
-*Version 1.4.0*
+*Version 1.4.1*
 
 ---
 
