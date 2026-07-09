@@ -66,7 +66,7 @@ function renderReview(){
   if(wrong.length===0){ box.innerHTML="<div class='card'><p class='hint'>Alle Fragen vollständig richtig – super! 🎉</p></div>"; show("review"); return; }
   wrong.forEach(it=>{
     const q=it.q; const card=document.createElement("div"); card.className="card";
-    let h="<div class='qmeta' style='margin-bottom:6px'><span><span class='badge "+q.r.toLowerCase()+"'>"+q.r+"</span> <span class='lz' style='margin:0'>Kap. "+q.chapter+" · "+q.lz+"</span></span></div>";
+    let h="<div class='qmeta' style='margin-bottom:6px'><span><span class='badge "+q.r.toLowerCase()+"'>"+q.r+"</span> <span class='lz' style='margin:0'>Kap. "+q.chapter+" · "+lzLink(q.lz)+"</span></span></div>";
     h+="<div class='qtext' style='font-size:1rem'>"+escapeHtml(q.q)+"</div>";
     if(q.type==="k"){
       q.rows.forEach((row,ri)=>{ const sel=it.selected[ri]; const ok=sel===row.cat;
@@ -245,3 +245,87 @@ function renderBrowse(){
 /* ============================================================
    Theme
    ============================================================ */
+
+/* --- Lernstoff / Referenz --- */
+function refBadgeClass(r){ if(/R1/.test(r)) return "r1"; if(/R2/.test(r)) return "r2"; return "r3"; }
+function refItemHtml(e){
+  return "<div class='refitem' id='ref-"+e.lz+"'>"+
+    "<div class='refitem-head'><span class='refbadge "+refBadgeClass(e.r)+"'>"+escapeHtml(e.r||"–")+"</span>"+
+    "<span class='rt'>"+escapeHtml(e.title)+"</span><span class='lznum'>LZ "+e.lz+"</span></div>"+
+    "<div class='refbody hidden'>"+e.body+"</div></div>";
+}
+function renderReference(filter){
+  const box=$("#refList"); if(!box||typeof REFERENCE==="undefined") return;
+  $("#refIntro").innerHTML=REFERENCE.intro||"";
+  const f=(filter||"").trim().toLowerCase().replace(/\s+/g," ");
+  box.innerHTML="";
+  REFERENCE.chapters.forEach(c=>{
+    let items=c.lzs;
+    const chapMatch = f && ("kapitel "+c.num+" "+c.title).toLowerCase().includes(f);
+    if(f && !chapMatch) items=c.lzs.filter(e=>(("lz "+e.lz+" "+e.title+" "+e.body).toLowerCase().includes(f)));
+    if(f && !items.length && !(chapMatch) && !(c.lzs.length===0 && chapMatch)) return;
+    if(f && !items.length && c.lzs.length>0) return;
+    const hd=document.createElement("div"); hd.className="refchap"; hd.id="refchap-"+c.num;
+    hd.textContent="Kapitel "+c.num+" · "+c.title; box.appendChild(hd);
+    if(c.lzs.length===0){ const d=document.createElement("div"); d.className="refitem"; d.innerHTML="<div class='refbody'>"+c.intro+"</div>"; box.appendChild(d); }
+    items.forEach(e=>{ const w=document.createElement("div"); w.innerHTML=refItemHtml(e); box.appendChild(w.firstChild); });
+  });
+  box.querySelectorAll(".refitem-head").forEach(h=>h.onclick=()=>{ const b=h.nextElementSibling; if(b) b.classList.toggle("hidden"); h.parentElement.classList.toggle("open"); });
+  if(f) box.querySelectorAll(".refbody").forEach(b=>b.classList.remove("hidden"));
+  if(!f && REFERENCE.sources){ const s=document.createElement("div"); s.className="refbody"; s.style.marginTop="18px"; s.innerHTML="<div class='refchap' style='margin-top:0'>Quellen</div>"+REFERENCE.sources; box.appendChild(s); }
+}
+let refReturn=null;
+function updateRefBackBtn(){ const b=$("#refBackBtn"); if(!b) return; if(!refReturn){ b.classList.add("hidden"); return; } b.classList.remove("hidden"); b.textContent = refReturn.kind==="cm" ? "← Zurück zur Concept Map" : "← Zurück zur Frage"; }
+function openReference(lz,origin){
+  refReturn = origin==="cm" ? {kind:"cm",id:lz} : (origin==="quiz" ? {kind:"quiz"} : null); updateRefBackBtn();
+  const rs=$("#refSearch"); if(rs) rs.value="";
+  renderReference(""); show("reference");
+  const el=document.getElementById("ref-"+lz);
+  if(el){ const b=el.querySelector(".refbody"); if(b) b.classList.remove("hidden"); el.classList.add("open"); el.classList.add("flash");
+    el.scrollIntoView({behavior:"smooth",block:"start"}); setTimeout(()=>el.classList.remove("flash"),1300); }
+  else { const ch=parseInt(String(lz).slice(0,2),10); const c=document.getElementById("refchap-"+ch); if(c) c.scrollIntoView({behavior:"smooth",block:"start"}); }
+}
+
+/* --- Concept Map --- */
+function cmTier(tag){ return tag.includes("R1")?"r1":(tag.includes("R2")?"r2":"r3"); }
+function cmPureR3(tag){ return tag.trim()==="R3"; }
+function cmPairKey(a,b){ return [a,b].sort().join("_"); }
+function renderConceptMap(){
+  const grid=$("#cmGrid"); if(!grid||typeof CMAP==="undefined") return;
+  grid.innerHTML="";
+  CMAP.chapters.forEach(ch=>{
+    const card=document.createElement("div");
+    card.className="cm-card"+(ch.num===6?" cm-ch6":"");
+    card.innerHTML="<h3>"+ch.num+". "+escapeHtml(ch.title)+"</h3><div class='cm-sub'>"+escapeHtml(ch.sub)+" · "+ch.lzs.length+" Lernziele</div><div class='cm-chips'></div>";
+    const chipsEl=card.querySelector(".cm-chips");
+    ch.lzs.forEach(id=>{ const d=CMAP.lz[id]; if(!d) return; const t=cmTier(d.tag);
+      const btn=document.createElement("button"); btn.className="cm-chip tier-"+t; btn.dataset.id=id;
+      btn.dataset.pure3=cmPureR3(d.tag)?"true":"false"; btn.title=id+" – "+d.name+" ("+d.tag+")";
+      btn.textContent=id; btn.onclick=()=>cmSelect(id); chipsEl.appendChild(btn); });
+    grid.appendChild(card);
+  });
+  const tog=$("#cmR3toggle"); if(tog&&tog.checked) cmToggleR3(true);
+  cmReset();
+}
+function cmSelect(id){
+  const d=CMAP.lz[id]; if(!d) return;
+  const related=new Set(d.related||[]);
+  Object.entries(CMAP.lz).forEach(([oid,od])=>{ if((od.related||[]).includes(id)) related.add(oid); });
+  document.querySelectorAll("#cmGrid .cm-chip").forEach(c=>{ c.classList.remove("selected","related","dimmed");
+    const cid=c.dataset.id; if(cid===id)c.classList.add("selected"); else if(related.has(cid))c.classList.add("related"); else c.classList.add("dimmed"); });
+  const relHtml = related.size
+    ? "<div class='cm-drel-label'>Verwandt mit</div><div class='cm-drel-list'>"+[...related].map(r=>"<div class='cm-drel-row'><button onclick=\"cmSelect('"+r+"')\">"+r+"</button><span>"+escapeHtml(CMAP.reasons[cmPairKey(id,r)]||"")+"</span></div>").join("")+"</div>"
+    : "<div class='cm-drel-label'>Keine direkten Verknüpfungen hinterlegt.</div>";
+  $("#cmDetail").innerHTML =
+    "<div class='cm-dtitle'><span class='cm-dcode'>"+id+"</span><span class='cm-dname'>"+escapeHtml(d.name)+"</span>"+
+    "<span class='cm-dtag refbadge "+cmTier(d.tag)+"'>"+escapeHtml(d.tag)+"</span>"+
+    "<button class='cm-reset' onclick='cmReset()'>✕ Zurücksetzen</button></div>"+
+    "<div class='cm-ddesc'>"+escapeHtml(d.desc)+"</div>"+
+    "<button class='btn secondary' style='margin:2px 0 10px' onclick=\"openReference('"+id+"','cm')\">📖 Im Lernstoff öffnen</button>"+
+    relHtml;
+}
+function cmReset(){
+  document.querySelectorAll("#cmGrid .cm-chip").forEach(c=>c.classList.remove("selected","related","dimmed"));
+  const dt=$("#cmDetail"); if(dt) dt.innerHTML="<div class='cm-placeholder'>Wähle ein Lernziel aus der Übersicht, um Details und Verknüpfungen zu sehen.</div>";
+}
+function cmToggleR3(only){ document.querySelectorAll('#cmGrid .cm-chip[data-pure3="true"]').forEach(c=>{ c.style.display=only?"none":""; }); }
