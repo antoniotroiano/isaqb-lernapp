@@ -1,0 +1,72 @@
+/* iSAQB CPSA-F Trainer — Concept Map Daten (Zusammenhänge der Lernziele).
+   Übernommen aus der Concept-Map von Sonnet 5. Klassisches Script (const CMAP) — vor dem App-Script laden. */
+const CMAP = {
+chapters: [
+  {num:1, title:'Grundbegriffe von Softwarearchitektur', sub:'Grundlagen & Rolle', lzs:['01-01','01-02','01-03','01-04','01-05','01-06','01-07']},
+  {num:2, title:'Anforderungen und Randbedingungen', sub:'Stakeholder & Qualitäten', lzs:['02-01','02-02','02-03','02-04','02-05']},
+  {num:3, title:'Entwurf und Entwicklung von Softwarearchitekturen', sub:'Größtes Kapitel — Prinzipien, Muster, Kopplung', lzs:['03-01','03-02','03-03','03-04','03-05','03-06','03-07','03-08','03-09','03-10','03-11','03-12']},
+  {num:4, title:'Beschreibung und Kommunikation', sub:'Dokumentation & Sichten', lzs:['04-01','04-02','04-03','04-04','04-05','04-06','04-07','04-08','04-09']},
+  {num:5, title:'Analyse und Bewertung', sub:'Qualität prüfen', lzs:['05-01','05-02','05-03']},
+  {num:6, title:'Beispiele für Softwarearchitekturen', sub:'Nicht prüfungsrelevant', lzs:['06-01','06-02']},
+],
+lz: {
+  '01-01': {name:'Definitionen von Softwarearchitektur', tag:'R1', desc:'Bausteine, Schnittstellen, Beziehungen – Gemeinsamkeit aller Architektur-Definitionen.', related:['03-02']},
+  '01-02': {name:'Ziele und Nutzen', tag:'R1', desc:'Warum Architektur: Qualitäten sichern, Komplexität reduzieren, gemeinsames Verständnis schaffen.', related:['02-03']},
+  '01-03': {name:'Langfristige Auswirkungen', tag:'R3', desc:'Wie heutige Entscheidungen die Wartbarkeit und Qualität von morgen prägen.', related:[]},
+  '01-04': {name:'Aufgaben und Verantwortung', tag:'R1', desc:'Klären, entscheiden, dokumentieren, begleiten, bewerten – der Job in einem Satz.', related:[]},
+  '01-05': {name:'Abgrenzung zu anderen Domänen', tag:'R3', desc:'CPSA-F fokussiert auf Software – nicht Enterprise-, Prozess- oder Infrastruktur-Architektur.', related:[]},
+  '01-06': {name:'Rolle mit Stakeholdern', tag:'R1', desc:'Wie sich Architekt:innen zu PM, Entwicklung, QS und Betrieb verhalten.', related:[]},
+  '01-07': {name:'Daten und Datenmodelle', tag:'R2', desc:'Datenmodelle beeinflussen Architektur – unabhängig von ihrer physischen Form.', related:[]},
+
+  '02-01': {name:'Stakeholder-Anliegen', tag:'R1, R3', desc:'Wer will was – und wie das die Architektur beeinflusst.', related:['04-02']},
+  '02-02': {name:'Anforderungen & Randbedingungen klären', tag:'R1–R3', desc:'Produkt, Technologie, Organisation, Regulatorik – alles wirkt auf die Architektur.', related:[]},
+  '02-03': {name:'Qualitäten verstehen', tag:'R1', desc:'Qualität = Systemeigenschaft, nicht Güte. Zielkonflikte sind normal.', related:['05-02']},
+  '02-04': {name:'Qualitätsanforderungen formulieren', tag:'R1–R3', desc:'Szenarien mit Kontext, Stimulus, Reaktion, Messung formulieren.', related:['05-02']},
+  '02-05': {name:'Explizit statt implizit', tag:'R1', desc:'Annahmen explizit machen, um Missverständnisse zu vermeiden.', related:[]},
+
+  '03-01': {name:'Anforderungen durch Architektur erreichen', tag:'R1', desc:'Entwurf zielt auf konkrete Qualitäten – mit erkennbaren Abwägungen.', related:['05-01']},
+  '03-02': {name:'Softwarearchitekturen entwerfen', tag:'R1', desc:'Die Kernfertigkeit: zerlegen, Sichten entwerfen, Konsequenzen auf den Code erklären.', related:['03-06','04-05']},
+  '03-03': {name:'Vorgehen & Heuristiken', tag:'R1, R3', desc:'Top-down, Bottom-up, sichtenbasiert – plus DDD & Co. als Begriffe.', related:[]},
+  '03-04': {name:'Entwurfsprinzipien', tag:'R1–R3', desc:'Modularisierung, Abstraktion, SOLID, KISS/DRY/YAGNI – das Fundament guten Entwurfs.', related:['03-06']},
+  '03-05': {name:'Feedback-Schleifen & Risiko', tag:'R1, R2', desc:'Iteratives Vorgehen reduziert Risiko bei unsicheren Entscheidungen.', related:[]},
+  '03-06': {name:'Abhängigkeiten managen', tag:'R1', desc:'Kopplungsarten kennen, bewerten, gezielt reduzieren.', related:['03-08']},
+  '03-07': {name:'Schnittstellen entwerfen', tag:'R1–R3', desc:'Leicht nutzbar, schwer missbrauchbar, klar von der Implementierung getrennt.', related:['04-06']},
+  '03-08': {name:'Architekturmuster', tag:'R1, R3', desc:'Layer, Pipes & Filter, Microservices – plus viele weitere kennen.', related:[]},
+  '03-09': {name:'Entwurfsmuster', tag:'R3', desc:'Adapter, Facade, Observer, Strategy – klassische GoF-Muster.', related:[]},
+  '03-10': {name:'Querschnittsthemen', tag:'R1', desc:'Persistenz, Kommunikation, Fehlerbehandlung – Themen, die überall reinspielen.', related:['04-07']},
+  '03-11': {name:'Deployment-Prinzipien', tag:'R3', desc:'Automatisierung, wiederholbare Builds, einfache Rücknahme von Releases.', related:[]},
+  '03-12': {name:'Verteilte Systeme', tag:'R3', desc:'Kommunikation kann scheitern, exakte Reihenfolge ist nicht garantiert.', related:[]},
+
+  '04-01': {name:'Anforderungen an Dokumentation', tag:'R1', desc:'Verständlich, korrekt, effizient – und zielgruppengerecht.', related:[]},
+  '04-02': {name:'Beschreiben & Kommunizieren', tag:'R1–R3', desc:'Dokumentation für unterschiedliche Stakeholder konsolidieren und balancieren.', related:[]},
+  '04-03': {name:'Notationsmittel', tag:'R2–R3', desc:'UML-Diagramme plus Alternativen wie C4, ArchiMate, SysML.', related:[]},
+  '04-04': {name:'(kein echtes Lernziel)', tag:'R3', desc:'Easter Egg im Original-Curriculum – Anspielung auf HTTP 404.', related:[]},
+  '04-05': {name:'Architektursichten', tag:'R1', desc:'Kontext-, Baustein-, Laufzeit-, Verteilungssicht anwenden.', related:[]},
+  '04-06': {name:'Schnittstellen dokumentieren', tag:'R1', desc:'Interne wie externe Schnittstellen sauber dokumentieren.', related:[]},
+  '04-07': {name:'Querschnittsthemen dokumentieren', tag:'R2', desc:'Persistenz, UI, Protokollierung & Co. adäquat kommunizieren.', related:[]},
+  '04-08': {name:'Architekturentscheidungen dokumentieren', tag:'R1–R2', desc:'Systematisch begründen und dokumentieren – idealerweise als ADR.', related:['03-02']},
+  '04-09': {name:'Weitere Hilfsmittel', tag:'R3', desc:'ISO 42010, arc42, C4 als Dokumentationsrahmen kennen.', related:[]},
+
+  '05-01': {name:'Gründe für Architekturanalyse', tag:'R1', desc:'Risiken erkennen, Anforderungserfüllung prüfen, Abgleich mit der Umsetzung.', related:[]},
+  '05-02': {name:'Qualitäten analysieren', tag:'R1, R3', desc:'Akzeptanztests, Metriken, szenariobasierte Analyse – plus ATAM als R3.', related:[]},
+  '05-03': {name:'Konformität bewerten', tag:'R2', desc:'Passt die Implementierung zum Entwurf? Reviews & Tool-Analyse.', related:[]},
+
+  '06-01': {name:'Anforderungen ↔ Lösung', tag:'R3', desc:'An mindestens einem Beispiel nachvollzogen – nicht prüfungsrelevant.', related:[]},
+  '06-02': {name:'Technische Umsetzung', tag:'R3', desc:'An mindestens einem Beispiel nachvollzogen – nicht prüfungsrelevant.', related:[]},
+},
+reasons: {
+  '01-01_03-02': 'Gleiches Grundvokabular: hier die Definition (Bausteine, Schnittstellen), dort die praktische Anwendung beim Entwerfen.',
+  '01-02_02-03': 'Ziele und Nutzen von Architektur hängen eng am Konzept „Qualität", das hier vertieft wird.',
+  '02-01_04-02': 'Stakeholder-Anliegen von hier bestimmen, wie du dort zielgruppengerecht dokumentierst.',
+  '02-03_05-02': 'Qualitäten zu verstehen ist Voraussetzung dafür, sie später analysieren zu können.',
+  '02-04_05-02': 'Eine Qualitätsanforderung soll laut Curriculum direkt eine Analysemethode mitliefern.',
+  '03-02_03-06': 'Strukturentscheidungen beim Entwerfen bedeuten immer auch, Abhängigkeiten zu managen.',
+  '03-02_04-05': 'Architektursichten werden hier entworfen und dort im Detail erläutert.',
+  '03-04_03-06': 'Modularisierung (ein Entwurfsprinzip) und Kopplungsmanagement sind zwei Seiten derselben Medaille.',
+  '03-06_03-08': 'Dependency Injection ist die konkrete Muster-Umsetzung einer Abhängigkeits-Reduktionstechnik.',
+  '03-07_04-06': 'Schnittstellen werden hier entworfen, dort dokumentiert – Entwurf und Dokumentation gehören zusammen.',
+  '03-10_04-07': 'Querschnittsthemen werden hier entworfen, dort dokumentiert.',
+  '03-02_04-08': 'Architekturentscheidungen fallen beim Entwerfen und werden dort systematisch dokumentiert (z. B. als ADR).',
+  '03-01_05-01': 'Warum du Architektur überhaupt betreibst, ist der Maßstab, an dem später analysiert wird.',
+}
+};
