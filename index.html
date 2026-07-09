@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f766e">
+<meta name="theme-color" content="#d85a30">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="iSAQB Trainer">
@@ -73,15 +73,17 @@
       <button class="btn secondary" id="srsBtn" style="flex:1">🔁 Wiederholen (0)</button>
       <button class="btn secondary" id="flashBtn" style="flex:1">🃏 Karteikarten</button>
     </div>
+    <button class="btn secondary" id="refBtn" style="margin-top:10px">📚 Lernstoff nachschlagen</button>
+    <button class="btn secondary" id="cmBtn" style="margin-top:10px">🗺 Concept Map</button>
     <button class="btn secondary" id="browseBtn" style="margin-top:10px">📖 Fragen durchblättern</button>
-    <p class="hint" style="margin-top:8px">🔁 <b>Wiederholen</b>: Fragen, die laut Lernplan (Spaced Repetition) heute dran sind · 🃏 <b>Karteikarten</b>: Antwort aufdecken &amp; selbst einschätzen · 📖 <b>Durchblättern</b>: alle Fragen mit Lösung nachschlagen.</p>
+    <p class="hint" style="margin-top:8px">🔁 <b>Wiederholen</b>: Fragen, die laut Lernplan (Spaced Repetition) heute dran sind · 🃏 <b>Karteikarten</b>: Antwort aufdecken &amp; selbst einschätzen · 📚 <b>Lernstoff</b>: Curriculum-Themen nachlesen · 🗺 <b>Concept Map</b>: Zusammenhänge der Lernziele · 📖 <b>Durchblättern</b>: alle Fragen mit Lösung nachschlagen.</p>
     <button class="btn ghost" id="resetBtn" style="margin-top:10px">Fortschritt zurücksetzen</button>
 
     <footer class="disc">
       Inoffizielles Lernwerkzeug. Nicht mit dem iSAQB® verbunden. Fragen sind eigenständig
       formuliert (keine Original-Prüfungsfragen) und dienen nur zur Übung.
       Bedeutung: <b>R1</b> kommt sicher dran · <b>R2</b> kann drankommen · <b>R3</b> nicht prüfungsrelevant.
-      <br>Version 1.5.0
+      <br>Version 1.6.0
     </footer>
   </section>
 
@@ -186,6 +188,40 @@
     <button class="btn ghost" id="browseHomeBtn">Zurück</button>
   </section>
 
+  <!-- LERNSTOFF / REFERENZ -->
+  <section id="reference" class="hidden">
+    <button class="btn secondary hidden" id="refBackBtn" style="margin:0 0 12px">← Zurück</button>
+    <div class="card">
+      <h2>📚 Lernstoff</h2>
+      <div id="refIntro" class="refintro"></div>
+      <input id="refSearch" class="refsearch" type="search" placeholder="Suchen: Thema, Stichwort oder LZ-Nummer …" autocomplete="off">
+    </div>
+    <div id="refList"></div>
+    <button class="btn ghost" id="refHomeBtn">Zurück</button>
+  </section>
+
+  <!-- CONCEPT MAP -->
+  <section id="conceptmap" class="hidden">
+    <div class="card">
+      <h2>🗺 Concept Map</h2>
+      <p class="hint">Zeigt Zusammenhänge zwischen den 38 Lernzielen. Lernziel antippen → Kurzbeschreibung, Verknüpfungen und „Im Lernstoff öffnen".</p>
+    </div>
+    <div class="cm-controls">
+      <div class="cm-legend">
+        <span class="cm-legend-item"><span class="cm-dot r1"></span>R1 · wird geprüft</span>
+        <span class="cm-legend-item"><span class="cm-dot r2"></span>R2 · kann geprüft werden</span>
+        <span class="cm-legend-item"><span class="cm-dot r3"></span>R3 · nicht geprüft</span>
+      </div>
+      <div class="cm-toggle-row">
+        <span>Nur R1/R2</span>
+        <label class="cm-switch"><input type="checkbox" id="cmR3toggle" onchange="cmToggleR3(this.checked)"><span class="cm-track"></span><span class="cm-knob"></span></label>
+      </div>
+    </div>
+    <div id="cmDetail" class="cm-detail"><div class="cm-placeholder">Wähle ein Lernziel aus der Übersicht, um Details und Verknüpfungen zu sehen.</div></div>
+    <div class="cm-grid" id="cmGrid"></div>
+    <button class="btn ghost" id="cmHomeBtn" style="margin-top:14px">Zurück</button>
+  </section>
+
   <!-- REVIEW -->
   <section id="review" class="hidden">
     <div class="card">
@@ -211,6 +247,8 @@
 </div>
 
 <script src="js/questions.js"></script>
+<script src="js/reference.js"></script>
+<script src="js/conceptmap.js"></script>
 <script src="js/store.js"></script>
 <script src="js/quiz.js"></script>
 <script src="js/screens.js"></script>
