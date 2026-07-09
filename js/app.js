@@ -60,6 +60,13 @@ $("#srsBtn").onclick=()=>{ const d=dueQuestions(); if(!d.length){ alert("Aktuell
 $("#flashBtn").onclick=startFlash;
 $("#browseBtn").onclick=renderBrowse;
 $("#browseHomeBtn").onclick=()=>{ updatePool(); show("home"); };
+$("#refBtn").onclick=()=>{ refReturn=null; updateRefBackBtn(); renderReference(""); show("reference"); };
+$("#refHomeBtn").onclick=()=>show("home");
+$("#refBackBtn").onclick=()=>{ const r=refReturn; if(r&&r.kind==="cm"){ renderConceptMap(); show("conceptmap"); if(r.id) cmSelect(r.id); } else if(r&&r.kind==="quiz"){ show("quiz"); } };
+$("#cmBtn").onclick=()=>{ renderConceptMap(); show("conceptmap"); };
+$("#cmHomeBtn").onclick=()=>show("home");
+(function(){ const rs=$("#refSearch"); if(rs) rs.oninput=()=>renderReference(rs.value); })();
+document.addEventListener("click", e=>{ const el=e.target.closest && e.target.closest(".lzlink"); if(el){ const inQuiz=!$("#quiz").classList.contains("hidden"); openReference(el.dataset.lz, inQuiz?"quiz":undefined); } });
 $("#themeBtn").onclick=cycleTheme;
 $("#againBtn").onclick=()=>buildSession();
 $("#homeBtn").onclick=()=>{ updatePool(); updateResumeBanner(); show("home"); };
