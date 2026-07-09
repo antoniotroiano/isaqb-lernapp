@@ -1,7 +1,8 @@
 "use strict";
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
-function show(id){ ["home","quiz","result","stats","review","data","flash","browse"].forEach(s=>$("#"+s).classList.toggle("hidden", s!==id)); $("#quizBar").classList.toggle("hidden", id!=="quiz"); $("#flashBar").classList.toggle("hidden", id!=="flash"); window.scrollTo(0,0); }
+function show(id){ ["home","quiz","result","stats","review","data","flash","browse","reference","conceptmap"].forEach(s=>$("#"+s).classList.toggle("hidden", s!==id)); $("#quizBar").classList.toggle("hidden", id!=="quiz"); $("#flashBar").classList.toggle("hidden", id!=="flash"); window.scrollTo(0,0); }
+function lzLink(lzStr){ if(!lzStr) return ""; const n=String(lzStr).replace(/^LZ\s*/,""); return "<span class='lzlink' data-lz='"+n+"' title='Zum Lernstoff'>"+escapeHtml(lzStr)+"</span>"; }
 function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(pseudoRandom()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 // deterministic-ish RNG seeded by time isn't available offline reliably; Math.random is fine here in the browser
 function pseudoRandom(){ return Math.random(); }
@@ -198,7 +199,7 @@ function renderQuestion(){
   if(it.submitted && session.mode==="practice"){
     const d=document.createElement("div"); d.className="explain";
     d.innerHTML="<b>"+(it.correct?"Richtig ✓":"Nicht ganz ✕")+"</b>"+escapeHtml(q.explanation)+
-      "<div class='lz'>"+q.r+" · "+q.lz+" · Kapitel "+q.chapter+"</div>";
+      "<div class='lz'>"+q.r+" · "+lzLink(q.lz)+" · Kapitel "+q.chapter+"</div>";
     ex.appendChild(d);
   }
 
