@@ -5,7 +5,7 @@
 Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lokale Datei** (PC/Mac),
 **ohne Installation und ohne Konto**. Enthält **206 eigenständige Fragen** über alle 6 Kapitel des Curriculums.
 
-*Version 1.5.0*
+*Version 1.6.0*
 
 ---
 
@@ -43,6 +43,8 @@ Die Datei **`isaqb-trainer.html`** per **Doppelklick** im Browser öffnen — fe
 | **🔁 Wiederholen** | Langfristig behalten | **Spaced Repetition** (Leitner): übt genau die Fragen, die laut Lernplan heute **fällig** sind. Richtig → längeres Intervall (1 → 3 → 7 → 16 → 35 Tage), falsch → bald wieder. Die Zahl am Button = Anzahl fälliger Fragen. |
 | **🃏 Karteikarten** | Schnell wiederholen | Frage ansehen → **Antwort aufdecken** → Lösung + Erklärung → **„gewusst / nicht gewusst"** selbst einschätzen (fließt in Spaced Repetition & Statistik ein). Ideal für unterwegs. |
 | **📖 Durchblättern** | Nachschlagen | Alle Fragen (nach Kapitel gruppiert, gefiltert) durchsehen; Antippen blendet Lösung + Erklärung ein. Kein Quiz. |
+| **📚 Lernstoff** | Verstehen statt nur MC | Curriculum-Themen je **Lernziel** nachlesen (nach Kapitel gegliedert, mit Suche). Tipp: Aus einer beantworteten Frage auf die **LZ-Nummer** tippen → springt direkt zum passenden Abschnitt. |
+| **🗺 Concept Map** | Zusammenhänge sehen | Alle 38 Lernziele nach Kapitel; ein Lernziel antippen zeigt Kurzbeschreibung, **verwandte Lernziele** (mit Begründung) und „Im Lernstoff öffnen“. Der Schalter „Nur R1/R2“ blendet R3 aus. |
 
 ---
 
@@ -56,6 +58,19 @@ Die Datei **`isaqb-trainer.html`** per **Doppelklick** im Browser öffnen — fe
 - **Pause / Fortsetzen** – unterbrochene Runde wird gespeichert und exakt wieder aufgenommen.
 - **Antworten durchsehen** – nach jeder Runde alle falsch/teilweise richtig beantworteten Fragen mit deiner Wahl, der Lösung und Erklärung.
 - **Lesezeichen**, **Dark Mode** (🌓 oben rechts) und **Fortschritt zurücksetzen**.
+
+### Lernstoff durchsuchen 📚
+
+Im Reiter **📚 Lernstoff** kannst du das Suchfeld oben flexibel nutzen — es filtert **live beim Tippen** und ignoriert Groß-/Kleinschreibung:
+
+- **Nach Lernziel‑Nummer:** `LZ 03-08`, `lz 03-08` oder einfach `03-08`.
+- **Nach Stichwort/Thema:** durchsucht **Titel und Erklärtext**, z. B. `Kopplung`, `ATAM`, `Microservices`, `Schnittstelle`.
+- **Nach Kapitel:** `Kapitel 3` oder ein Wort aus dem Kapiteltitel (z. B. `Entwurf`) zeigt das ganze Kapitel.
+- **Querverweise inklusive:** Suchst du eine LZ‑Nummer, erscheinen auch Lernziele, die **darauf verweisen** (z. B. `LZ 03-08` zeigt zusätzlich 03‑06 mit „siehe LZ 03‑08").
+
+Treffer werden automatisch **aufgeklappt**. Suchfeld leeren → wieder die vollständige, nach Kapitel gegliederte Übersicht (Lernziel antippen klappt den Text auf/zu).
+
+> **Tipp:** Nach einer beantworteten Frage kannst du im Feedback direkt auf die **LZ‑Nummer** tippen (z. B. `LZ 03-08`) — das springt automatisch zum passenden Lernstoff‑Abschnitt, ganz ohne Suche.
 
 ### Statistik 📊
 - **Prüfungsreife‑Schätzung** (Trefferquote auf R1/R2 im Verhältnis zur 60‑%‑Marke).
