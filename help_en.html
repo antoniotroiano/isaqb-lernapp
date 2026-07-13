@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Untitled Document.md</title>
+  <style>
+  @import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha2/katex.min.css");
+
+  body {
+    font-family: Georgia, Cambria, serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #373D49;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+  h1 { font-size: 2em; }
+  h2 { font-size: 1.5em; }
+  h3 { font-size: 1.25em; }
+  a { color: #35D7BB; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code {
+    font-family: "Ubuntu Mono", Monaco, monospace;
+    background: #F5F7FA;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+  }
+  pre {
+    background: #F5F7FA;
+    padding: 1em;
+    border-radius: 3px;
+    overflow-x: auto;
+  }
+  .hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 0;
+    color: #333;
+  }
+  pre code { background: none; padding: 0; }
+  blockquote {
+    border-left: 3px solid #A0AABF;
+    padding-left: 1em;
+    margin-left: 0;
+    font-style: italic;
+    color: #666;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid #E8E8E8;
+    padding: 0.5em;
+    text-align: left;
+  }
+  th {
+    background: #F5F7FA;
+    font-weight: 600;
+  }
+  #preview .table {
+    width: auto;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+</style>
+</head>
+<body id="preview">
+<h1 class="code-line has-line-data" data-line-start="0" data-line-end="1"><a id="iSAQB_CPSAF_Trainer_Guide_0"></a>iSAQB CPSA‑F Trainer — Guide</h1>
+<p class="has-line-data" data-line-start="2" data-line-end="7">Practice app (multiple choice) for preparing for the <strong>CPSA‑F</strong> certification<br>
+(Certified Professional for Software Architecture – Foundation Level).<br>
+Runs in the <strong>browser</strong> – via a <strong>web link</strong> (phone &amp; PC) or as a <strong>local file</strong> (PC/Mac),<br>
+<strong>no installation and no account</strong>. Contains <strong>206 independently written questions</strong> across all 6 chapters of the curriculum,<br>
+plus the <strong>official iSAQB example exam</strong> as a dress rehearsal. Interface in <strong>German or English</strong> (toggle <strong>DE/EN</strong> top right).</p>
+<p class="has-line-data" data-line-start="8" data-line-end="9"><em>Version 1.7.0</em></p>
+<hr>
+<h2 class="code-line has-line-data" data-line-start="12" data-line-end="13"><a id="1_Access_start_12"></a>1. Access &amp; start</h2>
+<p class="has-line-data" data-line-start="14" data-line-end="15">Two ways — pick the one that fits your device:</p>
+<h3 class="code-line has-line-data" data-line-start="16" data-line-end="17"><a id="A_Via_the_web_link_recommended_works_everywhere_iPhone_Android_PCMac_16"></a>A) Via the web link (recommended · works everywhere: iPhone, Android, PC/Mac)</h3>
+<ul>
+<li class="has-line-data" data-line-start="18" data-line-end="19"><strong>App:</strong> <a href="https://antoniotroiano.github.io/isaqb-lernapp/">https://antoniotroiano.github.io/isaqb-lernapp/</a></li>
+<li class="has-line-data" data-line-start="19" data-line-end="21"><strong>This guide online:</strong> <a href="https://antoniotroiano.github.io/isaqb-lernapp/help_en.html">https://antoniotroiano.github.io/isaqb-lernapp/help_en.html</a></li>
+</ul>
+<p class="has-line-data" data-line-start="21" data-line-end="22">Open the app link in your browser. For app‑like quick access from your home screen:</p>
+<ul>
+<li class="has-line-data" data-line-start="22" data-line-end="23"><strong>iPhone (Safari):</strong> Share icon → <strong>“Add to Home Screen”</strong></li>
+<li class="has-line-data" data-line-start="23" data-line-end="25"><strong>Android (Chrome):</strong> Menu ⋮ → <strong>“Add to Home screen”</strong></li>
+</ul>
+<blockquote>
+<p class="has-line-data" data-line-start="25" data-line-end="26">An internet connection is needed the first time; after that the app runs in the browser.</p>
+</blockquote>
+<h3 class="code-line has-line-data" data-line-start="27" data-line-end="28"><a id="B_Local_file_PCMac_only_27"></a>B) Local file (PC/Mac only)</h3>
+<p class="has-line-data" data-line-start="29" data-line-end="30"><strong>Double‑click</strong> the file <strong><code>isaqb-trainer.html</code></strong> to open it in your browser — done, fully offline.</p>
+<blockquote>
+<p class="has-line-data" data-line-start="31" data-line-end="32">⚠️ <strong>iPhone/iOS:</strong> A local HTML file (e.g. from iCloud/Files) <strong>cannot</strong> be launched in Safari. On the iPhone, use the <strong>web link (A)</strong> instead. (Whether Android allows opening a local file directly is device‑dependent — here too the web link is the safe route.)</p>
+</blockquote>
+<p class="has-line-data" data-line-start="33" data-line-end="34"><strong>Learning progress</strong> is stored <strong>locally in the browser</strong> (localStorage) and never leaves the device. It applies per device/browser and is <strong>not</strong> synchronized between the web link and the local file.</p>
+<hr>
+<h2 class="code-line has-line-data" data-line-start="37" data-line-end="38"><a id="2_Modes_learning_paths_37"></a>2. Modes &amp; learning paths</h2>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Mode</th>
+<th>Purpose</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Practice</strong></td>
+<td>Learning</td>
+<td>Instant feedback after each question: <strong>a short rationale for each answer option</strong> (why right or wrong) plus a takeaway; no timer, no points.</td>
+</tr>
+<tr>
+<td><strong>Exam simulation</strong></td>
+<td>Rehearse the real thing</td>
+<td>Like the real exam: <strong>40 questions · 75‑min countdown</strong>, evaluation <strong>only at the end</strong>, points per official iSAQB scoring, <strong>60 % to pass</strong>.</td>
+</tr>
+<tr>
+<td><strong>🔁 Repeat</strong></td>
+<td>Retain long term</td>
+<td><strong>Spaced repetition</strong> (Leitner): practises exactly the questions <strong>due</strong> today per the study plan. Correct → longer interval (1 → 3 → 7 → 16 → 35 days), wrong → soon again. The number on the button = questions due.</td>
+</tr>
+<tr>
+<td><strong>🃏 Flashcards</strong></td>
+<td>Quick review</td>
+<td>Look at the question → <strong>reveal the answer</strong> → solution + explanation → self‑assess <strong>“knew it / didn’t know”</strong> (feeds spaced repetition &amp; statistics). Ideal on the go.</td>
+</tr>
+<tr>
+<td><strong>📖 Browse</strong></td>
+<td>Look things up</td>
+<td>Review all questions (grouped by chapter, filtered); tap to show solution + explanation. No quiz.</td>
+</tr>
+<tr>
+<td><strong>📚 Study material</strong></td>
+<td>Understand, not just tick boxes</td>
+<td>Read up on curriculum topics per <strong>learning goal</strong> (organized by chapter, with search). Tip: from an answered question, tap the <strong>LG number</strong> → jumps straight to the matching section.</td>
+</tr>
+<tr>
+<td><strong>🗺 Concept map</strong></td>
+<td>See the connections</td>
+<td>All 38 learning goals by chapter; tapping a learning goal shows a short description, <strong>related learning goals</strong> (with reasons) and “Open in study material”. The “R1/R2 only” switch hides R3.</td>
+</tr>
+<tr>
+<td><strong>🎓 Mock exam</strong></td>
+<td>Dress rehearsal before the exam</td>
+<td>The <strong>official iSAQB example exam</strong> (version 2026.2 · 38 questions · 52 points · 75 min · 60 % to pass) in real exam format. <strong>Separate</strong> from your own question catalogue; its results do <strong>not</strong> feed into the normal statistics.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p class="has-line-data" data-line-start="50" data-line-end="51"><strong>🌐 Language:</strong> The <strong>DE/EN</strong> toggle at the top right switches the entire app between German and English — interface, all questions, study material, concept map and the official mock exam. Your choice is saved.</p>
+</blockquote>
+<hr>
+<h2 class="code-line has-line-data" data-line-start="54" data-line-end="55"><a id="3_Features_at_a_glance_54"></a>3. Features at a glance</h2>
+<ul>
+<li class="has-line-data" data-line-start="56" data-line-end="57"><strong>Filter</strong> by <strong>chapter</strong> (1–6) and <strong>exam relevance</strong> (R1/R2/R3); a slider for the <strong>number of questions per round</strong> (also shows how many are available in the current filter).</li>
+<li class="has-line-data" data-line-start="57" data-line-end="58"><strong>Only answered wrong</strong> – targeted repetition of your mistakes (shrinks as you learn).</li>
+<li class="has-line-data" data-line-start="58" data-line-end="59"><strong>Bookmarks only</strong> – practises just the flagged questions (star at the top right of a question).</li>
+<li class="has-line-data" data-line-start="59" data-line-end="60"><strong>Prefer mistakes</strong> &amp; <strong>Shuffle answers</strong> – weak questions more often, and shuffled answer order.</li>
+<li class="has-line-data" data-line-start="60" data-line-end="61"><strong>Fewer repeats</strong> – recently shown questions are avoided in following rounds.</li>
+<li class="has-line-data" data-line-start="61" data-line-end="62"><strong>Pause / Resume</strong> – an interrupted round is saved and resumed exactly where you left off.</li>
+<li class="has-line-data" data-line-start="62" data-line-end="63"><strong>Review answers</strong> – after each round, all wrong / partially correct questions with your choice, the solution and the explanation.</li>
+<li class="has-line-data" data-line-start="63" data-line-end="64"><strong>Bookmarks</strong>, <strong>dark mode</strong> (🌓 top right) and <strong>reset progress</strong>.</li>
+<li class="has-line-data" data-line-start="64" data-line-end="66"><strong>German/English</strong> – toggle (<strong>DE/EN</strong>) at the top right; switches the whole interface, the questions and the study material.</li>
+</ul>
+<h3 class="code-line has-line-data" data-line-start="66" data-line-end="67"><a id="Searching_the_study_material_66"></a>Searching the study material 📚</h3>
+<p class="has-line-data" data-line-start="68" data-line-end="69">In the <strong>📚 Study material</strong> tab you can use the search box at the top flexibly — it filters <strong>live as you type</strong> and ignores case:</p>
+<ul>
+<li class="has-line-data" data-line-start="70" data-line-end="71"><strong>By learning‑goal number:</strong> <code>LG 03-08</code>, <code>lg 03-08</code> or simply <code>03-08</code>.</li>
+<li class="has-line-data" data-line-start="71" data-line-end="72"><strong>By keyword/topic:</strong> searches <strong>titles and explanatory text</strong>, e.g. <code>coupling</code>, <code>ATAM</code>, <code>microservices</code>, <code>interface</code>.</li>
+<li class="has-line-data" data-line-start="72" data-line-end="73"><strong>By chapter:</strong> <code>Chapter 3</code> or a word from the chapter title (e.g. <code>design</code>) shows the whole chapter.</li>
+<li class="has-line-data" data-line-start="73" data-line-end="75"><strong>Cross‑references included:</strong> when you search a LG number, learning goals that <strong>refer to it</strong> also appear (e.g. <code>LG 03-08</code> additionally shows 03‑06 with “see LG 03‑08”).</li>
+</ul>
+<p class="has-line-data" data-line-start="75" data-line-end="76">Matches are <strong>expanded</strong> automatically. Clear the search box → back to the full, chapter‑grouped overview (tapping a learning goal toggles the text).</p>
+<blockquote>
+<p class="has-line-data" data-line-start="77" data-line-end="78"><strong>Tip:</strong> After an answered question you can tap the <strong>LG number</strong> directly in the feedback (e.g. <code>LG 03-08</code>) — it jumps straight to the matching study‑material section, no search needed.</p>
+</blockquote>
+<h3 class="code-line has-line-data" data-line-start="79" data-line-end="80"><a id="Statistics_79"></a>Statistics 📊</h3>
+<ul>
+<li class="has-line-data" data-line-start="80" data-line-end="81"><strong>Exam‑readiness estimate</strong> (accuracy on R1/R2 relative to the 60 % mark).</li>
+<li class="has-line-data" data-line-start="81" data-line-end="82"><strong>Coverage</strong> (seen / mastered – across all questions).</li>
+<li class="has-line-data" data-line-start="82" data-line-end="83"><strong>Accuracy</strong> by <strong>exam relevance</strong> (R1/R2/R3), <strong>question type</strong> (A/P/K) and <strong>chapter</strong> – with coloured bars.</li>
+<li class="has-line-data" data-line-start="83" data-line-end="84"><strong>Weakest chapters</strong> with a direct “practice” button.</li>
+<li class="has-line-data" data-line-start="84" data-line-end="86"><strong>Exam history</strong> – past simulations (date, percentage, passed/not).</li>
+</ul>
+<h3 class="code-line has-line-data" data-line-start="86" data-line-end="87"><a id="Backing_up_data_86"></a>Backing up data 💾</h3>
+<ul>
+<li class="has-line-data" data-line-start="87" data-line-end="89"><strong>Export/Import</strong> (button in the statistics): back up your progress as text or a <code>.json</code> file and load it on another device/browser. Handy because the progress lives locally in the browser and is <strong>not</strong> synchronized between devices automatically.</li>
+</ul>
+<hr>
+<h2 class="code-line has-line-data" data-line-start="91" data-line-end="92"><a id="4_Question_types_scoring_in_exam_mode_91"></a>4. Question types &amp; scoring (in exam mode)</h2>
+<p class="has-line-data" data-line-start="93" data-line-end="94">Every question uses <strong>checkboxes</strong> and states in its header <strong>how many answers</strong> to choose and <strong>how many points</strong> it is worth (1–2). Scoring follows the official iSAQB examination rules:</p>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+<th>Scoring</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td>“Single Correct Answer” – <strong>one</strong> correct answer</td>
+<td>Correct = full points. Nothing / wrong / too many ticked = <strong>0</strong>.</td>
+</tr>
+<tr>
+<td><strong>P</strong></td>
+<td>“Pick‑from‑many” – <strong>N</strong> correct (“Select N answers”)</td>
+<td>Each correct tick <strong>+points/N</strong>, each wrong one <strong>−points/N</strong>; never below 0; <strong>more than N ticked = 0</strong>.</td>
+</tr>
+<tr>
+<td><strong>K</strong></td>
+<td>“Choose Category” – assignment, one of 2 categories per row</td>
+<td>Each correct row <strong>+points/m</strong>, each wrong one <strong>−points/m</strong> (m = rows); never below 0.</td>
+</tr>
+</tbody>
+</table>
+<p class="has-line-data" data-line-start="101" data-line-end="103"><strong>Passing:</strong> at least <strong>60 %</strong> of the total achievable points.<br>
+<em>(Time: 75 min for native speakers, 90 min for non‑native speakers in the real exam.)</em></p>
+<hr>
+<h2 class="code-line has-line-data" data-line-start="106" data-line-end="107"><a id="5_Scoring_examples_how_points_are_awarded_106"></a>5. Scoring examples (how points are awarded)</h2>
+<p class="has-line-data" data-line-start="108" data-line-end="109"><strong>Basic principle:</strong> correct ticks give proportional points, wrong ticks deduct proportionally – <strong>never below 0 per question</strong>. Points per question: <strong>1–2</strong> (shown in the question header). “Left out” (empty) deducts <strong>nothing</strong>; only <strong>wrong</strong> ticks cost.</p>
+<p class="has-line-data" data-line-start="110" data-line-end="111"><strong>A question</strong> — example: <strong>2 points</strong>, exactly <strong>1</strong> correct</p>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Answer</th>
+<th>Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>no selection</td>
+<td>0</td>
+</tr>
+<tr>
+<td>the correct one ticked</td>
+<td><strong>2</strong></td>
+</tr>
+<tr>
+<td>a wrong one ticked</td>
+<td>0</td>
+</tr>
+<tr>
+<td>several ticked</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p class="has-line-data" data-line-start="119" data-line-end="120"><strong>P question</strong> — example: <strong>2 points</strong>, <strong>2 of 4</strong> correct (→ each correct = 1 point)</p>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Answer</th>
+<th>Calculation</th>
+<th>Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>no selection</td>
+<td>–</td>
+<td>0</td>
+</tr>
+<tr>
+<td>both correct ones</td>
+<td>1 + 1</td>
+<td><strong>2</strong></td>
+</tr>
+<tr>
+<td>1 correct + 1 wrong</td>
+<td>1 − 1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>only 1 correct (1 left out)</td>
+<td>1</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>both wrong ones</td>
+<td>−1 − 1 → min 0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>more than 2 ticked</td>
+<td>–</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p class="has-line-data" data-line-start="130" data-line-end="131"><strong>P question</strong> — example: <strong>1 point</strong>, <strong>4</strong> correct (→ each correct = 0.25)</p>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Answer</th>
+<th>Calculation</th>
+<th>Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4 correct</td>
+<td>4 × 0.25</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>3 correct + 1 wrong</td>
+<td>3×0.25 − 0.25</td>
+<td><strong>0.5</strong></td>
+</tr>
+<tr>
+<td>2 correct + 2 wrong</td>
+<td>0.5 − 0.5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1 correct + 3 wrong</td>
+<td>0.25 − 0.75 → min 0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2 correct, 2 left out</td>
+<td>2 × 0.25</td>
+<td><strong>0.5</strong></td>
+</tr>
+</tbody>
+</table>
+<p class="has-line-data" data-line-start="140" data-line-end="141"><strong>K question (assignment)</strong> — example: <strong>1 point</strong>, <strong>3 rows</strong> (→ each correct row = 1/3)</p>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Assignment</th>
+<th>Calculation</th>
+<th>Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>all 3 correct</td>
+<td>3 × 1/3</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>no assignment</td>
+<td>–</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2 correct + 1 wrong</td>
+<td>2/3 − 1/3</td>
+<td><strong>1/3</strong></td>
+</tr>
+<tr>
+<td>1 correct + 2 wrong</td>
+<td>1/3 − 2/3 → min 0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2 correct, 1 row empty</td>
+<td>2 × 1/3</td>
+<td><strong>2/3</strong></td>
+</tr>
+</tbody>
+</table>
+<p class="has-line-data" data-line-start="150" data-line-end="151"><strong>Key points</strong></p>
+<ul>
+<li class="has-line-data" data-line-start="151" data-line-end="152">Ticking <strong>more</strong> than required (A: more than 1 · P: more than N) = <strong>0 points</strong> for the whole question.</li>
+<li class="has-line-data" data-line-start="152" data-line-end="153">A question can <strong>never go negative</strong> (minimum 0) – mistakes in one question do not deduct points from other questions.</li>
+<li class="has-line-data" data-line-start="153" data-line-end="155"><strong>Passing:</strong> ≥ <strong>60 %</strong> of the sum of all achievable points.</li>
+</ul>
+<hr>
+<h2 class="code-line has-line-data" data-line-start="157" data-line-end="158"><a id="6_Abbreviations_terms_157"></a>6. Abbreviations &amp; terms</h2>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Abbr.</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>iSAQB</strong></td>
+<td>International Software Architecture Qualification Board (issuer of the certification)</td>
+</tr>
+<tr>
+<td><strong>CPSA‑F</strong></td>
+<td>Certified Professional for Software Architecture – <strong>F</strong>oundation Level</td>
+</tr>
+<tr>
+<td><strong>R1 / R2 / R3</strong></td>
+<td>Exam relevance per learning goal: <strong>R1</strong> = will be tested · <strong>R2</strong> = may be tested · <strong>R3</strong> = not exam‑relevant</td>
+</tr>
+<tr>
+<td><strong>A / P / K</strong></td>
+<td>Question types (see section 4)</td>
+</tr>
+<tr>
+<td><strong>LG</strong></td>
+<td>Learning goal (numbering per curriculum 2025.1, e.g. “LG 03‑08”) – reference into the curriculum. <em>In the interface the code still appears as “LZ”.</em></td>
+</tr>
+<tr>
+<td><strong>arc42</strong></td>
+<td>Established template/structure for architecture documentation</td>
+</tr>
+<tr>
+<td><strong>ADR</strong></td>
+<td>Architecture Decision Record – a documented architecture decision</td>
+</tr>
+<tr>
+<td><strong>ATAM</strong></td>
+<td>Architecture Tradeoff Analysis Method – scenario‑based evaluation method</td>
+</tr>
+<tr>
+<td><strong>ISO 25010</strong></td>
+<td>Standardized quality model (maintainability, security, performance …)</td>
+</tr>
+<tr>
+<td><strong>UML</strong></td>
+<td>Unified Modeling Language (diagrams: class, sequence, deployment …)</td>
+</tr>
+<tr>
+<td><strong>SOLID</strong></td>
+<td>5 design principles: SRP, OCP, LSP, ISP, DIP</td>
+</tr>
+<tr>
+<td><strong>DRY / KISS / YAGNI</strong></td>
+<td>Don’t Repeat Yourself · Keep It Simple · You Aren’t Gonna Need It</td>
+</tr>
+<tr>
+<td><strong>SoC</strong></td>
+<td>Separation of Concerns</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 class="code-line has-line-data" data-line-start="177" data-line-end="178"><a id="7_Basis_references_177"></a>7. Basis &amp; references</h2>
+<p class="has-line-data" data-line-start="179" data-line-end="180">The catalogue questions are <strong>written independently</strong> and are guided by the <strong>public learning goals</strong> of the iSAQB curriculum (6 chapters, 38 learning goals, R1/R2/R3 marking). Scoring follows the <strong>official examination rules</strong> (version 2020.2).</p>
+<ul>
+<li class="has-line-data" data-line-start="181" data-line-end="182">Curriculum (HTML/PDF): <a href="https://public.isaqb.org/curriculum-foundation/">https://public.isaqb.org/curriculum-foundation/</a></li>
+<li class="has-line-data" data-line-start="182" data-line-end="183">Curriculum as PDF (EN): <a href="https://public.isaqb.org/curriculum-foundation/curriculum-foundation-en.pdf">https://public.isaqb.org/curriculum-foundation/curriculum-foundation-en.pdf</a></li>
+<li class="has-line-data" data-line-start="183" data-line-end="184">Examination rules / scoring (EN): <a href="https://public.isaqb.org/examination-foundation/examination_rules/examination-rules-en.pdf">https://public.isaqb.org/examination-foundation/examination_rules/examination-rules-en.pdf</a></li>
+<li class="has-line-data" data-line-start="184" data-line-end="185">Exam format &amp; procedure: <a href="https://www.isaqb.org/certifications/cpsa-exams/foundation-level-exam/">https://www.isaqb.org/certifications/cpsa-exams/foundation-level-exam/</a></li>
+<li class="has-line-data" data-line-start="185" data-line-end="187">Curriculum repository: <a href="https://github.com/isaqb-org/curriculum-foundation">https://github.com/isaqb-org/curriculum-foundation</a></li>
+</ul>
+<hr>
+<h2 class="code-line has-line-data" data-line-start="189" data-line-end="190"><a id="8_Important_note_disclaimer_189"></a>8. Important note (disclaimer)</h2>
+<ul>
+<li class="has-line-data" data-line-start="191" data-line-end="192"><strong>Unofficial</strong> – not affiliated with iSAQB®.</li>
+<li class="has-line-data" data-line-start="192" data-line-end="193">The <strong>catalogue practice questions</strong> are <strong>not original exam questions</strong>, but independently written questions for practice.</li>
+<li class="has-line-data" data-line-start="193" data-line-end="194">Questions were <strong>created and reviewed with AI support</strong>. They are well suited for training; when in doubt, cross‑check against the curriculum. The <strong>English translations</strong> are also AI‑assisted.</li>
+<li class="has-line-data" data-line-start="194" data-line-end="195">The <strong>🎓 Mock exam</strong> contains the <strong>official iSAQB example exam</strong> (© iSAQB e. V.), used for <strong>exam preparation</strong> in accordance with its terms of use (source &amp; copyright are stated in the app).</li>
+<li class="has-line-data" data-line-start="195" data-line-end="196">The iSAQB curriculum is protected by copyright (© iSAQB e. V.); for the question catalogue only the <strong>public learning goals</strong> serve as content orientation.</li>
+<li class="has-line-data" data-line-start="196" data-line-end="198">Recommendation: play through the <strong>🎓 Mock exam</strong> as a dress rehearsal, ideally <strong>after</strong> you have studied.</li>
+</ul>
+<hr>
+<h2 class="code-line has-line-data" data-line-start="200" data-line-end="201"><a id="9_Technology_privacy_in_brief_200"></a>9. Technology &amp; privacy (in brief)</h2>
+<ul>
+<li class="has-line-data" data-line-start="202" data-line-end="203">A <strong>self‑contained</strong> HTML file (HTML + CSS + JavaScript), <strong>no external dependencies</strong>, questions stored as data directly in the code.</li>
+<li class="has-line-data" data-line-start="203" data-line-end="204">The app itself communicates with <strong>no server</strong> (no trackers, no data transfer). With the <strong>web link</strong>, the page is loaded once from GitHub Pages, after which everything runs in the browser; the <strong>local file</strong> works entirely <strong>without internet</strong>.</li>
+<li class="has-line-data" data-line-start="204" data-line-end="205">Progress lives solely in the browser’s <strong>localStorage</strong>. Clearing browser data (or “reset progress”) = start over from zero.</li>
+<li class="has-line-data" data-line-start="205" data-line-end="207">Adding more questions: new entries follow the data schema in the code<br>
+(<code>{ id, chapter, lz, r, type, q, options, correct, explanation }</code>, or for K questions <code>categories</code> + <code>rows</code>).</li>
+</ul>
+
+</body>
+</html>
