@@ -1,7 +1,7 @@
 "use strict";
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
-function show(id){ ["home","quiz","result","stats","review","data","flash","browse","reference","conceptmap"].forEach(s=>$("#"+s).classList.toggle("hidden", s!==id)); $("#quizBar").classList.toggle("hidden", id!=="quiz"); $("#flashBar").classList.toggle("hidden", id!=="flash"); window.scrollTo(0,0); }
+function show(id){ ["home","quiz","result","stats","review","data","flash","browse","reference","conceptmap","mockexam"].forEach(s=>$("#"+s).classList.toggle("hidden", s!==id)); $("#quizBar").classList.toggle("hidden", id!=="quiz"); $("#flashBar").classList.toggle("hidden", id!=="flash"); window.scrollTo(0,0); }
 function lzLink(lzStr){ if(!lzStr) return ""; const n=String(lzStr).replace(/^LZ\s*/,""); return "<span class='lzlink' data-lz='"+n+"' title='Zum Lernstoff'>"+escapeHtml(lzStr)+"</span>"; }
 function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(pseudoRandom()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 // deterministic-ish RNG seeded by time isn't available offline reliably; Math.random is fine here in the browser
@@ -34,7 +34,7 @@ function hasSelection(it){ return it.q.type==="k" ? it.selected.some(x=>x!=null)
 /* ---- Unterbrochene Runde speichern / fortsetzen ---- */
 function persistSession(){
   if(!session) return;
-  store.session={ mode:session.mode, idx:session.idx,
+  store.session={ mode:session.mode, mock:!!session.mock, idx:session.idx,
     items:session.items.map(it=>({id:it.q.id, order:it.order, selected:it.selected, submitted:it.submitted, correct:it.correct})) };
   if(session.mode==="exam" && session.endsAt){ store.session.durationMs=session.durationMs; store.session.remainingMs=Math.max(0, session.endsAt-Date.now()); }
   saveStore();
@@ -42,15 +42,16 @@ function persistSession(){
 function clearSession(){ if(store.session){ delete store.session; saveStore(); } }
 function restoreSession(){
   const s=store.session; if(!s||!s.items) return false;
+  const srcPool = (s.mock && typeof MOCKEXAM!=="undefined") ? MOCKEXAM.questions : QUESTIONS;
   const items=[];
   for(const it of s.items){
-    const q=QUESTIONS.find(x=>x.id===it.id); if(!q) continue;
+    const q=srcPool.find(x=>x.id===it.id); if(!q) continue;
     const defOrder = q.options ? q.options.map((_,i)=>i) : [];
     items.push({ q, order:(it.order&&q.options&&it.order.length===q.options.length)?it.order:defOrder,
       selected:it.selected||(q.type==="k"?new Array(q.rows.length).fill(null):[]), submitted:!!it.submitted, correct:(it.correct===undefined?null:it.correct) });
   }
   if(!items.length){ clearSession(); return false; }
-  session={ mode:s.mode||"practice", items, idx:Math.min(s.idx||0, items.length-1) };
+  session={ mode:s.mode||"practice", mock:!!s.mock, items, idx:Math.min(s.idx||0, items.length-1) };
   if(session.mode==="exam"){ session.durationMs=s.durationMs||Math.max(3,Math.round(items.length*75/40))*60000; session.endsAt=Date.now()+(s.remainingMs!=null?s.remainingMs:session.durationMs); }
   return true;
 }
@@ -60,7 +61,7 @@ function updateResumeBanner(){
   if(s&&s.items&&s.items.length){
     const done=s.items.filter(x=>x.submitted).length;
     card.style.display="";
-    $("#resumeInfo").textContent=(s.mode==="exam"?"Prüfung":"Übung")+" · bei Frage "+((s.idx||0)+1)+" von "+s.items.length+" ("+done+" beantwortet)";
+    $("#resumeInfo").textContent=(s.mock?T("Musterprüfung","Mock exam"):(s.mode==="exam"?T("Prüfung","Exam"):T("Übung","Practice")))+T(" · bei Frage "," · at question ")+((s.idx||0)+1)+T(" von "," of ")+s.items.length+" ("+done+T(" beantwortet)"," answered)");
   } else { card.style.display="none"; }
 }
 
@@ -69,10 +70,10 @@ function updateResumeBanner(){
    ============================================================ */
 function buildChapterChips(){
   const box = $("#chapterChips"); box.innerHTML="";
-  Object.entries(CHAPTERS).forEach(([n,name])=>{
+  Object.keys(CHAPTERS).forEach(n=>{
     const el=document.createElement("span");
     el.className="chip"+(ui.chapters.has(+n)?" active":"");
-    el.textContent = n+" · "+name;
+    el.textContent = n+" · "+chapName(+n);
     el.onclick=()=>{ if(ui.chapters.has(+n)) ui.chapters.delete(+n); else ui.chapters.add(+n); el.classList.toggle("active"); updatePool(); };
     box.appendChild(el);
   });
@@ -90,8 +91,8 @@ function updatePool(){
   $("#startBtn").disabled = pool.length===0;
   const r = $("#numRange"); r.max = Math.max(5, pool.length);
   if(ui.num>pool.length){ ui.num = pool.length; r.value=Math.max(5,pool.length); $("#numLabel").textContent = pool.length; }
-  $("#chapCount").textContent = "("+ui.chapters.size+"/6 gewählt)";
-  const d=dueQuestions().length, sb=$("#srsBtn"); if(sb){ sb.textContent="🔁 Wiederholen ("+d+")"; sb.disabled=(d===0); }
+  $("#chapCount").textContent = "("+ui.chapters.size+T("/6 gewählt","/6 selected")+")";
+  const d=dueQuestions().length, sb=$("#srsBtn"); if(sb){ sb.textContent=T("🔁 Wiederholen (","🔁 Repeat (")+d+")"; sb.disabled=(d===0); }
 }
 
 /* ============================================================
@@ -136,6 +137,27 @@ function buildSession(subset){
   startExamTimer();
 }
 
+function startMockExam(){
+  if(typeof MOCKEXAM==="undefined" || !MOCKEXAM.questions.length){ alert(T("Musterprüfung nicht verfügbar.","Mock exam not available.")); return; }
+  const qs = MOCKEXAM.questions;   // feste offizielle Reihenfolge, keine Mischung
+  session = {
+    mode:"exam", mock:true,
+    items: qs.map(q=>({
+      q,
+      order: q.options ? q.options.map((_,i)=>i) : [],   // Optionen NICHT mischen (originalgetreu)
+      selected: q.type==="k" ? new Array(q.rows.length).fill(null) : [],
+      submitted:false, correct:null
+    })),
+    idx:0
+  };
+  session.durationMs = (MOCKEXAM.durationMin||75)*60000;
+  session.endsAt = Date.now()+session.durationMs;
+  persistSession();
+  show("quiz");
+  renderQuestion();
+  startExamTimer();
+}
+
 /* ============================================================
    Quiz rendering
    ============================================================ */
@@ -143,21 +165,21 @@ function renderQuestion(){
   const it=session.items[session.idx];
   const q=it.q;
   const total=session.items.length;
-  $("#qCounter").textContent = "Frage "+(session.idx+1)+"/"+total;
+  $("#qCounter").textContent = T("Frage","Question")+" "+(session.idx+1)+"/"+total;
   $("#progBar").style.width = ((session.idx)/total*100)+"%";
   const correctSoFar = session.items.filter(x=>x.correct===true).length;
   const answered = session.items.filter(x=>x.submitted).length;
   if(session.mode==="exam"){ updateTimerDisplay(); }
   else { $("#qScore").textContent = answered>0 ? ("✓ "+correctSoFar+"/"+answered) : ""; }
 
-  const badge=$("#qBadge"); badge.textContent=q.r; badge.className="badge "+q.r.toLowerCase();
-  $("#qChapter").textContent = "Kap. "+q.chapter+" · "+CHAPTERS[q.chapter]+" · "+q.lz;
-  $("#qText").textContent = q.q;
+  const badge=$("#qBadge"); if(q.r){ badge.style.display=""; badge.textContent=q.r; badge.className="badge "+q.r.toLowerCase(); } else { badge.style.display="none"; }
+  $("#qChapter").textContent = session.mock ? "" : ((q.chapter?(T("Kap. ","Ch. ")+q.chapter+" · "+chapName(q.chapter)):"")+(q.lz?(" · "+q.lz):""));
+  $("#qText").textContent = Lq(q);
   const qPts=$("#qPts");
-  if(session.mode==="exam"){ qPts.style.display=""; qPts.textContent=questionPoints(q)+" P."; }
+  if(session.mode==="exam"){ qPts.style.display=""; qPts.textContent=questionPoints(q)+T(" P."," pts"); }
   else { qPts.style.display="none"; }
-  if(q.type==="k"){ $("#qType").textContent = "Ordnen Sie jede Zeile einer Kategorie zu."; }
-  else { const n=q.correct.length; $("#qType").textContent = "Wählen Sie "+n+" Antwort"+(n>1?"en":"")+"."; }
+  if(q.type==="k"){ $("#qType").textContent = T("Ordnen Sie jede Zeile einer Kategorie zu.","Assign each row to a category."); }
+  else { const n=q.correct.length; $("#qType").textContent = T("Wählen Sie "+n+" Antwort"+(n>1?"en":"")+".","Select "+n+" answer"+(n>1?"s":"")+"."); }
 
   const bm=$("#qBookmark"); const isBm=qStat(q.id).bm;
   bm.textContent = isBm?"★":"☆"; bm.classList.toggle("on", isBm);
@@ -179,10 +201,11 @@ function renderQuestion(){
     const mark=document.createElement("span"); mark.className="mark";
     mark.textContent = it.submitted ? (q.correct.includes(optIdx)?"✓":(isSel?"✕":"")) : (isSel?"✓":"");
     const body=document.createElement("div"); body.className="optbody";
-    const txt=document.createElement("div"); txt.textContent=q.options[optIdx];
+    const txt=document.createElement("div"); txt.textContent=Lopts(q)[optIdx];
     body.appendChild(txt);
-    if(it.submitted && q.optExpl && q.optExpl[optIdx]){
-      const why=document.createElement("div"); why.className="optwhy"; why.textContent=q.optExpl[optIdx];
+    const oe=LoptExpl(q);
+    if(it.submitted && oe && oe[optIdx]){
+      const why=document.createElement("div"); why.className="optwhy"; why.textContent=oe[optIdx];
       body.appendChild(why);
     }
     el.appendChild(mark); el.appendChild(body);
@@ -198,8 +221,8 @@ function renderQuestion(){
   const ex=$("#explainBox"); ex.innerHTML="";
   if(it.submitted && session.mode==="practice"){
     const d=document.createElement("div"); d.className="explain";
-    d.innerHTML="<b>"+(it.correct?"Richtig ✓":"Nicht ganz ✕")+"</b>"+escapeHtml(q.explanation)+
-      "<div class='lz'>"+q.r+" · "+lzLink(q.lz)+" · Kapitel "+q.chapter+"</div>";
+    d.innerHTML="<b>"+(it.correct?T("Richtig ✓","Correct ✓"):T("Nicht ganz ✕","Not quite ✕"))+"</b>"+escapeHtml(Lexpl(q))+
+      "<div class='lz'>"+(q.r?q.r+" · ":"")+lzLink(q.lz)+" · "+T("Kapitel","Chapter")+" "+q.chapter+"</div>";
     ex.appendChild(d);
   }
 
@@ -207,10 +230,10 @@ function renderQuestion(){
   const pb=$("#primaryBtn");
   const last = session.idx===total-1;
   if(!it.submitted){
-    pb.textContent = session.mode==="exam" ? (last?"Abgeben & Auswerten":"Weiter →") : "Prüfen";
+    pb.textContent = session.mode==="exam" ? (last?T("Abgeben & Auswerten","Submit & evaluate"):T("Weiter →","Next →")) : T("Prüfen","Check");
     pb.disabled = session.mode==="exam" ? false : !hasSelection(it);
   } else {
-    pb.textContent = last ? "Ergebnis anzeigen" : "Nächste Frage →";
+    pb.textContent = last ? T("Ergebnis anzeigen","Show result") : T("Nächste Frage →","Next question →");
     pb.disabled=false;
   }
   persistSession();
@@ -223,9 +246,9 @@ function renderKRows(it, list){
   const q=it.q;
   q.rows.forEach((row,ri)=>{
     const wrap=document.createElement("div"); wrap.className="krow";
-    const st=document.createElement("div"); st.className="kstmt"; st.textContent=row.text;
+    const st=document.createElement("div"); st.className="kstmt"; st.textContent=Lrow(row);
     const cats=document.createElement("div"); cats.className="kcats";
-    q.categories.forEach((label,ci)=>{
+    Lcats(q).forEach((label,ci)=>{
       const b=document.createElement("button"); b.className="kcat"; b.textContent=label;
       const sel=it.selected[ri];
       if(!it.submitted){
