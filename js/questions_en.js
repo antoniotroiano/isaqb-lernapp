@@ -733,7 +733,7 @@ const QUESTIONS_EN = {
    "Maintainability is a top-level characteristic.",
    "Scalability is an independent top-level characteristic.",
    "Performance Efficiency is a sub-aspect of reliability.",
-   "Compatibility was removed from the model in 2023."
+   "Portability is still an independent top-level characteristic in the 2023 version."
   ],
   "correct": [
    0
@@ -742,7 +742,7 @@ const QUESTIONS_EN = {
    "Correct: Maintainability is one of the top-level characteristics of ISO 25010.",
    "Incorrect (near-miss): Scalability is not an independent top-level characteristic but an aspect (among others of the performance/flexibility consideration).",
    "Incorrect: Performance Efficiency is itself a top-level characteristic, not a sub-aspect of reliability.",
-   "Incorrect: Compatibility continues to exist as a top-level characteristic."
+   "Incorrect: in 2023 portability was subsumed into the broader top-level characteristic „Flexibility“ and no longer exists independently under that name."
   ],
   "explanation": "Maintainability is a top-level characteristic of ISO 25010. Scalability is not an independent top-level characteristic; Performance Efficiency is itself a top-level characteristic and not a sub-aspect of reliability; Compatibility continues to exist."
  },
@@ -1089,7 +1089,7 @@ const QUESTIONS_EN = {
    "“Safety” was added as an independent top-level characteristic.",
    "The number of top-level characteristics was reduced to three.",
    "“Portability” was removed without replacement and has no successor in the model.",
-   "“Reliability” and “Maintainability” were removed in the course of the revision."
+   "„Usability“ was kept unchanged under that name."
   ],
   "correct": [
    0
@@ -1098,7 +1098,7 @@ const QUESTIONS_EN = {
    "Correct: Safety was added as an independent top-level characteristic in 2023.",
    "Incorrect (trap): The number of top-level characteristics was not reduced to three (there are nine).",
    "Incorrect (near-miss): Portability was not removed without replacement but transferred into “Flexibility.”",
-   "Incorrect: Reliability and Maintainability continue to exist."
+   "Incorrect: in 2023 „Usability“ was renamed to „Interaction Capability“ and expanded."
   ],
   "explanation": "In 2023, Safety, among others, was added as an independent top-level characteristic; the model still has several (nine) top-level characteristics. Portability was not removed but transferred into “Flexibility,” and Reliability/Maintainability continue to exist."
  },
@@ -1714,7 +1714,7 @@ const QUESTIONS_EN = {
    "The coupling to implementation details decreases.",
    "Isolated testing is facilitated, because dependencies can be replaced by test doubles.",
    "Calls via an interface are fundamentally faster at runtime.",
-   "Concrete implementations thereby become superfluous and no longer need to be written."
+   "You no longer need to manage dependencies deliberately (e.g. dependency injection becomes unnecessary)."
   ],
   "correct": [
    0,
@@ -1726,7 +1726,7 @@ const QUESTIONS_EN = {
    "Correct: The coupling to concrete details decreases.",
    "Correct: Test doubles can be easily used behind interfaces.",
    "Wrong: There is no blanket runtime performance advantage.",
-   "Near-Miss: Concrete implementations remain necessary; the interface does not replace them."
+   "Incorrect: binding to a concrete implementation must still be done deliberately (e.g. via dependency injection) – interfaces don't remove that need."
   ],
   "explanation": "Programming against interfaces makes implementations interchangeable, lowers the coupling to details, and facilitates isolated testing. There is no blanket performance advantage, and concrete implementations remain necessary."
  },
