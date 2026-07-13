@@ -1,1909 +1,2333 @@
-/* Englische Übersetzungen des Fragenkatalogs (Phase 2, generiert aus js/questions.js).
-   Struktur: QUESTIONS_EN[id] = { q, options[], optExpl[], explanation, categories[], rows[] (nur Texte) }
-   Fehlende Felder/IDs fallen automatisch auf Deutsch zurück (mergeEN + L*-Accessors).
-   Neu generieren: tools/build_questions_en.py (bzw. Batch-Übersetzung -> merge). */
+/* Englische Übersetzungen des Fragenkatalogs. QUESTIONS_EN[id]. Fallback DE via mergeEN. */
 const QUESTIONS_EN = {
  "c1q1": {
-  "q": "Which statements accurately describe software architecture?",
+  "q": "Which statements about the term software architecture are correct in the sense of CPSA-F?",
   "options": [
-   "It encompasses the building blocks of a system and their relationships to one another.",
-   "It encompasses the fundamental, often far-reaching design decisions.",
-   "It is essentially the sum of the source code of all classes.",
-   "Above all, it defines the concrete implementation of each individual method.",
-   "It is synonymous with the documentation of the system in the form of diagrams."
+   "It comprises the structure(s) of a system consisting of building blocks together with their relationships and externally visible properties.",
+   "It includes the fundamental design decisions whose later change would typically be expensive.",
+   "It is the set of all structures that can be derived completely and unambiguously from the existing source code.",
+   "It concerns exclusively static structures; runtime behavior belongs to the detailed design.",
+   "A system has exactly one architecture, which is always also available in documented form."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Building blocks and their relationships are the core of any definition of architecture.",
-   "It is precisely the load-bearing, far-reaching decisions that make up architecture.",
-   "The source code is the result of the implementation, not the architecture itself.",
-   "Defining individual methods is detailed design, not architecture.",
-   "Diagrams document the architecture but are not the architecture itself."
+   "Correct: building blocks, relationships and externally visible properties form the core of every architecture definition.",
+   "Correct: it is precisely the key, consequential (expensive-to-change) decisions that make up architecture.",
+   "Wrong: architecture contains, among other things, design decisions and their rationale, which cannot be fully reconstructed from the code.",
+   "Wrong: the dynamic interplay at runtime is very much part of the architecture (runtime view).",
+   "Wrong: a system typically has several structures/views, which can also exist implicitly and undocumented."
   ],
-  "explanation": "Architecture = building blocks + relationships + load-bearing design decisions. It is not the code itself and does not define each method in detail (that is detailed design)."
+  "explanation": "Architecture = building blocks + relationships + properties + key decisions. It cannot be derived completely from the code (the rationale is missing there), includes runtime behavior, and also exists as several, partly undocumented structures."
  },
  "c1q2": {
-  "q": "Which statements accurately characterize a component (building block)?",
+  "q": "Which statements about a component (building block) are correct?",
   "options": [
-   "It encapsulates functionality behind a clearly defined interface.",
-   "It is replaceable via its interface, without users needing to know its internals.",
-   "It is essentially a group of classes in the same package, even without a common interface.",
-   "It is always identical to an operating-system process started at runtime.",
-   "It is always assigned to exactly one single class that contains all of its logic."
+   "It encapsulates its realization and is used via its interface(s) (black box principle).",
+   "It can itself be composed of several finer building blocks.",
+   "On the target platform it always corresponds to exactly one deployable artifact (e.g. a file or library).",
+   "The term component always denotes a runtime unit, in contrast to the purely design-level term building block.",
+   "Two components with an identical interface signature are always readily interchangeable, regardless of their guaranteed properties."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Encapsulation behind a clear interface is the core characteristic.",
-   "It is precisely this replaceability (black-box use) that distinguishes it.",
-   "Mere package membership without a common interface is not sufficient.",
-   "An operating-system process is a runtime unit, not a component.",
-   "A component can consist of multiple classes, not just one."
+   "Correct: encapsulation and use via the interface are the core characteristic.",
+   "Correct: building blocks are hierarchical, a component can contain finer building blocks (white box).",
+   "Wrong: equating it with exactly one deployment artifact conflates the building block and deployment views.",
+   "Wrong: the building block/component distinction is not a runtime/design-time distinction.",
+   "Wrong: the same signature is not sufficient; the contract including guaranteed properties (semantics, qualities) must match."
   ],
-  "explanation": "A component encapsulates functionality behind a defined interface and is replaceable through it (black-box use). Mere package membership or equating it with a runtime process do not capture the characteristic."
+  "explanation": "A component encapsulates its realization behind interfaces and can itself consist of finer building blocks. It is not per se a single deployment artifact, not a pure runtime unit, and interchangeability requires the same contract (not just the same signature)."
  },
  "c1q3": {
-  "q": "What distinguishes a black-box from a white-box description of a building block?",
+  "q": "In an architecture documentation, a subsystem is described in one place as a black box and in another as a white box. What is most likely correct?",
   "options": [
-   "Black-box shows only the interface and responsibility from the outside; white-box additionally shows the internal structure.",
-   "White-box hides the internal building blocks, black-box reveals them.",
-   "Black-box refers to the runtime view, white-box to the deployment view.",
-   "The difference concerns only the level of detail in naming, not the visibility of the internals."
+   "The black box names interfaces, responsibility and guaranteed properties; the white box additionally shows the contained building blocks and their interplay.",
+   "Black box and white box differ in that the black box represents the runtime view and the white box the building block view.",
+   "The white box is the actually binding description; the black box is only a simplified preliminary stage without independent value.",
+   "The black box hides the interface of the building block, while the white box exposes it."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: black-box = external view, white-box = additionally the internal structure.",
-   "Reversed - the white-box shows the internals, the black-box hides them.",
-   "It is about the visibility of the internals, not about runtime/deployment view.",
-   "What matters is the visibility of the internals, not the depth of naming."
+   "Correct: black box = external view (interface/responsibility/properties), white box = additionally the internal structure.",
+   "Wrong: it is about the visibility of the internals, not about the assignment to runtime vs. building block view.",
+   "Wrong: the black box has independent value – users need exactly this external view.",
+   "Wrong: the black box exposes the interface and hides only the internals."
   ],
-  "explanation": "Black-box = external view (interface/responsibility), white-box = internal view (contained building blocks). The terms are not reversed and are not tied to the runtime/deployment view."
+  "explanation": "Black box = external view (interface, responsibility, guaranteed properties), white box = additionally the contained building blocks. Both are useful; it is not a runtime/building block view question, and the interface is precisely not hidden."
  },
  "c1q4": {
-  "q": "Which of the following belong to the typical architecture views?",
+  "q": "Which of the following belong to the established architecture views?",
   "options": [
-   "Building block view (static decomposition into building blocks)",
-   "Runtime view (interplay of the building blocks at runtime)",
-   "Source-code file view (folder and file structure in the repository)",
-   "Prioritization view (order in which features are implemented)",
-   "Cost view (effort and budget distribution of the individual building blocks)"
+   "Building block view – the static decomposition of the system into building blocks and their relationships.",
+   "Runtime view – the dynamic interplay of the building blocks in scenarios.",
+   "Deployment view – the mapping of the building blocks onto hardware/infrastructure nodes.",
+   "Decision view – an independent view that completely replaces the building blocks of the other views.",
+   "The context view does not count among the architecture views, since it shows only the environment and not the system."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "The building block view (static decomposition) is a core architecture view.",
-   "The runtime view (dynamic interplay) is likewise a core view.",
-   "The folder/file structure in the repository is not an architecture view.",
-   "A \"prioritization view\" does not exist as an architecture view.",
-   "A cost view is not among the established architecture views."
+   "Correct: the building block view (static decomposition) is a core view.",
+   "Correct: the runtime view (dynamic behavior) is a core view.",
+   "Correct: the deployment view (deployment) is one of the established views.",
+   "Wrong: decisions are documented, but do not replace a view with its building blocks.",
+   "Wrong: the context view (delimitation from the environment, external interfaces) is a recognized architecture view."
   ],
-  "explanation": "Building block and runtime views are core architecture views (as are context and deployment views). File/repository structure or a 'prioritization view' are not architecture views."
+  "explanation": "Building block, runtime and deployment views are established views (as is the context view). There is no \"decision view\" that replaces the others, and the context view very much belongs among them."
  },
  "c1q5": {
-  "q": "Which tasks typically belong to the role of software architects?",
+  "q": "Which tasks belong to the core of the role of software architects?",
   "options": [
-   "Clarifying and influencing requirements, especially quality requirements.",
-   "Making and justifying load-bearing architecture decisions.",
-   "Supporting the implementation and giving feedback to the team.",
-   "Being solely responsible for the final prioritization of the product backlog.",
-   "Independently and single-handedly implementing the source code of all critical modules."
+   "Clarifying and sharpening quality requirements together with stakeholders.",
+   "Making, justifying and documenting key design decisions.",
+   "Accompanying the implementation and checking whether code and architecture fit together.",
+   "Independently determining the functional prioritization of the product backlog.",
+   "Prescribing detailed implementation specifications down to the method level in a binding manner in order to ensure consistency."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Clarifying requirements (especially quality requirements) is a core task.",
-   "Making and justifying load-bearing decisions clearly belongs here.",
-   "Supporting the implementation and giving feedback does too.",
-   "Backlog prioritization is the responsibility of the product role (e.g. PO), not the architect alone.",
-   "Implementing all modules is a team task, not the architect's alone."
+   "Correct: clarifying (especially quality) requirements is a core task.",
+   "Correct: making, justifying and documenting key decisions clearly belongs to it.",
+   "Correct: accompanying the implementation and checking consistency is a core task.",
+   "Wrong: backlog prioritization is the responsibility of the product role (e.g. Product Owner); architects only advise.",
+   "Wrong: specifications down to the method level are over-regulation; the detailed design remains with the team."
   ],
-  "explanation": "Architects clarify requirements, make/justify decisions and support the implementation. Backlog prioritization lies with the product responsibility (e.g. Product Owner)."
+  "explanation": "Architects clarify requirements, make/justify decisions and accompany the implementation. They are responsible for neither the functional backlog prioritization nor do they prescribe every method."
  },
  "c1q6": {
-  "q": "Which statements about internal and external quality are correct?",
+  "q": "Which statements about internal and external software quality are correct?",
   "options": [
-   "External quality is perceivable from the outside (e.g. performance, reliability).",
-   "Internal quality concerns the internal structure (e.g. maintainability, understandability).",
-   "Internal quality is directly noticeable to end users, external quality only to developers.",
-   "Internal quality is insignificant as long as the external quality is right.",
-   "Internal and external quality are independent of each other and do not influence each other.",
-   "Internal quality can be measured solely through black-box tests of the finished product."
+   "External quality shows itself in the operation of the finished system (e.g. performance, reliability) and is perceptible to users.",
+   "Low internal quality (e.g. poor maintainability) often also worsens the externally perceptible quality in the long term.",
+   "Internal quality can be measured completely via black box tests of the delivered system.",
+   "Maintainability is an external quality, because it indirectly affects the user via downtime.",
+   "Internal and external quality are independent of each other; one can optimize the one without influencing the other."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "External quality is perceivable from the outside (e.g. performance).",
-   "Internal quality concerns the internal structure (e.g. maintainability).",
-   "Reversed: internal quality is noticed mainly by developers, not directly by end users.",
-   "Internal quality is important - it determines, for example, maintainability.",
-   "Poor internal quality also degrades external quality in the long run.",
-   "Internal quality shows in the structure, not in black-box tests."
+   "Correct: external quality is perceptible from the outside (e.g. performance, reliability).",
+   "Correct: internal deficiencies also affect the outside over time (e.g. more errors, slower changes).",
+   "Wrong: internal quality shows itself in the structure (e.g. maintainability) and is not fully measurable via black box tests.",
+   "Wrong: maintainability is an internal quality; the indirect effect on users does not make it external.",
+   "Wrong: both influence each other – poor structure eventually shows through to the external view."
   ],
-  "explanation": "External quality is visible from the outside, internal quality concerns the structure. The assignment is not reversed, and internal quality is by no means insignificant (it determines, for example, maintainability)."
+  "explanation": "External quality is perceptible from the outside, internal quality concerns the structure. Both are coupled: poor internal quality also worsens the external quality in the long term. Internal quality is not fully measurable via black box tests, and maintainability is internal."
  },
  "c1q7": {
-  "q": "Why are architecture decisions often made iteratively and under uncertainty?",
+  "q": "A team makes central architecture decisions early, although not all requirements are yet established. Which statement is most likely correct?",
   "options": [
-   "Because at the start, knowledge and requirements are incomplete and become refined over the course.",
-   "Because such decisions are, in any case, changeable at any time without notable effort.",
-   "Because sufficient information is only available after complete implementation.",
-   "Because uncertainty can be completely avoided through a sufficiently detailed up-front design."
+   "Because knowledge and requirements are initially incomplete, decisions are deliberately made under uncertainty and refined iteratively.",
+   "This is uncritical, because architecture decisions can later be revised without significant effort.",
+   "One should wait with all key decisions until the requirements are available completely and finally.",
+   "Early decisions under uncertainty can be avoided by creating a sufficiently detailed overall design in advance."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: at the start, knowledge is incomplete, therefore refine iteratively.",
-   "Architecture decisions are precisely often not cheaply changeable.",
-   "Deciding only after implementation would be far too late.",
-   "No up-front design completely eliminates the initial uncertainty."
+   "Correct: knowledge is initially incomplete, therefore decisions are made early but revisably and refined.",
+   "Wrong: key architecture decisions are precisely often expensive to change.",
+   "Wrong: waiting for complete requirements (BDUF) is unrealistic and risky.",
+   "Wrong: a detailed up-front design does not eliminate the initial uncertainty."
   ],
-  "explanation": "At the start of a project, knowledge is incomplete; decisions are refined step by step. They are often precisely NOT arbitrarily cheap to change, and an up-front design does not eliminate the uncertainty."
+  "explanation": "At the beginning knowledge is incomplete; important decisions are made early and refined iteratively. They are usually not cheap to change, waiting for final requirements is unsuitable, and an up-front design does not eliminate uncertainty."
  },
  "c1q8": {
   "q": "Which statements about the relationship between architecture and requirements are correct?",
   "options": [
-   "Quality requirements in particular drive central architecture decisions.",
+   "Above all quality requirements (e.g. performance, security) drive key architecture decisions.",
    "Architecture and requirements influence each other mutually and are sharpened iteratively.",
-   "Exclusively functional requirements determine the architecture.",
-   "The architecture is defined independently and the requirements adapt to it afterwards.",
-   "Requirements must be completely and finally settled before architecture work begins."
+   "Functional requirements largely determine the architecture on their own; quality requirements are secondary.",
+   "Constraints such as prescribed technologies are irrelevant for the architecture, as long as the requirements are met.",
+   "Only once the requirements are complete and accepted may the architecture work begin."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Quality requirements are the strongest architecture drivers.",
-   "Architecture and requirements sharpen each other mutually and iteratively.",
-   "Not only functional ones - quality requirements in particular shape the architecture.",
-   "Requirements do not align themselves retrospectively to a fixed architecture.",
-   "Architecture work begins iteratively, not only after requirements are finally fixed."
+   "Correct: quality requirements are the strongest architecture drivers.",
+   "Correct: both sharpen each other mutually and iteratively.",
+   "Wrong: it is precisely quality requirements that strongly shape the architecture, not only functional ones.",
+   "Wrong: constraints noticeably limit the solution space and are very much relevant.",
+   "Wrong: architecture work begins iteratively, not only after finally accepted requirements."
   ],
-  "explanation": "Quality requirements above all drive the architecture, and both sharpen each other mutually. Not only functional requirements count, and the order is not reversed."
+  "explanation": "Above all quality requirements drive the architecture, and both sharpen each other mutually. Functional requirements alone are not sufficient, constraints are relevant, and the work does not wait for final requirements."
  },
  "c1q9": {
-  "q": "Which activity is NOT a central task of the architecture role?",
+  "q": "Which of the following activities belongs least to the core of the architecture role?",
   "options": [
-   "Being responsible for the commercial budget and contract negotiation with the customer.",
-   "Defining overarching cross-cutting concepts (e.g. persistence, security).",
-   "Documenting and communicating architecture decisions.",
-   "Clarifying quality requirements together with stakeholders."
+   "Being responsible for the schedule and resource planning of the project as well as the staffing management.",
+   "Defining cross-cutting concepts (e.g. persistence, security, error handling).",
+   "Documenting and communicating architecture decisions and their rationale.",
+   "Checking compliance with the architecture in the implementation and advising the team."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: budget/contract negotiation is not an architecture task.",
-   "Defining cross-cutting concepts is very much an architecture task.",
-   "Documenting and communicating decisions clearly belongs here.",
-   "Clarifying quality requirements with stakeholders is a core task."
+   "Correct: schedule, resource and staffing planning is project management; architects only provide input.",
+   "Wrong (is a core task): defining cross-cutting concepts clearly belongs to the architecture role.",
+   "Wrong (is a core task): documenting and communicating decisions is central.",
+   "Wrong (is a core task): checking the implementation and advising belongs to it."
   ],
-  "explanation": "Budget/contract negotiation is not an architecture task. Cross-cutting concepts, documentation/communication and requirements clarification, by contrast, clearly belong to the role."
+  "explanation": "Project, resource and staffing planning lies with project management, not at the core of the architecture role. Cross-cutting concepts, documentation/communication and accompanying the implementation, by contrast, belong to it."
  },
  "k5": {
-  "q": "Assess each statement: true or false?",
-  "explanation": "Loose coupling/high cohesion and the strong influence of quality requirements are central, correct principles. The architect does not write all the code, and decisions are adapted iteratively.",
+  "q": "Assess each statement: correct or wrong?",
   "categories": [
-   "True",
-   "False"
+   "Correct",
+   "Wrong"
   ],
   "rows": [
-   "Loose coupling and high cohesion are desirable.",
-   "An architect must write all of the production code themselves.",
-   "Quality requirements strongly influence the architecture.",
-   "Architecture decisions, once made, may never be changed."
-  ]
+   "Loose coupling and high cohesion are goals to be pursued simultaneously that complement each other.",
+   "An interface describes the contract of a building block, not its internal realization.",
+   "The term component denotes exclusively a runtime unit, never a design building block.",
+   "Architecture decisions are finally fixed with their first version and are no longer refined.",
+   "Quality requirements are generally secondary to functional requirements for the architecture."
+  ],
+  "explanation": "Loose coupling/high cohesion are complementary goals, and an interface describes the contract (not the internals). A component is not a pure runtime unit, decisions are refined iteratively, and quality requirements are precisely the strongest architecture drivers."
  },
  "c1q10": {
-  "q": "What is the central goal of software architecture?",
+  "q": "What is at its core the goal of software architecture?",
   "options": [
-   "Making complexity manageable and supporting the achievement of the quality goals.",
-   "Completely ruling out the later need for refactorings.",
-   "Providing a solution today for every conceivable future requirement.",
-   "Minimizing development time independently of quality."
+   "Keeping complexity manageable and supporting the achievement of the required quality goals under the constraints.",
+   "Anticipating as many future requirements as possible today, so that no more changes are needed later.",
+   "Guaranteeing compliance with the budget and schedule of the project.",
+   "Ensuring exclusively the functional correctness of the system."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Core: mastering complexity and achieving the quality goals.",
-   "Refactorings can never be entirely ruled out - not a realistic goal.",
-   "\"Everything in reserve\" contradicts YAGNI and is not a goal.",
-   "Speed at the expense of quality is not an architecture goal."
+   "Correct: manageable complexity and achieving the quality goals are the core.",
+   "Wrong: anticipating all future requirements contradicts YAGNI and is not a goal.",
+   "Wrong: architecture supports, but guarantees neither budget nor schedule.",
+   "Wrong: it is about more than functional correctness – it is precisely quality goals that are in focus."
   ],
-  "explanation": "The goal is manageable complexity and the achievement of the quality goals. Avoiding refactorings entirely, building everything in reserve (against YAGNI) or sacrificing quality for speed are not viable goals."
+  "explanation": "The goal is manageable complexity and achieving the quality goals under constraints. \"Everything in stock\" (against YAGNI), budget/schedule guarantees or pure correctness are not viable core goals."
  },
  "c1q11": {
-  "q": "Which statements about the stakeholders of an architecture are correct?",
+  "q": "Which statements about stakeholders of an architecture are correct?",
   "options": [
-   "Stakeholders are all persons/groups with a legitimate interest in the system.",
-   "Operations, the client and the maintenance team also count, not just end users.",
-   "Only persons with a contractual payment obligation are stakeholders.",
-   "Stakeholders are exclusively the members of the development team.",
-   "External stakeholders such as authorities or legislators do not, as a rule, count."
+   "Stakeholders are all persons and groups with a legitimate interest in the system or its development.",
+   "Operations, maintenance, the client and possibly authorities also belong to them, not only end users.",
+   "Stakeholders are only those who actively work with the software (the end users).",
+   "Stakeholders with conflicting interests cannot exist; otherwise the project would not be feasible.",
+   "The identification of the stakeholders is completed once at project start and thereafter unchangeable."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Stakeholders are all those with a legitimate interest in the system.",
-   "Operations, the client and maintenance also count, not just end users.",
-   "Payment obligation is not a criterion for being a stakeholder.",
-   "The development team is only one of many stakeholder groups.",
-   "External parties such as authorities can also have a legitimate interest."
+   "Correct: what is decisive is the legitimate interest in the system.",
+   "Correct: operations, maintenance, the client and external parties also count among them.",
+   "Wrong: end users are only one of many stakeholder groups.",
+   "Wrong: conflicting interests are the normal case and must be balanced.",
+   "Wrong: stakeholder identification is an ongoing process, not completed once."
   ],
-  "explanation": "Stakeholders = all with legitimate concerns (users, operations, client, maintenance, development ...). Limited neither to those who pay nor to the development team."
+  "explanation": "Stakeholders are all with legitimate concerns (users, operations, maintenance, client, authorities …). They are not limited to end users, often have conflicting interests, and their identification is ongoing."
  },
  "c1q12": {
   "q": "Which properties characterize a well-cut building block?",
   "options": [
-   "High cohesion - it bundles related tasks together.",
-   "Loose coupling via a clearly defined interface.",
-   "It shares its internal state directly with neighboring building blocks in order to save detours.",
-   "It bundles as many different responsibilities as possible in order to be reusable.",
-   "It is as fine-grained as possible, so that each individual method forms its own building block."
+   "High cohesion – tasks that belong together are bundled.",
+   "Loose coupling – dependencies run via few, clearly defined interfaces.",
+   "It accesses the internal data structures of neighboring building blocks directly when needed, in order to save detours via interfaces.",
+   "The more fine-grained the cut (ideally one building block per class or method), the better the architecture.",
+   "It depends on as many other building blocks as possible, in order to reuse their functionality broadly."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "High cohesion (related tasks bundled together) is desirable.",
-   "Loose coupling via a clearly defined interface likewise.",
-   "Sharing internals directly breaks encapsulation and increases coupling.",
-   "Many mixed responsibilities mean low cohesion - undesirable.",
-   "Excessive splitting increases coupling; granularity alone is not a measure of quality."
+   "Correct: high cohesion (tasks that belong together bundled) is desirable.",
+   "Correct: loose coupling via clear interfaces likewise.",
+   "Wrong: direct access to internals breaks encapsulation and increases coupling.",
+   "Wrong: granularity alone is not a quality measure; over-fragmentation increases coupling.",
+   "Wrong: many dependencies mean high coupling – reuse does not justify that."
   ],
-  "explanation": "Well-cut = high cohesion and loose coupling via clear interfaces. Direct sharing of internals (breaks encapsulation) and many mixed responsibilities (low cohesion) are anti-patterns."
+  "explanation": "Well-cut = high cohesion and loose coupling via clear interfaces. Direct access to internals, maximum fine-grainedness and many dependencies are anti-patterns (encapsulation break or high coupling)."
  },
  "c1q13": {
   "q": "Which statements about the interface of a building block are correct?",
   "options": [
-   "It defines the externally visible contract (offered or required operations).",
-   "It hides the internal realization, so that it remains replaceable.",
-   "It bindingly prescribes the concrete internal data structure of the building block.",
-   "It must inevitably change as well as soon as the internal implementation is adjusted.",
-   "It always contains the complete implementation of the offered operations.",
-   "A building block may offer at most one single interface to the outside."
+   "It defines the externally visible contract: offered and/or required operations together with guarantees.",
+   "A building block can offer several interfaces, for instance depending on the user group (role interfaces).",
+   "A complete interface description also includes the concrete internal data structure with which the building block works.",
+   "If the internal implementation changes, the interface must inevitably change as well.",
+   "An interface comprises only the signatures; functional pre- and postconditions (contract) are not a component of it."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "The interface is the externally visible contract.",
-   "It hides the realization, which thereby remains replaceable.",
-   "It does not prescribe an internal data structure (that would be internals).",
-   "It should precisely remain stable when the implementation changes.",
-   "The interface defines only the contract, not the implementation.",
-   "A building block can offer several interfaces for different users."
+   "Correct: the interface is the externally visible contract.",
+   "Correct: a building block can offer several (role/user-specific) interfaces.",
+   "Wrong: the internal data structure is an internal matter, not a component of the contract.",
+   "Wrong: the interface is precisely meant to remain stable when the implementation changes.",
+   "Wrong: the contract also includes semantics as well as pre- and postconditions, not only signatures."
   ],
-  "explanation": "The interface is the contract and hides the internals (which thereby remain replaceable). It does not prescribe an internal data structure and should precisely remain stable during internal changes."
+  "explanation": "The interface is the contract (offered/required operations together with guarantees); a building block can offer several of them. It does not prescribe internals, remains stable under internal changes, and comprises more than pure signatures."
  },
  "c1q14": {
-  "q": "What is meant by the responsibility of a building block?",
+  "q": "Which statements about the responsibility of a building block are correct?",
   "options": [
-   "The clearly delineated task for which it is responsible (the WHAT).",
-   "The concrete technical realization with which it fulfills its task (the HOW).",
-   "The set of all building blocks on which it depends.",
-   "The position it occupies in the layer hierarchy."
+   "It describes the clearly outlined task for which the building block is responsible (the WHAT).",
+   "Ideally it is cohesive and clearly delimited from other building blocks.",
+   "It results completely from the sum of the publicly offered interface operations.",
+   "It determines with which technology or library the building block is realized (the HOW).",
+   "Overlapping responsibilities of two building blocks increase the fault tolerance."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Responsibility = the clearly delineated task (the WHAT).",
-   "The concrete realization is the HOW, not the responsibility.",
-   "The set of dependencies is something else.",
-   "The layer position does not describe the responsibility."
+   "Correct: responsibility = the clearly outlined task (the WHAT).",
+   "Correct: it should be cohesive and clearly delimited.",
+   "Wrong: the interface operations are the HOW of use, not the responsibility itself.",
+   "Wrong: the technology choice is the HOW, not the responsibility.",
+   "Wrong: overlapping responsibilities create redundancy and maintenance problems, not fault tolerance."
   ],
-  "explanation": "Responsibility = the clearly delineated task (the WHAT). The realization (the HOW), the dependencies or the layer position are something else."
+  "explanation": "Responsibility = the clearly outlined, cohesive task (the WHAT). It is not the sum of the interface operations, not the technical realization (HOW), and overlaps are harmful, not useful."
  },
  "c1q15": {
-  "q": "Why is an architecture only effective if it is adhered to in the implementation?",
+  "q": "In a project the code deviates over time from the documented architecture. Which statements are correct?",
   "options": [
-   "Because the intended properties (e.g. maintainability) only arise if the code follows the structure.",
-   "Because the architecture automatically generates the matching code as soon as it is documented.",
-   "Because deviations in the code automatically update the diagrams as well.",
-   "Because the program does not even compile without exact adherence."
+   "Intended qualities (e.g. maintainability) arise only if the code follows the structure.",
+   "Architecture erosion threatens – target and actual state drift apart.",
+   "Reviews or tool-supported dependency checks can uncover such deviations.",
+   "As long as the documentation is kept up to date, code deviations are uncritical.",
+   "Deviations are uncritical, since an architecture is only a non-binding recommendation."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: qualities only arise if the code follows the structure.",
-   "Documentation does not produce code - architecture does not implement itself.",
-   "Diagrams do not automatically update themselves upon code deviations.",
-   "Deviations do not prevent compilation - the code runs anyway."
+   "Correct: the qualities only materialize if the code follows the structure.",
+   "Correct: the drifting apart of target and actual state is precisely architecture erosion.",
+   "Correct: reviews and dependency analyses uncover such deviations.",
+   "Wrong: up-to-date documentation does not help if the code does not follow the structure.",
+   "Wrong: architecture is binding; deviations undermine goal achievement."
   ],
-  "explanation": "Only if the code follows the architecture do its qualities materialize (otherwise architecture erosion). Code does not arise automatically, diagrams do not update themselves, and deviations do not prevent compilation."
+  "explanation": "Qualities arise only if the code follows the architecture; otherwise architecture erosion threatens, which can be uncovered by reviews/tooling. Neither up-to-date documentation nor the view of architecture as a mere recommendation makes deviations uncritical."
  },
  "c1q16": {
-  "q": "At which levels does software architecture describe structures?",
+  "q": "How does software architecture relate to the various abstraction levels of a system?",
   "options": [
-   "At multiple levels of abstraction - from the overall system through subsystems down to individual building blocks.",
-   "Only at the topmost level of the overall system; everything more fine-grained is pure programming with no relation to architecture.",
-   "Exclusively at the level of individual classes and methods.",
-   "Only at the level of the infrastructure and servers used."
+   "It describes structures on several nested levels (system, subsystems, building blocks); principles such as cohesion and coupling apply recursively in doing so.",
+   "Only the topmost system level is architecture-relevant; every finer decomposition counts exclusively as detailed design.",
+   "The levels are strictly separated: decisions on one level have no effects on deeper levels.",
+   "The number of abstraction levels is fixed at three by the curriculum."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: structures at multiple levels (system -> subsystems -> building blocks).",
-   "Finer levels also relate to architecture, not just the topmost one.",
-   "Only classes/methods reaches too deep and too narrow.",
-   "Infrastructure is only one level, not the only one."
+   "Correct: structures are considered on several nested levels, the same principles apply recursively.",
+   "Wrong: the boundary between architecture and detailed design is fluid, not limited to the topmost level.",
+   "Wrong: decisions of higher levels frame and influence the deeper ones.",
+   "Wrong: there is no fixed prescribed number of levels."
   ],
-  "explanation": "Architecture considers structures hierarchically at multiple levels. The other options each fall short (only top, only bottom or only infrastructure)."
+  "explanation": "Architecture considers structures hierarchically on several levels, with cohesion/coupling applying recursively. The boundary to the detailed design is fluid, levels influence each other, and the number of levels is not fixed."
  },
  "c1q17": {
   "q": "Which statements about the benefit of software architecture are correct?",
   "options": [
-   "It helps make complexity manageable.",
-   "It enables division of labor in team development.",
-   "It creates a common basis for the communication of the stakeholders.",
-   "It ensures the correctness of the implementation, so that tests can be omitted.",
-   "It guarantees that the project stays within the planned budget and time frame."
+   "It makes complexity manageable and supports collaborative work in the team.",
+   "It creates a common basis for communication among the stakeholders.",
+   "It supports the targeted achievement of quality goals by making key decisions conscious.",
+   "It ensures the functional correctness, so that systematic testing becomes dispensable.",
+   "It guarantees compliance with the budget and schedule of the project."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Making complexity manageable is a core benefit.",
-   "Division of labor in development becomes possible only through structure.",
-   "It creates a common basis for communication.",
-   "It does not guarantee correctness - tests remain necessary.",
-   "Budget and schedule adherence depend on many factors, not just the architecture."
+   "Correct: mastering complexity and enabling division of labor are core benefits.",
+   "Correct: it creates a common basis for communication.",
+   "Correct: through conscious key decisions, quality goals are addressed in a targeted manner.",
+   "Wrong: it does not guarantee correctness – testing remains necessary.",
+   "Wrong: budget and schedule adherence depend on many factors, not only on the architecture."
   ],
-  "explanation": "Architecture masters complexity, enables division of labor and communication. But it does not guarantee a correct implementation - tests remain necessary."
+  "explanation": "Architecture masters complexity, enables division of labor and communication, and supports the achievement of quality goals. It guarantees neither functional correctness (tests remain necessary) nor budget/schedule adherence."
  },
  "c1q18": {
-  "q": "How does a software architecture typically emerge in an iterative approach?",
+  "q": "What characterizes an iterative (evolutionary) approach to architecture work?",
   "options": [
-   "Step by step: load-bearing decisions early, details refined over iterations.",
-   "Completely and definitively before the start of implementation, without later adjustment.",
-   "Purely by chance/emergent, entirely without deliberate overarching decisions.",
-   "Only retrospectively, as mere documentation of the already finished code."
+   "Key decisions are made early, but reviewed and refined across iterations based on new insights.",
+   "The architecture is fully defined at the beginning (Big Design Up Front) and thereafter no longer touched.",
+   "The architecture arises purely emergently from the code, without conscious overarching decisions.",
+   "An iterative approach means deferring key decisions as long as possible, until maximum certainty exists."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: load-bearing decisions early, details over iterations.",
-   "A complete up-front design (BDUF) without adjustment is atypical.",
-   "Purely by chance/emergent without deliberate decisions is not a goal.",
-   "Architecture is more than retrospective documentation of the finished code."
+   "Correct: important decisions early, then refinement across the iterations.",
+   "Wrong: a complete, unchangeable up-front design (BDUF) is precisely not what is meant.",
+   "Wrong: purely emergent without conscious decisions leads to unplanned structure.",
+   "Wrong: key decisions are made early, not deferred until maximum certainty."
   ],
-  "explanation": "Iterative means: important decisions early, refinement over time - neither complete up-front design (BDUF) nor unplanned nor documented only at the end."
+  "explanation": "Iterative means: key decisions early, then review and refinement. Neither complete up-front design (BDUF) nor purely emergent growth nor deferring all decisions corresponds to it."
  },
  "c1q19": {
   "q": "How do architecture and detailed design differ?",
   "options": [
    "Architecture makes the overarching, far-reaching structural decisions; the detailed design concretizes within these specifications.",
-   "The boundary is sharp and formally defined: from a fixed building block size onwards, detailed design necessarily begins.",
-   "The detailed design comes first and is subsequently combined into the architecture.",
-   "Both denote the same thing, only in different project phases."
+   "The boundary is defined formally and project-independently: below a certain building block size the detailed design necessarily begins.",
+   "The difference lies solely in the point in time: architecture arises in an early phase, the detailed design necessarily only afterward.",
+   "Detailed design is qualitatively less demanding and irrelevant to the system's goal achievement."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: architecture = far-reaching structure, detailed design refines within it.",
-   "The boundary is fluid and context-dependent, not formally at a size.",
-   "The order is wrong - architecture frames the detailed design.",
-   "Both are not the same, but different levels of abstraction."
+   "Correct: architecture = far-reaching structural decisions, detailed design refines within these.",
+   "Wrong: the boundary is fluid and context-dependent, not formally tied to a size.",
+   "Wrong: both interlock, it is not purely a question of sequence.",
+   "Wrong: the detailed design is demanding and definitely relevant to goal achievement."
   ],
-  "explanation": "Architecture = large, far-reaching structural decisions; the detailed design refines within these. The boundary is fluid and context-dependent, not formally fixed at a size; the order is not reversed, and the two are not identical either."
+  "explanation": "Architecture makes large, consequential structural decisions; the detailed design concretizes within them. The boundary is fluid/context-dependent, not purely separated in time, and the detailed design is by no means irrelevant."
  },
  "c1q20": {
-  "q": "Why is communication a core competence of software architects?",
+  "q": "What role do communication skills play for software architects?",
   "options": [
-   "Because they must mediate between stakeholders and justify decisions in a comprehensible way.",
-   "Because they should pass on the architecture exclusively orally rather than in writing.",
-   "Because technical quality is secondary as long as the architecture is well presented.",
-   "Because good communication makes architecture documentation completely superfluous."
+   "They are central for mediating between stakeholders and justifying decisions in an audience-appropriate manner.",
+   "They are more important than technical competence; as long as the architecture is presented convincingly, its technical viability is secondary.",
+   "Good oral communication makes a written architecture documentation superfluous.",
+   "They concern only the communication within the development team, not with functional stakeholders."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: mediate between stakeholders and justify decisions.",
-   "Not only orally - important things should also be documented.",
-   "Technical quality remains central, not just the presentation.",
-   "Communication does not replace documentation."
+   "Correct: mediating and justifying in an audience-appropriate manner are core competencies.",
+   "Wrong: communication does not replace technical viability – both are necessary.",
+   "Wrong: important decisions also belong documented; talking does not replace documentation.",
+   "Wrong: communication is directed at all stakeholders, not only at the team."
   ],
-  "explanation": "Architecture thrives on shared understanding: mediating and justifying. Oral-only, presentation over substance or 'talking replaces documentation' are wrong."
+  "explanation": "Communication is central for mediating between stakeholders and justifying decisions. It replaces neither technical substance nor documentation and is not limited to the team."
  },
  "c1q21": {
-  "q": "What is the purpose of an early end-to-end proof of concept (prototype/proof of concept) in architecture design?",
+  "q": "What is the purpose of an early walking skeleton or proof of concept in architecture work?",
   "options": [
-   "To verify central technical risks and feasibility early.",
-   "To deliver a first, already production-ready version to the users.",
-   "To fully implement the complete domain functionality end-to-end.",
-   "To estimate the overall effort in a binding and conclusive manner."
+   "To review central technical risks and the feasibility of key decisions early.",
+   "To deliver an already production-ready first version of the most important features to the users.",
+   "To estimate the total effort of the project in a binding and final manner.",
+   "To demonstrate the functional completeness of the system end-to-end."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: verify feasibility and central technical risks early.",
-   "An end-to-end proof of concept is deliberately not production-ready.",
-   "It does not implement the complete domain functionality.",
-   "It does not deliver a binding final effort estimate."
+   "Correct: a walking skeleton reviews risky assumptions and feasibility early.",
+   "Wrong: that rather describes a productive increment/MVP; a walking skeleton is deliberately not production-ready.",
+   "Wrong: it does not provide a binding final effort estimate.",
+   "Wrong: it does not implement the complete functionality."
   ],
-  "explanation": "An end-to-end proof of concept verifies risky assumptions/feasibility early. It is deliberately not production-ready, not functionally complete and delivers no binding final effort estimate."
+  "explanation": "A walking skeleton reviews risky assumptions and the feasibility of key decisions early. It is deliberately not production-ready (unlike an MVP/increment), not functionally complete, and provides no binding effort estimate."
  },
  "c1q22": {
-  "q": "What characterizes a 'good' software architecture?",
+  "q": "What characterizes a \"good\" software architecture?",
   "options": [
-   "It fulfills the required quality goals under the given constraints.",
-   "It is as simple and understandable as possible (but not simpler).",
-   "It uses as many current technologies as possible, in order to appear future-proof.",
+   "It meets the required quality goals under the given constraints.",
+   "It is as simple and understandable as possible – but not simpler than the task allows.",
+   "It uses the most current technologies possible, in order to appear future-proof.",
    "It is maximally flexible and prepared for every conceivable future requirement.",
-   "It strictly follows a universally valid reference model, independent of the project context."
+   "It is objectively and project-independently good as soon as it follows a recognized pattern (e.g. layers)."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Good = fulfills the required quality goals under the constraints.",
-   "As simple as possible (but not simpler) is a hallmark of quality.",
-   "Technology variety for its own sake is not a criterion of quality.",
-   "Over-flexibility in reserve contradicts YAGNI.",
-   "Good architecture is context-dependent, not determined by a rigid reference model."
+   "Correct: meeting the required quality goals under the constraints is the measure.",
+   "Correct: appropriate simplicity is a quality characteristic.",
+   "Wrong: technology variety for its own sake is not a quality criterion.",
+   "Wrong: over-flexibility in stock contradicts YAGNI.",
+   "Wrong: good architecture is context-dependent; a pattern alone does not make it good."
   ],
-  "explanation": "Good = quality goals fulfilled and appropriately simple. Technology variety for its own sake and over-flexibility in reserve (against YAGNI) are not criteria of quality."
+  "explanation": "Good = quality goals met under constraints and appropriately simple. State-of-the-art technology, over-flexibility in stock (against YAGNI) or the mere following of a pattern are not quality criteria – quality is context-dependent."
  },
  "c1q23": {
-  "q": "How is it best to distinguish the terms \"building block\" and \"component\"?",
+  "q": "How does one best delimit the terms \"building block\" and \"component\"?",
   "options": [
-   "\"Building block\" is the conceptual umbrella term; a component is a concrete building block with clearly defined interfaces.",
-   "A building block is always a runtime unit, a component always a pure design-time unit.",
-   "The terms are exactly synonymous and differ only linguistically.",
-   "A building block is always larger than a component and contains several of them."
+   "\"Building block\" is the conceptual umbrella term; a component is a concrete building block with clearly defined, contractually described interfaces.",
+   "A building block is always a design-time unit, a component always a runtime unit.",
+   "The terms are completely synonymous and merely different translations of the same concept.",
+   "A component is by definition larger than a building block and combines several building blocks."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: building block = umbrella term, component = concrete building block with interfaces.",
-   "It is not a runtime/design-time distinction.",
-   "They are not exactly synonymous - component is more specific.",
-   "It is not a question of size."
+   "Correct: building block = umbrella term, component = concrete building block with defined interfaces.",
+   "Wrong: it is not a runtime/design-time distinction.",
+   "Wrong: they are not exactly synonymous – component is more specific.",
+   "Wrong: it is not a question of size."
   ],
-  "explanation": "\"Building block\" is the general, more conceptual term (problem space); a component is its more concrete manifestation with defined interfaces (solution space). It is not a pure runtime/design-time or size question and not merely synonymous."
+  "explanation": "\"Building block\" is the general, conceptual umbrella term; a component is its more concrete manifestation with defined interfaces. It is neither a runtime/design-time nor a size question and not merely synonymous."
  },
  "c1q24": {
-  "q": "Why does the CPSA Foundation curriculum deliberately refrain from a single, binding definition of \"software architecture\"?",
+  "q": "Why does the CPSA-Foundation curriculum deliberately refrain from a single, binding definition of \"software architecture\"?",
   "options": [
-   "Because numerous established definitions exist and one relies on their common core aspects (building blocks, relationships, decisions).",
-   "Because software architecture is too young a field to be definable at all.",
-   "Because a definition would unnecessarily oversimplify the exam material.",
-   "Because experts fundamentally do not agree on the benefit of architecture."
+   "Because numerous established definitions exist and one uses their common core aspects (building blocks, relationships, decisions).",
+   "Because a binding definition would narrow the solution space and hinder innovation.",
+   "Because definitions must turn out differently depending on the programming language.",
+   "Because the definition is left to the respective certification level."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: many established definitions -> one uses their common core aspects.",
-   "Architecture is not too young a field - it is well researched.",
-   "A definition would not \"unnecessarily oversimplify\" the material.",
-   "There is broad agreement about the benefit."
+   "Correct: many recognized definitions exist; their common intersection is used.",
+   "Wrong: a definition would not narrow the solution space in a relevant way – that is not the reason.",
+   "Wrong: the architecture concept is not programming-language-dependent.",
+   "Wrong: the definition is not left to the certification level."
   ],
-  "explanation": "There are many recognized definitions; the curriculum uses their intersection (building blocks, relationships, load-bearing decisions). Neither a lack of maturity nor a lack of agreement about the benefit is the reason."
+  "explanation": "There are many recognized definitions; the curriculum uses their common core aspects (building blocks, relationships, key decisions). Neither innovation protection, language dependence nor level binding is the reason."
  },
  "c1q25": {
-  "q": "At which level is the CPSA Foundation material primarily aimed?",
+  "q": "At which level does the CPSA-Foundation material primarily aim?",
   "options": [
-   "At the software architecture of a single system.",
-   "At the company-wide enterprise architecture across all systems.",
-   "At the physical network and data-center infrastructure.",
-   "At the business-process and organizational architecture of the company."
+   "At the architecture of a single software system.",
+   "At the enterprise-wide enterprise architecture, which integrates all systems and business processes.",
+   "At the architecture of individual classes and methods in the detailed design.",
+   "At the selection and configuration of concrete cloud and network infrastructure."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
    "Correct: Foundation aims at the architecture of a single system.",
-   "Enterprise architecture (all systems) lies above this level.",
-   "Network/data-center infrastructure is a different, lower level.",
-   "Business-process/organizational architecture is not the focus."
+   "Wrong: enterprise architecture (across all systems) lies above this level.",
+   "Wrong: classes/methods belong to the detailed design, not to the focus of Foundation.",
+   "Wrong: concrete infrastructure selection is not the primary focus."
   ],
-  "explanation": "Foundation deals with the architecture of a single system. Enterprise, infrastructure and business-process architecture lie above or below this level."
+  "explanation": "Foundation deals with the architecture of a single system. Enterprise architecture, detailed design (classes/methods) and concrete infrastructure lie above or below this focus."
  },
  "c1q26": {
-  "q": "Which statements about the notion of structure in software architecture are correct?",
+  "q": "Which statements about the concept of structure in software architecture are correct?",
   "options": [
-   "A system always has at least one structure - if nothing else, an unplanned one.",
-   "In addition to static structures, architecture also encompasses runtime behavior.",
-   "A well-designed system has exactly one single relevant structure.",
-   "Structures consist solely of building blocks; relationships play no role.",
-   "Only explicitly documented structures actually exist in the system.",
-   "Different views of a system must always show the same structure."
+   "Every system has at least one structure – if need be, an unplanned, grown one.",
+   "Both static structures and behavior at runtime belong to the architecture.",
+   "A system typically has several structures, which are illuminated by different views.",
+   "Only the explicitly documented structures actually exist in the system.",
+   "A structure consists solely of building blocks; their relationships are irrelevant to the concept of structure."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
    "Correct: every system has at least one (possibly unplanned) structure.",
-   "Architecture also includes runtime behavior, not just static aspects.",
-   "Systems typically have several structures/views, not just one.",
-   "Relationships are a mandatory part of structures.",
-   "Undocumented, implicit structures are also really present.",
-   "Different views deliberately show different structures of the system."
+   "Correct: architecture includes static structure and runtime behavior.",
+   "Correct: there are typically several structures, represented via different views.",
+   "Wrong: undocumented, implicit structures are also really present.",
+   "Wrong: relationships are a mandatory part of every structure."
   ],
-  "explanation": "Every system has at least one (possibly unintended) structure, and architecture includes runtime behavior. Systems typically have several views/structures, and relationships are a mandatory part of them."
+  "explanation": "Every system has at least one (possibly unintended) structure; architecture includes runtime behavior, and systems have several structures/views. Undocumented structures also exist, and relationships mandatorily belong to them."
  },
  "c1q27": {
-  "q": "What role do data and data models play in software architecture?",
+  "q": "What role do data and data models play for software architecture?",
   "options": [
-   "The data model is a load-bearing architecture decision - often long-lived and hard to change afterwards.",
-   "Data is a pure implementation detail with no influence on the architecture.",
-   "The data model is best defined only after the architecture has been completed.",
-   "Data models concern only the user interface."
+   "The data model is a key architecture decision – usually long-lived and expensive to change afterward.",
+   "The data model is a pure implementation detail of the persistence layer without influence on the building block cut.",
+   "The data model is sensibly defined only after the architecture is completely established.",
+   "The data model is arbitrarily interchangeable, because modern ORMs decouple it completely from the architecture."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: the data model is a load-bearing, long-lived decision.",
-   "Data is not a mere detail - it strongly shapes the architecture.",
-   "The data model is not defined only after the architecture.",
-   "Data models concern far more than the user interface."
+   "Correct: the data model is key, long-lived and expensive to change.",
+   "Wrong: it strongly shapes the architecture and the building block cut, is not a mere detail.",
+   "Wrong: data model and architecture arise mutually, not strictly one after another.",
+   "Wrong: ORMs encapsulate access, but do not decouple the formative data model from the architecture."
   ],
-  "explanation": "The data model strongly shapes the architecture and is usually long-lived and expensive to change (comparable to the 'structural framework' of a building). It is not a mere detail, not a downstream decision, and not limited to the UI."
+  "explanation": "The data model is a key, long-lived decision (comparable to the \"statics\" of a building). It is not a mere persistence detail, not a downstream decision, and is not really decoupled from the architecture by ORMs."
  },
  "c1q28": {
-  "q": "At which levels of abstraction are data models typically described?",
+  "q": "On which abstraction levels are data models typically described?",
   "options": [
-   "Conceptual, logical, and physical.",
-   "Exclusively physical (concrete tables and columns).",
-   "Only as a UML class diagram, not otherwise.",
-   "At the context, building block, and runtime level."
+   "Conceptual (functional), logical (technology-neutral structured) and physical (concrete realization).",
+   "Conceptual, logical and normalized – where \"physical\" is only another word for \"logical\".",
+   "Only logical and physical; a conceptual level does not exist for the data model.",
+   "On the context, building block and deployment level – analogous to the architecture views."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: conceptual, logical, and physical.",
-   "Not only physical - the domain/logical level would then be missing.",
-   "A UML class diagram is only one possible representation.",
-   "Context/building block/runtime are architecture views, not data-model levels."
+   "Correct: the three usual levels are conceptual, logical and physical.",
+   "Wrong: normalization is a technique on the logical level, not a substitute for \"physical\".",
+   "Wrong: the conceptual (functional) level very much exists.",
+   "Wrong: context/building block/deployment are architecture views, not data model levels."
   ],
-  "explanation": "Data models are described conceptually (domain-oriented), logically (structured, technology-neutral), and physically (concrete implementation). Context, building block, and runtime are architecture views, not data-model levels."
+  "explanation": "Data models are described conceptually (functional), logically (technology-neutral) and physically (concrete realization). Normalization is a logical technique, the conceptual level exists, and architecture views are something different."
  },
  "c1q29": {
-  "q": "Which statements about the relationship between data model and architecture are correct?",
+  "q": "Which statements about the connection between data model and architecture are correct?",
   "options": [
-   "Who owns and may change which data (data ownership) influences the functional partitioning of the building blocks.",
-   "A shared data model used directly by all building blocks can greatly increase coupling.",
-   "The data model can be chosen freely, independently of the partitioning of the building blocks.",
-   "Data ownership is irrelevant for microservices.",
-   "The data model should generally be designed only after the architecture has been completed."
+   "Data ownership (who owns which data and may change it) influences the functional cut of the building blocks.",
+   "A data model directly shared by many building blocks can strongly increase the coupling.",
+   "The building block cut and the data model can be chosen freely and independently of each other.",
+   "With microservices, data ownership is unimportant, as long as all services use the same central database.",
+   "A normalized central schema generally decouples the building blocks better than separate data storage."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Correct: data ownership influences the functional partitioning of building blocks.",
-   "A shared, directly used data model greatly increases coupling.",
-   "Data model and partitioning are related - not freely chosen.",
-   "For microservices in particular, data ownership is central (own DB per service).",
-   "Data model and architecture emerge reciprocally, not strictly one after the other."
+   "Correct: data ownership shapes the functional building block cut.",
+   "Correct: a shared, directly used data model couples the building blocks strongly.",
+   "Wrong: data model and cut are connected and cannot be chosen freely and independently.",
+   "Wrong: precisely with microservices data ownership is central (own data storage per service); a shared DB is an anti-pattern.",
+   "Wrong: a shared central schema tends to couple more strongly; separate data storage decouples better."
   ],
-  "explanation": "Data ownership shapes the partitioning of building blocks, and a shared, directly used data model creates strong coupling (which is why microservices have their own data storage per service). Data model and partitioning are therefore related."
+  "explanation": "Data ownership shapes the building block cut, and a shared, directly used data model couples strongly. Cut and data model are connected; with microservices, own data storage per service is decisive, a central schema does not decouple better."
  },
  "c2q1": {
-  "q": "Which statements assign the requirement terms correctly?",
+  "q": "In a project, the following statements are made about distinguishing functional requirements, quality requirements, and constraints. Which of them are correct?",
   "options": [
-   "A constraint restricts the solution space without itself being a function or a quality.",
-   "A quality requirement describes HOW WELL something should be (e.g. the response time).",
-   "A functional requirement specifies the response time that must be met.",
-   "A constraint is merely a particularly important functional requirement.",
-   "A quality requirement specifies which functions the system provides."
+   "A constraint restricts the solution space but is itself neither a function nor a quality of the system.",
+   "Quality requirements and constraints can refer to the same property: “respond quickly” is a quality requirement, “run on existing 5-year-old hardware” is a constraint.",
+   "Whether a specification is a functional requirement or a quality requirement depends solely on how important it is to the client.",
+   "A constraint is a particularly binding functional requirement and is therefore prioritized higher.",
+   "Functional requirements describe WHAT the system does; quality requirements describe HOW WELL it does it."
+  ],
+  "correct": [
+   0,
+   1,
+   4
   ],
   "optExpl": [
-   "Constraints delimit the solution space; they are themselves neither function nor quality.",
-   "Quality requirements describe the HOW WELL, such as the required response time.",
-   "Response time is a quality requirement, not a functional requirement.",
-   "A constraint is not a particularly important functional requirement.",
-   "Which functions are provided is described by a functional requirement, not by quality."
+   "Correct: Constraints delimit the solution space and are themselves neither a function nor a quality.",
+   "Correct: The same property can appear as a quality requirement (required behavior) and as a constraint (unchangeable specification) – the distinction lies in the ability to influence it, not in the topic.",
+   "Incorrect (near-miss): The classification follows the type (WHAT vs. HOW WELL), not the importance; even unimportant specifications retain their category.",
+   "Incorrect: A constraint is not a functional requirement but a predetermined limit; priority is a different concept.",
+   "Correct: It is precisely this WHAT/HOW-WELL distinction that separates functional from quality requirements."
   ],
-  "explanation": "Constraints delimit the solution space; quality requirements describe the HOW WELL. Response time is not a functional requirement, and a constraint is not an 'important' functional requirement."
+  "explanation": "Constraints delimit the solution space and are neither a function nor a quality; the same property can appear as a quality requirement and (as an unchangeable specification) as a constraint. The classification follows the type (WHAT vs. HOW WELL), not the importance, and a constraint is not an “important” functional requirement."
  },
  "c2q2": {
-  "q": "Which statements about the significance of quality requirements for the architecture are correct?",
+  "q": "A team initially regards quality requirements as “secondary” and wants to address them only after the functional implementation. Which statements are correct?",
   "options": [
-   "They are decisive architecture drivers and strongly shape structural decisions.",
-   "They should be clarified early, since later changes are expensive.",
-   "They are considered only after functional completion.",
-   "They concern almost exclusively the design of the user interface.",
-   "Meeting them is solely the responsibility of the test team, not the architecture.",
-   "They are less significant for the architecture than the functional requirements."
+   "Quality requirements are decisive architecture drivers; if they are considered late, structural changes are often expensive or barely possible anymore.",
+   "Whether a quality requirement can be met depends substantially on whether the architecture enables it – not just on whether it is tested at the end.",
+   "Functional requirements and quality requirements are equally important; which one shapes the architecture more strongly depends on the specific system.",
+   "As long as all functional requirements are met, the quality characteristics arise on their own.",
+   "Quality requirements essentially concern the user interface and can therefore be adequately addressed late."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Quality requirements are central architecture drivers and strongly shape structural decisions.",
-   "Early clarification pays off, because later changes become expensive.",
-   "Considering them only after the functionality would be too late.",
-   "They concern the entire architecture, not just the interface.",
-   "The architecture must enable quality characteristics - not just check them afterwards.",
-   "Quality requirements are the decisive architecture drivers, not the functions."
+   "Correct: Quality requirements drive structural decisions; retrofitting them late is expensive.",
+   "Correct: Whether they can be met depends on the structure – testing alone does not produce quality.",
+   "Correct (subtle): Both types of requirement are important; the stronger architectural influence in practice often, but not necessarily, comes from the quality requirements – this is system-dependent.",
+   "Incorrect (trap): Quality characteristics do not arise automatically from fulfilled functionality but must be deliberately designed.",
+   "Incorrect: Quality requirements concern the entire architecture, not predominantly the interface."
   ],
-  "explanation": "Quality requirements drive the architecture and should be clarified early. Considering them only at the end or reducing them to the interface would be wrong."
+  "explanation": "Quality requirements shape the architecture decisively and must be considered early, because retrofitting them late is expensive; whether they can be met depends on the structure. They do not arise on their own from functionality and do not concern only the interface. The statement that both types of requirement are important and that the stronger influence is system-dependent is correct and more nuanced than a blanket “quality beats function.”"
  },
  "c2q3": {
-  "q": "Which of the following are constraints?",
+  "q": "Which of the following specifications are constraints?",
   "options": [
-   "A mandated programming language or target platform.",
-   "A fixed, predetermined delivery date.",
-   "A required maximum response time for the search.",
-   "The ability to export reports as PDF.",
-   "A required availability of 99.9 percent on annual average."
+   "For legal reasons, personal data must be stored in a data center within the EU.",
+   "The relational database already licensed in the company must be used.",
+   "The search must answer 95 % of queries in under one second.",
+   "Reports must be exportable as PDF.",
+   "The project budget is capped at a fixed amount."
+  ],
+  "correct": [
+   0,
+   1,
+   4
   ],
   "optExpl": [
-   "Technology mandates such as language or platform are classic constraints.",
-   "A fixed delivery date is an organizational constraint.",
-   "A required response time is a quality requirement, not a constraint.",
-   "PDF export describes a function, i.e. a functional requirement.",
-   "A required availability is a quality requirement, not a constraint."
+   "Correct: A legally/regulatorily prescribed storage-location specification is a constraint.",
+   "Correct: A prescribed, already existing technology is a technical constraint.",
+   "Incorrect (near-miss): A required response time is a quality requirement (performance), not a constraint.",
+   "Incorrect: PDF export describes a function – a functional requirement.",
+   "Correct: A fixed budget is an organizational constraint."
   ],
-  "explanation": "Technology and schedule mandates are constraints. A required response time is a quality requirement, and PDF export is a functional requirement."
+  "explanation": "Regulatory storage-location specifications, prescribed technologies, and a fixed budget are constraints (legal, technical, organizational). A required response time is a quality requirement, and PDF export is a functional requirement."
  },
  "c2q4": {
-  "q": "How do you make a vague quality requirement such as 'The system should be fast' verifiable?",
+  "q": "A stakeholder demands: “The system should be fast.” How is this requirement best made verifiable?",
   "options": [
-   "By means of a quality scenario with a trigger, context, and a measurable response measure.",
-   "By bindingly stipulating that 'fast' is judged subjectively by the team.",
-   "By converting it into a constraint to choose a fast programming language.",
-   "By deferring the refinement until initial performance measurements are available in operation."
+   "Through a quality scenario with a trigger, an environment/context, and a measurable response measure (e.g. “95 % of searches under 1 s at full load”).",
+   "By setting a blanket response measure of “under 1 second” without naming a trigger and operating state.",
+   "By formulating the requirement as a constraint “use a performant programming language.”",
+   "By agreeing that the team assesses “fast” at its own discretion."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: a quality scenario with a trigger, context, and a measurable response measure makes it verifiable.",
-   "A subjective judgment remains vague and is precisely not measurable.",
-   "A technology constraint does not make the requirement measurable.",
-   "Late measurements in operation do not refine the requirement in advance."
+   "Correct: A complete quality scenario (trigger, context, measurable response measure) makes the requirement unambiguously verifiable.",
+   "Incorrect (near-miss): A mere number without a trigger and load context is only seemingly precise – “under 1 s” is not unambiguously verifiable without defined conditions.",
+   "Incorrect: A technology constraint does not make the quality requirement more precise and fixes a solution.",
+   "Incorrect: A subjective judgment remains vague and is precisely not measurable."
   ],
-  "explanation": "It becomes verifiable through a quality scenario with a measurable response measure (e.g. '95% of searches under 1 s'). Subjective judgments, a technology constraint, or late measurements do not make it measurable."
+  "explanation": "The requirement only becomes verifiable through a complete quality scenario with a trigger, environment, and measurable response measure. A bare number without context is only seemingly precise, a technology constraint confuses requirement and solution, and a subjective judgment is not measurable."
  },
  "c2q5": {
-  "q": "Who is jointly responsible for clarifying and understanding the requirements?",
+  "q": "Which statements about the role of architects in clarifying requirements are correct?",
   "options": [
-   "The architects too - they actively question and sharpen requirements.",
-   "The stakeholders alone; the architecture adopts the requirements unchanged.",
-   "Exclusively the business analysts, without involvement from the technical side.",
-   "No one in particular, since complete requirements are already available at project start."
+   "Architects actively question requirements, uncover gaps and contradictions, and help sharpen them.",
+   "They make implicit expectations and quality requirements explicit, which are often missing from the requirements document.",
+   "Responsibility for the business prioritization of requirements ultimately lies with the client or the business stakeholders.",
+   "They adopt the submitted requirements unchanged, since their clarification is exclusively a matter for business analysis.",
+   "Since complete requirements are available at project start, later clarification is not necessary."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: architects actively question and sharpen requirements.",
-   "The architecture does not adopt requirements unchanged, but actively helps clarify them.",
-   "The technical side must be involved too, not just the analysts.",
-   "Requirements are rarely available in full at project start."
+   "Correct: Actively questioning and sharpening is part of the architecture role.",
+   "Correct: Especially implicit quality requirements must be worked out by architecture.",
+   "Correct (subtle): Architects advise and provide the basis, but the business prioritization is ultimately the responsibility of the business stakeholders/the client.",
+   "Incorrect (trap): Architecture does not adopt requirements passively; clarification is a shared responsibility.",
+   "Incorrect: Requirements are rarely complete at the start and are clarified continuously."
   ],
-  "explanation": "Architects are actively involved in clarification (not mere recipients). Requirements are rarely complete at the start, and the technical side belongs in the process."
+  "explanation": "Architects actively participate in clarifying requirements and make implicit, often quality-related knowledge explicit; the business prioritization, however, is the responsibility of the business stakeholders. Requirements are not adopted passively and are rarely available in complete form."
  },
  "c2q6": {
-  "q": "Which of the following is a main (top-level) characteristic of product quality according to ISO/IEC 25010?",
+  "q": "A team discusses which of the listed properties is a top-level characteristic of the product quality model of ISO/IEC 25010:2023. What is correct?",
   "options": [
-   "Maintainability",
-   "Scalability",
-   "Test coverage (code coverage)",
-   "Cost-effectiveness (project costs)"
+   "Maintainability is a top-level characteristic.",
+   "Scalability is an independent top-level characteristic.",
+   "Performance Efficiency is a sub-aspect of reliability.",
+   "Compatibility was removed from the model in 2023."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: maintainability is a main characteristic of ISO 25010.",
-   "Scalability is only a sub-aspect, not a standalone main characteristic.",
-   "Test coverage is not a product quality characteristic of ISO 25010.",
-   "Project costs are not a product quality characteristic, but economic in nature."
+   "Correct: Maintainability is one of the top-level characteristics of ISO 25010.",
+   "Incorrect (near-miss): Scalability is not an independent top-level characteristic but an aspect (among others of the performance/flexibility consideration).",
+   "Incorrect: Performance Efficiency is itself a top-level characteristic, not a sub-aspect of reliability.",
+   "Incorrect: Compatibility continues to exist as a top-level characteristic."
   ],
-  "explanation": "Maintainability is a main characteristic of ISO 25010. Scalability is only a sub-aspect (among others, of 'Flexibility'), not a standalone main characteristic; test coverage and project costs are not product quality characteristics at all."
+  "explanation": "Maintainability is a top-level characteristic of ISO 25010. Scalability is not an independent top-level characteristic; Performance Efficiency is itself a top-level characteristic and not a sub-aspect of reliability; Compatibility continues to exist."
  },
  "c2q7": {
-  "q": "Which of the following is a functional requirement?",
+  "q": "Which of the following statements describe functional requirements?",
   "options": [
    "The user can export invoices as PDF.",
-   "Responses appear in under 200 ms.",
-   "The system is available 99.9% around the clock.",
-   "Java is the mandated language for the implementation."
+   "The system sends a confirmation email after every order.",
+   "Search responses appear in under 200 ms.",
+   "The system is available 99.9 % of the time around the clock.",
+   "A clerk can cancel an order."
+  ],
+  "correct": [
+   0,
+   1,
+   4
   ],
   "optExpl": [
-   "Correct: PDF export describes WHAT the system does - a function.",
-   "A response time describes HOW WELL - a quality requirement.",
-   "Availability is a quality requirement, not a function.",
-   "A mandated language is a constraint."
+   "Correct: PDF export describes WHAT the system does – a function.",
+   "Correct: Sending an email is a described function.",
+   "Incorrect (near-miss): A response time describes HOW WELL – a quality requirement (performance).",
+   "Incorrect: Availability is a quality requirement, not a function.",
+   "Correct: Cancellation is a function provided by the system."
   ],
-  "explanation": "Functional requirements describe WHAT the system does (PDF export). Response time and availability are quality requirements; the Java mandate is a constraint."
+  "explanation": "PDF export, email sending, and cancellation describe WHAT the system does – functional requirements. Response time and availability describe HOW WELL – quality requirements."
  },
  "k1": {
   "q": "Assign each statement: functional requirement or quality requirement?",
-  "explanation": "Functional requirements describe WHAT the system does (PDF export, user management). Response time and availability are quality requirements.",
   "categories": [
    "Functional requirement",
    "Quality requirement"
   ],
   "rows": [
-   "The user can export invoices as PDF.",
-   "The search returns results in under 1 second.",
-   "The system is 99.9% available.",
-   "An administrator can create new users."
-  ]
+   "After a server failure, the system resumes operation within 30 seconds.",
+   "The user can filter their order history by date.",
+   "Unauthorized access attempts are logged and the user is locked out after five failed attempts.",
+   "A new language version of the interface can be added without a code change."
+  ],
+  "explanation": "Resuming operation within a time bound (reliability/recoverability) and code-change-free extensibility (maintainability/flexibility) are quality requirements – they describe HOW WELL. Filtering the history and the specific locking after five failed attempts are described functions (WHAT); note: that locking happens at all is a function, whereas “how secure” the system is overall would be the quality requirement."
  },
  "k2": {
-  "q": "Assign each mandate: constraint or quality requirement?",
-  "explanation": "Constraints (mandated technology, schedule) limit the solution space. Response time (performance) and ease of extensibility (maintainability) are quality requirements.",
+  "q": "Assign each specification: constraint or quality requirement?",
   "categories": [
    "Constraint",
    "Quality requirement"
   ],
   "rows": [
-   "The Java programming language must be used.",
-   "The response time is under 200 ms.",
-   "Fixed delivery date at the end of Q1.",
-   "A new payment method can be integrated in under 2 person-days."
-  ]
+   "Due to a corporate directive, only the provided cloud provider may be used.",
+   "A new payment method can be integrated by one developer in under two person-days.",
+   "The solution must comply with the WCAG 2.1 AA accessibility guideline.",
+   "The system remains available even if one of three nodes fails."
+  ],
+  "explanation": "The mandatory cloud specification (organizational/technical) and the prescribed compliance with a specific guideline (WCAG 2.1 AA as a regulatory/normative requirement) limit the solution space – constraints. Easy extensibility (maintainability) and fault tolerance (availability) describe HOW WELL – quality requirements. Note: “being accessible” as a goal would be a quality requirement; the obligation to comply with a specific standard is the constraint."
  },
  "c2q8": {
-  "q": "Which belong to the product quality characteristics of ISO/IEC 25010?",
+  "q": "Which of the following belong to the top-level characteristics of the product quality model of ISO/IEC 25010:2023?",
   "options": [
    "Reliability",
    "Security",
    "Test coverage (code coverage)",
-   "Adherence to the project budget",
-   "Scalability"
+   "Compatibility",
+   "Adherence to the project budget"
+  ],
+  "correct": [
+   0,
+   1,
+   3
   ],
   "optExpl": [
-   "Reliability is a product quality characteristic of ISO 25010.",
-   "Security is a product quality characteristic of ISO 25010.",
-   "Test coverage is measurable, but not an ISO 25010 quality characteristic.",
-   "Budget adherence is not a product quality characteristic according to ISO 25010.",
-   "Scalability is not a standalone product quality characteristic of ISO 25010."
+   "Correct: Reliability is a top-level characteristic of ISO 25010.",
+   "Correct: Security is a top-level characteristic of ISO 25010.",
+   "Incorrect (trap): Test coverage is measurable but not a product quality characteristic of ISO 25010.",
+   "Correct: Compatibility is a top-level characteristic of ISO 25010.",
+   "Incorrect: Budget adherence is a project/economic aspect, not a product quality characteristic."
   ],
-  "explanation": "Reliability and security are ISO 25010 product quality characteristics. Test coverage and budget adherence are measurable, but not product quality characteristics according to ISO 25010 (the model was revised in 2023; portability, for example, was subsumed into 'Flexibility')."
+  "explanation": "Reliability, Security, and Compatibility are top-level characteristics of ISO 25010:2023. Test coverage is measurable but not a product quality characteristic; budget adherence is an economic project aspect."
  },
  "c2q9": {
-  "q": "Why should quality requirements be clarified as early as possible?",
+  "q": "Why should quality requirements be clarified as early as possible? Which justifications are correct?",
   "options": [
-   "Because they decisively shape the architecture and subsequent structural changes are expensive.",
+   "Because they shape the fundamental structural decisions, which can later only be changed with great effort.",
+   "Because they often remain implicit and otherwise become painfully visible only late – for example in operation.",
+   "Because early clarification helps to weigh up trade-offs between quality characteristics in good time.",
    "Because they may no longer be changed after the first release.",
-   "Because otherwise they automatically become functional requirements.",
-   "Because they concern exclusively the test phase and are needed there early."
+   "Because they otherwise automatically turn into functional requirements."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: they shape the architecture, and late structural changes are expensive.",
-   "Quality requirements are not frozen after the release.",
-   "They do not automatically become functional requirements.",
-   "They concern the entire architecture, not just the test phase."
+   "Correct: Quality requirements drive structural decisions; late changes are expensive.",
+   "Correct: Implicit quality requirements otherwise become visible only late.",
+   "Correct: Early clarification allows timely weighing of trade-offs.",
+   "Incorrect (trap): Quality requirements are not frozen after the release.",
+   "Incorrect: They do not turn into functional requirements – the category does not change."
   ],
-  "explanation": "Clarified early because they drive the architecture and late changes are expensive. They are not 'frozen', do not become functional requirements, and do not concern only the tests."
+  "explanation": "Early clarification is worthwhile because quality requirements drive the structure, often remain implicit, and trade-offs must be weighed in good time. They are not frozen after the release and do not turn into functional requirements."
  },
  "c2q10": {
-  "q": "A stakeholder demands: 'The system must also be operable by visually impaired users.' What kind of requirement is this?",
+  "q": "A stakeholder demands: “The system must also be operable by visually impaired users.” What is most likely correct?",
   "options": [
-   "A quality requirement (usability/accessibility).",
-   "A functional requirement, since a concrete function is described.",
-   "A constraint, since it mandates the technical implementation.",
-   "A non-goal that limits the scope."
+   "It is a quality requirement (an aspect of usability/accessibility) that can shape the architecture.",
+   "It is a functional requirement, because a specific operating function (“read-aloud function”) is described.",
+   "It is a constraint, since it represents an unchangeable external specification.",
+   "It is a non-goal that limits the scope."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: accessibility is an aspect of usability - a quality requirement.",
-   "No concrete function is described, but a quality.",
-   "It does not mandate any technology, so it is not a constraint.",
-   "It excludes nothing, so it is not a non-goal."
+   "Correct: Accessibility is an aspect of usability – a quality requirement.",
+   "Incorrect (near-miss): No specific function is named, but a quality; a “read-aloud function” would be a possible solution, not the requirement.",
+   "Incorrect: Only when a specific standard (e.g. a WCAG level) is mandatorily prescribed does a constraint arise from it; the mere operability demand is not one.",
+   "Incorrect: It excludes nothing, so it is not a non-goal."
   ],
-  "explanation": "Accessibility is an aspect of usability - i.e. a quality requirement. It does not describe a concrete function, mandate any technology, or constitute a non-goal."
+  "explanation": "Operability for visually impaired users is an aspect of usability – a quality requirement. It does not name a specific function; only a mandatorily prescribed standard would yield a constraint. It is not a non-goal."
  },
  "c2q11": {
-  "q": "Which statements about the prioritization of requirements are correct?",
+  "q": "Which statements about prioritizing requirements are correct?",
   "options": [
-   "Time and budget are limited - not everything is equally important.",
-   "Requirements can contradict one another and must be weighed against each other.",
-   "Lower-priority requirements may afterwards be ignored without replacement.",
-   "Prioritization is based solely on the technical implementation effort.",
+   "Because time and budget are limited, it must be weighed up what is implemented first and what possibly not at all.",
+   "Requirements can contradict one another; prioritization forces conscious trade-offs.",
+   "Besides the implementation effort, business value and risk should also feed into the prioritization.",
+   "Low-priority requirements may thereafter be ignored without replacement and without renewed review.",
    "A prioritization once set remains unchanged throughout the entire project."
   ],
-  "optExpl": [
-   "Limited resources force priorities - not everything is equally important.",
-   "Contradictory requirements must be weighed against one another.",
-   "Low-priority items are not automatically dropped without replacement.",
-   "Besides effort, value and risk also count.",
-   "Priorities change over the course of the project and must be reviewed continuously."
+  "correct": [
+   0,
+   1,
+   2
   ],
-  "explanation": "Prioritization is done because resources are limited and requirements compete. Low-priority items are not automatically dropped, and effort is not the sole criterion (value and risk also count)."
+  "optExpl": [
+   "Correct: Limited resources force selection and ordering.",
+   "Correct: Contradictory requirements require conscious trade-offs.",
+   "Correct: Value and risk, alongside effort, are among the criteria.",
+   "Incorrect (trap): Low priority does not automatically mean permanently dropped.",
+   "Incorrect: Priorities change over the course and must be reviewed continuously."
+  ],
+  "explanation": "Prioritization is done because resources are limited and requirements compete; the criteria are effort, value, and risk. Low-priority items are not automatically dropped for good, and priorities must be updated over the course of the project."
  },
  "c2q12": {
-  "q": "What typically holds for the relationship of different quality requirements to one another?",
+  "q": "What typically applies to the relationship between different quality requirements?",
   "options": [
-   "They are often in conflict (trade-off) and must be weighed against one another.",
-   "With good architecture they can all be maximally satisfied simultaneously.",
-   "They are independent of one another and never influence each other.",
-   "Only ever a single quality requirement is relevant at a time."
+   "They are frequently in a trade-off relationship and must be deliberately weighed against one another.",
+   "They generally reinforce one another, so that improving one usually also improves others.",
+   "They are fundamentally independent of one another and do not influence each other.",
+   "Only a single quality requirement is relevant at any given time."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: quality characteristics often compete and must be weighed.",
-   "They can rarely all be maximally satisfied at the same time.",
-   "They are not independent, but influence one another.",
-   "Usually several quality requirements are relevant at the same time."
+   "Correct: Quality characteristics often compete (e.g. security vs. usability) and must be weighed up.",
+   "Incorrect (near-miss): Some qualities do harmonize, but “generally mutual reinforcement” is wrong – conflicts are typical.",
+   "Incorrect: They are not independent but frequently influence one another.",
+   "Incorrect: Usually several quality requirements are relevant at the same time."
   ],
-  "explanation": "Quality characteristics frequently compete (trade-offs) and must be weighed. They can rarely be maximized simultaneously, are not independent, and are not individually exclusive."
+  "explanation": "Quality characteristics are frequently in a trade-off relationship and must be weighed up. They do not generally reinforce one another, are not independent, and are rarely relevant in isolation."
  },
  "c2q13": {
   "q": "Which statements about an assumption in the architecture context are correct?",
   "options": [
-   "It is a state of affairs taken as given but not assured.",
-   "It should be recorded explicitly and treated as a risk in case it does not hold.",
-   "It is a binding mandate that restricts the solution space.",
-   "It is a measured metric about the existing system.",
-   "It is a decision made that bindingly fixes the architecture design.",
+   "It is a matter taken as given but not assured.",
+   "It should be explicitly documented and tracked as a risk in case it does not hold.",
+   "If a documented assumption is demonstrably confirmed, it can become a confirmed constraint or fact.",
+   "It is from the outset a binding specification that restricts the solution space.",
    "Once made, it may no longer be questioned in the further course of the project."
   ],
-  "optExpl": [
-   "An assumption is presumed, but not assured.",
-   "It should be documented and tracked as a risk.",
-   "A binding, restricting mandate is a constraint.",
-   "A measured metric is not an unconfirmed assumption.",
-   "A binding decision is a decision, not an unconfirmed assumption.",
-   "Assumptions must be reviewed continuously and revised if necessary."
+  "correct": [
+   0,
+   1,
+   2
   ],
-  "explanation": "An assumption is unconfirmed and should be documented and tracked as a risk. A binding, restricting mandate, by contrast, is a constraint; a measured metric is something else."
+  "optExpl": [
+   "Correct: An assumption is presumed but not assured.",
+   "Correct: It should be documented and tracked as a risk.",
+   "Correct (subtle): If an assumption is confirmed, it loses its uncertain character and can be treated as a fact/constraint.",
+   "Incorrect (near-miss): A specification that is binding and restrictive from the outset is a constraint, not an assumption.",
+   "Incorrect: Assumptions must be reviewed continuously and revised if necessary."
+  ],
+  "explanation": "An assumption is unconfirmed, must be documented, tracked as a risk, and reviewed continuously; if it is confirmed, it can become a fact/constraint. A specification that is binding and restrictive from the outset, by contrast, is a constraint."
  },
  "c2q14": {
   "q": "Which of the following are quality requirements (non-functional)?",
   "options": [
-   "The application processes 1000 requests per second (performance).",
-   "Sensitive data is stored encrypted (security).",
-   "New developers get up to speed in under a day (maintainability).",
+   "The application processes 1000 requests per second with a response time under 200 ms (performance).",
+   "Sensitive data is stored encrypted according to the state of the art (security).",
+   "A new developer can implement a typical change in under a day without consultation (maintainability).",
    "The user can cancel an invoice.",
-   "The system sends a confirmation email after each order."
+   "The system exports reports in CSV format."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Performance describes HOW WELL - a quality requirement.",
-   "Encrypted storage concerns security - a quality requirement.",
-   "Quick onboarding concerns maintainability - a quality requirement.",
-   "Canceling an invoice describes a function - functional requirement.",
-   "Sending an email describes a function - functional requirement."
+   "Correct: Throughput and response time describe HOW WELL – performance.",
+   "Correct: Encrypted storage concerns security.",
+   "Correct: Fast, independent modifiability concerns maintainability.",
+   "Incorrect (trap): Cancellation describes a function – a functional requirement.",
+   "Incorrect: CSV export describes a function – a functional requirement."
   ],
-  "explanation": "Performance, security, and maintainability are quality requirements. 'Cancel an invoice' describes a function - i.e. a functional requirement."
+  "explanation": "Performance, security, and maintainability are quality requirements (HOW WELL). “Cancel an invoice” and “CSV export” describe functions – functional requirements."
  },
  "c2q15": {
-  "q": "Which is an example of an organizational (non-technical) constraint?",
+  "q": "Which of the following are organizational constraints (as distinct from technical or regulatory ones)?",
   "options": [
-   "The project must be completed by year-end with the existing team.",
-   "Data storage must be in a relational database.",
-   "Communication between the services runs over HTTPS.",
-   "The response time must be below 300 ms."
+   "The project must be completed by year-end with the existing, fixed team.",
+   "Development follows the process model prescribed within the company.",
+   "Data storage must be done in a relational database.",
+   "Communication between the services must run over HTTPS.",
+   "The response time must be under 300 ms."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Correct: schedule and team composition are organizational constraints.",
-   "A database mandate is a technical, not an organizational constraint.",
-   "A protocol mandate such as HTTPS is a technical constraint.",
-   "The response time is a quality requirement, not a constraint."
+   "Correct: Deadline and team composition are organizational constraints.",
+   "Correct: A prescribed process model is an organizational constraint.",
+   "Incorrect (near-miss): A database specification is a technical constraint.",
+   "Incorrect: A protocol specification (HTTPS) is a technical constraint.",
+   "Incorrect: The response time is a quality requirement, not a constraint."
   ],
-  "explanation": "Schedule and team composition are organizational constraints. Database/protocol mandates are technical constraints; the response time is a quality requirement."
+  "explanation": "Deadline/team and a prescribed process model are organizational constraints. Database and protocol specifications are technical constraints; the response time is a quality requirement."
  },
  "c2q16": {
-  "q": "From what do quality requirements typically derive?",
+  "q": "What do quality requirements typically derive from?",
   "options": [
-   "From the business goals of the client.",
-   "From the needs and concerns of the stakeholders.",
-   "From the programming language already chosen.",
+   "From the client's business goals.",
+   "From the needs and concerns of the various stakeholders.",
+   "From legal and regulatory requirements that the system must meet.",
    "From the number of available developers.",
    "From the chosen process model (e.g. Scrum or waterfall)."
   ],
-  "optExpl": [
-   "The client's business goals are a central source.",
-   "The needs and concerns of the stakeholders yield quality requirements.",
-   "The technology choice is not a source of quality requirements.",
-   "Team size does not generate quality requirements.",
-   "The process model determines the process, not the quality requirements."
+  "correct": [
+   0,
+   1,
+   2
   ],
-  "explanation": "Quality requirements arise from business goals and stakeholder concerns. The technology choice or team size is not a source of quality requirements."
+  "optExpl": [
+   "Correct: Business goals are a central source of quality requirements.",
+   "Correct: Stakeholder concerns provide quality requirements.",
+   "Correct: Legal/regulatory requirements can justify quality requirements (e.g. security, data protection).",
+   "Incorrect (trap): Team size is an (organizational) constraint, not a source of quality requirements.",
+   "Incorrect: The process model determines the process, not the quality requirements."
+  ],
+  "explanation": "Quality requirements arise from business goals, stakeholder concerns, and legal/regulatory requirements. Team size (a constraint) and the process model are not a source of quality requirements."
  },
  "c2q17": {
-  "q": "What distinguishes a requirement from a solution?",
+  "q": "A requirements document contains the sentence: “PostgreSQL is to be used for data storage.” What is most likely correct?",
   "options": [
-   "A requirement describes WHAT or HOW WELL something should be - not the concrete implementation.",
-   "A requirement already fixes the concrete technology for the implementation.",
-   "A requirement is a design decision that has already been made.",
-   "Requirement and solution differ only in level of detail."
+   "Strictly speaking, this is a solution/technology specification and acts as a constraint – a pure requirement would describe only the WHAT/HOW WELL.",
+   "This is a functional requirement, because it defines the behavior of data storage.",
+   "This is a quality requirement, because databases determine performance.",
+   "Requirement and solution are the same thing here anyway, just at different levels of detail."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: requirements state WHAT or HOW WELL, not the concrete how.",
-   "A requirement does not mandate a concrete technology for the implementation.",
-   "A requirement is not a design decision that has already been made.",
-   "The difference is fundamental, not just level of detail."
+   "Correct: A specific technology decision pre-empts the solution space and acts as a constraint; a requirement names the WHAT/HOW WELL, not the specific HOW.",
+   "Incorrect (near-miss): No business behavior is described, but a technology is prescribed.",
+   "Incorrect: Not the choice of database itself, but any performance goals would be the quality requirement.",
+   "Incorrect: Requirement (WHAT/HOW WELL) and solution (HOW) differ fundamentally, not just in level of detail."
   ],
-  "explanation": "Requirements state what or how well - the solution (architecture) determines the how. A requirement does not mandate a technology, is not a design decision, and is more than just 'less detailed'."
+  "explanation": "A specific technology specification does not describe WHAT/HOW WELL but fixes a solution and therefore acts as a constraint. It is neither a functional nor a quality requirement, and requirement and solution differ fundamentally."
  },
  "c2q18": {
-  "q": "Why is it useful to also record non-goals (deliberately excluded points)?",
+  "q": "Which statements about recording non-goals (deliberately excluded points) are correct?",
   "options": [
-   "To clarify the scope and avoid false expectations.",
-   "To thereby fully replace the functional requirements.",
-   "To bindingly assign the team tasks for later releases.",
-   "To make the architecture independent of the goals."
+   "They clarify the scope and prevent false expectations.",
+   "They facilitate later decisions, because it is documented what is deliberately not pursued.",
+   "A non-goal can change over the course of the project and later become a goal after all.",
+   "They replace the functional requirements and make their elicitation superfluous.",
+   "They decouple the architecture from the goals of the system."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: non-goals clarify the scope and avoid false expectations.",
-   "Non-goals do not replace functional requirements.",
-   "They are not a binding task plan for later releases.",
-   "They do not decouple the architecture from the goals."
+   "Correct: Non-goals delimit the scope and manage expectations.",
+   "Correct: Documented exclusions facilitate later decisions and discussions.",
+   "Correct (subtle): Non-goals are not set in stone and can change over the course.",
+   "Incorrect (trap): Non-goals do not replace functional requirements.",
+   "Incorrect: They do not decouple the architecture from the goals."
   ],
-  "explanation": "Non-goals delimit the scope and manage expectations. They do not replace requirements, are not release planning, and do not decouple the architecture from the goals."
+  "explanation": "Non-goals clarify the scope, manage expectations, facilitate later decisions, and can change over the course. They do not replace functional requirements and do not decouple the architecture from the goals."
  },
  "c2q19": {
-  "q": "Which pieces of information help make a quality requirement verifiable?",
+  "q": "A quality scenario is meant to make a quality requirement verifiable. Which components belong to such a scenario?",
   "options": [
-   "A concrete trigger/stimulus.",
-   "The context or environment.",
-   "A measurable response measure.",
-   "A rough verbal assessment without a numerical value.",
-   "The estimated development costs for the implementation."
+   "A concrete trigger/stimulus (e.g. “1000 simultaneous requests arrive”).",
+   "The environment/operating state in which the scenario applies (e.g. “under full load”).",
+   "A measurable response measure (e.g. “95 % in under 1 s”).",
+   "The estimated development costs of the implementation.",
+   "The specification of the programming language to be used."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "A concrete trigger is part of the verifiable quality scenario.",
-   "The context or environment makes the requirement verifiable.",
-   "A measurable response measure allows unambiguous verification.",
-   "A rough verbal assessment without numbers is not verifiable.",
-   "Estimated costs say nothing about the verifiability of the requirement."
+   "Correct: The trigger is a core component of the scenario.",
+   "Correct: Environment/operating state belong to it, since behavior is context-dependent.",
+   "Correct: A measurable response measure allows unambiguous verification.",
+   "Incorrect (trap): Costs do not belong to the scenario and say nothing about verifiability.",
+   "Incorrect: The language choice is a solution decision/constraint, not a scenario component."
   ],
-  "explanation": "A quality requirement becomes verifiable through a trigger, context, and a measurable response measure. A rough verbal assessment without numbers is precisely not verifiable."
+  "explanation": "A quality scenario consists, among other things, of a trigger, an environment/context, and a measurable response measure. Development costs and the choice of programming language do not belong to it."
  },
  "c2q20": {
-  "q": "What is needed when the interests of different stakeholders compete?",
+  "q": "Two important stakeholders hold incompatible goals (maximum security vs. maximum ease of use). Which approaches are appropriate?",
   "options": [
-   "A deliberate weighing and prioritizing of the conflicting concerns.",
-   "Implementing every stated wish unchanged and in full.",
-   "Leaving the decision solely to the technically loudest stakeholder.",
-   "Setting conflicts aside until they resolve themselves in operation."
+   "Make the conflicting concerns transparent and deliberately weigh them against one another.",
+   "Bring about and document a justified prioritization or a viable compromise.",
+   "Escalate the decision to the responsible authority (e.g. client/product ownership) if no balance can be achieved.",
+   "Implement every stated wish unchanged and in full.",
+   "Leave the decision to the hierarchically or rhetorically strongest stakeholder."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: conflicting concerns require deliberate weighing and prioritizing.",
-   "Implementing all wishes unchanged and in full is impossible.",
-   "Favoring a single stakeholder is unbalanced.",
-   "Sitting it out does not resolve the conflicts by itself."
+   "Correct: Transparency and deliberate weighing are the first step.",
+   "Correct: Prioritization/compromise together with documentation of the decision is appropriate.",
+   "Correct: In the case of an unresolvable conflict, escalation to the responsible authority makes sense.",
+   "Incorrect (trap): Incompatible goals cannot all be fully met.",
+   "Incorrect: Letting the “loudest” stakeholder decide is unbalanced and irrelevant to the matter."
   ],
-  "explanation": "Competing concerns require deliberate weighing and prioritizing. Implementing everything is impossible, favoring individuals is unbalanced, and sitting it out does not resolve conflicts."
+  "explanation": "Competing concerns require transparency, deliberate weighing, a justified prioritization/a compromise, and, if necessary, escalation to the responsible authority. Fully meeting all wishes is impossible, and following the strongest stakeholder is unbalanced."
  },
  "c2q21": {
-  "q": "What changed in the product quality model of ISO/IEC 25010 with the 2023 revision?",
+  "q": "A colleague claims several things about the 2023 revision of ISO/IEC 25010. Which statement is correct?",
   "options": [
-   "\"Safety\" was added as a standalone characteristic, and \"Usability\" is now called \"Interaction Capability\".",
-   "The number of main characteristics was reduced to three.",
-   "Quality characteristics were completely replaced by functional requirements.",
-   "\"Reliability\" and \"Maintainability\" were removed without replacement."
+   "“Safety” was added as an independent top-level characteristic.",
+   "The number of top-level characteristics was reduced to three.",
+   "“Portability” was removed without replacement and has no successor in the model.",
+   "“Reliability” and “Maintainability” were removed in the course of the revision."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Safety was added, and Usability was renamed to \"Interaction Capability\".",
-   "The number of main characteristics was not reduced to three.",
-   "Quality characteristics were not replaced by functional requirements.",
-   "Reliability and Maintainability still remain in place."
+   "Correct: Safety was added as an independent top-level characteristic in 2023.",
+   "Incorrect (trap): The number of top-level characteristics was not reduced to three (there are nine).",
+   "Incorrect (near-miss): Portability was not removed without replacement but transferred into “Flexibility.”",
+   "Incorrect: Reliability and Maintainability continue to exist."
   ],
-  "explanation": "In 2023, among other things Safety was added as a distinct characteristic and \"Usability\" was renamed to \"Interaction Capability\" (Portability was folded into \"Flexibility\"). Reliability and Maintainability still remain."
+  "explanation": "In 2023, Safety, among others, was added as an independent top-level characteristic; the model still has several (nine) top-level characteristics. Portability was not removed but transferred into “Flexibility,” and Reliability/Maintainability continue to exist."
  },
  "c2q22": {
-  "q": "How should you sensibly proceed when identifying stakeholders?",
+  "q": "How does one sensibly proceed when identifying stakeholders?",
   "options": [
-   "Scan the environment layer by layer – from the system, through the business system, out to the wider surroundings.",
+   "Scan the environment layer by layer – from the system through the business system to the wider environment (onion model).",
    "Ask already-known stakeholders about further affected parties (snowball principle).",
-   "Consider only the paying clients.",
-   "Include only stakeholders with a positive basic attitude toward the project.",
-   "Create the stakeholder list once at project start and never adjust it afterward."
+   "Also consider non-paying, indirectly affected, and critically minded people.",
+   "Create the stakeholder list only once at project start and freeze it thereafter.",
+   "Include only those stakeholders who actively participate in the development process."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Scanning the environment layer by layer (Alexander's \"onion\") finds stakeholders.",
-   "The snowball principle uncovers further affected parties via known contacts.",
-   "Non-paying affected parties can also be relevant stakeholders.",
-   "Critically-minded affected parties are also relevant stakeholders.",
-   "The stakeholder list must be continuously maintained, not created only once."
+   "Correct: Scanning layer by layer (onion model) finds stakeholders systematically.",
+   "Correct: The snowball principle uncovers further affected parties via acquaintances.",
+   "Correct: Indirectly affected parties and critics are also relevant stakeholders.",
+   "Incorrect (trap): The list must be updated, not frozen.",
+   "Incorrect (near-miss): Being affected, not active participation, determines the stakeholder property; non-participants also count."
   ],
-  "explanation": "You examine the environment layer by layer (Alexander's \"onion\") and expand via the snowball principle. Non-paying and critically-minded affected parties can also be relevant stakeholders."
+  "explanation": "One scans the environment layer by layer (onion model), extends via the snowball principle, and also considers indirectly affected parties and critics. The list must be kept up to date, and what matters is being affected, not active participation."
  },
  "c2q23": {
-  "q": "What does Conway's Law state in the context of software architecture?",
+  "q": "An architecture team is split into separate departments along the organizational structure and finds that the system reflects the same boundaries. Which statement describes Conway's Law correctly?",
   "options": [
    "The structure of a system tends to mirror the communication structures of the developing organization.",
+   "Systems inevitably erode over time if the documentation is not maintained.",
    "System performance grows linearly with the number of servers deployed.",
-   "Every architecture inevitably erodes over time.",
-   "The number of interfaces should equal the number of developers."
+   "The number of interfaces should correspond to the number of developers involved."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: System structures mirror the communication paths of the organization.",
-   "A linear performance increase with servers is not Conway's statement.",
-   "Architecture erosion is a different phenomenon, not Conway's Law.",
-   "Number of interfaces equal to number of developers is fabricated."
+   "Correct: Conway's Law states precisely this mirroring of communication paths in the system structure.",
+   "Incorrect (near-miss): That describes architecture erosion, not Conway's Law.",
+   "Incorrect: Linear scaling with servers is not Conway's statement.",
+   "Incorrect: The number of interfaces equaling the number of developers is made up."
   ],
-  "explanation": "Conway's Law: system structures mirror the communication paths of the organization (and, conversely, influence them). The other statements concern scaling or erosion, or are fabricated."
+  "explanation": "Conway's Law: system structures mirror the communication paths of the developing organization. The other options concern erosion, scaling, or are made up."
  },
  "c2q24": {
-  "q": "What does experience show about implicit (unspoken) requirements?",
+  "q": "Which statements about implicit (unspoken) requirements are correct?",
   "options": [
-   "They often concern quality requirements and should be actively made explicit.",
-   "They are mostly functional in nature and are fully documented anyway.",
-   "They can be ignored because they are unimportant to the architecture.",
-   "The client always states them clearly of their own accord."
+   "They frequently concern quality requirements and should be actively made explicit.",
+   "They are often based on taken-for-granted expectations that the client does not even mention.",
+   "If they are overlooked, this often shows only late and causes high correction costs.",
+   "They are mostly functional in nature and, as a rule, already fully documented.",
+   "They can be ignored because they are unimportant for the architecture."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: Implicit expectations often concern quality and must be made explicit.",
-   "They are often qualitative and precisely not fully documented.",
-   "They strongly shape the architecture and must not be ignored.",
-   "Unspoken expectations are rarely stated clearly of their own accord."
+   "Correct: Implicit expectations are frequently quality-related and must be worked out.",
+   "Correct: They often remain unmentioned because they are considered self-evident.",
+   "Correct: Overlooked implicit requirements become visible late and expensively.",
+   "Incorrect (trap): They are often qualitative and precisely not fully documented.",
+   "Incorrect: They shape the architecture strongly and must not be ignored."
   ],
-  "explanation": "Implicit expectations often concern quality requirements and strongly shape the architecture – you must actively work them out. Precisely because they are unspoken, they are easily overlooked."
+  "explanation": "Implicit requirements are often quality-related, remain unmentioned as supposedly self-evident, and, if disregarded, become visible late and expensively; they must be actively made explicit. They are not predominantly documented and are by no means unimportant."
  },
  "c2q25": {
-  "q": "How does a factual conflict differ from a conflict of interest?",
+  "q": "Two stakeholders are in dispute. How does a substantive conflict most likely differ from a conflict of interests?",
   "options": [
-   "A factual conflict is about facts or solution approaches; a conflict of interest is about the incompatible goals of the parties.",
-   "A factual conflict concerns only people, a conflict of interest only technology.",
-   "Both are identical and are merely named differently.",
-   "A conflict of interest can always be resolved by facts alone."
+   "A substantive conflict revolves around facts or solution approaches, a conflict of interests around incompatible goals of the parties.",
+   "A substantive conflict concerns exclusively technical questions, a conflict of interests exclusively interpersonal ones.",
+   "A substantive conflict can never be resolved by more information, a conflict of interests always can.",
+   "Both are essentially identical and differ only in their naming."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: A factual conflict concerns facts/solution, a conflict of interest incompatible goals.",
-   "The assignment \"people versus technology\" is wrong.",
-   "The two types of conflict are not identical.",
-   "Conflicts of interest can rarely be resolved by facts alone."
+   "Correct: Substantive conflict = dispute over facts/solution approach; conflict of interests = incompatible goals.",
+   "Incorrect (near-miss): Substantive conflicts are not purely technical and conflicts of interests not purely interpersonal.",
+   "Incorrect: Rather, a substantive conflict can be resolved through facts/transparency, a conflict of interests precisely not by that alone.",
+   "Incorrect: The two types of conflict are not identical."
   ],
-  "explanation": "Factual conflict = dispute over facts/solution (often resolvable through transparency); conflict of interest = incompatible goals (balancing/compromise needed, facts alone rarely suffice)."
+  "explanation": "A substantive conflict concerns facts/solution approaches (often resolvable through transparency), a conflict of interests concerns incompatible goals (requiring balance/compromise, facts alone rarely suffice). The technical/interpersonal assignment is wrong, and the types of conflict are not identical."
  },
  "c2q26": {
-  "q": "What characterizes a constraint compared to a normal requirement?",
+  "q": "Which statements correctly characterize a constraint?",
   "options": [
-   "It is a predetermined limit that the team can hardly or not at all influence.",
-   "It is freely negotiable and easily changeable by the architecture team at any time.",
+   "It is a predetermined limit that the team can barely or not at all influence.",
+   "It can be technical, organizational, or legal in nature.",
+   "It should be documented just like other requirements, since it influences the design.",
    "It is always a purely functional specification.",
-   "Unlike requirements, it does not need to be documented."
+   "It is freely negotiable and easily changeable by the architecture team at any time."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: Constraints are predetermined limits that can hardly be influenced.",
-   "They are precisely not freely negotiable or easily changeable.",
-   "They are not purely functional, but also technical or organizational.",
-   "Constraints should also be documented."
+   "Correct: Constraints are predetermined limits that can barely be influenced.",
+   "Correct: They can be technical, organizational, or legal.",
+   "Correct: Constraints should also be documented, since they shape the design.",
+   "Incorrect (near-miss): They are not purely functional but of the most varied nature.",
+   "Incorrect (trap): Constraints are precisely not freely negotiable or easily changeable."
   ],
-  "explanation": "Constraints are predetermined, hardly influenceable limits (technical, organizational, legal). They are precisely not freely negotiable, not inherently functional, and also need to be documented."
+  "explanation": "Constraints are predetermined limits that can barely be influenced (technical, organizational, legal) and should be documented because they shape the design. They are not purely functional and not freely negotiable."
  },
  "c2q27": {
-  "q": "What does the Kano model describe in dealing with requirements?",
+  "q": "A product owner wants to classify requirements using the Kano model. What describes the Kano model correctly?",
   "options": [
-   "It distinguishes basic, performance, and excitement characteristics by their effect on satisfaction.",
-   "It prioritizes requirements solely by implementation cost.",
-   "It maps requirements to the ISO 25010 characteristics.",
-   "It measures the technical complexity of a requirement."
+   "It distinguishes basic, performance, and excitement attributes according to their effect on satisfaction.",
+   "It prioritizes requirements exclusively by their implementation costs.",
+   "It maps every requirement to exactly one ISO 25010 quality characteristic.",
+   "It sorts requirements strictly by business value, like the MoSCoW method."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Kano distinguishes basic, performance, and excitement characteristics by their effect on satisfaction.",
-   "Kano does not prioritize solely by implementation cost.",
-   "Kano does not map requirements to the ISO 25010 characteristics.",
-   "Kano does not measure the technical complexity of a requirement."
+   "Correct: Kano classifies by effect on satisfaction (basic, performance, excitement attributes).",
+   "Incorrect: Kano does not prioritize primarily by costs.",
+   "Incorrect (near-miss): Kano is not a quality model and maps nothing to ISO 25010 characteristics.",
+   "Incorrect (near-miss): Value prioritization by must/should/could is MoSCoW, not Kano."
   ],
-  "explanation": "Kano classifies by effect on satisfaction: basic (must-have, only noticed negatively), performance (the more the better), and excitement characteristics (unexpectedly pleasing). It is not primarily about cost, ISO mapping, or complexity."
+  "explanation": "Kano classifies by effect on satisfaction: basic (must-have, only noticed negatively), performance (the more, the better), and excitement attributes (unexpectedly pleasing). It is not about costs, involves no ISO mapping, and is not MoSCoW."
  },
  "c3q1": {
-  "q": "Which statements about coupling and cohesion in design are correct?",
+  "q": "Which statements about coupling and cohesion are correct?",
   "options": [
-   "Loose coupling between building blocks is desirable.",
-   "High cohesion within a building block is desirable.",
-   "High coupling makes independent changes to individual building blocks easier.",
-   "Low cohesion improves the reusability of a building block.",
-   "Coupling and cohesion essentially denote the same quality characteristic.",
-   "Cohesion measures the strength of the dependencies between different building blocks."
+   "Loose coupling and high cohesion are complementary goals: the former concerns the relationships between building blocks, the latter the internal cohesion of a building block.",
+   "A building block with high cohesion bundles elements that serve the same responsibility.",
+   "If two building blocks are connected via a narrow, stable interface instead of shared mutable data structures, their coupling tends to decrease.",
+   "Cohesion measures the number and strength of the dependencies between different building blocks.",
+   "The higher the cohesion of a building block, the higher its coupling to neighboring building blocks."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Loose coupling reduces dependencies and eases isolated changes.",
-   "High cohesion bundles what belongs together and improves comprehensibility.",
-   "High coupling hinders isolated changes rather than easing them.",
-   "Low cohesion worsens comprehensibility and reuse rather than improving them.",
-   "Coupling and cohesion are different, complementary concepts, not the same thing.",
-   "Dependencies between building blocks describe coupling, not cohesion."
+   "Correct: Coupling and cohesion are distinct, complementary dimensions - between building blocks and within a building block, respectively.",
+   "Correct: High cohesion means that the constituents of a building block serve a common task.",
+   "Correct: Exchange via a defined, stable interface lowers coupling compared to shared mutable state.",
+   "Near-Miss: Dependencies between building blocks describe coupling, not cohesion.",
+   "Wrong: Cohesion and coupling are independent dimensions; high cohesion does not entail high coupling."
   ],
-  "explanation": "The goal is loose coupling and high cohesion. High coupling hinders isolated changes, and low cohesion worsens comprehensibility and reuse."
+  "explanation": "Coupling (relationships between building blocks) and cohesion (internal cohesion) are different, complementary dimensions. The goal is loose coupling with high cohesion. The number/strength of dependencies between building blocks is precisely coupling, and high cohesion does not force high coupling."
  },
  "c3q2": {
-  "q": "What does the principle of 'Information Hiding' (the secrecy principle) state?",
+  "q": "Which statement most accurately describes information hiding in the sense of Parnas?",
   "options": [
-   "Internal implementation details are hidden behind a stable interface.",
-   "All attributes are made public so that other building blocks can access them directly.",
-   "The interface is inevitably adjusted with every internal change.",
-   "The source code is stored encrypted."
+   "Design decisions that are likely to change are hidden behind a stable interface, so that changes remain local.",
+   "Each building block has exactly one business responsibility and therefore only one reason to change.",
+   "Internal data structures may be used by other building blocks as long as they are documented.",
+   "Sensitive fields are stored encrypted in order to prevent unauthorized data access."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Internals lie behind a stable interface; internal changes do not affect users.",
-   "Public attributes contradict the hiding of implementation details.",
-   "A stable interface is precisely meant not to change with every modification.",
-   "Information Hiding means encapsulation, not encryption of the source code."
+   "Correct: Parnas hides precisely those design decisions that are likely to change behind a stable interface.",
+   "Near-Miss: That describes the Single Responsibility Principle, not information hiding.",
+   "Wrong: Exposed internal structures contradict the hiding of implementation details, even if they are documented.",
+   "Wrong: Information hiding means encapsulation of design decisions, not encryption of data."
   ],
-  "explanation": "Information Hiding conceals internals behind a stable interface, so that internal changes do not affect users. It is not about public attributes, co-changed interfaces, or encryption."
+  "explanation": "Information hiding conceals the design decisions that are likely to change behind a stable interface, so that changes remain local. It is neither the SRP nor data encryption, and exposing documented internals contradicts the principle."
  },
  "c3q3": {
-  "q": "What does the 'S' in the SOLID principles stand for?",
+  "q": "Which statement about the ‚S‘ in the SOLID principles is correct?",
   "options": [
-   "Single Responsibility Principle – a building block has exactly one responsibility (one reason to change).",
-   "Separation of Concerns – concerns are separated.",
-   "Stateless Principle – building blocks hold no state.",
-   "Substitution Principle – subtypes replace their base types."
+   "Single Responsibility Principle: A building block should have only a single reason to change.",
+   "Single Responsibility Principle: A class may have only a single public method.",
+   "The ‚S‘ stands for Separation of Concerns, the overarching principle behind SOLID.",
+   "The ‚S‘ stands for Substitutability: subtypes must be able to replace their base types."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: The S stands for Single Responsibility – one reason to change per building block.",
-   "Separation of Concerns is a separate principle, not part of SOLID.",
-   "A \"Stateless Principle\" is not part of the SOLID principles.",
-   "Substitutability is the L (Liskov), not the S."
+   "Correct: The SRP states exactly one reason to change per building block.",
+   "Near-Miss: One responsibility does not mean only a single method; that is a misinterpretation of the SRP.",
+   "Wrong: Separation of Concerns is related, but it is not part of SOLID and not the ‚S‘.",
+   "Near-Miss: Substitutability is the ‚L‘ (Liskov), not the ‚S‘."
   ],
-  "explanation": "The S stands for Single Responsibility. Separation of Concerns is a different principle (not part of SOLID), and substitutability is the L (Liskov)."
+  "explanation": "The ‚S‘ is the Single Responsibility Principle - one reason to change per building block. It does not require only one method. Separation of Concerns is a different principle (not part of SOLID), and substitutability is the ‚L‘."
  },
  "c3q4": {
-  "q": "Which statements about layered architecture (Layers) are correct?",
+  "q": "Which statements about the layered architecture (layers) are correct?",
   "options": [
-   "Higher layers use the services of lower layers.",
-   "The ordered direction of dependencies eases replacement and understanding.",
-   "Within a layer, deliberately very different levels of abstraction are bundled.",
-   "To optimize performance, lower layers should regularly call higher layers.",
-   "The number of layers is fixed at exactly three."
+   "Higher layers use services of lower-lying layers; the dependencies run in one direction.",
+   "A layer bundles building blocks of a similar abstraction level, which facilitates the replacement of individual layers.",
+   "Calls from a lower to a higher layer (backward dependencies) count as a layering violation.",
+   "Since layers separate technical concerns, the business logic typically resides in the lowest layer.",
+   "The number of layers is fixed by the pattern and independent of the concrete system."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Upper layers access the defined services of the layers below.",
-   "The ordered direction of dependencies creates structure and eases replacement and understanding.",
-   "A layer bundles a similar, not a differing, level of abstraction as far as possible.",
-   "Calls from bottom to top create undesirable cycles.",
-   "The number of layers is not fixed; three is just a common example."
+   "Correct: The ordered direction of dependencies from top to bottom is the key characteristic.",
+   "Correct: A similar abstraction level per layer facilitates understanding and replacement.",
+   "Correct: Backward dependencies create cycles and violate the layering rule.",
+   "Wrong: The lowest layer usually encapsulates technical concerns (e.g. persistence), not the business logic.",
+   "Wrong: Three layers are only a common example; the number results from the system."
   ],
-  "explanation": "Upper layers use defined services below; the ordered direction creates structure. A layer bundles a similar level of abstraction as far as possible, and calls from bottom to top create undesirable cycles."
+  "explanation": "Higher layers use lower-lying services in one direction; each layer bundles a similar abstraction level, and backward dependencies are violations. Business logic does not per se reside at the very bottom, and the number of layers is not fixed."
  },
  "c3q5": {
   "q": "Which statements about Ports & Adapters (hexagonal architecture) are correct?",
   "options": [
-   "The domain core logic is decoupled from technology and infrastructure.",
-   "External concerns (UI, DB, APIs) are connected via interchangeable adapters.",
-   "The domain logic depends directly on the concrete database technology.",
-   "The goal is to bundle UI, logic, and persistence into one layer.",
-   "The dependencies point from the domain logic outward toward technology and infrastructure."
+   "The core business logic is decoupled from technology and infrastructure.",
+   "Outer concerns (UI, DB, external APIs) are connected via interchangeable adapters.",
+   "The dependencies are directed such that the business logic does not need to know the concrete adapters (dependency inversion at the ports).",
+   "A port is the concrete, technology-specific implementation, such as JDBC database access.",
+   "The business logic calls the database via its concrete driver API in order to save translation layers."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Ports & Adapters isolates the domain logic from technology and infrastructure.",
-   "External concerns are connected via interchangeable adapters.",
-   "A direct DB dependency of the domain logic contradicts the decoupling.",
-   "Bundling all concerns contradicts the separation of core and technology.",
-   "The dependencies point inward toward the domain logic, not from it outward."
+   "Correct: Isolating the domain logic from technology is the core of the pattern.",
+   "Correct: Outer parts are connected via interchangeable adapters.",
+   "Correct: The dependencies point inward to the business logic; ports are abstractions that the core defines.",
+   "Near-Miss: The port is the abstraction; the technology-specific implementation is the adapter.",
+   "Wrong: A direct driver dependency of the business logic contradicts the decoupling."
   ],
-  "explanation": "Ports & Adapters isolates the domain logic from technology and connects external elements via interchangeable adapters. A direct DB dependency or bundling all concerns contradicts this."
+  "explanation": "Ports & Adapters isolates the domain logic from technology, connects outer parts via interchangeable adapters, and directs the dependencies inward (ports as abstractions of the core). The port is the abstraction, not the concrete implementation; a direct driver access by the business logic contradicts the pattern."
  },
  "c3q6": {
   "q": "Which statements typically apply to microservices?",
   "options": [
-   "They are independently deployable and cut along domain boundaries.",
-   "They increase operational complexity (distribution, monitoring).",
-   "They must necessarily share a common database.",
-   "They communicate exclusively via direct in-process calls.",
-   "They must all be implemented in the same programming language."
+   "They are independently deployable and cut along business boundaries.",
+   "They increase operational complexity (distribution, monitoring, failure scenarios).",
+   "Each service manages its own data and encapsulates it behind its interface.",
+   "The business cut into services directly corresponds to the cut into technical layers (one UI, logic, and data service each).",
+   "Since each service is small, the overall effort for testing and operation decreases compared to a monolith."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Microservices are independently deployable and cut along domain boundaries.",
-   "Distribution and monitoring increase operational complexity.",
-   "A shared database contradicts the independence of the services.",
-   "Services communicate over the network, not only in-process.",
-   "Microservices allow different languages; a uniform one is not necessary."
+   "Correct: Independent deployability and a business-oriented cut are key characteristics.",
+   "Correct: Distribution and operation increase operational complexity.",
+   "Correct: Own data sovereignty per service (no shared database) is typical.",
+   "Near-Miss: Microservices are cut along business boundaries (vertically); a cut along technical layers is precisely an anti-pattern.",
+   "Wrong: Distributed tests and the operation of many services tend to increase the overall effort."
   ],
-  "explanation": "Microservices are independently deployable, cut along domain boundaries, and increase operational complexity. A shared DB or purely in-process calls contradict the approach (communication over the network)."
+  "explanation": "Microservices are independently deployable, cut along business boundaries, hold their own data, and increase operational complexity. A cut along technical layers contradicts the business cut, and distributed operation does not lower the overall effort."
  },
  "c3q7": {
   "q": "Which of these belong to the fundamental design principles?",
   "options": [
    "Separation of Concerns.",
    "Abstraction.",
-   "Modularization and encapsulation.",
-   "Early optimization at any cost.",
-   "Combining as many responsibilities as possible in one class.",
-   "Favoring copy-and-paste for quick reuse of code."
+   "Encapsulation, i.e. information hiding.",
+   "Committing to a concrete framework as early as possible, in order to stabilize design decisions early.",
+   "Maximizing reuse through generic building blocks, even if this lowers cohesion."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Separation of Concerns is a fundamental design principle.",
-   "Abstraction is one of the fundamental design principles.",
-   "Modularization and encapsulation are fundamental design principles.",
-   "\"Premature Optimization\" is a well-known anti-pattern, not a principle.",
-   "Many responsibilities in one class contradict the Single Responsibility Principle (SRP).",
-   "Copy-and-paste violates DRY and is an anti-pattern, not a principle."
+   "Correct: Separation of Concerns is a fundamental design principle.",
+   "Correct: Abstraction is one of the fundamental design principles.",
+   "Correct: Encapsulation/information hiding is a fundamental design principle.",
+   "Wrong: Fundamental decisions should rather be deferred; an early framework commitment is not a design principle.",
+   "Wrong: Reuse at the expense of cohesion contradicts good design goals and is not a principle."
   ],
-  "explanation": "SoC, abstraction, and modularization are fundamental principles. 'Premature Optimization', by contrast, is a well-known anti-pattern."
+  "explanation": "Separation of Concerns, abstraction, and encapsulation are fundamental design principles. An early framework commitment or reuse at the expense of cohesion, by contrast, are not principles but rather counterproductive incentives to be avoided."
  },
  "c3q8": {
-  "q": "Which of the following are typical cross-cutting concepts (cross-cutting concerns)?",
+  "q": "Which of the following are typical cross-cutting concerns?",
   "options": [
-   "Persistence.",
-   "Security and authentication.",
-   "Logging and error handling.",
-   "The calculation of the domain-specific invoice amount.",
-   "The layout of a single input form in the user interface."
+   "Logging and traceability.",
+   "Authentication and authorization.",
+   "Transaction and error handling.",
+   "The calculation of discount tiers in the order process.",
+   "The concrete arrangement of the fields in a single dialog."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Persistence affects many building blocks across the board, so it is a cross-cutting concept.",
-   "Security and authentication act across many building blocks.",
-   "Logging and error handling affect the entire system across the board.",
-   "The amount calculation is a specific domain function, not a cross-cutting concept.",
-   "The layout of a single form is local, not a system-wide cross-cutting concept."
+   "Correct: Logging concerns nearly all building blocks across the board.",
+   "Correct: Security acts across many building blocks.",
+   "Correct: Transaction and error handling are classic cross-cutting concerns.",
+   "Wrong: The discount calculation is a specific business function, not a cross-cutting concern.",
+   "Wrong: The field arrangement of a single dialog is local, not a system-wide cross-cutting concern."
   ],
-  "explanation": "Persistence, security, and logging/error handling affect many building blocks across the board. The amount calculation is a specific domain function, not a cross-cutting concept."
+  "explanation": "Logging, security, as well as transaction and error handling concern many building blocks across the board. The discount calculation is a local business function, and the field arrangement of a dialog is a local UI matter - neither is a cross-cutting concern."
  },
  "c3q9": {
-  "q": "How do top-down and bottom-up design differ?",
+  "q": "A team starts with the overall system view, decomposes it into subsystems, and refines these step by step into building blocks. Which statement is correct?",
   "options": [
-   "Top-down decomposes from the whole into detail; bottom-up assembles from existing detail building blocks.",
-   "Top-down starts at the detail building blocks, bottom-up at the overall system.",
-   "The two approaches are mutually exclusive and must never be combined.",
-   "Top-down concerns only the database, bottom-up only the user interface."
+   "This is a top-down approach; bottom-up would conversely assemble existing detailed building blocks into larger units.",
+   "This is a bottom-up approach, because the structure is created first and only then the details.",
+   "Bottom-up is more suitable when the overall problem is still unclear and must first be roughly structured.",
+   "Both approaches, when applied carefully, necessarily lead to the same architecture."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Top-down goes from the whole into detail, bottom-up the other way around.",
-   "The terms are swapped here; top-down starts with the whole.",
-   "In practice the two approaches are often combined.",
-   "Neither is limited to the database or the user interface."
+   "Correct: From the whole to the detail is top-down; bottom-up assembles existing detailed building blocks.",
+   "Near-Miss: Correct characteristic (structure first, then detail), but wrong label - this is top-down, not bottom-up.",
+   "Wrong: For a still unclear overall problem, top-down is more appropriate; bottom-up needs already viable building blocks.",
+   "Wrong: Both approaches can lead to different structures and are often combined."
   ],
-  "explanation": "Top-down = from the whole into detail, bottom-up = the other way around; both are often combined. The terms are not swapped here and are not limited to DB/UI."
+  "explanation": "The described approach (whole → detail) is top-down; bottom-up conversely assembles existing detailed building blocks. A still unclear overall problem argues rather for top-down, and both approaches do not necessarily deliver the same architecture."
  },
  "c3q10": {
-  "q": "What is the benefit of abstraction and modularization in design?",
+  "q": "Which statements about the benefit of abstraction and modularization in design are correct?",
   "options": [
-   "They make complexity manageable and enable independent development and change.",
-   "They guarantee an increase in the runtime performance of every system.",
-   "They make interfaces between building blocks superfluous.",
-   "They deliberately increase coupling to speed up calls."
+   "They make complexity manageable and allow building blocks to be developed and changed independently.",
+   "They make it possible to swap an implementation behind an abstraction without affecting the users.",
+   "They make explicit interfaces between building blocks superfluous.",
+   "Additional abstraction layers usually also improve runtime performance.",
+   "Fine-grained modularization always lowers the overall complexity, regardless of the number of interfaces."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Correct: They make complexity manageable and allow independent work and change.",
-   "They do not guarantee better runtime performance of every system.",
-   "Interfaces remain necessary and are not made superfluous.",
-   "They reduce coupling rather than deliberately increasing it."
+   "Correct: Managing complexity and working independently are central advantages.",
+   "Correct: Abstractions allow the swapping of implementations behind stable interfaces.",
+   "Wrong: Interfaces are precisely the means of modularization and remain necessary.",
+   "Wrong: Additional abstraction can create overhead; a performance advantage is not the rule.",
+   "Near-Miss: Too fine a division increases the integration complexity via many interfaces - it does not decrease in every case."
   ],
-  "explanation": "Abstraction and modularization make complexity manageable and allow independent work. They do not guarantee performance, do not make interfaces superfluous, and do not increase coupling."
+  "explanation": "Abstraction and modularization manage complexity and allow independent work as well as the swapping of implementations. They do not make interfaces superfluous, do not generally improve performance, and with too fine a granularity do not necessarily lower the overall complexity."
  },
  "c3q11": {
-  "q": "For which scenario is the \"Pipes and Filters\" pattern best suited?",
+  "q": "For which scenario is the ‚Pipes and Filters‘ pattern best suited?",
   "options": [
-   "A multi-stage data processing in which the output of one step is the input of the next.",
-   "A highly interactive dialog in which the user constantly jumps back and forth between sub-steps.",
-   "A system in which all steps jointly maintain a central, mutable state.",
-   "A processing whose steps are rewired at runtime in a highly changing order."
+   "A multi-stage data processing in which each step passes its result to the next and the filters are independent of one another.",
+   "A processing in which all steps continuously read and write a shared, mutable state.",
+   "A processing with complex, stateful feedback, in which one step deliberately influences earlier steps.",
+   "An interactive workflow in which the user continuously branches the flow freely between the steps."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: A fixed, multi-stage chain, output becomes the input of the next step.",
-   "Pipes and Filters is not intended for highly interactive dialogs.",
-   "A shared central, mutable state does not fit the filter concept.",
-   "Constantly changing wiring contradicts the fixed processing chain."
+   "Correct: An independent, multi-stage chain with output → input is the core of Pipes and Filters.",
+   "Near-Miss: A shared mutable state contradicts the independence of the filters.",
+   "Wrong: Stateful feedback does not fit the directed, largely stateless chain.",
+   "Wrong: For freely branching, interactive flows the pattern is not intended."
   ],
-  "explanation": "Pipes and Filters fits a fixed, multi-stage processing chain (output → input). It is not intended for highly interactive dialogs, a shared global state, or constantly changing wiring."
+  "explanation": "Pipes and Filters fits a directed, multi-stage processing chain with mutually independent filters (output → input). Shared mutable state, complex feedback, or freely branching interaction contradict the pattern."
  },
  "c3q12": {
-  "q": "What is a central difference between synchronous and asynchronous communication?",
+  "q": "Which statement about the difference between synchronous and asynchronous communication is correct?",
   "options": [
-   "In synchronous communication the caller waits for the response, in asynchronous communication it does not.",
-   "Asynchronous communication is fundamentally always faster than synchronous.",
-   "Synchronous communication works only locally, asynchronous only over the network.",
-   "In asynchronous communication the caller blocks until the response arrives."
+   "In synchronous communication the caller is blocked until the response arrives; asynchronous decouples the sending from the processing in time.",
+   "Asynchronous communication couples sender and receiver more tightly in time, since both must be available simultaneously.",
+   "Asynchronous communication is more reliable, because messages cannot be lost in the process.",
+   "Whether a call is synchronous or asynchronous depends solely on whether it takes place locally or over the network."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: In synchronous communication the caller waits, in asynchronous it is temporally decoupled.",
-   "Asynchronous is not universally faster than synchronous.",
-   "Both work locally as well as over the network.",
-   "Blocking until the response arrives is precisely synchronous behavior."
+   "Correct: Blocking until the response is synchronous; temporal decoupling is asynchronous.",
+   "Near-Miss: Simultaneous availability is precisely a characteristic of synchronous communication.",
+   "Wrong: Reliability depends on the infrastructure; asynchronous by itself guarantees no message delivery.",
+   "Wrong: Synchronous/asynchronous describes the waiting behavior, not the location (local vs. network)."
   ],
-  "explanation": "Synchronous = caller waits (blocks), asynchronous = temporally decoupled. Asynchronous is not universally faster, both work locally and over the network, and blocking is precisely synchronous."
+  "explanation": "Synchronous means: the caller waits in a blocking manner; asynchronous decouples sending and processing in time. Simultaneous availability is a synchronous characteristic, reliability is not an automatic property of asynchronous communication, and the location (local/network) does not determine sync/async."
  },
  "c3q13": {
   "q": "Which statements about technical debt are correct?",
   "options": [
-   "It is deferred compromises or deficiencies in code or architecture.",
-   "Left untreated, they make future changes harder and more expensive.",
-   "It refers to the license and operating costs of the software in use.",
-   "They disappear on their own over time, without any action by the team.",
-   "Technical debt arises exclusively through deliberate, planned decisions by the team."
+   "They are deferred compromises or deficiencies in code or architecture.",
+   "If left untreated, they complicate and increase the cost of future changes.",
+   "They can arise both deliberately (a known shortcut under deadline pressure) and inadvertently (lack of knowledge).",
+   "Technical debt is synonymous with the license and operating costs of the software used.",
+   "As long as no new features are planned, technical debt causes no costs."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Technical debt is deferred compromises or deficiencies in code and architecture.",
-   "Left untreated, they make later changes more expensive and harder.",
-   "It is not the license or operating costs of the software in use.",
-   "They do not resolve themselves, but require active action.",
-   "Technical debt also arises unintentionally, not only through planned decisions."
+   "Correct: Technical debt consists of deferred compromises or deficiencies.",
+   "Correct: If left untreated, it increases the effort of future changes.",
+   "Correct: It arises both deliberately and inadvertently (cf. the technical debt quadrant).",
+   "Near-Miss: License and operating costs are ongoing costs, not technical debt.",
+   "Wrong: Even without new features it increases maintenance, defect, and comprehension costs."
   ],
-  "explanation": "Technical debt is deferred deficiencies that make later changes more expensive. It is not license/operating costs and does not resolve itself."
+  "explanation": "Technical debt consists of deferred deficiencies that increase the cost of later changes and arise both deliberately and inadvertently. It is not license/operating costs and causes costs even without new features."
  },
  "c3q14": {
-  "q": "What does the Dependency Inversion Principle require?",
+  "q": "What does the Dependency Inversion Principle (DIP) require?",
   "options": [
-   "High-level and low-level modules should depend on abstractions, not on concrete implementations.",
-   "Low-level modules should depend directly on the high-level modules.",
-   "Dependencies should be avoided entirely by not using any interfaces.",
-   "Details should depend on other details to avoid detours."
+   "High-level and low-level modules depend on common abstractions; abstractions do not depend on details, but details on abstractions.",
+   "Objects should have their dependencies handed to them from outside instead of creating them themselves.",
+   "High-level modules should depend directly on the concrete low-level modules in order to avoid detours.",
+   "The call direction between modules must always correspond to the compile-time dependency."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Both levels depend on abstractions, not on implementations.",
-   "Not direct coupling, but dependence on abstractions is required.",
-   "Interfaces are precisely used, not omitted.",
-   "Details should not depend on details, but on abstractions."
+   "Correct: Both levels depend on abstractions; details depend on abstractions, not the other way around.",
+   "Near-Miss: That describes Dependency Injection (a technique), not the DIP (a principle).",
+   "Wrong: A direct dependency on concrete low-level modules is exactly what the DIP avoids.",
+   "Wrong: The DIP precisely inverts the source/compile-time dependency relative to the call direction."
   ],
-  "explanation": "Dependency Inversion: both levels depend on abstractions, not details on details. It is not about direct high/low coupling or omitting interfaces."
+  "explanation": "The DIP requires that both levels depend on abstractions and that details depend on abstractions, not the other way around. Dependency Injection is an implementation technique, not the principle itself; a direct dependency on low-level modules contradicts the DIP."
  },
  "k3": {
-  "q": "Assign each term: architecture pattern or design principle?",
-  "explanation": "Layers and Ports & Adapters are architecture patterns (structure of the overall system). SRP and Information Hiding are design principles (guidelines for good design).",
+  "q": "Assign each term: architectural pattern or design principle?",
   "categories": [
-   "Architecture pattern",
+   "Architectural pattern",
    "Design principle"
   ],
   "rows": [
-   "Layers",
-   "Single Responsibility Principle",
-   "Ports & Adapters (Hexagonal)",
-   "Information Hiding"
-  ]
+   "Pipes and Filters",
+   "Dependency Inversion Principle",
+   "Microservices",
+   "Separation of Concerns"
+  ],
+  "explanation": "Pipes and Filters and Microservices are architectural patterns/styles (structure of the overall system). Dependency Inversion and Separation of Concerns are design principles (guidelines for good design)."
  },
  "c3q15": {
-  "q": "Which statements about \"Separation of Concerns\" are correct?",
+  "q": "Which statements about ‚Separation of Concerns‘ are correct?",
   "options": [
-   "Different concerns are handled in separate building blocks, each responsible for one.",
-   "It promotes loose coupling and high cohesion and thus eases changes and testing.",
-   "As many concerns as possible are bundled into one building block to save on calls.",
-   "Concerns are separated by developer responsibility instead of by subject matter.",
-   "Separation of Concerns can only be achieved through physical division into separate files."
+   "Different concerns are handled in separate building blocks, each responsible for its own concern.",
+   "It promotes loose coupling and high cohesion and thereby facilitates changes and tests.",
+   "SoC means bundling as many concerns as possible into a single building block for performance reasons.",
+   "SoC and the Single Responsibility Principle are identical and freely interchangeable.",
+   "SoC can be achieved solely through physical division into separate files."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Each concern is handled in its own building block, each responsible for it.",
-   "SoC promotes loose coupling and high cohesion, easing changes and testing.",
-   "Bundling many concerns contradicts the separation of concerns.",
-   "Separation is by subject matter, not by developer responsibility.",
-   "SoC is a concept on many levels, not just physical file separation."
+   "Correct: Each concern is handled in its own responsible building block.",
+   "Correct: SoC favors loose coupling and high cohesion and thus changeability and testability.",
+   "Wrong: Bundling concerns contradicts the separation of concerns.",
+   "Near-Miss: SoC is a broad concept; the SRP is the class-related SOLID variant - related, but not identical.",
+   "Wrong: SoC acts on many levels, not only via physical file separation."
   ],
-  "explanation": "SoC separates concerns into their own building blocks and favors loose coupling/high cohesion (better changeability and testability). Bundling many concerns or separating by person contradicts the principle."
+  "explanation": "SoC separates concerns into their own responsible building blocks and favors loose coupling/high cohesion. Bundling concerns contradicts the principle; SoC is broader than the SRP and not limited to physical file separation."
  },
  "c3q16": {
-  "q": "What does the DRY principle stand for?",
+  "q": "Which statement most accurately describes the DRY principle?",
   "options": [
-   "Knowledge or logic should not be duplicated, but maintained in a single place.",
-   "Every functionality should, for safety reasons, be implemented redundantly in multiple places.",
-   "Two coincidentally similar pieces of code must always be merged immediately.",
-   "The principle concerns only duplicated comments, not duplicated logic."
+   "Every piece of knowledge or every decision has a single, unambiguous, authoritative representation in the system.",
+   "Two syntactically identical code sections must always be merged, even if they have different business reasons.",
+   "Critical logic is redundantly implemented in several places to be on the safe side.",
+   "The principle concerns only duplicate comments and documentation, not duplicate logic."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Knowledge or logic is maintained in a single place, not duplicated.",
-   "Deliberate redundancy as \"safety\" contradicts DRY.",
-   "Necessarily merging only coincidentally similar pieces misses the core.",
-   "DRY concerns duplicated logic, not just duplicated comments."
+   "Correct: DRY aims at a single, authoritative representation of each piece of knowledge.",
+   "Near-Miss: Code that is coincidentally identical for different business reasons (coincidental duplication) should precisely not be forcibly merged.",
+   "Wrong: Deliberate redundancy as ‚safety‘ contradicts DRY.",
+   "Wrong: DRY concerns duplicated knowledge/logic, not only comments."
   ],
-  "explanation": "DRY keeps knowledge/logic in one place, so that changes are made centrally. Redundancy as 'safety', merging coincidentally similar pieces, or a limitation to comments miss the core."
+  "explanation": "DRY requires a single, unambiguous representation of each piece of knowledge. It does not force the merging of coincidentally identical code with different business reasons, does not require logic that is redundant for safety's sake, and does not concern only comments."
  },
  "c3q17": {
   "q": "What does the YAGNI principle state?",
   "options": [
-   "Do not build functionality in advance that is not (yet) currently needed.",
-   "Build in as many extension points as possible up front to be future-proof.",
-   "Implement every requirement as generically as possible from the outset.",
-   "Once functions have been implemented, they may never be removed again."
+   "Do not build functionality on speculation that is not (yet) currently needed.",
+   "Provide as many extension points as possible in advance, in order to keep later changes cheap.",
+   "Implement every requirement as maximally generic and configurable from the start.",
+   "Already existing but unused functions must not be removed for stability reasons."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Build only what is currently needed, nothing in advance.",
-   "Building in extension points in advance contradicts YAGNI.",
-   "Implementing everything as generically as possible up front contradicts YAGNI.",
-   "Removing functions is a different topic than YAGNI."
+   "Correct: Only build what is currently needed, nothing on speculation.",
+   "Near-Miss: Extension points on speculation are speculative generalization - exactly what YAGNI avoids.",
+   "Wrong: Precautionary maximal genericity contradicts YAGNI.",
+   "Wrong: Removing unused functions is a different topic than YAGNI."
   ],
-  "explanation": "YAGNI: build only what is currently needed. Extension points or genericity in advance contradict it; removing functions is a different topic."
+  "explanation": "YAGNI means: only build what is currently needed. Precautionary extension points or maximal genericity are speculative generalization and contradict the principle; removing unused functions is a different topic."
  },
  "c3q18": {
-  "q": "Which statements about architecture patterns are correct?",
+  "q": "Which statements about architectural patterns are correct?",
   "options": [
    "They are proven, reusable solution templates for recurring structural problems.",
-   "They create a common language and must fit the specific problem.",
-   "They are concrete, single-use code snippets.",
-   "Their use guarantees the best solution regardless of context.",
-   "They prescribe the concrete choice of technology and framework as binding."
+   "They create a common language and must fit the concrete problem.",
+   "They are ready-made, reusable code libraries that one includes unchanged.",
+   "The use of an established pattern guarantees the best solution regardless of the context.",
+   "They prescribe the concrete technology and framework choice in a binding manner."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Patterns are proven, reusable templates for recurring structural problems.",
-   "They create a common language but must fit the specific problem.",
-   "Patterns are not concrete, single-use code snippets.",
-   "Patterns do not guarantee the best solution independently of context.",
-   "Patterns are technology-independent and do not prescribe a concrete framework choice."
+   "Correct: Patterns are proven, reusable templates.",
+   "Correct: They create a common language but must fit the problem.",
+   "Near-Miss: Patterns are solution templates/concepts, not code libraries or frameworks to be included.",
+   "Wrong: No pattern guarantees the best solution independent of context.",
+   "Wrong: Patterns are technology-independent and do not prescribe a framework choice."
   ],
-  "explanation": "Architecture patterns are proven, reusable templates and a common language – but they must fit. They are not one-off code and do not guarantee the best solution independently of context."
+  "explanation": "Architectural patterns are proven, reusable templates and a common language, but they must fit the problem. They are not code libraries, do not guarantee the best solution independent of context, and do not prescribe a technology."
  },
  "c3q19": {
   "q": "What does the Model-View-Controller (MVC) pattern separate?",
   "options": [
-   "Data model, presentation (View) and control/interaction (Controller).",
-   "Presentation, application and database layer (three technical layers).",
-   "It deliberately combines model and view into a single component.",
-   "The three phases Compile, Verify and Commit."
+   "Data model, presentation (view), and control/interaction (controller).",
+   "It corresponds exactly to the three technical layers presentation, application, and data storage.",
+   "The view accesses the model exclusively via the controller and never knows the model directly.",
+   "It deliberately merges model and view into a common component."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: MVC separates the data model, View and Controller.",
-   "Technical layers are not the same as model, view and controller.",
-   "MVC separates model and view; it does not merge them.",
-   "Compile, Verify and Commit have nothing to do with MVC."
+   "Correct: MVC separates the responsibilities data, presentation, and control.",
+   "Near-Miss: Technical layers are a different view; MVC is not a 1:1 correspondence to the three-layer architecture.",
+   "Wrong: In the classic MVC variant the view may observe the model directly; that is not a definitional prerequisite.",
+   "Wrong: MVC precisely separates model and view instead of merging them."
   ],
-  "explanation": "MVC separates model, view and controller. This is not the same as technical layers, does not merge model/view, and has nothing to do with Compile/Verify/Commit."
+  "explanation": "MVC separates model, view, and controller. This is not the same as the three technical layers, does not require exclusive view access via the controller, and does not merge model and view."
  },
  "c3q20": {
   "q": "Which measures promote loose coupling?",
   "options": [
    "Communication via clearly defined interfaces or abstractions.",
    "Event-based (asynchronous) communication between building blocks.",
+   "Injecting dependencies from outside (dependency injection) instead of letting building blocks instantiate them themselves.",
    "Direct access to internal fields of other building blocks for shorter paths.",
-   "Shared global, mutable variables for exchanging data.",
-   "Inheritance from concrete classes of other building blocks in order to adopt their behavior directly.",
-   "Introducing mutual (bidirectional) references between two building blocks."
+   "Shared global, mutable variables for data exchange.",
+   "Inheritance from concrete classes of other building blocks in order to directly adopt their behavior."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Clearly defined interfaces and abstractions reduce coupling.",
-   "Event-based, asynchronous communication decouples sender and receiver.",
-   "Direct access to the internals of other building blocks increases coupling.",
-   "Global mutable variables increase coupling instead of reducing it.",
-   "Inheritance from concrete foreign classes increases coupling to their internals.",
-   "Mutual references create tight, cyclic coupling instead of reducing it."
+   "Correct: Defined interfaces/abstractions lower coupling.",
+   "Correct: Event-based, asynchronous communication decouples sender and receiver.",
+   "Correct: Dependency injection dissolves the fixed binding to concrete creation.",
+   "Wrong: Direct access to internals increases coupling.",
+   "Wrong: Global mutable variables increase coupling.",
+   "Wrong: Inheritance from concrete foreign classes couples tightly to their internals."
   ],
-  "explanation": "Interfaces/abstractions and event-based communication reduce coupling. Direct access to internals and global mutable variables increase it."
+  "explanation": "Defined interfaces, event-based communication, and dependency injection lower coupling. Direct access to internals, global mutable variables, and inheritance from concrete foreign classes increase it."
  },
  "c3q21": {
-  "q": "Why should cyclic dependencies between building blocks be avoided?",
+  "q": "In a system, building blocks A and B reference each other mutually (cyclic dependency). Which statement is correct?",
   "options": [
-   "They hinder understanding, isolated testing as well as independent change and reuse.",
-   "They are explicitly intended and desirable in layered architectures.",
-   "They improve performance because building blocks call each other directly.",
-   "They only affect compile time, not maintainability."
+   "The cycle complicates isolated testing and independent changing; A and B can hardly be understood or reused separately.",
+   "In a strict layered architecture such a cycle is permissible as long as both building blocks lie in the same layer.",
+   "The cycle concerns only compile/build time and has no effect on maintainability.",
+   "The mutual references improve performance, because detours via third building blocks are eliminated."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Cycles hinder understanding, testing, change and reuse.",
-   "In layered architectures cycles are undesirable, not intended.",
-   "Cycles provide no performance advantage.",
-   "Cycles do indeed affect maintainability, not just compile time."
+   "Correct: The cycle binds A and B tightly together and complicates testing, changing, and reuse.",
+   "Near-Miss: Cycles are undesirable even within a layer and are not a permissible characteristic of layering.",
+   "Wrong: Cycles do indeed affect comprehension and maintainability.",
+   "Wrong: Cycles bring no performance advantage but increase coupling."
   ],
-  "explanation": "Cycles couple building blocks tightly to each other and hinder testing and changes. They are undesirable in layers, provide no performance advantage, and do indeed affect maintainability."
+  "explanation": "Cycles couple A and B tightly to each other and complicate comprehension, isolated testing, changing, and reuse. They are undesirable even within a layer, affect maintainability, and bring no performance advantage."
  },
  "c3q22": {
   "q": "Which statements about refactoring are correct?",
   "options": [
    "It improves the internal structure of the code.",
    "The externally observable behavior remains unchanged in the process.",
-   "New domain functions are deliberately added in the process.",
-   "The code is deleted entirely and rewritten from scratch.",
-   "Reported bugs are deliberately fixed and the domain behavior is corrected in the process."
+   "Automated tests are an important safeguard for detecting unintended behavior changes early.",
+   "During refactoring, new business functions are deliberately added.",
+   "Refactoring fixes reported defects and thereby corrects the business behavior."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Refactoring improves the internal structure of the code.",
-   "The externally observable behavior remains unchanged in the process.",
-   "Adding new domain functions is feature work, not refactoring.",
-   "Rewriting everything from scratch is a rewrite, not refactoring.",
-   "Fixing bugs changes the behavior and is therefore not refactoring."
+   "Correct: Refactoring improves the internal structure.",
+   "Correct: The observable behavior stays the same.",
+   "Correct: Tests safeguard the unchanged behavior during the restructuring.",
+   "Near-Miss: Adding new functions is feature work, not refactoring.",
+   "Wrong: Defect fixing changes the behavior and is therefore not refactoring."
   ],
-  "explanation": "Refactoring improves the internal structure while keeping the external behavior the same. Adding new functions is feature work, rewriting everything is a rewrite - neither is refactoring."
+  "explanation": "Refactoring improves the internal structure while keeping the same external behavior and is safeguarded by automated tests. Adding new functions is feature work, and fixing defects changes the behavior - neither is refactoring."
  },
  "c3q23": {
-  "q": "Why is it preferable to program against interfaces rather than against concrete implementations?",
+  "q": "Why does one preferably program against interfaces instead of against concrete implementations?",
   "options": [
-   "Concrete implementations can thereby be exchanged more easily.",
+   "Concrete implementations can thereby be swapped more easily.",
    "The coupling to implementation details decreases.",
-   "Calls via an interface are generally faster at runtime.",
-   "This makes additional tests unnecessary.",
-   "Concrete implementations become unnecessary and no longer need to be written."
+   "Isolated testing is facilitated, because dependencies can be replaced by test doubles.",
+   "Calls via an interface are fundamentally faster at runtime.",
+   "Concrete implementations thereby become superfluous and no longer need to be written."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Interfaces make concrete implementations easier to exchange.",
-   "The coupling to implementation details decreases.",
-   "There is no blanket runtime performance advantage.",
-   "Tests do not become unnecessary as a result.",
-   "Concrete implementations remain necessary; the interface does not replace them."
+   "Correct: Interfaces make implementations interchangeable.",
+   "Correct: The coupling to concrete details decreases.",
+   "Correct: Test doubles can be easily used behind interfaces.",
+   "Wrong: There is no blanket runtime performance advantage.",
+   "Near-Miss: Concrete implementations remain necessary; the interface does not replace them."
   ],
-  "explanation": "Interfaces decouple and make implementations exchangeable. There is no blanket performance advantage, and tests do not become unnecessary as a result."
+  "explanation": "Programming against interfaces makes implementations interchangeable, lowers the coupling to details, and facilitates isolated testing. There is no blanket performance advantage, and concrete implementations remain necessary."
  },
  "k6": {
   "q": "Assign: increases coupling or reduces coupling?",
-  "explanation": "Direct access to internals and global mutable state increase coupling. Clear interfaces and Dependency Injection reduce it.",
   "categories": [
    "Increases coupling",
    "Reduces coupling"
   ],
   "rows": [
-   "Direct access to internal details of another building block",
-   "Communication only via a clearly defined interface",
-   "Shared global, mutable variables",
-   "Dependency Injection instead of fixed instantiation"
-  ]
+   "Building blocks exchange data via shared, mutable global variables",
+   "Communication exclusively via a narrow, stable interface",
+   "A building block inherits from a concrete class of another building block",
+   "Event-based communication via a publish/subscribe channel"
+  ],
+  "explanation": "Shared global mutable variables and inheritance from concrete foreign classes bind building blocks tightly to foreign internals and increase coupling. A narrow, stable interface and event-based publish/subscribe communication decouple and reduce it."
  },
  "k8": {
   "q": "Does the respective principle belong to SOLID?",
-  "explanation": "SOLID = SRP, OCP, LSP, ISP, DIP. DRY is an important principle but does not belong to SOLID.",
   "categories": [
    "Part of SOLID",
    "Not part of SOLID"
   ],
   "rows": [
-   "Single Responsibility Principle",
-   "Open/Closed Principle",
-   "Dependency Inversion Principle",
-   "Don't Repeat Yourself (DRY)"
-  ]
+   "Interface Segregation Principle",
+   "Liskov Substitution Principle",
+   "Separation of Concerns",
+   "Law of Demeter"
+  ],
+  "explanation": "SOLID = SRP, OCP, LSP, ISP, DIP - these include Interface Segregation and Liskov Substitution. Separation of Concerns and the Law of Demeter are important but independent principles outside of SOLID."
  },
  "c3q24": {
   "q": "Which statements about the Open/Closed Principle (OCP) are correct?",
   "options": [
    "Building blocks should be open for extension but closed for modification.",
-   "New behavior is preferably added via abstractions/polymorphism instead of changing proven code.",
-   "Already tested code should be changed as directly as possible for new behavior.",
-   "All classes should be declared final and never be extended.",
-   "OCP requires that each class has exactly one single responsibility."
+   "New behavior is preferably added via abstractions/polymorphism instead of modifying proven code.",
+   "OCP requires that every class has exactly one single responsibility.",
+   "The way preferred by the OCP to add new behavior is the direct modification of the proven code.",
+   "OCP is achieved by making all classes sealed (final) and thus no longer extensible."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "OCP: building blocks open for extension, closed for modification.",
-   "Add new behavior via abstractions without changing proven code.",
-   "Changing proven code directly contradicts the OCP.",
-   "A blanket \"everything final\" contradicts openness for extension.",
-   "Exactly one responsibility per class is the SRP, not the OCP."
+   "Correct: Open for extension, closed for modification is the core of the OCP.",
+   "Correct: Add new behavior via abstractions without modifying proven code.",
+   "Near-Miss: Exactly one responsibility per class is the SRP, not the OCP.",
+   "Wrong: Directly modifying proven code contradicts the OCP.",
+   "Wrong: Sealing everything precisely prevents openness for extension."
   ],
-  "explanation": "OCP: open for extension, closed for modification - add new behavior via abstractions without touching proven code. Direct modification or a blanket \"everything final\" contradict the principle."
+  "explanation": "The OCP wants building blocks open for extension and closed for modification - new behavior is added via abstractions. ‚One responsibility per class‘ is the SRP; direct modification or blanket sealing contradict the principle."
  },
  "c3q25": {
   "q": "What does the Interface Segregation Principle (ISP) recommend?",
   "options": [
-   "Narrow, role-specific interfaces so that clients only depend on what they actually use.",
-   "Bundle as many methods as possible into one central interface to ensure consistency.",
-   "Cut interfaces along technical layers instead of by client roles.",
-   "Address concrete implementations directly to avoid detours via interfaces."
+   "Narrow, role-specific interfaces, so that clients do not depend on methods they do not use at all.",
+   "Clients should depend only on abstractions instead of on concrete classes.",
+   "Bundle as many operations as possible into one central interface, in order to ensure consistency.",
+   "Cut interfaces along technical layers instead of along the needs of the clients."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Narrow, role-specific interfaces, no dependency on unused methods.",
-   "One large catch-all interface is exactly the opposite of ISP.",
-   "ISP cuts by client roles, not by technical layers.",
-   "Addressing implementations directly contradicts the interface idea."
+   "Correct: ISP requires narrow, role-specific interfaces without unnecessary dependencies.",
+   "Near-Miss: The dependency on abstractions instead of concrete classes is the DIP, not the ISP.",
+   "Wrong: A large catch-all interface is the opposite of ISP.",
+   "Wrong: ISP cuts along client roles, not along technical layers."
   ],
-  "explanation": "ISP: no dependency on unused methods → narrow, role-specific interfaces. One large catch-all interface is exactly the opposite."
+  "explanation": "ISP: no dependency on unused methods - i.e. narrow, role-specific interfaces. The dependency on abstractions is the DIP; a large catch-all interface or a cut along layers contradict the ISP."
  },
  "c3q26": {
   "q": "What does the Liskov Substitution Principle (LSP) require?",
   "options": [
-   "Objects of a subtype must be usable in place of their base type without breaking correctness.",
-   "A subtype may strengthen the preconditions of its methods relative to the base type.",
-   "Base types must derive from their subtypes, not the other way around.",
-   "Inheritance should generally be replaced by copying code."
+   "Objects of a subtype must be usable in place of their base type without breaking the correctness of the program.",
+   "A subtype may strengthen the preconditions of its methods and weaken the postconditions.",
+   "LSP is already fulfilled as soon as the subtype syntactically inherits from the base class and the signatures match.",
+   "LSP requires that inheritance generally be replaced by composition."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: A subtype must be able to replace the base type without breaking correctness.",
-   "Strengthening preconditions breaks the LSP.",
-   "The direction of derivation is not reversed; subtypes derive from the base type.",
-   "LSP has nothing to do with copying code."
+   "Correct: A subtype must be able to replace the base type everywhere in a behaviorally conformant way.",
+   "Near-Miss: Exactly the opposite - preconditions may not be strengthened, postconditions may not be weakened.",
+   "Wrong: LSP is a behavioral matter; signature compatibility alone is not sufficient.",
+   "Wrong: LSP concerns the substitutability of subtypes, not the choice between inheritance and composition."
   ],
-  "explanation": "LSP: a subtype must be able to replace the base type everywhere. Strengthening preconditions breaks LSP; the direction of derivation is not reversed; it has nothing to do with copying code."
+  "explanation": "LSP requires that a subtype be able to replace the base type in a behaviorally conformant way. Preconditions may not be strengthened and postconditions may not be weakened; syntactic inheritance alone is not sufficient, and it has nothing to do with replacing inheritance by composition."
  },
  "c3q27": {
   "q": "What characterizes an event-driven (publish/subscribe) pattern?",
   "options": [
-   "Senders publish events without knowing the receivers; receivers react to them - loosely coupled.",
-   "Every sender knows and calls its receivers directly and synchronously.",
-   "There may always be exactly one receiver per event.",
+   "Senders publish events without knowing the receivers; any number of receivers can react to them - loosely coupled.",
+   "Sender and receiver are tightly coupled, since the sender calls each registered receiver directly and synchronously.",
+   "The receiver must synchronously acknowledge every event notification before the sender may continue.",
    "Receivers actively poll the sender at fixed intervals (polling)."
   ],
-  "optExpl": [
-   "Correct: Sender and receiver are loosely coupled via events.",
-   "Directly, synchronously calling the receivers contradicts the decoupling.",
-   "Multiple receivers per event are also possible.",
-   "Polling does not describe the event-driven publish/subscribe pattern."
+  "correct": [
+   0
   ],
-  "explanation": "With publish/subscribe, sender and receiver are decoupled via events (multiple receivers also possible). Direct calls, a single-receiver requirement or polling do not describe it."
+  "optExpl": [
+   "Correct: Sender and receiver are decoupled via events, and multiple receivers are possible.",
+   "Wrong: A direct, synchronous call contradicts the decoupling.",
+   "Near-Miss: A synchronous acknowledgment would couple sender and receiver again - untypical for publish/subscribe.",
+   "Wrong: Polling does not describe the event-driven publish/subscribe pattern."
+  ],
+  "explanation": "With publish/subscribe, sender and receiver are decoupled via events, and multiple receivers are possible. A direct/synchronous call, a forced synchronous acknowledgment, or polling contradict the pattern."
  },
  "c3q28": {
-  "q": "What does the client-server pattern describe?",
+  "q": "What describes the client-server pattern?",
   "options": [
    "Requesting clients use services of a providing server via a defined interface.",
-   "All nodes are equal peers and offer each other the same services (peer-to-peer).",
-   "The server initiates all requests to the clients on its own.",
-   "Client and server must necessarily run on the same machine."
+   "All nodes are equal-ranked and offer each other the same services.",
+   "The server initiates connections to the clients on its own and triggers the interaction.",
+   "Client and server must be executed in the same process on the same machine."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Clients request services from the server via a defined interface.",
-   "Equal peer nodes describe peer-to-peer, not client-server.",
-   "The client initiates the requests, not the server.",
-   "Client and server can run on separate machines."
+   "Correct: The client requests services from the server via a defined interface.",
+   "Near-Miss: Equal-ranked nodes describe peer-to-peer, not client-server.",
+   "Wrong: The server behaves reactively; the interaction originates from the client.",
+   "Wrong: Client and server typically run in separate processes, often on different machines."
   ],
-  "explanation": "In the client-server pattern the client requests services from the server. Equal peer nodes are peer-to-peer; the server does not initiate the requests; separate machines are possible."
+  "explanation": "In the client-server pattern the client requests services from the server via a defined interface. Equal-ranked nodes are peer-to-peer; the server is reactive, not initiating; and separate processes/machines are the normal case."
  },
  "c3q29": {
-  "q": "Which statements about the heuristic \"composition over inheritance\" are correct?",
+  "q": "Which statements about the heuristic ‚Composition over inheritance‘ are correct?",
   "options": [
-   "Behavior is often better achieved by composing objects than by deep inheritance.",
+   "Behavior can often be better achieved by composing objects than by deep inheritance.",
    "Composition avoids the tight binding and fragility of deep inheritance hierarchies.",
-   "Inheritance is fundamentally forbidden and must always be avoided.",
-   "Deep inheritance hierarchies are generally more flexible than composition.",
-   "Composition fundamentally makes runtime behavior faster than inheritance.",
-   "With composition the enclosing object automatically inherits all methods of its components."
+   "Composition and inheritance are interchangeable techniques whose choice has no effect on coupling.",
+   "With composition, the enclosing object automatically inherits all methods of its constituents.",
+   "Composition is fundamentally faster at runtime than inheritance."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Composing objects is often more flexible than deep inheritance.",
-   "Composition avoids tight binding and fragility of deep inheritance hierarchies.",
-   "It is a heuristic, not a fundamental ban on inheritance.",
-   "Deep inheritance hierarchies are not generally more flexible than composition.",
-   "It is about flexibility, not a blanket runtime advantage.",
-   "Composition inherits nothing automatically; calls must be delegated explicitly."
+   "Correct: Composing is often more flexible than deep inheritance.",
+   "Correct: Composition avoids the fragility of deep hierarchies.",
+   "Wrong: The choice does indeed influence coupling - inheritance couples more tightly to the base class.",
+   "Near-Miss: With composition nothing is inherited automatically; calls must be explicitly delegated.",
+   "Wrong: It is about flexibility and coupling, not about a blanket runtime advantage."
   ],
-  "explanation": "Composition is usually more flexible and less fragile than deep inheritance - a heuristic, not a ban. Inheritance is not generally forbidden, and deep hierarchies are not more flexible."
+  "explanation": "Composition is usually more flexible and less fragile than deep inheritance - a heuristic, not a prohibition. The choice influences coupling, with composition nothing is inherited automatically (explicit delegation), and there is no blanket runtime advantage."
  },
  "c3q30": {
   "q": "Which statements about stateless services are correct?",
   "options": [
    "Requests can be distributed to any equivalent instances.",
    "This facilitates horizontal scaling and load distribution.",
-   "Stateless services fundamentally cannot process any data.",
-   "The session state is bound firmly to a particular instance.",
-   "Stateless services may not use an external database or a cache."
+   "State that is needed beyond a single request is deliberately externalized (e.g. database, cache, token).",
+   "The session state is firmly bound to the instance that handled the first request (sticky sessions as an essential characteristic).",
+   "Stateless services can neither process nor persist data."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Without bound state, any equivalent instance can handle any request.",
-   "This facilitates horizontal scaling and load distribution.",
-   "Stateless services do indeed process data.",
-   "Fixed instance binding would be precisely stateful, not stateless.",
-   "Offloading external state to a DB or cache is precisely typical of stateless."
+   "Correct: Without bound state, any equivalent instance can handle any request.",
+   "Correct: This facilitates horizontal scaling and load distribution.",
+   "Correct: Cross-request state is externalized - typical for stateless.",
+   "Near-Miss: Fixed instance binding (sticky session) is precisely stateful behavior.",
+   "Wrong: Stateless services do indeed process data and can persist external state."
   ],
-  "explanation": "Without bound session state, any instance can handle any request → easy scaling. They do indeed process data, and fixed instance binding would be precisely stateful."
+  "explanation": "Without bound session state, any instance can handle any request, which facilitates scaling and load distribution; cross-request state is externalized. Sticky sessions are stateful, and stateless does not mean that no data is processed."
  },
  "c3q31": {
-  "q": "Which properties promote the maintainability/modifiability of a system?",
+  "q": "Which properties promote the maintainability/changeability of a system?",
   "options": [
    "Modularization into manageable building blocks.",
    "Clearly defined, stable interfaces.",
    "Low coupling between the building blocks.",
-   "As many shared global variables as possible for quick data exchange.",
-   "Extensive duplication of code in many different places."
+   "As many shared global variables as possible for short data exchange.",
+   "Extensive code duplication, so that each place can be changed independently."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Modularization into manageable building blocks promotes maintainability.",
-   "Clearly defined, stable interfaces make changes easier.",
-   "Low coupling makes independent changes easier.",
-   "Shared global variables increase coupling and make changes harder.",
-   "Code duplication makes changes harder because you have to adapt in many places."
+   "Correct: Manageable building blocks promote maintainability.",
+   "Correct: Stable interfaces facilitate changes.",
+   "Correct: Low coupling allows independent changes.",
+   "Wrong: Shared global variables increase coupling and complicate changes.",
+   "Near-Miss: Duplication forces changes to be consistently carried out in many places (violation of DRY)."
   ],
-  "explanation": "Modularity, stable interfaces and low coupling promote maintainability. Shared global variables, by contrast, increase coupling and make changes harder."
+  "explanation": "Modularity, stable interfaces, and low coupling promote maintainability. Shared global variables increase coupling, and code duplication complicates consistent changes - both harm changeability."
  },
  "c3q32": {
-  "q": "What purpose do resilience patterns such as timeout, retry or circuit breaker serve?",
+  "q": "What is the purpose of resilience patterns such as timeout, retry, or circuit breaker?",
   "options": [
    "For robustly handling errors and failures, especially in distributed systems.",
-   "For noticeably speeding up error-free calls in normal operation.",
-   "To guarantee that remote calls never fail.",
-   "To replace the need to handle errors at all."
+   "A circuit breaker speeds up error-free calls by caching their results (caching).",
+   "Retry guarantees that a remote call that initially failed will ultimately succeed.",
+   "A timeout completely replaces the actual error handling."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: They help to handle errors and failures robustly.",
-   "They do not speed up error-free calls in normal operation.",
-   "They do not guarantee that remote calls are error-free.",
-   "They do not replace error handling but complement it."
+   "Correct: These patterns help to handle errors and failures robustly.",
+   "Near-Miss: Result caching is caching; a circuit breaker only stops calls to a failed service.",
+   "Wrong: Retry increases the chance of success but does not guarantee success.",
+   "Wrong: A timeout limits waiting times but does not replace error handling."
   ],
-  "explanation": "Timeout/retry/circuit breaker help to handle errors and failures. They do not speed up the normal case, do not guarantee error-freeness, and do not replace error handling."
+  "explanation": "Timeout, retry, and circuit breaker help to handle errors and failures. A circuit breaker is not a cache, retry does not guarantee success, and a timeout does not replace error handling but complements it."
  },
  "k9": {
   "q": "Synchronous or asynchronous communication?",
-  "explanation": "Synchronous = the caller waits, blocking, for the response. Asynchronous = sender and receiver are decoupled in time (queue/events).",
   "categories": [
    "Synchronous",
    "Asynchronous"
   ],
   "rows": [
-   "The caller waits, blocking, for the response.",
-   "A message is placed in a queue, the sender continues immediately.",
-   "Direct, blocking method/function call.",
-   "An event is published, receivers react later."
-  ]
+   "The caller blocks until the result is available.",
+   "The sender places a message in a queue and continues immediately.",
+   "A call whose response is awaited within the same request/response.",
+   "An event is published; receivers process it at a later point in time."
+  ],
+  "explanation": "Synchronous means: the caller waits in a blocking manner for the response (including in the awaited request/response). Asynchronous decouples sender and receiver in time - via queues or events processed later."
  },
  "c3q33": {
-  "q": "What is the purpose of the facade pattern?",
+  "q": "What is the purpose of the Facade pattern?",
   "options": [
-   "It offers a simplified, unified access to a more complex subsystem.",
-   "It translates between two mutually incompatible interfaces.",
-   "It creates a new object of a product family for every call.",
-   "It exposes the internal structure of the subsystem to all users."
+   "It provides a simplified, unified access to a more complex subsystem.",
+   "It translates between two mutually incompatible interfaces so that they can work together.",
+   "It encapsulates the access to an object and controls it as a stand-in (e.g. lazy loading, access protection).",
+   "It fully exposes the internal structure of the subsystem so that clients can access it directly."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: A facade offers simplified, unified access to a more complex subsystem.",
-   "Translating incompatible interfaces is the task of the adapter.",
-   "Objects of a product family are created by the factory, not the facade.",
-   "A facade hides the internal structure instead of exposing it."
+   "Correct: A facade provides simplified, unified access to a more complex subsystem.",
+   "Near-Miss: Translating incompatible interfaces is the task of the Adapter.",
+   "Near-Miss: Stand-in access control describes the Proxy, not the facade.",
+   "Wrong: A facade hides the internal structure instead of exposing it."
   ],
-  "explanation": "A facade simplifies access to a subsystem and hides its complexity. Translating incompatible interfaces is the adapter; creating objects is the factory."
+  "explanation": "A facade simplifies the access to a subsystem and hides its complexity. Translating incompatible interfaces is the Adapter, stand-in access control is the Proxy; exposing the internals contradicts the pattern."
  },
  "c3q34": {
-  "q": "What is a module (building block) in the sense of modularization?",
+  "q": "Which statements about a module (building block) in the sense of modularization are correct?",
   "options": [
-   "A self-contained unit with a clearly delimited task and a defined interface.",
-   "An arbitrary grouping of files in the same directory, without a common task.",
-   "A single function that performs exactly one computation.",
-   "A running process on a server."
+   "It bundles related functionality behind a defined interface (high cohesion).",
+   "Its internal structure may be changed without breaking users, as long as the interface remains stable.",
+   "A module is always identical to exactly one runtime process.",
+   "The module boundary necessarily follows the physical directory structure of the project.",
+   "A module is fundamentally the same as a single class or function."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Correct: A module bundles related tasks behind a clear interface.",
-   "A mere directory without a common task is not a real module.",
-   "A single function is too small for an entire module.",
-   "A runtime process is an operational concept, not a building block of modularization."
+   "Correct: A module encapsulates related tasks behind a clear interface.",
+   "Correct: This is precisely what enables information hiding – internals are interchangeable as long as the contract holds.",
+   "A building block (design) and a runtime process (operation) are different views; a module can be deployed differently.",
+   "The directory structure is one possible mapping, but not a mandatory criterion for the module boundary.",
+   "This confuses granularity levels: a module is usually coarser than a single class/function."
   ],
-  "explanation": "A module bundles related functionality (high cohesion) behind an interface. A directory, a single function or a runtime process are something different."
+  "explanation": "A module bundles functionality behind an interface (high cohesion) and allows its internals to be replaced while the contract stays stable. It is not inherently a process, not defined by the folder structure, and not to be equated with a single class/function."
  },
  "c3q35": {
   "q": "Which statements about the trade-off between monolith and microservices are correct?",
   "options": [
-   "A monolith is usually easier to operate and to test end-to-end.",
-   "Microservices are independently deployable and scalable, but operationally more complex.",
-   "Microservices are the better choice in every respect and in every project.",
-   "A monolith fundamentally cannot be organized into modules.",
-   "A monolith fundamentally cannot be scaled horizontally."
+   "A monolith is usually easier to test end-to-end and to operate as a whole.",
+   "Microservices can be deployed and scaled independently, but they increase operational complexity.",
+   "A modular monolith can have clear internal building-block boundaries but is still deployed as a single unit.",
+   "Microservices avoid distributed sources of error because communication stays within the same process.",
+   "Switching to microservices automatically reduces the coupling between the functional areas."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct, a monolith runs and tests more easily as a whole.",
-   "Correct, independent deployment and scaling comes at the cost of higher operational complexity.",
-   "Microservices are not universally better - it remains a trade-off.",
-   "A monolith can very well be organized modularly, too.",
-   "A monolith can also be scaled as a whole across multiple instances."
+   "Correct: As a single unit, the monolith is easier to integrate and test.",
+   "Correct: Independent deployment/scaling comes at the price of higher operational complexity.",
+   "Correct: Modularity is a question of internal structure, not of deployment granularity.",
+   "Wrong: Microservices move communication onto the network and thereby create new (partial) sources of error.",
+   "Wrong: A poor functional partitioning remains tightly coupled even when distributed – technology alone does not decouple."
   ],
-  "explanation": "Monolith = simpler operation/testing; microservices = independent scaling/deployment at higher operational complexity. Microservices are not universally better, and monoliths can very well be modular."
+  "explanation": "Monolith = simpler operation/testing; microservices = independent scaling/deployment at higher operational complexity; a modular monolith is possible. Distribution does not eliminate sources of error (it creates new ones) and does not automatically decouple – coupling is determined by the functional partitioning."
  },
  "c3q36": {
-  "q": "Why does one use proven architecture/design patterns instead of reinventing every solution?",
+  "q": "Which statements about the use of proven architecture and design patterns are correct?",
   "options": [
-   "Because they are proven, reduce risk and, through well-known terms, ease communication.",
-   "Because a pattern once chosen always fits regardless of the problem.",
-   "Because using patterns makes one's own design decisions unnecessary.",
-   "Because as many patterns as possible used at once automatically improve a system."
+   "They bundle proven solution knowledge and thereby reduce design risks.",
+   "They create a common vocabulary that facilitates communication within the team.",
+   "A pattern must always be evaluated in the context of its trade-offs; a wrongly chosen pattern can do harm.",
+   "Using a pattern replaces the analysis of the concrete quality requirements.",
+   "The more patterns are used simultaneously, the higher the quality of the system."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: Proven patterns reduce risk and create a shared language.",
-   "No pattern fits always - it has to fit the problem.",
-   "Patterns do not replace one's own design decisions.",
-   "The sheer number of patterns does not improve a system automatically."
+   "Correct: Patterns condense proven knowledge and reduce the risk of reinventing the wheel.",
+   "Correct: Well-known pattern names form a common language.",
+   "Correct: Every pattern has context conditions and consequences; applied wrongly it does harm.",
+   "Wrong: Patterns complement requirements analysis but do not replace it.",
+   "Wrong: The sheer number of patterns (over-engineering) does not automatically improve a system."
   ],
-  "explanation": "Patterns bundle proven knowledge and create a shared language - but they have to fit the problem. They do not replace decisions, and their sheer number improves nothing."
+  "explanation": "Patterns reduce risk, create a common vocabulary, and are to be chosen based on their trade-offs. They do not replace requirements analysis, and their sheer number improves nothing."
  },
  "c3q37": {
-  "q": "What does a domain-oriented cut (e.g. in Domain-Driven Design) recommend?",
+  "q": "Which statements about a domain-oriented partitioning (e.g., bounded contexts in DDD) are correct?",
   "options": [
-   "Cut building blocks along domain boundaries/domains, not just by technical layers.",
-   "Cut building blocks strictly by technical layers (UI/logic/DB) instead of by domain.",
-   "Bundle the entire domain into a single central module.",
-   "Align the cut with the repository's folder structure."
+   "Building blocks are cut along domain/functional boundaries, not primarily by technical layers.",
+   "A bounded context delimits a model with its own internally consistent language (ubiquitous language).",
+   "Domain boundaries can run across technical layers.",
+   "A purely technical layered partitioning (UI/logic/DB) is the recommended way to implement a domain-oriented partitioning.",
+   "With a domain-oriented partitioning, all contexts necessarily share a single, global domain model."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: Cut building blocks along domains or bounded contexts.",
-   "Purely technical layers are precisely not a domain cut.",
-   "A single central domain module does not reflect domain boundaries.",
-   "The folder structure is not a criterion for a domain cut."
+   "Correct: The domain-oriented partitioning follows domains/bounded contexts, not purely technical layers.",
+   "Correct: The bounded context delimits the validity of a model and its language.",
+   "Correct: A context usually spans several layers – the boundary runs along the domain, not horizontally.",
+   "Wrong: A technical layered partitioning is precisely not a domain-oriented partitioning.",
+   "Wrong: This contradicts the core of bounded contexts – models may differ per context."
   ],
-  "explanation": "A domain cut is oriented toward domains or bounded contexts, not purely toward technical layers. A central domain module or the folder structure is not a domain cut."
+  "explanation": "A domain-oriented partitioning is guided by domains/bounded contexts with their own ubiquitous language and can run across technical layers. A technical layered partitioning is not a domain-oriented partitioning, and a single global model contradicts the idea of bounded contexts."
  },
  "c3q38": {
   "q": "Which statements about encapsulation are correct?",
   "options": [
-   "Data and the associated operations are bundled into a single unit.",
-   "The internal state is accessible only via a defined interface (hidden).",
-   "It mainly means grouping related classes in the same package.",
-   "It denotes encrypting the source code against unauthorized reading.",
-   "It means making all attributes of a class publicly accessible.",
-   "It denotes merging several objects into a single process."
+   "Data and the functions operating on it are combined into a single unit.",
+   "The internal state is only accessible through a defined interface; internals stay hidden.",
+   "Encapsulation allows the internal representation to be changed without breaking users of the interface.",
+   "Encapsulation primarily means placing related classes in the same package.",
+   "Encapsulation is equivalent to hiding the source code from unauthorized reading (obfuscation)."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct, encapsulation bundles data with its associated operations.",
-   "Correct, the internal state remains hidden behind an interface.",
-   "Placing classes in a package is merely packaging.",
-   "Encapsulation does not mean encrypting source code.",
-   "Public attributes break encapsulation instead of establishing it.",
-   "Placing objects into a process is deployment, not encapsulation."
+   "Correct: Encapsulation bundles data with its behavior.",
+   "Correct: The internal state stays hidden behind the interface (information hiding).",
+   "Correct: This is exactly the benefit – the implementation is interchangeable.",
+   "Packaging is only a structural grouping and does not by itself establish encapsulation.",
+   "Encapsulation is a design concept, not the encryption/obfuscation of source code."
   ],
-  "explanation": "Encapsulation bundles data and behavior and hides the internal state behind an interface. Packaging and encryption are each different concepts."
+  "explanation": "Encapsulation bundles data and behavior, hides the internal state behind an interface, and makes the implementation interchangeable. Packaging and obfuscation are each different concepts."
  },
  "c3q39": {
-  "q": "What is the purpose of the adapter pattern?",
+  "q": "An existing payment service provider offers an interface that does not match the one expected by your system. Which pattern applies here?",
   "options": [
-   "It connects two mutually incompatible interfaces so that they can work together.",
-   "It offers simplified access to a complex subsystem.",
-   "It fully decouples sender and receiver via events.",
-   "It ensures that there is only a single instance of a class."
+   "Adapter – it translates between the expected and the existing interface without changing either.",
+   "Facade – it provides simplified access to a complex subsystem.",
+   "Proxy – it places a stand-in with the same interface in front of the actual object.",
+   "Publish/subscribe – it fully decouples sender and receiver via events."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: An adapter translates between the expected and the existing interface.",
-   "Simplified access to a subsystem describes the facade.",
-   "Event-based decoupling is publish/subscribe, not the adapter.",
-   "Ensuring exactly one instance is the singleton pattern."
+   "Correct: The adapter bridges exactly the incompatibility of two interfaces.",
+   "The facade simplifies access but does not change an incompatible interface signature.",
+   "The proxy has the same interface as the target object – it precisely does not solve a compatibility problem.",
+   "Pub/sub decouples via events but does not address adapting a fixed signature."
   ],
-  "explanation": "An adapter translates between an expected and an existing interface. Simplified access = facade; event decoupling = publish/subscribe; single instance = singleton."
+  "explanation": "For incompatible interfaces the adapter is the fitting pattern. Facade (simplification), proxy (same interface, stand-in) and publish/subscribe (event decoupling) solve other problems – here they are plausible but wrong candidates."
  },
  "c3q40": {
-  "q": "Which of these belong to the goals of modularization?",
+  "q": "Which of these are among the goals of modularization?",
   "options": [
-   "Independent development of individual parts.",
-   "Reusability of building blocks.",
-   "Limited impact of changes (local modifiability).",
-   "The tightest possible intertwining of the building blocks with one another.",
-   "The complete elimination of all interfaces between the building blocks."
+   "Independent development of individual parts by different people/teams.",
+   "Reusability of clearly cut building blocks.",
+   "Locally limiting the impact of changes.",
+   "Building blocks should read each other's state directly in order to minimize the number of interfaces.",
+   "The highest possible coupling, so that building blocks work closely together."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct, modules can be developed independently of one another.",
-   "Correct, clearly cut building blocks are reusable.",
-   "Correct, changes stay locally limited and do not affect everything.",
-   "Tight intertwining means high coupling - the opposite of the goal.",
-   "Modules need interfaces to collaborate; it does not work entirely without them."
+   "Correct: Clearly separated modules can be developed in parallel.",
+   "Correct: Well-cut building blocks are reusable.",
+   "Correct: Changes stay locally limited and do not have an effect everywhere.",
+   "Direct state access breaks encapsulation and increases coupling – the opposite of the goal.",
+   "Tight coupling is precisely not the goal; the aim is loose coupling with high cohesion."
   ],
-  "explanation": "Modularization enables independent development, reuse and locally limited changes. Tight intertwining (high coupling) is precisely the opposite of the goal."
+  "explanation": "Modularization aims at independent development, reuse, and locally limited changes. Direct mutual state access and high coupling contradict the goal."
  },
  "c3q41": {
-  "q": "Which statements about the trade-off of strong reuse are correct?",
+  "q": "Which statements about the trade-off with heavy reuse are correct?",
   "options": [
-   "Reusable building blocks often become more general and therefore more complex.",
-   "Many users of a building block can increase the coupling to it.",
-   "Reuse has exclusively advantages and no costs whatsoever.",
-   "Reuse should generally be avoided in the sense of DRY.",
-   "Changes to a widely used building block always remain without consequences for its users."
+   "Broadly reusable building blocks often become more general and thereby more complex.",
+   "Many users of a building block increase the (afferent) coupling to it and make changes harder.",
+   "A reusable building block needs stable, well-versioned interfaces.",
+   "Reuse always reduces total cost, since development effort is incurred only once.",
+   "DRY demands making every conceivable functionality immediately as generically reusable as possible."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct, broadly usable building blocks become more general and therefore more complex.",
-   "Correct, many users of a building block increase the coupling to it.",
-   "Reuse is not free; it also has drawbacks.",
-   "DRY argues for reuse, not against it.",
-   "Changes to widely used building blocks affect many users, not without consequences."
+   "Correct: Generalization increases the complexity of reusable building blocks.",
+   "Correct: Many dependent users make changes risky.",
+   "Correct: Without stable/versioned interfaces, reuse breaks easily.",
+   "The effort for generalization, maintenance, and coordination can exceed the savings.",
+   "DRY aims at avoiding duplication, not at premature over-generalization."
   ],
-  "explanation": "Reuse can make building blocks more general/complex and increase the coupling to them - so weigh it up. It is not free, but also not to be avoided (DRY even argues for it)."
+  "explanation": "Reuse makes building blocks more general/complex, increases coupling through many users, and requires stable, versioned interfaces. It is not automatically cheaper, and DRY does not justify premature over-generalization."
  },
  "k12": {
   "q": "Does the characteristic promote maintainability or harm it?",
-  "explanation": "Clear interfaces and high cohesion promote maintainability. High coupling and duplication make changes more difficult.",
   "categories": [
    "Promotes maintainability",
    "Harms maintainability"
   ],
   "rows": [
-   "Clearly defined, stable interfaces",
-   "High coupling between many building blocks",
+   "Clearly defined, stable interfaces between building blocks",
+   "Cyclic dependencies between multiple building blocks",
    "High cohesion within the building blocks",
-   "Much duplicated code (violation of DRY)"
-  ]
+   "Widely spread, duplicated code (violation of DRY)"
+  ],
+  "explanation": "Clear interfaces and high cohesion promote maintainability. Cyclic dependencies and duplication make changes harder and violate loose coupling and DRY respectively."
  },
  "c3q42": {
-  "q": "What is recommended during design regarding the functional and technical architecture?",
+  "q": "What is advisable in design regarding domain and technical architecture?",
   "options": [
-   "First understand the functional decomposition (problem space) and build the technical solution on top of it.",
-   "First fully define the technical infrastructure; the functionality follows from it.",
-   "Functional and technical architecture are identical and need not be considered separately.",
-   "The functional decomposition is secondary, as long as the technology is performant."
+   "First understand the domain-oriented partitioning (problem space) and align the technical solution with it.",
+   "First fully define the technical infrastructure; the domain-oriented partitioning follows from it.",
+   "The domain and technical views are always identical and need not be considered separately.",
+   "The domain-oriented partitioning is secondary, as long as the non-functional requirements (e.g., performance) are met."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
    "Correct: First understand the problem space, then align the technology with it.",
-   "Defining the technology first leads to poorly decomposed systems.",
-   "Functional and technical architecture must be considered separately.",
-   "The functional decomposition is central, not subordinate to performance."
+   "Defining technology first leads to poorly cut systems designed past the domain.",
+   "Both views are related but must be considered separately – they are not identical.",
+   "The domain-oriented partitioning largely determines the structure; performance does not justify an arbitrary partitioning."
   ],
-  "explanation": "First understand the problem space/functional decomposition, then align the technology with it (\"technology follows the functionality\"). Technology-first or ignoring the functionality leads to poorly decomposed systems."
+  "explanation": "First understand the domain-oriented partitioning/problem space, then align the technology with it. Technology-first, equating both views, or subordinating the domain to performance lead to poorly cut systems."
  },
  "c3q43": {
-  "q": "What does \"Miller's number\" (7±2) indicate when structuring an architecture?",
+  "q": "What does the \"Miller number\" (7±2) indicate when structuring an architecture?",
   "options": [
-   "The number of elements that can be grasped simultaneously is limited – building blocks should remain manageable per level.",
-   "A system should consist of exactly seven layers.",
-   "Each component may contain at most nine lines of code.",
-   "After seven iterations an architecture is necessarily finished."
+   "The number of elements that can be grasped at once is limited – the decomposition per level should stay manageable.",
+   "Miller prescribes that a system may consist of at most seven modules.",
+   "7±2 is an empirically proven upper limit for the optimal team size in design.",
+   "7±2 specifies the ideal number of interface operations per building block."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Only a few elements can be grasped at once – remain manageable per level.",
-   "Miller does not prescribe a fixed number of exactly seven layers.",
-   "The number does not limit the lines of code per component.",
-   "Miller says nothing about a number of iterations."
+   "Correct: Only a few \"chunks\" can be grasped at once – therefore decompose manageably per level.",
+   "It is not a hard upper limit for the number of modules, but a cognitive rule of thumb.",
+   "Miller refers to information units that can be grasped simultaneously, not to team sizes.",
+   "The number makes no statement about the number of interface operations."
   ],
-  "explanation": "Miller describes the limited number of \"chunks\" (~7±2) that can be grasped simultaneously – an argument for manageable decomposition per level. It is not a fixed rule for layers, lines of code, or iterations."
+  "explanation": "Miller describes the limited number of chunks that can be grasped simultaneously (~7±2) – an argument for a manageable decomposition per level. It is not a fixed upper limit for modules, not a team size, and not a rule for interface operations."
  },
  "c3q44": {
   "q": "Which statement about the approach to architecture design is correct?",
   "options": [
-   "An architecture cannot be derived purely linearly from the requirements; the design proceeds iteratively.",
-   "There is a universal standard procedure that delivers the optimal architecture in every project.",
-   "Once the requirements document is complete, the architecture follows unambiguously and automatically.",
-   "Design decisions may no longer be revised after the project has started."
+   "An architecture cannot be derived purely linearly from the requirements; the design proceeds iteratively and exploratively.",
+   "There is a universal standard procedure that yields the optimal architecture in every project.",
+   "Once the requirements document is fixed, the architecture follows unambiguously and automatically.",
+   "Once made, design decisions should no longer be revised after the project starts, in order to ensure stability."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Architecture emerges iteratively, not as a linear derivation from requirements.",
-   "There is no standard procedure that fits optimally in every project.",
-   "No architecture follows automatically from the requirements document.",
-   "Decisions are indeed adjusted as new knowledge emerges."
+   "Correct: Architecture emerges iteratively, not as a linear derivation.",
+   "There is no \"silver bullet\" that fits optimally in every context.",
+   "No unambiguous architecture follows automatically from requirements.",
+   "Decisions are consciously revised when new knowledge arises – freezing is precisely not good design."
   ],
-  "explanation": "Architecture emerges iteratively and exploratively, not as a linear derivation. There is no \"silver bullet\", no automatic derivation, and decisions are adjusted as new knowledge emerges."
+  "explanation": "Architecture emerges iteratively and exploratively, not as a linear derivation. There is no standard procedure, no automatic derivation, and decisions should remain revisable when new knowledge arises."
  },
  "c3q45": {
-  "q": "How should the goal of \"loose coupling\" be correctly understood?",
+  "q": "How is the goal of \"loose coupling\" correctly understood?",
   "options": [
-   "Coupling should be as low as possible, but as strong as functionally necessary – with no coupling at all there would be no collaboration.",
-   "Coupling should generally be reduced to zero, no matter the cost.",
-   "The more coupling, the better a system can be maintained.",
-   "Coupling and cohesion denote the same phenomenon."
+   "Coupling should be as low as possible, but as strong as functionally necessary – without coupling there would be no collaboration.",
+   "Coupling should be reduced to zero; building blocks should ideally not depend on each other at all.",
+   "Loose coupling and high cohesion denote the same goal, just named differently.",
+   "Loose coupling means routing dependencies preferably through concrete classes rather than through interfaces."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
    "Correct: As little coupling as possible, as much as functionally necessary.",
-   "Zero coupling prevents any collaboration between building blocks.",
-   "More coupling makes maintenance harder, not easier.",
-   "Coupling and cohesion are different concepts."
+   "Zero coupling prevents any collaboration; an appropriate degree is needed.",
+   "Coupling (relationships between building blocks) and cohesion (internal togetherness within a building block) are different.",
+   "The other way around: coupling via interfaces/abstractions is looser than via concrete classes."
   ],
-  "explanation": "Loose coupling is not an end in itself: building blocks must collaborate, so an appropriate degree is needed. Zero coupling prevents functionality; more coupling makes maintenance harder; coupling is not the same as cohesion."
+  "explanation": "Loose coupling is not an end in itself: building blocks must collaborate, so an appropriate degree is needed. Zero coupling prevents functionality, coupling is not the same as cohesion, and abstractions couple more loosely than concrete classes."
  },
  "c3q46": {
-  "q": "Which kind of relationship tends to create the strongest coupling between building blocks?",
+  "q": "Which kind of relationship tends to produce the strongest coupling between building blocks?",
   "options": [
-   "Implementation inheritance (the subclass depends on internal details of the base).",
+   "Implementation inheritance (the subclass depends on internal details of the base class).",
    "Communication via a narrow, clearly defined interface.",
    "Loose, event-based (asynchronous) notification.",
-   "Delegation to an object referenced through an interface."
+   "Delegation to an object referenced via an interface."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Implementation inheritance binds strongly to the internals of the base class.",
+   "Correct: Implementation inheritance binds the subclass strongly to the internals of the base.",
    "A narrow, clearly defined interface couples only loosely.",
    "Asynchronous, event-based notification couples especially loosely.",
-   "Delegation via an interface keeps coupling low."
+   "Delegation via an interface keeps the coupling low."
   ],
-  "explanation": "Implementation inheritance couples very strongly to the internals of the base class. Interfaces, events, and delegation via interfaces couple much more loosely – hence \"composition over inheritance\"."
+  "explanation": "Implementation inheritance couples very strongly to the internals of the base class. Interfaces, events, and delegation via interfaces couple far more loosely – hence \"composition over inheritance\"."
  },
  "c3q47": {
-  "q": "Does dynamic coupling (resolved only at runtime) automatically mean \"loose\" coupling?",
+  "q": "Does dynamic (resolved only at runtime) coupling automatically mean \"loose\" coupling?",
   "options": [
-   "No – the dependency is often merely shifted or hidden, not actually reduced.",
+   "No – the dependency is often merely shifted or hidden, not really reduced.",
    "Yes – as soon as something is resolved at runtime, the coupling is always minimal.",
    "Yes – dynamic coupling removes every dependency completely.",
-   "No – dynamic coupling is always stronger than any static coupling."
+   "No – dynamic coupling is fundamentally stronger than any static coupling."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: The dependency is often merely relocated or concealed, not reduced.",
-   "Runtime resolution does not automatically make the coupling minimal.",
-   "Dynamic coupling does not remove any dependency completely.",
+   "Correct: The dependency is frequently only relocated or hidden, not reduced.",
+   "Runtime resolution does not make the coupling automatically minimal.",
+   "Dynamic coupling does not remove a dependency completely.",
    "Dynamic coupling is not generally stronger than static coupling."
   ],
-  "explanation": "Dynamic resolution (e.g., via configuration/reflection) often merely relocates or conceals dependencies; it is not loose per se. Conversely, it is also not generally stronger than static coupling."
+  "explanation": "Dynamic resolution (e.g., via configuration/reflection) often only relocates or hides dependencies; it is not loose per se. Conversely, it is also not generally stronger than static coupling."
  },
  "c3q48": {
   "q": "Which statements about incoming and outgoing dependencies (afferent/efferent) are correct?",
   "options": [
-   "Many incoming dependencies (afferent) make a building block \"stable\" – changes to it have broad effects.",
-   "Many outgoing dependencies (efferent) tend to make a building block \"unstable\" or prone to change.",
-   "Incoming dependencies have no influence whatsoever on changeability.",
-   "A building block with no dependencies at all is fundamentally poorly designed.",
-   "Many incoming dependencies (afferent) make a building block particularly easy to change.",
-   "Afferent and efferent dependencies denote the same thing and are interchangeable."
+   "Many incoming (afferent) dependencies make a building block \"stable\" – changes to it are risky.",
+   "Many outgoing (efferent) dependencies tend to make a building block \"instable\" or prone to change.",
+   "\"Stable\" in the sense of this metric means hard to change, not bug-free or finished.",
+   "Incoming dependencies have no influence on a building block's risk of change.",
+   "\"Afferent\" and \"efferent\" denote the same direction and are interchangeable."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct, many incoming dependencies make a building block stable and risky to change.",
-   "Correct, many outgoing dependencies tend to make a building block unstable.",
-   "Incoming dependencies do indeed influence changeability.",
-   "A building block with no dependencies at all is not inherently poor.",
-   "Many incoming dependencies make safe changes harder, not easier.",
-   "Afferent (incoming) and efferent (outgoing) denote opposite directions."
+   "Correct: Many users building on it make a building block stable and risky to change.",
+   "Correct: Many outgoing dependencies tend to make a building block instable.",
+   "Correct: \"Stable\" here is a structural metric (resistance to change), not a statement about quality/completion.",
+   "Wrong: Incoming dependencies in particular increase the risk of change.",
+   "Wrong: Afferent (incoming) and efferent (outgoing) are opposite directions."
   ],
-  "explanation": "Many incoming dependencies = \"stable\" (changes are risky because many rely on it); many outgoing = \"unstable\". Incoming dependencies do influence changeability, and independence is not inherently bad."
+  "explanation": "Many incoming dependencies = \"stable\" (changes risky), many outgoing = \"instable\". \"Stable\" means hard to change, not bug-free. Incoming dependencies do very much affect changeability, and afferent/efferent are opposite directions."
  },
  "c3q49": {
-  "q": "What is characteristic of a cross-cutting concept?",
+  "q": "Which statements about cross-cutting concepts are correct?",
   "options": [
-   "It affects many building blocks across the board and cannot be cleanly encapsulated in a single building block.",
-   "It can be fully enclosed in exactly one functional component.",
-   "It is always a purely organizational governance requirement.",
-   "It affects only the user interface."
+   "They act across many building blocks and cannot be cleanly encapsulated in a single building block.",
+   "They should be solved uniformly/consistently system-wide in order to avoid uncontrolled growth.",
+   "Examples include persistence, security, logging, and error handling.",
+   "A cross-cutting concept is always a purely organizational governance requirement without technical substance.",
+   "A cross-cutting concept can always be entirely enclosed within exactly one functional component."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: It acts system-wide across many building blocks and cannot be locally encapsulated.",
-   "Precisely not – it cannot be enclosed in one component.",
-   "Cross-cutting concepts are technical in nature, not mere governance.",
-   "They affect many building blocks, not just the user interface."
+   "Correct: Cross-cutting concepts affect many building blocks and cannot be encapsulated locally.",
+   "Correct: Uniform solutions prevent inconsistent isolated solutions.",
+   "Correct: These are typical cross-cutting concepts.",
+   "Wrong: Cross-cutting concepts are technical in nature, not mere governance.",
+   "Wrong: It is precisely their not being encapsulable in one component that makes them cross-cutting concepts."
   ],
-  "explanation": "Cross-cutting concepts (e.g., persistence, security, logging) act system-wide across many building blocks and precisely cannot be locally encapsulated. They are technical in nature, not mere governance, and not limited to the UI."
+  "explanation": "Cross-cutting concepts (persistence, security, logging, error handling …) act system-wide, cannot be encapsulated locally, and should be solved uniformly. They are technical in nature and cannot be enclosed within a single component."
  },
  "c3q50": {
   "q": "How do ACID and BASE differ as consistency approaches in persistence?",
@@ -1913,9 +2337,12 @@ const QUESTIONS_EN = {
    "Both guarantee immediate, strong consistency across distributed nodes at all times.",
    "BASE stands for stricter transaction guarantees than ACID."
   ],
+  "correct": [
+   0
+  ],
   "optExpl": [
    "Correct: ACID emphasizes strict consistency, BASE availability and eventual consistency.",
-   "The assignment is swapped: ACID is relational, BASE more NoSQL.",
+   "The assignment is swapped: ACID is relational, BASE rather NoSQL.",
    "BASE precisely does not guarantee immediate strong consistency at all times.",
    "BASE deliberately relaxes the guarantees, so it is not stricter."
   ],
@@ -1924,174 +2351,204 @@ const QUESTIONS_EN = {
  "c3q51": {
   "q": "What does the CAP theorem state for distributed data storage?",
   "options": [
-   "During a network partition one must trade off between consistency and availability – not all three goals are fully achievable simultaneously.",
+   "In the case of a network partition one must trade off between consistency and availability – not all three goals are fully achievable at the same time.",
    "Consistency, availability, and partition tolerance can be fully guaranteed simultaneously at all times.",
    "Distributed systems must fundamentally forgo availability.",
    "CAP describes three consecutive phases of a database deployment."
   ],
+  "correct": [
+   0
+  ],
   "optExpl": [
-   "Correct: During a partition one must trade off consistency against availability.",
+   "Correct: In the case of a partition one must trade off consistency against availability.",
    "All three properties cannot be fully guaranteed simultaneously.",
-   "CAP does not force a general forgoing of availability.",
+   "CAP does not enforce a general renouncement of availability.",
    "CAP is not a phase model of a deployment."
   ],
-  "explanation": "CAP: During a partition a compromise between consistency and availability is necessary – all three properties cannot be fully guaranteed simultaneously. It is not a phase model and does not force a general forgoing of availability."
+  "explanation": "CAP: In the case of a partition a compromise between consistency and availability is necessary – one cannot fully guarantee all three properties simultaneously. It is not a phase model and does not enforce a general renouncement of availability."
  },
  "c3q52": {
-  "q": "What is referred to as a \"layer bridge\" (skipping a layer) in layered architectures?",
+  "q": "In layered architectures, what is called a \"layer bridge\" (skipping a layer)?",
   "options": [
    "The deliberate bypassing of an intermediate layer – permitted in the relaxed approach, but it creates additional dependencies and should be documented.",
    "A layer that automatically synchronizes all other layers.",
    "The strict rule that a layer may never be skipped.",
-   "A permission for lower layers to call upper ones."
+   "A general permission for lower layers to call upper ones."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
    "Correct: An intermediate layer is deliberately skipped – permitted, but to be documented.",
    "A layer bridge does not automatically synchronize any layers.",
    "It is not a prohibition, but precisely the permitted skipping.",
-   "Calls from bottom to top remain taboo and create cycles."
+   "Calls from bottom to top remain taboo and create cycles – that is not what the layer bridge means."
   ],
-  "explanation": "A layer bridge skips a layer (permitted in the \"relaxed\" model), but it creates additional dependencies – therefore deliberately document it. In the strict model, skipping is not allowed; calls from bottom to top remain taboo (cycle)."
+  "explanation": "A layer bridge skips a layer (permitted in the relaxed model) but creates additional dependencies – therefore document it deliberately. In the strict model, skipping is not allowed; calls from bottom to top remain taboo (cycle)."
  },
  "c3q53": {
-  "q": "Which rules apply in the ideal case for a strict layered architecture?",
+  "q": "Which rules apply ideally to a strict layered architecture?",
   "options": [
-   "Calls occur only from top to bottom; the reverse path creates an undesirable cycle.",
+   "Calls only go from top to bottom; the reverse path creates an undesirable cycle.",
    "Building blocks of a layer are ideally at a similar level of abstraction.",
-   "Each layer may access any other layer at will.",
-   "Two building blocks with a mutual dependency deliberately belong in different layers.",
-   "In the strict variant, each layer may skip any number of layers below it."
+   "In the strict variant, a layer may only use the layer immediately below it (no skipping).",
+   "Every layer may access every other layer arbitrarily.",
+   "Two mutually dependent building blocks deliberately belong in different layers."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct, calls occur only downward – otherwise a cycle arises.",
-   "Correct, building blocks of a layer are at a similar level of abstraction.",
+   "Correct: Calls only go downward – otherwise a cycle arises.",
+   "Correct: A layer bundles building blocks of a similar level of abstraction.",
+   "Correct: The strict variant forbids skipping layers.",
    "Arbitrary access to any layer contradicts the pattern.",
-   "Mutually dependent building blocks rather belong in the same layer.",
-   "The strict variant forbids skipping layers."
+   "Mutually dependent building blocks rather belong in the same layer, otherwise a cycle arises across layer boundaries."
   ],
-  "explanation": "Strict layering: only calls downward (otherwise a cycle) and a uniform level of abstraction per layer. Arbitrary access contradicts the pattern; mutually dependent building blocks rather belong in the same layer."
+  "explanation": "Strict layering: only calls downward (otherwise a cycle), a uniform level of abstraction per layer, and no skipping of layers. Arbitrary access contradicts the pattern; mutually dependent building blocks belong in the same layer."
  },
  "c3q54": {
   "q": "Which disadvantage is typical of deeply nested layered architectures?",
   "options": [
-   "Passing calls through many layers can cost performance, and changes often propagate through several layers.",
-   "Layers fundamentally prevent any form of reuse.",
-   "Layering inevitably makes the system incomprehensible.",
-   "Layers preclude the use of defined interfaces."
+   "Passing calls through many layers can cost performance, and changes often run through several layers.",
+   "Upper layers must know the implementation details of the lower layers in order to call them.",
+   "Strict layering fundamentally prevents the parallel operation of multiple instances.",
+   "Additional layers inevitably reduce the number of required interfaces."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Passing calls through costs performance, and changes propagate through many layers.",
-   "Layering promotes reuse rather than preventing it.",
-   "Layers tend to make a system more comprehensible, not incomprehensible.",
-   "Layers by no means preclude defined interfaces."
+   "Correct: Passing calls through costs performance, and changes run through many layers.",
+   "Wrong: Upper layers use the interfaces of lower layers, precisely not their internals.",
+   "Wrong: Layering says nothing about horizontal scaling/instance operation.",
+   "Wrong: More layers rather mean more interfaces, not fewer."
   ],
-  "explanation": "Many layers cost performance when passing calls through, and changes (e.g., to a data field) propagate across the layers. Layering promotes – not prevents – reuse, comprehensibility, and interfaces."
+  "explanation": "Many layers cost performance when passing through, and changes (e.g., to a data field) affect all layers. Internals stay hidden, scaling is independent, and additional layers do not reduce interfaces."
  },
  "c3q55": {
   "q": "What distinguishes active from passive filters in a pipes-and-filters architecture?",
   "options": [
-   "Active filters fetch or push data themselves; passive filters are supplied with data or read out from the outside.",
-   "Active filters modify data, passive filters pass them through unchanged.",
+   "Active filters pull or push data themselves; passive filters are supplied with data or read out from the outside.",
+   "Active filters modify data, passive filters let it pass through unchanged.",
    "Active filters know each other, passive filters are isolated.",
    "Active filters run only sequentially, passive ones only in parallel."
   ],
+  "correct": [
+   0
+  ],
   "optExpl": [
    "Correct: Active filters drive the data flow themselves, passive ones are supplied.",
-   "The difference concerns control, not the modification of the data.",
+   "The difference concerns control of the data flow, not the modification of the data.",
    "Filters generally do not know each other, regardless of active or passive.",
-   "Active or passive says nothing about sequential or parallel execution."
+   "Active/passive says nothing about sequential or parallel execution."
   ],
-  "explanation": "The difference lies in the control of the data flow: active filters drive the transport themselves, passive ones wait to be supplied/read. Both process data and do not know each other."
+  "explanation": "The difference lies in the control of the data flow: active filters drive the transport themselves, passive ones wait to be supplied/read out. Both process data and do not know each other."
  },
  "c3q56": {
   "q": "Which statements about pipes and filters are correct?",
   "options": [
-   "Filters do not know each other and are decoupled via pipes – making them easy to exchange and reuse.",
+   "Filters do not know each other and are decoupled via pipes – making them easily interchangeable and reusable.",
    "Error handling is demanding, since a filter does not know the prior history of the data.",
-   "Filters share a common global state to coordinate with each other.",
-   "The pattern is especially suited to highly interactive user dialogs.",
-   "The pattern fundamentally prevents parallel processing of the filter stages."
+   "The filter stages can work in parallel/concurrently, since they are only connected via data streams.",
+   "Filters coordinate via a shared global state.",
+   "The pattern is particularly suitable for highly interactive user dialogs."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct, filters decoupled via pipes are easy to exchange and reuse.",
-   "Correct, without knowledge of the data history, error handling is difficult.",
-   "Filters do not share a common global state.",
-   "For highly interactive dialogs the fixed processing chain is unsuitable.",
-   "Pipes and filters precisely enables parallel processing rather than preventing it."
+   "Correct: Filters decoupled via pipes are easily interchangeable and reusable.",
+   "Correct: Without knowledge of the data history, error handling is difficult.",
+   "Correct: Decoupling via data streams allows parallel processing of the stages.",
+   "Wrong: Filters do not share a common global state.",
+   "Wrong: For highly interactive dialogs the fixed processing chain is unsuitable."
   ],
-  "explanation": "Filters are decoupled via pipes (exchangeable) – but error handling is difficult, because a filter does not know the history. There is no shared state, and for interactive dialogs the fixed processing chain is unsuitable."
+  "explanation": "Filters are decoupled via pipes (interchangeable, parallelizable), but error handling is difficult because a filter does not know the history. There is no shared state, and for interactive dialogs the fixed chain is unsuitable."
  },
  "c3q57": {
-  "q": "By which criterion should microservices primarily be cut?",
+  "q": "By which criterion should microservices be cut primarily?",
   "options": [
-   "By functional aspects (e.g., bounded context) – too fine a cut leads to \"nano-services\" with high overhead.",
-   "By purely technical layers (one UI, logic, and database service each).",
-   "As small as at all possible – the more services, the better.",
-   "By the random availability of individual developers."
+   "By domain-oriented aspects (e.g., bounded context) – too fine a partitioning leads to \"nano-services\" with high overhead.",
+   "By purely technical layers – one separate UI, logic, and database service each.",
+   "As small as possible, since more services generally mean better scalability.",
+   "Along the existing team/organizational structure, independent of domain boundaries."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Cut functionally by bounded context; too fine creates costly nano-services.",
-   "A purely technical cut into UI, logic, and DB is unsuitable.",
-   "Ever smaller is not better – the overhead rises sharply.",
-   "The availability of developers is not a sensible cutting criterion."
+   "Correct: Cut by domain along the bounded context; too fine creates expensive nano-services.",
+   "A purely technical partitioning into UI, logic, and DB couples functionally related changes across services.",
+   "Ever smaller is not better – communication and operational overhead rise sharply.",
+   "Team structure alone is not a domain criterion; a partitioning aligned solely with it can violate domain boundaries."
   ],
-  "explanation": "The cut is made functionally (e.g., bounded context). A purely technical or extremely fine cut (\"smaller is better\") creates nano-services with disproportionate communication and operational effort."
+  "explanation": "The partitioning is done by domain (e.g., bounded context). A purely technical, an extremely fine, or a partitioning aligned solely with the org structure creates poorly delimited or nano-services with disproportionate overhead."
  },
  "c3q58": {
   "q": "Which challenges do microservices typically bring with them?",
   "options": [
    "Higher operational and deployment effort due to many independent units.",
-   "Dependence on the network with additional latency and new sources of error.",
-   "A mandatory shared database and synchronized releases of all services.",
-   "The impossibility of scaling individual services independently.",
-   "The elimination of any need for monitoring and central logging.",
-   "Distributed transactions and data consistency thereby become trivially solvable."
+   "Dependence on the network with additional latency and new (partial) sources of error.",
+   "Data consistency across service boundaries (distributed transactions) becomes more difficult.",
+   "Necessarily a shared database and synchronized releases of all services.",
+   "The elimination of any need for monitoring and central logging."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct, many independent units increase operational and deployment effort.",
-   "Correct, network dependence brings additional latency and new sources of error.",
-   "A shared database and coupled releases are precisely not necessary.",
-   "Independent scaling is possible and even a strength.",
-   "Distributed systems need more monitoring and logging, not less.",
-   "Distributed transactions and consistency become harder, not trivial."
+   "Correct: Many independent units increase the operational and deployment effort.",
+   "Correct: Network dependence brings latency and new sources of error (partial failures).",
+   "Correct: Consistency across service boundaries (e.g., sagas instead of transactions) becomes demanding.",
+   "Wrong: A shared DB and coupled releases are precisely not the goal – they contradict the approach.",
+   "Wrong: Distributed systems need more monitoring/logging, not less."
   ],
-  "explanation": "Distribution brings operational/deployment overhead and network dependence (latency, partial failures). Independent deployment and independent scaling, by contrast, are strengths – no shared DB or coupled releases."
+  "explanation": "Distribution brings operational/deployment overhead, network dependence (latency, partial failures), and harder distributed consistency. A shared DB/coupled releases contradict the approach, and the need for monitoring/logging rises."
  },
  "c3q59": {
   "q": "Which statement about the interplay of microservices is correct?",
   "options": [
-   "Services should depend on each other as little as possible and communicate via technology-neutral interfaces.",
-   "Services should communicate synchronously with each other as much as possible in order to always be consistent.",
-   "Every service must be allowed to read the internal database of the others directly.",
-   "A service must not make its own technology choice."
+   "Services should be loosely coupled and communicate via technology-neutral interfaces.",
+   "Services should communicate as synchronously as possible in order to guarantee strong consistency at all times.",
+   "Each service should be allowed to access the internal database of the others directly, in order to save latency.",
+   "All services must use the same programming language and the same framework."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
    "Correct: Low coupling and communication via technology-neutral interfaces.",
-   "Much synchronous exchange couples too strongly and contradicts the approach.",
-   "Direct access to foreign databases violates encapsulation.",
-   "Services may well choose their own technology."
+   "Heavy synchronous exchange couples strongly in time and undermines the independence of the services.",
+   "Direct access to foreign databases violates encapsulation and couples the services tightly.",
+   "Free technology choice per service is precisely a strength of the approach."
   ],
-  "explanation": "The goal is low coupling and communication via technology-neutral interfaces (only where functionally necessary). Much synchronous exchange, direct access to foreign databases, or forced uniform technology contradict the approach."
+  "explanation": "The goal is low coupling and communication via technology-neutral interfaces (only where functionally necessary). Heavy synchronous exchange, direct access to foreign databases, or an enforced uniform technology contradict the approach."
  },
  "k14": {
-  "q": "Assign each characteristic to the matching pattern.",
-  "explanation": "Layers: vertical hierarchy, calls downward, changes propagate through. Pipes & Filters: decoupled, exchangeable processing steps via data streams, ideal for stream/batch processing.",
+  "q": "Assign each property to the matching pattern.",
   "categories": [
    "Layered architecture",
-   "Pipes & Filters"
+   "Pipes & filters"
   ],
   "rows": [
    "Vertical arrangement; upper levels use services of the ones below.",
    "Independent processing steps, chained via data streams.",
-   "Calls occur only from top to bottom, otherwise a cycle arises.",
-   "The steps do not know each other and are freely exchangeable.",
-   "Well suited for step-by-step data-stream or batch processing.",
+   "Calls go only from top to bottom, otherwise a cycle arises.",
+   "The steps do not know each other and are freely interchangeable.",
+   "Well suited for stepwise data-stream or batch processing.",
    "Changes to deep levels can propagate upward."
-  ]
+  ],
+  "explanation": "Layers: vertical hierarchy, calls downward, changes propagate through. Pipes & filters: decoupled, interchangeable processing steps via data streams, ideal for stream/batch processing."
  },
  "k15": {
-  "q": "Is each one a cross-cutting concept or not?",
-  "explanation": "Logging, security, persistence, and error handling act system-wide across many building blocks (cross-cutting concepts). Discount calculation and product detail display are concrete functional features.",
+  "q": "Is each of these a cross-cutting concept or not?",
   "categories": [
    "Cross-cutting concept",
    "Not a cross-cutting concept"
@@ -2103,624 +2560,767 @@ const QUESTIONS_EN = {
    "Persistence or uniform data access.",
    "Displaying the detail page of a single product.",
    "Uniform error handling across building blocks."
-  ]
+  ],
+  "explanation": "Logging, security, persistence, and error handling act system-wide across many building blocks (cross-cutting concepts). Discount calculation and product detail display are concrete functional features."
  },
  "c3q60": {
-  "q": "What purpose do short feedback loops (e.g., prototypes, early integration, tests) serve in architecture design?",
+  "q": "Which statements about short feedback loops (prototypes, early integration, tests) in architecture design are correct?",
   "options": [
-   "To verify assumptions and risks early and to adjust decisions as new knowledge emerges.",
-   "To freeze the architecture unchanged after the first commitment.",
-   "To fully replace architecture documentation.",
-   "To reduce the number of stakeholders involved."
+   "They verify assumptions and risks early and enable adjustments when new knowledge arises.",
+   "They are especially valuable for uncertain/risky decisions (risk-driven).",
+   "A prototype can deliberately serve as a \"throwaway\" artifact, just to verify an assumption.",
+   "They completely replace the architecture documentation.",
+   "After the first decision, the architecture should be frozen and no longer changed."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: They verify assumptions and risks early and enable adjustments.",
-   "Feedback loops do not freeze the architecture.",
-   "They do not replace architecture documentation.",
-   "They do not serve to reduce the number of stakeholders."
+   "Correct: Feedback verifies assumptions/risks early and enables course corrections.",
+   "Correct: Uncertain decisions in particular benefit from early feedback.",
+   "Correct: A prototype may be discarded after gaining insight.",
+   "Wrong: Feedback loops do not replace documentation.",
+   "Wrong: Feedback serves precisely for adjustment, not for freezing."
   ],
-  "explanation": "Feedback loops provide early insights into assumptions and risks, so that one can course-correct. They do not freeze anything, do not replace documentation, and do not reduce stakeholders."
+  "explanation": "Feedback loops verify assumptions and risks early (also via throwaway prototype) and are especially valuable for uncertain decisions. They do not replace documentation and serve for adjustment, not for freezing."
  },
  "c3q61": {
   "q": "What characterizes an \"evolutionary architecture\" with fitness functions?",
   "options": [
-   "Automated criteria continuously check whether important quality characteristics are preserved during changes.",
-   "The architecture is defined once and never changed again afterward.",
-   "Fitness functions measure exclusively the speed of the team.",
-   "Evolutionary architecture deliberately forgoes any quality assurance."
+   "Automated criteria (fitness functions) continuously check whether important quality characteristics are preserved during changes.",
+   "Fitness functions are exclusively performance benchmarks and say nothing about other qualities.",
+   "Evolutionary architecture defines the structure once and excludes later changes.",
+   "Fitness functions replace any form of manual architecture evaluation or review."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Fitness functions continuously and automatically check whether quality characteristics are preserved.",
-   "Evolutionary architecture is developed further, not frozen once.",
-   "Fitness functions measure quality characteristics, not the team speed.",
-   "It does not forgo quality assurance, but automates it."
+   "Correct: Fitness functions check continuously (often automatically) whether quality characteristics are preserved.",
+   "Fitness functions can check many quality characteristics (e.g., dependency rules), not only performance.",
+   "Evolutionary architecture precisely supports guided further development, not freezing.",
+   "They complement human evaluation/reviews but do not completely replace them."
   ],
-  "explanation": "Evolutionary architecture supports guided, incremental evolution; fitness functions continuously check (often automatically) important quality characteristics. It is neither about freezing, team speed, nor forgoing QA."
+  "explanation": "Evolutionary architecture supports guided, incremental further development; fitness functions continuously check (often automatically) important quality characteristics. They are not limited to performance, freeze nothing, and do not completely replace reviews."
  },
  "c3q62": {
   "q": "Which statements about the relationship between feedback and risk in design are correct?",
   "options": [
    "The later feedback arrives, the more expensive corrections tend to become.",
-   "Risky or uncertain decisions should be secured early with feedback (risk-driven).",
-   "Feedback is only useful at the end of the project.",
-   "Risks disappear on their own if they are ignored.",
-   "All decisions are equally risky and must be worked through in a fixed order."
+   "Risky or uncertain decisions should be safeguarded early with feedback (risk-driven).",
+   "The order of decisions should be guided by risk, not by mere blueprint progress.",
+   "Feedback is only meaningful once the system is fully implemented.",
+   "Ignored risks typically resolve themselves over the course of the project."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct, the later the feedback, the more expensive corrections become.",
-   "Correct, risky decisions should be secured early through feedback.",
-   "Feedback only at the end of the project would come far too late.",
-   "Ignored risks do not disappear on their own.",
-   "Risk-driven prioritizes by risk, rather than treating all equally."
+   "Correct: Late feedback makes corrections more expensive.",
+   "Correct: Safeguarding risky decisions early is the core of the risk-driven approach.",
+   "Correct: Prioritization is by risk, not by a rigid schedule.",
+   "Wrong: Feedback only at the end would come far too late.",
+   "Wrong: Ignored risks do not disappear by themselves."
   ],
-  "explanation": "Late feedback makes corrections more expensive, so risky decisions are secured early (risk-driven approach). Feedback only at the end or ignoring risks is the opposite."
+  "explanation": "Late feedback makes corrections more expensive, so risky decisions are safeguarded early and prioritized by risk. Feedback only at the end or ignoring risks is the opposite."
  },
  "c3q63": {
   "q": "What is the central principle when designing an interface?",
   "options": [
    "It establishes a stable \"contract\" (the WHAT) and hides the internal implementation (the HOW).",
-   "It should expose as many internal details as possible so that users are flexible.",
-   "It must be designed individually differently for each caller.",
-   "It should change along with every internal change."
+   "It should expose as many internals as possible, so that users can access them flexibly.",
+   "A good interface maps the provider's internal data structure as 1:1 as possible.",
+   "The contract covers only the signatures; pre-/post-conditions and error behavior are not part of it."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
    "Correct: It is a stable contract (the WHAT) and hides the HOW.",
-   "Exposing internal details contradicts information hiding.",
-   "An interface need not be designed individually per caller.",
-   "It should remain stable, not migrate along with every internal change."
+   "Exposing internals contradicts information hiding and couples users to details.",
+   "A 1:1 mapping of the internals makes the interface fragile and couples it to the implementation.",
+   "The contract also includes semantics, pre-/post-conditions, and error behavior, not only signatures."
   ],
-  "explanation": "A good interface is a stable contract and hides the internals (information hiding). Exposing internals, varying per caller, or changing along with every internal change contradicts the purpose."
+  "explanation": "A good interface is a stable contract (incl. semantics, pre-/post-conditions, error behavior) and hides the internals (information hiding). Exposing internals, mapping 1:1, or reducing the contract to signatures contradicts the purpose."
  },
  "c3q64": {
-  "q": "What trade-off exists in the granularity of interfaces?",
+  "q": "Which trade-off exists in the granularity of interfaces?",
   "options": [
-   "Fine-grained interfaces are flexible but create many calls (expensive when remote); coarse-grained ones bundle, but are less flexible.",
+   "Fine-grained interfaces are flexible but produce many (expensive, when remote) calls; coarse-grained ones bundle but are less flexible.",
    "Fine-grained interfaces are superior in every respect.",
    "Granularity has no influence on performance or coupling.",
-   "Coarse-grained interfaces always create more network load in remote calls."
+   "Coarse-grained interfaces always produce more network load in remote calls."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Fine-grained is flexible but call-intensive; coarse-grained bundles, but is less flexible.",
-   "Fine-grained interfaces are not superior in every respect.",
-   "Granularity does influence performance and coupling.",
-   "Coarse-grained tends to reduce remote calls, rather than increase them."
+   "Correct: Fine-grained is flexible but call-intensive; coarse-grained bundles but is less flexible.",
+   "Fine-grained interfaces are not superior in every respect (chattiness when remote).",
+   "Granularity does very much affect performance and coupling.",
+   "Coarse-grained rather reduces remote calls instead of increasing them."
   ],
-  "explanation": "Fine-grained = flexible, but many calls (expensive when remote); coarse-grained = less \"chattiness\", but less flexible. Granularity does affect performance/coupling; coarse-grained tends to reduce remote calls."
+  "explanation": "Fine-grained = flexible but many (expensive, when remote) calls; coarse-grained = less \"chattiness\" but less flexible. Granularity does very much affect performance/coupling; coarse-grained rather reduces remote calls."
  },
  "c3q65": {
   "q": "Which statements about designing robust, long-lived interfaces are correct?",
   "options": [
    "Changes should be backward-compatible where possible; otherwise versioning is needed.",
    "Being strict when sending and tolerant when receiving increases robustness (robustness principle).",
+   "New optional fields are usually backward-compatible; removing/renaming existing fields is usually not.",
    "Public interfaces may be changed at any time without regard for consumers.",
-   "Versioning of interfaces is fundamentally unnecessary.",
    "The more operations and parameters an interface offers, the more stable it is."
   ],
-  "optExpl": [
-   "Correct, changes should be backward-compatible, otherwise versioning is needed.",
-   "Correct, sending strictly and receiving tolerantly increases robustness.",
-   "Breaking public interfaces without regard for consumers is risky.",
-   "Versioning of interfaces is by no means unnecessary.",
-   "A large interface surface hinders stability rather than increasing it."
+  "correct": [
+   0,
+   1,
+   2
   ],
-  "explanation": "Backward compatibility or versioning protects consumers; „send strictly, receive tolerantly“ (robustness principle after Postel) increases robustness. Simply breaking public interfaces or discarding versioning is risky."
+  "optExpl": [
+   "Correct: Backward compatibility or versioning protects consumers.",
+   "Correct: \"Be strict in sending, tolerant in receiving\" (after Postel) increases robustness.",
+   "Correct: Additive changes are usually compatible, removing/renaming ones break consumers.",
+   "Wrong: Breaking public interfaces without regard is risky.",
+   "Wrong: A large interface surface increases the likelihood of change and makes stability harder."
+  ],
+  "explanation": "Backward compatibility/versioning and the robustness principle protect consumers; additive changes are usually compatible, removing/renaming ones are not. Simply breaking public interfaces or bloating the surface is risky."
  },
  "c3q66": {
-  "q": "How does an architecture deliberately fulfill a quality requirement such as „high availability“?",
+  "q": "How does an architecture deliberately meet a quality requirement such as \"high availability\"?",
   "options": [
-   "Through deliberate design decisions or tactics (e.g. redundancy, failover) that contribute to the quality goal.",
-   "Simply by having the requirement written down in the document.",
-   "Solely through the choice of a faster programming language.",
-   "By leaving the requirement to the test team."
+   "Through deliberate design decisions or tactics (e.g., redundancy, failover) that contribute to the quality goal.",
+   "Solely by the fact that the requirement is documented in the requirements document.",
+   "Exclusively through the choice of a more performant programming language or hardware.",
+   "Availability arises automatically as soon as the system is cleanly modularized."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: targeted tactics such as redundancy and failover fulfill the quality goal.",
+   "Correct: Deliberate tactics such as redundancy and failover meet the quality goal.",
    "A merely noted requirement does not fulfill itself.",
-   "A faster programming language alone does not ensure high availability.",
-   "Availability cannot be delegated to the test team."
+   "The choice of language/hardware addresses performance rather than necessarily availability.",
+   "Modularization helps maintainability but does not guarantee availability (e.g., against failures)."
   ],
-  "explanation": "Quality goals are achieved through targeted design decisions/tactics (e.g. redundancy and failover for availability). Merely noting it, a language choice alone, or delegating to the test team does not fulfill them."
+  "explanation": "Quality goals are achieved through deliberate design decisions/tactics (e.g., redundancy and failover for availability). Merely noting them, a choice of language/hardware alone, or good modularization do not meet availability automatically."
  },
  "c4q1": {
-  "q": "Which are central purposes of architecture documentation?",
+  "q": "Which statements about the central purposes of architecture documentation are correct?",
   "options": [
-   "Communication and shared understanding among stakeholders.",
-   "A basis for onboarding, maintenance and well-founded decisions.",
-   "Traceability of important architecture decisions – even later on.",
-   "It replaces the source code as the authoritative source of the actual system behavior.",
-   "It makes ongoing coordination within the team unnecessary, since everything important is available in writing."
+   "It creates communication and shared understanding among stakeholders.",
+   "It keeps important architecture decisions, including their rationale, comprehensible even later on.",
+   "It supports onboarding, maintenance, and well-founded further decisions.",
+   "Its most important goal is completeness: the more is documented, the better it fulfills its purpose.",
+   "It provides the binding proof that the required quality requirements are actually met."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Communication and shared understanding are a core purpose of documentation.",
-   "Documentation supports onboarding, maintenance and well-founded decisions.",
-   "Documentation keeps important decisions traceable even later on.",
-   "The actual behavior lies in the code – documentation does not replace it.",
-   "Documentation supports coordination but does not make it unnecessary."
+   "Communication and shared understanding are a core purpose of the documentation.",
+   "Comprehensibility of decisions (context, alternatives, consequences) is a central purpose.",
+   "Onboarding, maintenance, and a basis for decisions are among the core purposes.",
+   "The goal is not completeness but appropriate, audience-oriented documentation - too much scope harms maintainability and currency.",
+   "Proof of fulfillment is provided through tests, measurements, and reviews; the documentation describes the solution and goals but does not itself prove their fulfillment."
   ],
-  "explanation": "Documentation serves communication, onboarding/maintenance and traceability of decisions. However, it does not replace the code – the actual behavior lies in the code."
+  "explanation": "The purposes are communication, comprehensibility of decisions, and a basis for onboarding/maintenance. Maximum completeness is not an end in itself, and the documentation is not a proof of fulfillment for quality requirements (that is provided by tests/measurements)."
  },
  "c4q2": {
-  "q": "What is arc42?",
+  "q": "How can arc42 be most accurately classified?",
   "options": [
-   "A proven template or structuring scheme for documenting software architectures.",
-   "A process model that prescribes the order of architecture decisions in a binding way.",
-   "A concrete architecture pattern for distributed systems.",
-   "A tool that automatically generates architecture diagrams from the code."
+   "As a proven template or structuring scheme with twelve sections for the documentation of software architectures.",
+   "As a standard that standardizes the binding concerns, stakeholders, and viewpoints of an architecture description.",
+   "As a method that systematically derives the appropriate architecture decisions from the quality goals.",
+   "As a curated collection of proven architecture and design patterns for distributed systems."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: arc42 is a structuring template with twelve sections.",
-   "arc42 does not prescribe a binding order of decisions.",
-   "arc42 is a documentation template, not an architecture pattern.",
-   "arc42 does not automatically generate diagrams from the code."
+   "Correct: arc42 is a structuring template with twelve sections, filled in as needed.",
+   "The standardization of concerns, stakeholders, and viewpoints is provided by ISO/IEC/IEEE 42010, not arc42.",
+   "A methodical derivation of decisions from quality goals is a design approach (e.g., ADD), not a documentation template.",
+   "A collection of patterns (e.g., POSA/GoF) is something different from a documentation structure."
   ],
-  "explanation": "arc42 is a structuring template (12 sections) for architecture documentation – not a binding process model, not an architecture pattern and not a code generator."
+  "explanation": "arc42 is a structuring documentation template (12 sections). The conceptual standardization (concerns/viewpoints) is provided by 42010; deriving decisions is the task of design methods; pattern collections are again something different."
  },
  "c4q3": {
-  "q": "Which statements about context delimitation (context view) are correct?",
+  "q": "Which statements about the context delimitation (context view) are correct?",
   "options": [
-   "It shows the system as a whole with its external neighbors (users, external systems).",
-   "It depicts the interfaces of the system to its environment.",
-   "It shows the internal decomposition of the system into its building blocks.",
-   "It depicts the temporal sequence of internal method calls.",
-   "It describes cross-cutting concepts such as security, logging and error handling."
+   "It shows the system as a whole (black box) with its external neighbors (users, external systems).",
+   "It depicts the business and/or technical interfaces of the system to its environment.",
+   "It deliberately treats the system as a black box and does not show its internal building block structure.",
+   "It determines which of the external neighboring systems are to be replaced by the system's own building blocks in the future.",
+   "It prioritizes the external interfaces according to their quality requirements."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "The context view shows the system with its external neighbors.",
-   "It depicts the interfaces of the system to the environment.",
-   "The internal decomposition is the building block view, not the context view.",
-   "Temporal sequences are shown by the runtime view, not the context view.",
-   "Cross-cutting concepts form a separate part, not the context view."
+   "The context view shows the system as a black box with its external neighbors.",
+   "It depicts the interfaces to the environment in a business and/or technical way.",
+   "Correct and subtle: the context view specifically does not show the internals but delimits toward the outside.",
+   "The context view makes no statement about the future replacement of external systems; that would be a scope/migration decision.",
+   "A prioritization according to quality requirements belongs to the quality requirements, not to the context delimitation."
   ],
-  "explanation": "The context view delimits the system from its environment (external neighbors and interfaces). The internal decomposition is the building block view, temporal sequences the runtime view."
+  "explanation": "The context view delimits the system as a black box from its environment (external neighbors + interfaces) and shows no internals. It does not prioritize by quality and does not decide on the replacement of external systems."
  },
  "c4q4": {
   "q": "Which statements about the building block view are correct?",
   "options": [
-   "It shows the static decomposition of the system into building blocks.",
-   "It can refine building blocks hierarchically (whitebox of the contained building blocks).",
-   "It shows the dynamic interaction of the building blocks at runtime.",
-   "It assigns the building blocks to the execution nodes (hardware).",
-   "It describes the system with its external neighbors and interfaces."
+   "It shows the static decomposition of the system into building blocks (black box/white box).",
+   "It refines building blocks hierarchically as a white box of the respective contained building blocks.",
+   "It describes for each building block its responsibility and its interfaces.",
+   "It determines the temporal order of the calls between the building blocks.",
+   "Every refinement level must necessarily use the same notation and the same level of detail."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
    "The building block view shows the static decomposition into building blocks.",
-   "It refines building blocks hierarchically as a whitebox of the parts.",
-   "Dynamic interaction at runtime is shown by the runtime view.",
-   "The assignment to hardware is the deployment view.",
-   "External neighbors and interfaces are shown by the context view."
+   "It refines building blocks hierarchically (white box of the parts).",
+   "Correct and subtle: the black-box description includes the responsibility and interfaces of the building block.",
+   "The temporal order of calls is shown by the runtime view, not the building block view.",
+   "Level of detail and notation may differ per level and target audience; there is no such obligation."
   ],
-  "explanation": "The building block view shows the static structure and refines building blocks hierarchically. Dynamic interaction = runtime view; assignment to hardware = deployment view."
+  "explanation": "The building block view shows static structure, refines hierarchically, and describes responsibilities/interfaces. Temporal sequences belong in the runtime view; a uniform level of detail across all levels is not mandated."
  },
  "c4q5": {
-  "q": "What does the runtime view describe?",
+  "q": "What describes the runtime view most accurately?",
   "options": [
-   "The dynamic interaction of building blocks at runtime (processes, scenarios).",
-   "The static folder structure of the source code repository.",
-   "The hierarchical decomposition of the system into building blocks.",
-   "The assignment of software to servers and environments."
+   "The dynamic interplay of building blocks in selected concrete scenarios.",
+   "The static decomposition of the system into its building blocks and their interfaces.",
+   "All theoretically possible execution paths of the system, completely and without gaps.",
+   "The final assignment of the building blocks to physical execution nodes."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: the runtime view shows dynamic processes and scenarios.",
-   "The folder structure of the repository is not the runtime view.",
-   "The hierarchical decomposition into building blocks is the building block view.",
-   "The assignment of software to servers is the deployment view."
+   "Correct: the runtime view shows dynamic processes based on selected, meaningful scenarios.",
+   "Static decomposition and interfaces are shown by the building block view.",
+   "Completeness is not the goal: one deliberately selects a few relevant scenarios - not all paths.",
+   "The assignment to nodes is the deployment view."
   ],
-  "explanation": "The runtime view shows dynamic behavior (e.g. scenarios, sequences). Static structure = building block view; assignment to servers = deployment view."
+  "explanation": "The runtime view shows dynamic behavior based on selected scenarios - not completely all paths. Static structure = building block view; assignment to nodes = deployment view."
  },
  "c4q6": {
   "q": "What does the deployment view show?",
   "options": [
-   "The mapping of the software onto infrastructure/nodes and their communication paths.",
-   "The internal functional decomposition of the system into modules.",
-   "The order of messages in a use case.",
-   "The inheritance relationships between classes."
+   "The mapping of the software artifacts onto infrastructure/nodes and their communication channels.",
+   "The logical decomposition of the system into its business building blocks.",
+   "Exclusively the production environment; test and development environments are left out.",
+   "The network topology must always be detailed down to the physical cabling."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: it maps software onto nodes and communication paths.",
-   "The functional decomposition into modules is the building block view.",
-   "The message order in the use case is shown by the runtime view.",
-   "Inheritance relationships between classes are shown by the class diagram."
+   "Correct: it maps artifacts onto nodes/environments and shows their communication channels.",
+   "The logical business decomposition is the building block view.",
+   "The deployment view can well depict several environments (test, staging, production).",
+   "The level of detail is oriented to the need; there is no obligation to reach the cabling level."
   ],
-  "explanation": "The deployment view shows onto which nodes/environments the software is distributed and how they communicate. The others describe building block, runtime or class aspects."
+  "explanation": "The deployment view shows the assignment of the software onto nodes/environments and the communication paths. It is not limited to production and does not prescribe a particular physical level of detail; the business decomposition is the building block view."
  },
  "c4q7": {
   "q": "What does the standard ISO/IEC/IEEE 42010 govern?",
   "options": [
-   "Concepts for architecture description (stakeholders, concerns, views/viewpoints).",
-   "The concrete structuring of an architecture documentation into 12 sections.",
-   "A maturity model for evaluating development processes.",
-   "The notation of the individual UML diagram types."
+   "Concepts and terms of architecture description (stakeholders, concerns, viewpoints/views).",
+   "A catalog of quality characteristics such as maintainability, performance, and security.",
+   "A concrete documentation template with twelve fixed, predefined sections.",
+   "Binding specifications of which views a system must document at a minimum."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: 42010 defines stakeholders, concerns and views.",
-   "The structuring into twelve sections is arc42, not 42010.",
-   "42010 is not a maturity model for process evaluation.",
-   "42010 does not govern the notation of the UML diagram types."
+   "Correct: 42010 defines the conceptual framework (stakeholders, concerns, viewpoints/views).",
+   "A catalog of quality characteristics is ISO/IEC 25010, not 42010.",
+   "The 12-section template is arc42.",
+   "42010 provides a framework but does not prescribe concrete mandatory views per system."
   ],
-  "explanation": "ISO/IEC/IEEE 42010 describes the framework and terminology for architecture descriptions (stakeholders, concerns, views). The 12-section structuring is arc42; it does not govern maturity levels or UML notation. (R3.)"
+  "explanation": "42010 provides the conceptual framework for architecture descriptions (stakeholders, concerns, viewpoints/views). Quality characteristics come from 25010; the 12-section template is arc42; 42010 does not prescribe fixed mandatory views. (R3.)"
  },
  "c4q8": {
-  "q": "What is a UML sequence diagram typically used for?",
+  "q": "A colleague wants to depict the time-ordered exchange of messages between several objects in a use case. Which UML diagram is typical for this?",
   "options": [
-   "For temporal processes and the exchange of messages between objects/building blocks.",
-   "For the static relationships between classes (association, inheritance).",
-   "For the distribution of artifacts onto execution nodes.",
-   "For the decomposition of the system into functional building blocks."
+   "The sequence diagram.",
+   "The class diagram for the static associations of the classes involved.",
+   "The state diagram for the states that a single object passes through.",
+   "The activity diagram for the parallel branching of activities in the business process."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: sequence diagrams show the temporal exchange of messages between objects.",
-   "Static class relationships are shown by the class diagram.",
-   "The distribution onto execution nodes is shown by the deployment diagram.",
-   "The decomposition into functional building blocks is shown by the building block view."
+   "Correct: sequence diagrams show the time-ordered exchange of messages between objects/building blocks.",
+   "The class diagram shows static relationships, not the temporal flow.",
+   "The state diagram shows the states of a single object, not the interplay of several.",
+   "The activity diagram shows control/data flow and concurrency but does not emphasize the message order between named objects."
   ],
-  "explanation": "Sequence diagrams show the temporal exchange of messages (runtime view). Static class relationships, distribution or building block decomposition are other diagrams or views."
+  "explanation": "For the time-ordered exchange of messages between several objects, the sequence diagram is typical. Class (static), state (one object), and activity diagram (control flow) answer other questions."
  },
  "c4q9": {
-  "q": "What is an Architecture Decision Record (ADR) used for?",
+  "q": "A team wants to record in a comprehensible way why it decided on a message broker instead of synchronous REST calls. What purpose does an Architecture Decision Record (ADR) serve for this?",
   "options": [
-   "To record an architecture decision that has been made, including its context, considered alternatives and consequences.",
-   "To track all open tasks and their processing status.",
-   "To centrally log runtime errors that have occurred.",
-   "To fully capture the client's requirements."
+   "To record the decision made, along with context, considered alternatives, and consequences.",
+   "To keep all architecture decisions of the project bundled in a single large document.",
+   "To document the finally chosen solutions only in retrospect after the project ends.",
+   "To manage the still-open decisions to be made in the future, including their deadlines."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: an ADR records the decision, context, alternatives and consequences.",
-   "Open tasks are tracked by a backlog, not an ADR.",
-   "Runtime errors are logged by logging, not an ADR.",
-   "Requirements capture is not a task of an ADR."
+   "Correct: an ADR records, per decision, context, alternatives, and consequences.",
+   "ADRs are typically kept per decision (one per topic), not as a single collective document.",
+   "ADRs are created when the decision is made, not only in retrospect after the project ends.",
+   "Open, future tasks are managed by a backlog; the ADR documents decisions already made."
   ],
-  "explanation": "An ADR documents a decision with context, alternatives and consequences. Task tracking, error logs or requirements capture are something else."
+  "explanation": "An ADR documents a decision made, with context, alternatives, and consequences - usually one per decision, close in time to the decision. It is not a collective document, not a retrospective only at the project's end, and not a backlog of open tasks."
  },
  "c4q10": {
-  "q": "What does 'audience-appropriate' documentation mean?",
+  "q": "An architect documents the same system for management, operations, and development. Which statements about audience-oriented documentation are correct?",
   "options": [
-   "Content, level of detail and notation are aligned to the information needs of the respective stakeholders.",
-   "A single document with maximum level of detail is created for all readers.",
-   "The documentation is deliberately written exclusively for developers.",
-   "All views are repeated in full for every audience."
+   "Content, level of detail, and notation are oriented to the information needs of the respective target audience.",
+   "Different target audiences often need different views or abstraction levels of the same system.",
+   "For management, an overview is often sufficient, while development needs detailed building block descriptions.",
+   "Each target audience receives its own, content-wise independent model of the system.",
+   "Audience-oriented means providing the maximum level of detail to all readers just to be safe."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: content, level of detail and notation are aligned to the readers' needs.",
-   "A maximum document for everyone is precisely not audience-appropriate.",
-   "Documentation addresses many roles, not only developers.",
-   "Repeating all views for every audience is unnecessary."
+   "Correct: content, level of detail, and notation are oriented to the needs of the respective readers.",
+   "Correct: different target audiences need different views/abstraction levels.",
+   "Correct and subtle: management overview vs. detailed building block view for developers is a typical example.",
+   "It remains the same system/architecture model - depicted in different views, not as independent models.",
+   "Maximum level of detail for everyone is precisely not audience-oriented."
   ],
-  "explanation": "Audience-appropriate means: aligning content, level of detail and notation to the needs of the respective readers – not a maximum document for everyone, not only for developers and no repetition of all views."
+  "explanation": "Audience-oriented means: orient content, level of detail, and notation to the readers' needs, providing different views of the same system if appropriate. No independent models per group arise, and a maximum document for everyone is precisely the opposite."
  },
  "k4": {
   "q": "Assign each view/notation: static (structure) or dynamic (behavior)?",
-  "explanation": "The building block and class views show the static structure. The runtime view and sequence diagram show dynamic behavior (processes at runtime).",
   "categories": [
    "Static (structure)",
    "Dynamic (behavior)"
   ],
   "rows": [
-   "Building block view",
-   "Runtime view",
-   "Class diagram",
+   "Component diagram",
+   "Deployment view",
+   "State diagram",
    "Sequence diagram"
-  ]
+  ],
+  "explanation": "Component diagram and deployment view describe static structure (building blocks/interfaces or assignment onto nodes) - the deployment view is often mistakenly classified as dynamic. State and sequence diagrams show dynamic behavior (state transitions or temporal flows)."
  },
  "c4q11": {
-  "q": "What distinguishes the business and technical context in context delimitation?",
+  "q": "What distinguishes the business context from the technical context in the context delimitation?",
   "options": [
-   "The business context shows neighbors/interfaces from a functional perspective, the technical context the concrete channels and protocols.",
-   "The business context describes the internal business logic, the technical context the internal code.",
-   "Both show the same thing; the difference lies only in the diagram type.",
-   "The technical context lists the quality requirements."
+   "The business context shows communication partners and exchanged data in business terms; the technical context shows the concrete channels and protocols.",
+   "The business context belongs in the requirements documentation, the technical context in the architecture documentation.",
+   "The technical context already shows the internal technical building block structure of the system.",
+   "The two differ only in the notation used, not in the content depicted."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: business means partners and data, technical means channels and protocols.",
-   "Both concern the system boundary, not the internal details.",
-   "They show different aspects, not just a different diagram type.",
-   "Quality requirements are not part of the technical context."
+   "Correct: business = partners and data in business terms; technical = concrete channels/protocols - both at the system boundary.",
+   "Both are part of the context view of the architecture documentation; the separation does not run along requirements vs. architecture documentation.",
+   "The technical context also remains at the system boundary (black box) and shows no internals.",
+   "The difference lies in the depicted content (business vs. technical), not merely in the notation."
   ],
-  "explanation": "The context view can be depicted from a business perspective (which partners/data) and a technical perspective (via which channels/protocols) – both concern the system boundary, not the internals or the quality requirements."
+  "explanation": "Both representations concern the system boundary: business (which partners/data) vs. technical (which channels/protocols). They show no internals, differ in content (not only notationally), and are both part of the context view."
  },
  "c4q12": {
   "q": "What does a UML component diagram primarily depict?",
   "options": [
-   "Components/building blocks and their provided or required interfaces.",
-   "The temporal sequence of method calls between objects.",
-   "The assignment of components to physical servers.",
-   "The individual attributes and methods of each class in detail."
+   "Components/building blocks and their offered or required interfaces.",
+   "Physical computing nodes and the artifacts executed on them.",
+   "The complete signature of every operation, including parameter types and visibilities.",
+   "The order in which the components are instantiated and called at runtime."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: component diagrams show building blocks and their interfaces.",
-   "The temporal sequence of calls is shown by the sequence diagram.",
-   "The server assignment is shown by the deployment diagram.",
-   "Attributes and methods in detail are shown by the class diagram."
+   "Correct: component diagrams show building blocks and their offered/required interfaces.",
+   "Nodes and the artifacts executed on them are shown by the deployment diagram.",
+   "Detailed operation signatures per class are shown by the class diagram; components show interfaces, not every signature.",
+   "The temporal order of instantiation/calls is shown by the sequence/runtime diagram."
   ],
-  "explanation": "Component diagrams show building blocks and their interfaces (building block view). Temporal sequence = sequence diagram; server assignment = deployment diagram; attributes/methods = class diagram."
+  "explanation": "Component diagrams show building blocks with offered/required interfaces (static structure). Nodes+artifacts = deployment diagram; full signatures = class diagram; temporal order = sequence diagram."
  },
  "c4q13": {
-  "q": "Why are architectures described using multiple views?",
+  "q": "Why are architectures described with multiple views? Which statements are correct?",
   "options": [
-   "Because different views address different questions and stakeholders.",
-   "Because no single view can show all relevant aspects.",
-   "Because each view merely repeats the same information in a different color.",
-   "Because a minimum number of diagrams is required by law.",
-   "Because the number of views directly proves the maturity of the architecture."
+   "Different views address different questions and stakeholders.",
+   "No single view can depict all relevant aspects simultaneously.",
+   "The same building blocks can appear in multiple views, each with a different focus.",
+   "Each view is a self-contained model and is kept consistent independently of the others.",
+   "More views fundamentally mean better architecture documentation."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Different views address different questions and stakeholders.",
-   "No single view can show all relevant aspects.",
-   "The views do not repeat the same information in a different color.",
-   "There is no legally required minimum number of diagrams.",
-   "The number of views does not prove any maturity of the architecture."
+   "Different views address different questions and audiences.",
+   "No single view shows all aspects - hence multiple ones.",
+   "Correct and subtle: building blocks often appear multiple times, each with a different focus (e.g., static vs. runtime).",
+   "Near-miss: views are specifically not independent - they must remain consistent with one another and describe the same system.",
+   "It is not the number that is decisive; too many views can be harmful. What counts is appropriateness."
   ],
-  "explanation": "Multiple views address different questions and audiences, because no single one shows everything. They do not repeat the same information, and there is no legally required minimum number."
+  "explanation": "Multiple views address different questions/audiences because no single one shows everything, and the same building blocks appear multiple times. However, views are not independent (obligation of consistency), and more views are not per se better."
  },
  "c4q14": {
   "q": "Which properties make architecture documentation particularly useful?",
   "options": [
-   "It is up to date and is maintained alongside relevant changes.",
-   "It is tailored to the respective audience.",
+   "It is current and is maintained along with relevant changes.",
+   "It is tailored to the respective target audience.",
    "It is as concise as possible and as detailed as necessary.",
-   "It is as extensive as possible – being up to date is secondary.",
-   "It is kept identical for all readers, so that no one has a different version.",
-   "It uses as many technical terms as possible to ensure the highest precision."
+   "It is as extensive as possible; currency is thereby secondary.",
+   "It is generated from the code as completely as possible, because generated documentation is automatically useful."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Up-to-date, maintained documentation stays reliable and useful.",
-   "Documentation tailored to the audience meets the information need.",
-   "Appropriately concise documentation is easy to read and maintain.",
-   "Maximum extent at the expense of being up to date is precisely harmful.",
-   "Uniform documentation for everyone contradicts tailoring to audiences.",
-   "Too much technical jargon harms comprehensibility rather than helping."
+   "Current, maintained documentation remains reliable and useful.",
+   "Documentation tailored to the target audience meets the information need.",
+   "Appropriately concise documentation is easily readable and maintainable.",
+   "Maximum scope at the expense of currency is precisely harmful.",
+   "Near-miss: code generation can keep structural documentation current but does not replace decisions/rationale and does not make documentation automatically useful."
   ],
-  "explanation": "Useful documentation is up to date, audience-appropriate and appropriately concise. Maximum completeness at the expense of being up to date is precisely not the goal."
+  "explanation": "Useful documentation is current, audience-oriented, and appropriately concise. Maximum scope at the expense of currency is harmful, and generated documentation is not per se useful (rationale/decisions cannot be generated)."
  },
  "c4q15": {
-  "q": "What advantage does a standardized notation (e.g. UML) offer over arbitrary 'boxes and arrows'?",
+  "q": "What advantage does a standardized notation (e.g., UML) offer over arbitrary „boxes and arrows“?",
   "options": [
-   "A more unambiguous meaning of the diagram elements that others can follow.",
-   "It automatically guarantees that the depicted architecture is correct.",
-   "It makes explanatory legends and documentation completely unnecessary.",
-   "It forbids any informal sketch in the design process."
+   "The diagram elements have an agreed meaning that is unambiguously comprehensible to others.",
+   "Diagrams can be checked by tools and partly turned into code, whereby design errors are ruled out.",
+   "An explanatory legend is no longer necessary, since the notation is fully self-explanatory.",
+   "Standard notation enforces a uniform level of detail across all diagrams."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: standard notation gives elements an agreed, clear meaning.",
-   "A notation does not guarantee a correct architecture.",
-   "Explanatory legends and documentation do not become unnecessary because of it.",
-   "Informal sketches remain permitted in design."
+   "Correct: standard notation gives the elements an agreed, clear meaning.",
+   "Near-miss: tool support/code generation exists, but it does not rule out business design errors.",
+   "Even with standard notation, explanations/legends remain sensible depending on the reader.",
+   "A uniform level of detail is not enforced by the notation."
   ],
-  "explanation": "Standard notations give elements an agreed meaning (better comprehensibility). They do not guarantee correctness, do not replace every explanation and do not forbid informal sketches."
+  "explanation": "Standard notations give elements an agreed meaning and thereby better comprehensibility. They do not rule out design errors, do not replace every explanation, and do not enforce a uniform level of detail."
  },
  "c4q16": {
-  "q": "You want to show how an ordering process runs between several building blocks at runtime. Which view fits best?",
+  "q": "You want to show how an ordering process runs at runtime between several building blocks. Which view fits best?",
   "options": [
-   "The runtime view (e.g. as a sequence diagram).",
-   "The building block view, since all involved building blocks are listed.",
-   "The deployment view, since several building blocks are involved.",
-   "The context view, since a business process is shown."
+   "The runtime view (e.g., as a sequence or activity diagram).",
+   "The building block view, since it shows all building blocks involved and their interfaces.",
+   "The deployment view, since the process passes through several nodes.",
+   "The context view, since an order is a business use case."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: temporal processes between building blocks are shown by the runtime view.",
-   "The building block view lists building blocks but shows no process.",
-   "The deployment view concerns servers, not the temporal process.",
-   "The context view shows the system boundary, not internal processes."
+   "Correct: the temporal flow between building blocks is shown by the runtime view.",
+   "The building block view shows the building blocks involved statically, but not the temporal flow.",
+   "The deployment view shows the assignment onto nodes, not the temporal flow.",
+   "The context view shows the system boundary, not the internal flows."
   ],
-  "explanation": "A temporal process between building blocks belongs in the runtime view (e.g. sequence diagram). Building block, deployment and context views answer other questions."
+  "explanation": "A temporal flow between building blocks belongs in the runtime view (e.g., sequence diagram). Building block, deployment, and context views answer other questions, even if they name involved building blocks/nodes."
  },
  "c4q17": {
-  "q": "Which contents typically belong in architecture documentation (e.g. according to arc42)?",
+  "q": "Which contents typically belong in an architecture documentation according to arc42?",
   "options": [
    "The context delimitation of the system.",
    "The quality requirements or quality scenarios.",
+   "The architecture decisions with their rationale.",
    "The complete, line-by-line explanation of the entire source code.",
-   "The meeting minutes of every single daily standup.",
-   "The current daily load and monitoring metrics from ongoing production operation."
+   "The detailed project and milestone plan, including resource allocation."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "The context delimitation is a fixed component of arc42.",
-   "Quality requirements explicitly belong in the architecture documentation.",
-   "A line-by-line code explanation does not belong in the documentation.",
-   "Standup minutes are not part of the architecture documentation.",
-   "Ongoing operational metrics belong in monitoring, not in the architecture documentation."
+   "The context delimitation is a fixed arc42 section.",
+   "Quality requirements/scenarios explicitly belong in it.",
+   "Correct and subtle: architecture decisions with rationale are a dedicated arc42 section.",
+   "A line-by-line code explanation does not belong in the architecture documentation.",
+   "Near-miss: project/milestone planning is project management, not part of the architecture documentation."
   ],
-  "explanation": "Context delimitation and quality requirements belong in the architecture documentation (arc42). A line-by-line code explanation or standup minutes do not belong there."
+  "explanation": "Context delimitation, quality requirements, and architecture decisions (with rationale) belong in arc42. A line-by-line code explanation and the project planning do not."
  },
  "k7": {
   "q": "Assign each question to the appropriate view.",
-  "explanation": "Decomposition into building blocks and their internal structure = building block view. Assignment to hardware/nodes and communication paths = deployment view.",
   "categories": [
    "Building block view",
    "Deployment view"
   ],
   "rows": [
    "Into which modules/components is the system decomposed?",
-   "Onto which servers/nodes is the software distributed?",
-   "How is a subsystem structured internally?",
-   "Over which network paths do the computers communicate?"
-  ]
+   "What responsibility and what interfaces does a subsystem have?",
+   "On which node does which component run in which environment?",
+   "Over which network protocols do the machines communicate?"
+  ],
+  "explanation": "Decomposition into building blocks as well as responsibilities/interfaces of a subsystem = building block view. Assignment of components to nodes/environments and the communication paths/protocols = deployment view."
  },
  "c4q18": {
   "q": "Which statements about the UML class diagram are correct?",
   "options": [
-   "It shows types/classes and their relationships (e.g. association, inheritance).",
+   "It shows types/classes and their relationships (e.g., association, inheritance).",
    "It belongs to the static structure view.",
-   "It primarily depicts the temporal sequence of messages between objects.",
-   "It maps the distribution of artifacts onto execution nodes.",
+   "It primarily depicts the temporal flow of messages between objects.",
+   "It maps the deployment of artifacts onto execution nodes.",
    "It primarily depicts the state transitions of an object over its lifetime."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
    "Class diagrams show types and their relationships.",
    "They belong to the static structure view.",
-   "Temporal message sequence is shown by the sequence diagram.",
-   "The distribution of artifacts onto nodes is shown by the deployment diagram.",
+   "Temporal message flow is shown by the sequence diagram.",
+   "The deployment of artifacts onto nodes is shown by the deployment diagram.",
    "State transitions over the lifetime are shown by the state diagram."
   ],
-  "explanation": "Class diagrams show static structure (types + relationships). Temporal message sequence = sequence diagram; distribution onto nodes = deployment diagram."
+  "explanation": "Class diagrams show static structure (types + relationships). Temporal message flow = sequence diagram; deployment onto nodes = deployment diagram."
  },
  "c4q19": {
-  "q": "Which decisions typically belong in an Architecture Decision Record (ADR)?",
+  "q": "In a project, it must be decided which decisions are recorded as an Architecture Decision Record (ADR). Which statements are true?",
   "options": [
-   "The choice of an architecture pattern with far-reaching consequences.",
-   "A hard-to-reverse fundamental technological decision.",
-   "The renaming of an internal method for better readability.",
-   "The concrete code formatting (indentation, line length).",
-   "Defining the order of import statements in a source file."
+   "A hard-to-reverse fundamental technology decision should be recorded as an ADR, including the alternatives considered and rejected.",
+   "The choice of an architecture or integration pattern with far-reaching consequences is worthy of an ADR.",
+   "Ideally every detailed decision in the code should get its own ADR to ensure complete traceability.",
+   "Purely local refactorings without any impact on structure or quality attributes belong in an ADR.",
+   "An ADR is the place for the complete, always up-to-date description of the current (as-is) architecture."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "The choice of a pattern with far-reaching consequences is worthy of an ADR.",
-   "Hard-to-reverse fundamental decisions belong in the ADR.",
-   "A trivial method renaming is not an ADR decision.",
-   "Pure code formatting is too trivial for an ADR.",
-   "The order of imports is too trivial for an ADR."
+   "Correct: Hard-to-reverse, consequential fundamental decisions are the core of an ADR, and it is precisely the rejected alternatives that make the decision traceable.",
+   "Correct: Patterns with far-reaching consequences are typical ADR candidates.",
+   "Fallacy: ADRs deliberately capture only the decision-relevant, far-reaching points; documenting every detailed decision creates effort and becomes outdated quickly.",
+   "Local refactorings without consequences are not architecturally relevant decisions and do not belong in an ADR.",
+   "Confusion: The ongoing description of the as-is architecture is the task of the architecture documentation; an ADR captures a single point-in-time decision."
   ],
-  "explanation": "ADRs record far-reaching, consequential and hard-to-reverse decisions. Trivial renamings or formatting matters do not belong there."
+  "explanation": "ADRs capture far-reaching, consequential, and hard-to-reverse decisions together with their context and rejected alternatives. They are neither a log of every detailed decision nor a continuous overall description of the architecture."
  },
  "c4q20": {
   "q": "What does a UML deployment diagram show?",
   "options": [
-   "Nodes (hardware or execution environments) and the artifacts executed on them.",
-   "The temporal sequence of method calls between objects.",
-   "The static decomposition of the system into functional building blocks.",
-   "The inheritance and association relationships of the classes."
+   "Nodes (hardware or execution environments), the artifacts executed on them, and the communication paths between the nodes.",
+   "The logical decomposition of the system into components and their provided or required interfaces.",
+   "The temporal exchange of messages between objects for a specific sequence.",
+   "The states of an object and the transitions between them and their triggers."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: it shows nodes and the artifacts executed on them.",
-   "The temporal sequence of calls is shown by the sequence diagram.",
-   "The static decomposition into building blocks is shown by the building block view.",
-   "Inheritance and association relationships are shown by the class diagram."
+   "Correct: Nodes, the artifacts placed on them, and their connections are the content of a deployment diagram.",
+   "Near-Miss: The logical decomposition into components and interfaces is shown by the component diagram, not the deployment onto hardware.",
+   "The temporal message exchange is shown by the sequence diagram.",
+   "States and their transitions are shown by the state diagram."
   ],
-  "explanation": "Deployment diagrams show nodes and the artifacts placed on them (deployment view). Temporal processes, building block decomposition or class relationships are other diagrams."
+  "explanation": "Deployment diagrams assign artifacts to physical or logical nodes and show their communication paths (deployment view). Component decomposition, temporal sequences, or object states are other diagram types."
  },
  "c4q21": {
-  "q": "How is architecture documentation most likely kept up to date?",
+  "q": "An architecture documentation is increasingly becoming outdated relative to the actual code. Which measures are most likely to help keep it up to date permanently?",
   "options": [
-   "Keep it concise, maintain it close to the code or versioned, and update it alongside relevant changes.",
-   "Write it once very extensively, so that later changes become unnecessary.",
-   "Store it separately from the project in a separate archive.",
-   "Use exclusively automatically generated diagrams and explain nothing."
+   "Keep the documentation lean and maintain it versioned close to the code (e.g., in the repository).",
+   "Firmly anchor updating the documentation on relevant changes in the Definition of Done.",
+   "Generate overviews and diagrams from the code where sensible, instead of maintaining them manually.",
+   "Create a very extensive documentation once, to make later changes unnecessary.",
+   "Store the documentation in a separate archive detached from the project, so it remains untouched."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: lean, versioned and part of the change routine stays up to date.",
-   "A one-time large document still becomes outdated quickly.",
-   "A separate archive makes maintenance harder rather than securing it.",
-   "Purely generated diagrams without explanation are not sufficient."
+   "Correct: Lean, versioned, and code-near documentation can be maintained together with the code.",
+   "Correct: If updating is part of the change routine, the documentation does not drift away.",
+   "Correct: Generated artifacts reduce manual maintenance effort and stay in sync with the code; however, they do not replace the explanatory text.",
+   "Fallacy: Even a one-time large document becomes outdated as soon as the system changes.",
+   "A separate archive decouples the documentation from the flow of changes and precisely encourages it becoming outdated."
   ],
-  "explanation": "Documentation stays up to date if it is lean, close to the process (versioned) and part of the change routine. A one-time large document, a separate archive or purely generated diagrams without explanation do not help."
+  "explanation": "Documentation stays up to date if it is lean, versioned, and part of the change routine, and derived from the code where possible. A one-time large document or a decoupled archive does not prevent it from becoming outdated."
  },
  "c4q22": {
-  "q": "What is a glossary or a uniform terminology in the documentation used for?",
+  "q": "Which statements about a glossary or a shared vocabulary in the documentation are true?",
   "options": [
-   "For a shared, unambiguous understanding of the technical terms – fewer misunderstandings.",
-   "For a complete list of all class names in the source code.",
-   "For translating the user interface into several languages.",
-   "For a directory of all open bugs in the system."
+   "It creates a shared, unambiguous understanding of the domain terms and reduces misunderstandings.",
+   "It supports a consistent, uniform use of terms between the business domain and development.",
+   "It is primarily a complete list of all class and variable names of the source code.",
+   "It primarily serves to translate the user interface into multiple languages.",
+   "It replaces a standalone description of the quality requirements."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Correct: a glossary creates a shared, unambiguous terminology.",
-   "A glossary is not a list of all class names in the code.",
-   "Translating the interface is not the task of a glossary.",
-   "A directory of open bugs is something other than a glossary."
+   "Correct: Unambiguous domain terms are the core purpose of a glossary.",
+   "Correct: A consistently used, shared language connects the business domain and its implementation.",
+   "Confusion: A glossary explains domain terms; it is not a directory of technical identifiers.",
+   "UI translation is the task of localization, not of the glossary.",
+   "Near-Miss: Quality requirements are described separately; a glossary does not replace them."
   ],
-  "explanation": "A glossary ensures a shared, unambiguous terminology. It is not a class list, not a UI translation and not a bug directory."
+  "explanation": "A glossary ensures a shared, unambiguous domain language across roles. It is neither a list of technical identifiers nor a translation tool, and it does not replace quality requirements."
  },
  "c4q23": {
-  "q": "What makes an architecture overview valuable for new team members?",
+  "q": "What makes an architecture overview particularly valuable for new team members?",
   "options": [
-   "The big picture (context and goals).",
+   "The big picture: system context, goals, and the most important constraints.",
    "The most important building blocks and their responsibilities.",
-   "Key architecture decisions and their reasons.",
-   "A line-by-line explanation of every single method.",
-   "The complete listing of all bugs and tickets ever resolved.",
-   "The complete configuration values of all environments in detail."
+   "Central architecture decisions and their rationale.",
+   "A complete, in-depth description of all interfaces and data models.",
+   "A complete reference of all public methods with their signatures."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Context and goals give newcomers the big picture.",
-   "The most important building blocks and their responsibilities provide orientation.",
-   "Key decisions and their reasons explain the why.",
-   "A line-by-line explanation of every method is too detailed.",
-   "A complete bug history overloads the overview instead of orienting.",
-   "Detailed configuration values are too fine-grained for an overview."
+   "Correct: Context, goals, and constraints convey the big picture.",
+   "Correct: Main building blocks and their tasks provide quick orientation.",
+   "Correct: The reasons behind the core decisions explain the why.",
+   "Near-Miss: Complete interface and data model details are useful, but too deep for an overview and overload it.",
+   "A complete method reference is detailed knowledge and does not belong in an overview."
   ],
-  "explanation": "A good overview conveys context/goals, the main building blocks, and the core decisions. A line-by-line method explanation is too detailed for an overview."
+  "explanation": "A good overview conveys context/goals, the main building blocks, and the core decisions with their rationale. Complete interface, data model, or method details are too fine-grained for an overview."
  },
  "c4q24": {
-  "q": "Why should different architecture views be consistent with one another?",
+  "q": "Which statements about the consistency of different architecture views are true?",
   "options": [
-   "Because they show the same system from different perspectives - contradictions would be misleading.",
-   "Because every view must contain exactly the same elements at identical levels of detail.",
-   "Because otherwise the diagrams won't compile.",
-   "Because a single view would suffice anyway."
+   "All views describe the same system; the same building block must not be depicted contradictorily in different views.",
+   "Views may show different aspects and levels of detail, but must be free of contradictions with one another.",
+   "Consistency means that each view contains exactly the same elements at an identical level of detail.",
+   "Contradictions between views are uncritical, as long as each view is correct when considered on its own.",
+   "A single, comprehensive view is generally preferable, in order to avoid consistency problems from the outset."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Correct: All views show the same system; contradictions are misleading.",
-   "Consistency does not mean identical content and level of detail.",
-   "Diagrams are not compiled; that is not a reason.",
-   "A single view alone precisely does not suffice."
+   "Correct: The views show one system from different perspectives; contradictions would be misleading.",
+   "Correct: Different perspectives and levels of detail are desirable, but must not contradict one another.",
+   "Near-Miss: Consistency requires freedom from contradictions, not identical content and level of detail.",
+   "Fallacy: It is precisely the freedom from contradictions between the views that is decisive.",
+   "A single view cannot adequately cover the various concerns; several coordinated views are precisely the purpose."
   ],
-  "explanation": "All views describe the same system; the same building blocks must appear without contradiction. Consistency does not mean identical content/detail, has nothing to do with compiling, and a single view alone does not suffice."
+  "explanation": "Views show the same system from different perspectives and must be free of contradictions with one another. However, consistency does not mean identical content/level of detail, and a single view is not sufficient."
  },
  "k11": {
   "q": "Does the content belong in an architecture documentation?",
-  "explanation": "Context, decisions, and quality scenarios belong in the architecture documentation. Personal organizational data such as vacation planning does not.",
   "categories": [
    "Sensible documentation content",
    "Does not belong in it"
   ],
   "rows": [
    "Context delimitation of the system",
-   "Key architecture decisions (ADRs)",
-   "Quality requirements and scenarios",
-   "The complete source code line by line"
-  ]
+   "Central architecture decisions including their rationale",
+   "Cross-cutting concept for error handling",
+   "The complete source code line by line",
+   "The team's personal vacation and absence planning"
+  ],
+  "explanation": "Context delimitation, justified architecture decisions, and cross-cutting concepts belong in the architecture documentation. The complete source code (the goal of documentation is explanation, not duplication) and personal organizational data such as vacation planning do not belong in it."
  },
  "c4q25": {
   "q": "What does a whitebox description of a building block in the building block view show?",
   "options": [
-   "The internal decomposition of the building block into its contained (sub-)building blocks.",
-   "Only the externally visible interface of the building block (blackbox).",
-   "The temporal order of its calls at runtime.",
-   "The server environment in which the building block is operated."
+   "The internal decomposition of the building block into its contained (sub-)building blocks including their interplay.",
+   "Exclusively the externally provided interfaces and responsibilities of the building block.",
+   "The temporal sequence of calls between the internal building blocks at runtime.",
+   "The assignment of the internal building blocks to concrete execution nodes (servers)."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: A whitebox opens the building block and shows the internal parts.",
-   "Showing only the visible interface would be the blackbox.",
-   "The temporal order of calls belongs in the runtime view.",
-   "The server environment belongs in the deployment view."
+   "Correct: A whitebox opens the building block and shows its internal parts and their relationships.",
+   "Near-Miss: Showing only the external interface is precisely the blackbox view.",
+   "Near-Miss: The temporal sequence of internal calls belongs in the runtime view, not in the static whitebox.",
+   "The assignment to execution nodes belongs in the deployment view."
   ],
-  "explanation": "A whitebox opens the building block and shows its internal building blocks. Only the interface would be the blackbox; flow and environment are the runtime and deployment views respectively."
+  "explanation": "A whitebox opens the building block and statically shows its internal building blocks and their relationships. Only the interface would be the blackbox; temporal sequences or the hardware assignment are the runtime or deployment view respectively."
  },
  "c4q26": {
   "q": "What should an interface description typically specify?",
   "options": [
-   "The offered operations and their parameters or data formats.",
-   "The behavior in error cases (error or exception cases).",
-   "The internal implementation used to realize the operations.",
-   "The concrete server hardware on which the provider is operated.",
-   "The staffing responsibility and on-call duty of the operator team."
+   "The provided operations with their parameters, data formats, and their meaning.",
+   "The behavior in error and exception cases.",
+   "The communication protocol or the type of interaction (e.g., synchronous or asynchronous).",
+   "The internal implementation with which the operations are realized.",
+   "The concrete server hardware and network topology of the provider."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Offered operations with parameters and data formats belong in the contract.",
-   "The behavior in error or exception cases must be specified.",
-   "The internal implementation is precisely deliberately hidden.",
-   "The server hardware belongs to deployment, not to the interface.",
-   "Staffing responsibilities belong to operations, not to the interface."
+   "Correct: Operations, parameters, and data formats with their semantics are the core of the interface contract.",
+   "Correct: The behavior in error or exception cases must be specified.",
+   "Correct: Protocol and type of interaction (synchronous/asynchronous) are part of the contract between the partners.",
+   "The internal implementation is deliberately hidden for an interface (blackbox).",
+   "Server hardware and network topology are part of the deployment view, not the interface description."
   ],
-  "explanation": "An interface contract specifies operations/data formats and error behavior. The internal implementation is precisely hidden, and the hardware belongs to deployment."
+  "explanation": "An interface contract specifies operations/data formats, the error behavior, and the communication protocol. The internal implementation is precisely hidden, and the hardware belongs to deployment."
  },
  "c4q27": {
-  "q": "Why should you not document \"everything\"?",
+  "q": "Which statements justify why one should not document \"everything\"?",
   "options": [
-   "Because too much documentation costs effort and quickly becomes outdated - what matters is the decision-relevant content.",
-   "Because additional documentation worsens the quality of the architecture itself.",
-   "Because an architecture can be fully derived from the source code anyway.",
-   "Because documentation is only useful for external stakeholders, never for the team."
+   "Overly extensive documentation causes maintenance effort and becomes outdated quickly.",
+   "What is sensible is the decision-relevant; unnecessary redundancy with the code should be avoided.",
+   "Additional documentation immediately worsens the quality of the architecture itself.",
+   "The architecture can in any case be completely and unambiguously derived from the source code alone.",
+   "Documentation is generally only useful for external stakeholders, never for one's own team."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Correct: You deliberately document what is decision-relevant, since too much becomes outdated.",
-   "Additional documentation does not worsen the architecture itself.",
-   "The code alone does not fully explain decisions and goals.",
-   "Documentation also benefits your own team, not only externals."
+   "Correct: Excessive documentation ties up effort and lags behind the system.",
+   "Correct: One documents the decision-relevant in a targeted manner and avoids duplication with the code.",
+   "Fallacy: Documentation describes the architecture; it does not worsen it.",
+   "Fallacy: The code shows the how, not the reasons, goals, and rejected alternatives.",
+   "Documentation is useful precisely also for one's own team, not only for externals."
   ],
-  "explanation": "You deliberately document what is decision-relevant, because too much documentation causes effort and becomes outdated. Documentation does not worsen the architecture, the code alone does not fully explain decisions and quality goals, and documentation also benefits the team."
+  "explanation": "One documents the decision-relevant in a targeted manner, because too much documentation creates effort and becomes outdated. Documentation does not worsen the architecture, the code alone does not explain reasons and goals, and documentation is also useful for the team."
  },
  "c4q28": {
-  "q": "Which statements about the UML activity diagram are correct?",
+  "q": "Which statements about the UML activity diagram are true?",
   "options": [
    "It represents flows with actions and branches.",
    "It can depict concurrent (parallel) flows.",
@@ -2728,723 +3328,891 @@ const QUESTIONS_EN = {
    "It assigns software building blocks to execution nodes (hardware).",
    "It primarily depicts the states of an object and their transitions."
   ],
+  "correct": [
+   0,
+   1
+  ],
   "optExpl": [
-   "Activity diagrams show flows with actions and branches.",
-   "They can also depict concurrent, parallel flows.",
+   "Correct: Actions and branches are core elements of the activity diagram.",
+   "Correct: Parallel flows can be represented via fork/join.",
    "The static structure of classes is shown by the class diagram.",
    "The assignment to execution nodes is shown by the deployment diagram.",
    "States and their transitions are shown by the state diagram."
   ],
-  "explanation": "Activity diagrams show flows including concurrency (dynamic behavior). Static class structure = class diagram; assignment to hardware = deployment diagram."
+  "explanation": "Activity diagrams show flows including concurrency (dynamic behavior). Static class structure = class diagram; hardware assignment = deployment diagram; object states = state diagram."
  },
  "c4q29": {
-  "q": "Which section does the arc42 template explicitly provide for, among others?",
+  "q": "Which sections does the arc42 template explicitly provide?",
   "options": [
-   "A section for quality requirements or quality scenarios.",
+   "Quality requirements (e.g., quality tree and quality scenarios).",
+   "Cross-cutting concepts.",
+   "Constraints.",
    "A mandatory section with the complete source code of the system.",
-   "A mandatory section with the detailed project budget.",
-   "A binding test case catalog for every single method."
+   "A binding test case catalog for each individual method."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: arc42 explicitly provides for a section for quality requirements.",
-   "There is no mandatory source code section in arc42.",
-   "A detailed project budget is not an arc42 section.",
-   "arc42 does not provide for a binding test case catalog."
+   "Correct: arc42 contains a dedicated section for quality requirements.",
+   "Correct: Cross-cutting concepts are a dedicated arc42 section.",
+   "Correct: Constraints are an early arc42 section.",
+   "arc42 does not provide a source code section; documentation should explain, not duplicate the code.",
+   "arc42 does not know a binding test case catalog per method."
   ],
-  "explanation": "arc42 provides, among others, for context, solution strategy, building block view, runtime/deployment view, cross-cutting concepts, and quality requirements - but no mandatory source code, budget, or test case section."
+  "explanation": "arc42 structures, among others, into context, constraints, solution strategy, building block view, runtime/deployment view, cross-cutting concepts, architecture decisions, and quality requirements. Source code or a test case catalog are not arc42 sections."
  },
  "c4q30": {
-  "q": "Which statements about UML as a notation are correct?",
+  "q": "Which statements about UML as a notation are true?",
   "options": [
-   "UML offers standardized diagram types with agreed meaning.",
+   "UML offers standardized diagram types with agreed-upon meaning.",
    "For architecture, component, deployment, and sequence diagrams, among others, are useful.",
-   "UML prescribes a particular architecture or technology.",
-   "UML diagrams must always show all details of the system completely.",
-   "UML is bound to a particular programming language and presupposes it.",
-   "A UML model can always be translated fully automatically into executable code."
+   "UML prescribes a specific architecture or technology.",
+   "A UML model can always be translated completely and automatically into executable code.",
+   "UML is bound to a specific programming language and presupposes it."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "UML offers standardized diagram types with agreed meaning.",
-   "Component, deployment, and sequence diagrams are useful for architecture.",
-   "UML does not prescribe a particular architecture or technology.",
-   "UML diagrams do not have to show all details completely.",
-   "UML is independent of a concrete programming language.",
-   "Complete automatic code generation from UML is not guaranteed."
+   "Correct: UML is a standardized notation with defined semantics of the diagram types.",
+   "Correct: These diagram types are particularly helpful for architecture work.",
+   "UML is a notation and does not prescribe any architecture or technology.",
+   "Complete automatic code generation from UML is not guaranteed.",
+   "UML is independent of a concrete programming language."
   ],
-  "explanation": "UML is a standardized notation with many diagram types; for architecture, component, deployment, and sequence diagrams, among others, are useful. UML does not prescribe an architecture/technology and does not have to show everything."
+  "explanation": "UML is a standardized, language-independent notation with many diagram types; for architecture, component, deployment, and sequence diagrams, among others, are useful. It neither prescribes architecture/technology nor guarantees complete code generation."
  },
  "c4q31": {
-  "q": "An operations team wants to know which parts run on which servers. Which view helps the most?",
+  "q": "An operations team wants to know on which servers which parts run and how they communicate. Which view helps the most?",
   "options": [
    "The deployment view.",
-   "The building block view, since it shows all components.",
-   "The runtime view, since operations observes flows.",
-   "The class diagram, since it shows the structure."
+   "The building block view, since it shows all components and their responsibilities.",
+   "The runtime view, since operations mainly observes flows.",
+   "The class diagram, since it shows the static structure."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Questions about servers and nodes are answered by the deployment view.",
-   "The building block view shows components, but not their servers.",
-   "The runtime view shows flows, not the server assignment.",
-   "The class diagram shows structure, not the servers."
+   "Correct: Questions about servers, nodes, and communication paths are answered by the deployment view.",
+   "Near-Miss: The building block view shows the logical components, but not their assignment to servers.",
+   "Near-Miss: The runtime view shows temporal flows, not the hardware assignment.",
+   "The class diagram shows the static fine structure, not the deployment onto servers."
   ],
   "explanation": "Operations questions about servers/nodes and communication paths are answered by the deployment view. Building block view, runtime view, and class diagram address other aspects."
  },
  "k13": {
   "q": "Runtime view or deployment view?",
-  "explanation": "Interactions/flows at runtime = runtime view. Assignment to hardware/nodes and their communication paths = deployment view.",
   "categories": [
    "Runtime view",
    "Deployment view"
   ],
   "rows": [
-   "Temporal interaction of the building blocks in a use case",
+   "Temporal interaction of the building blocks during a use case",
    "On which server/node which component runs",
    "Order of the exchanged messages",
    "Network connections between data centers"
-  ]
+  ],
+  "explanation": "Interactions/flows at runtime = runtime view. Assignment to hardware/nodes and their communication paths = deployment view."
  },
  "c4q32": {
-  "q": "Which statements about good architecture documentation are correct?",
+  "q": "Which statements about good architecture documentation are true?",
   "options": [
    "Comprehensibility can ultimately only be judged from the perspective of the respective target group.",
    "Appropriateness means: as much as necessary, as little as possible.",
-   "More documentation is fundamentally better than less.",
-   "Correctness is dispensable as long as the documentation is extensive enough.",
+   "More documentation is generally better than less.",
+   "Correctness is dispensable, as long as the documentation is extensive enough.",
    "The quality of good documentation is measured above all by the number of diagrams it contains."
   ],
-  "optExpl": [
-   "Comprehensibility can only be judged from the perspective of the target group.",
-   "Appropriateness means: as much as necessary, as little as possible.",
-   "More documentation is not fundamentally better than less.",
-   "Correctness is indispensable; volume does not replace it.",
-   "The amount of diagrams is no measure of good documentation."
+  "correct": [
+   0,
+   1
   ],
-  "explanation": "Comprehensibility is target-group-dependent (subjective), appropriateness means the right measure. \"Much = good\" is a fallacy, and correctness is indispensable."
+  "optExpl": [
+   "Correct: Whether something is comprehensible is decided by the target group, not the author.",
+   "Correct: Appropriateness means the right measure, not maximum extent.",
+   "Fallacy: More documentation means more maintenance and faster obsolescence, not automatically more value.",
+   "Correctness is indispensable; extent cannot replace it.",
+   "The mere quantity of diagrams is not a measure of quality."
+  ],
+  "explanation": "Comprehensibility depends on the target group, appropriateness means the right measure. \"More = good\" is a fallacy, correctness is indispensable, and the number of diagrams does not measure quality."
  },
  "c4q33": {
-  "q": "How does decision documentation according to arc42 tend to differ from an Architecture Decision Record (ADR)?",
+  "q": "In what way does decision documentation according to arc42 tend to differ from a single Architecture Decision Record (ADR)?",
   "options": [
-   "arc42 foregrounds the path and alternatives; an ADR focuses on the outcome and status of the decision.",
-   "An ADR may be used exclusively in arc42 projects.",
-   "arc42 explicitly forbids recording decisions.",
-   "Both must not contain the context of a decision."
+   "arc42 places decisions in a dedicated section within the overall context; an ADR is a standalone format focused per decision with its own status.",
+   "An ADR necessarily replaces the arc42 decision section and must not exist alongside it.",
+   "In contrast to arc42, ADRs generally capture no context and no alternatives.",
+   "arc42 does not provide for recording architecture decisions at all."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: arc42 emphasizes the path and alternatives, an ADR the outcome and status.",
-   "An ADR is independent and not limited to arc42.",
-   "arc42 does not forbid recording decisions.",
-   "Both do indeed record the context of a decision."
+   "Correct: arc42 embeds decisions into the overall documentation, while an ADR documents a single decision standalone with a status.",
+   "Fallacy: ADRs and the arc42 section can be combined; one does not necessarily replace the other.",
+   "False: ADRs in particular capture context and considered alternatives.",
+   "False: arc42 has a dedicated section for architecture decisions."
   ],
-  "explanation": "Rough rule of thumb: arc42 decision documentation emphasizes path/alternatives, an ADR the outcome and status. Both record the context and can be combined independently of one another."
+  "explanation": "Rule of thumb: arc42 embeds decisions into the overall documentation, an ADR focuses on a single decision with its own status. Both capture context and alternatives and are combinable."
  },
  "c4q34": {
   "q": "Which information typically belongs in an Architecture Decision Record (ADR)?",
   "options": [
-   "Context, the decision made, its status, and the consequences.",
-   "A detailed implementation guide for every affected method.",
-   "The complete requirements specification of the overall system.",
-   "A binding effort and cost calculation of the project."
+   "The context or the problem that triggers the decision.",
+   "The decision made including its status (e.g., proposed, accepted, superseded).",
+   "The consequences of the decision and the considered alternatives.",
+   "A detailed implementation and testing guide for each affected component.",
+   "The complete requirements specification and cost calculation of the overall system."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: An ADR names context, decision, status, and consequences.",
-   "A detailed implementation guide does not belong in the ADR.",
-   "The complete requirements specification is not ADR content.",
-   "An effort and cost calculation does not belong in the ADR."
+   "Correct: The context makes it traceable why a decision was made at all.",
+   "Correct: Decision and status are core components of an ADR.",
+   "Correct: Consequences and alternatives are part of the traceable decision.",
+   "A detailed implementation/testing guide is not ADR content.",
+   "Requirements specification and cost calculation are separate documents, not ADR content."
   ],
-  "explanation": "An ADR concisely records title, context, decision, status, and consequences - it is not a complete implementation, requirements, or cost document."
+  "explanation": "An ADR concisely captures context, decision, status, consequences, and considered alternatives. It is not an implementation, requirements, or cost document."
  },
  "c4q35": {
   "q": "What applies to the documentation of interfaces?",
   "options": [
-   "External interfaces are usually documented earlier and more thoroughly, because they form a \"contract\" with third parties.",
-   "Internal interfaces must always be documented in more detail than external ones.",
-   "Interfaces need no information on data formats or error behavior.",
-   "An interface description should disclose the internal implementation."
+   "External interfaces form a \"contract\" with third parties and are usually specified earlier and in more detail.",
+   "Internal interfaces must generally be documented in more detail than external ones.",
+   "An interface description should also disclose the internal implementation, in order to avoid misunderstandings.",
+   "For interfaces, the signature is sufficient; data formats and error behavior are dispensable."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: External interfaces are a contract with third parties, hence documented early and thoroughly.",
-   "Internal interfaces are not fundamentally more detailed than external ones.",
-   "Data formats and error behavior do indeed belong to it.",
-   "The internal implementation remains deliberately hidden (blackbox)."
+   "Correct: External interfaces are binding for third parties and are therefore specified early and carefully.",
+   "Fallacy: Internal interfaces are not per se more detailed; the level of detail depends on need.",
+   "Near-Miss: The internal implementation in particular remains deliberately hidden (blackbox).",
+   "Data formats and error behavior are mandatory parts of the interface description."
   ],
-  "explanation": "External interfaces are a contract with third parties and are specified early/thoroughly (data formats, protocols, error and versioning behavior). The internal implementation is deliberately left out (blackbox)."
+  "explanation": "External interfaces are a contract with third parties and are specified early/in detail (data formats, protocols, error and versioning behavior). The internal implementation is deliberately left out (blackbox)."
  },
  "c4q36": {
-  "q": "Why are cross-cutting concepts (e.g. error handling, security) documented centrally?",
+  "q": "Which statements about the central documentation of cross-cutting concepts (e.g., security, error handling, logging) are true?",
   "options": [
-   "So that they are implemented uniformly system-wide and do not have to be reinvented/re-explained in every building block.",
-   "Because they concern only a single building block and are described exclusively there.",
-   "Because they are relevant exclusively for external auditors.",
-   "Because they have no influence on quality attributes."
+   "It promotes a system-wide uniform, low-redundancy implementation across many building blocks.",
+   "Cross-cutting concepts typically affect multiple building blocks and impact quality attributes.",
+   "A cross-cutting concept by definition affects only a single building block and is described exclusively there.",
+   "Cross-cutting concepts are relevant exclusively for external auditors and audits.",
+   "They replace the building block view, since they already describe the system completely."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Correct: Central documentation ensures a uniform, low-redundancy implementation.",
-   "Cross-cutting concepts concern many building blocks, not just one.",
-   "They are not relevant exclusively for external auditors.",
-   "They do indeed influence quality attributes."
+   "Correct: A central description prevents each team from solving the topic anew and differently.",
+   "Correct: Cross-cutting concepts run through multiple building blocks and influence quality attributes.",
+   "Fallacy: Precisely because they affect many building blocks, they are described centrally.",
+   "False: They are relevant above all for the development team, not only for auditors.",
+   "False: They complement the building block view, but do not replace it."
   ],
-  "explanation": "A central description ensures the uniform, low-redundancy implementation of cross-cutting topics. They concern many building blocks (not one), are not only intended for auditors, and do indeed affect quality attributes."
+  "explanation": "A central description ensures the uniform, low-redundancy implementation of cross-cutting topics that affect many building blocks and impact quality attributes. They are not limited to one building block, not intended only for auditors, and do not replace any other view."
  },
  "c5q1": {
-  "q": "Of which components does a quality scenario typically consist?",
+  "q": "Which elements belong to a fully formulated quality scenario?",
   "options": [
-   "A trigger/stimulus (what triggers the scenario).",
-   "The environment or context (under what conditions).",
-   "A response with a measurable response measure (response/measure).",
-   "An estimate of the implementation effort in person-days.",
-   "A concrete technical solution that handles the trigger."
+   "A trigger (stimulus) - such as an event, a request, or a change that the system is meant to respond to.",
+   "The source of the trigger and the environment or context in which the scenario applies (e.g. normal operation, load peak).",
+   "The expected response together with a measurable response measure (e.g. response time under 200 ms).",
+   "The priority of the scenario as well as the estimated implementation effort as mandatory elements of every scenario.",
+   "A concrete technical implementation (the HOW) by which the required response is ensured."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "The trigger (stimulus) is an integral component of a quality scenario.",
-   "The environment or context describes the conditions of the scenario.",
-   "The response with a measurable response measure makes the goal verifiable.",
-   "An effort estimate in person-days does not belong to the quality scenario.",
-   "A scenario describes required behavior, not the technical solution."
+   "The trigger (stimulus) is an integral element and describes what is being responded to.",
+   "Source and environment/context define the conditions under which the scenario applies.",
+   "The expected response plus a measurable response measure are what make the scenario verifiable in the first place.",
+   "A priority is indeed often assigned to scenarios (e.g. in the utility tree), but an effort value is not an element of the scenario - the combination as mandatory elements is wrong.",
+   "A scenario describes required behavior (the WHAT), not the technical solution (the HOW)."
   ],
-  "explanation": "A quality scenario names the trigger, environment/context, and a response with a measurable response measure. An effort estimate does not belong to it."
+  "explanation": "A quality scenario names the trigger, source/environment, and the expected response with a measurable response measure. Effort estimates are not part of it, and the technical implementation (HOW) is precisely not part of the scenario."
  },
  "c5q2": {
-  "q": "What is ATAM?",
+  "q": "How can ATAM (Architecture Tradeoff Analysis Method) be most accurately characterized?",
   "options": [
-   "A scenario-based method for qualitative architecture evaluation.",
-   "An automatic tool that computes metrics from the code.",
-   "An architecture pattern for fault-tolerant systems.",
-   "A maturity model for development processes."
+   "A scenario-based, predominantly qualitative method that analyzes architecture decisions against quality scenarios and thereby makes trade-offs visible.",
+   "A method that quantifies the economic benefit of architecture decisions in monetary units and weighs it against their costs.",
+   "A metric suite that automatically computes coupling and complexity from the source code.",
+   "A maturity model that classifies the architecture and development process into defined levels."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: ATAM evaluates architecture in a scenario-based and qualitative way.",
-   "ATAM is not an automatic tool for computing metrics from code.",
-   "ATAM is an evaluation method, not an architecture pattern.",
-   "ATAM is not a maturity model for development processes."
+   "Correct: ATAM is scenario-based, predominantly qualitative, and in particular highlights trade-offs.",
+   "This describes CBAM (Cost Benefit Analysis Method), not ATAM - an obvious but incorrect confusion.",
+   "ATAM is not an automatic metric tool; it thrives on the facilitated analysis with stakeholders.",
+   "A maturity model (e.g. CMMI) evaluates processes, not architecture decisions."
   ],
-  "explanation": "ATAM (Architecture Tradeoff Analysis Method) evaluates architecture qualitatively based on scenarios. It is not a metric tool, not an architecture pattern, and not a maturity model."
+  "explanation": "ATAM evaluates architecture in a scenario-based and qualitative manner and makes trade-offs explicit. The economic quantification is CBAM; metric suites and maturity models are something entirely different."
  },
  "c5q3": {
-  "q": "Which statements about qualitative vs. quantitative architecture evaluation are correct?",
+  "q": "Which statements about the relationship between qualitative and quantitative architecture evaluation are correct?",
   "options": [
-   "Qualitative evaluation works scenario- or expert-based (e.g. ATAM, reviews).",
-   "Quantitative evaluation relies on measurable key figures or metrics.",
-   "Qualitative evaluation always delivers more objective results than quantitative.",
-   "Quantitative metrics can always be evaluated unambiguously without interpretation.",
-   "Qualitative and quantitative evaluation fundamentally exclude one another."
+   "Qualitative methods (e.g. ATAM, reviews) are especially useful early on, when no runnable code or detailed model yet exists.",
+   "Quantitative methods presuppose an analyzable artifact (code, model) and deliver measurable key figures.",
+   "Qualitative results are fundamentally more objective than quantitative ones, because experts are involved.",
+   "A quantitative metric value is already a finished evaluation even without interpretation in context.",
+   "Qualitative and quantitative methods complement each other and are frequently used in combination."
+  ],
+  "correct": [
+   0,
+   1,
+   4
   ],
   "optExpl": [
-   "Qualitative evaluation works scenario- and expert-based, for instance with ATAM.",
-   "Quantitative evaluation is based on measurable key figures and metrics.",
-   "Qualitative is not categorically more objective than quantitative.",
-   "Metrics always require interpretation and are never unambiguous.",
-   "Both approaches can be combined and complement one another."
+   "Correct: Scenario- and expert-based methods work even without a finished artifact, and thus early on.",
+   "Correct: Metrics need something measurable and deliver countable key figures.",
+   "Wrong: Expert involvement brings subjectivity with it - qualitative is not categorically more objective.",
+   "Wrong: A numeric value evaluates nothing as long as thresholds and meaning are not interpreted in context.",
+   "Correct: Both approaches complement each other and are often used together."
   ],
-  "explanation": "Qualitative = scenario-/expert-based, quantitative = metric-based. Qualitative is not categorically more objective, and metrics require interpretation in context."
+  "explanation": "Qualitative methods can be applied early and without an artifact, quantitative ones need something measurable; both complement each other. Qualitative is not automatically more objective, and metrics are not an evaluation without interpretation."
  },
  "c5q4": {
-  "q": "Which of the following are quantitative (metric-based) figures?",
+  "q": "Which of the following are quantitative (metric-based) quantities?",
   "options": [
-   "The degree of coupling between modules.",
-   "The cyclomatic complexity.",
-   "An expert's assessment in the architecture review.",
-   "The result of a scenario-based workshop (ATAM).",
-   "The classification of a risk as high, medium, or low.",
-   "The verbal description of identified architecture weaknesses."
+   "The efferent or afferent coupling degree of a module (Ce/Ca).",
+   "The cyclomatic complexity of a component.",
+   "The instability I = Ce / (Ca + Ce) according to R. C. Martin.",
+   "The classification of a trade-off as critical within an ATAM workshop.",
+   "The prioritization of quality scenarios as high/medium/low in the utility tree."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "The degree of coupling is a measurable, quantitative metric.",
-   "Cyclomatic complexity is a countable, quantitative key figure.",
-   "An expert assessment is qualitative, not metric-based.",
-   "An ATAM workshop is a qualitative procedure, not a metric.",
-   "A rough high/medium/low classification is qualitative, not a metric.",
-   "A verbal description is qualitative and not metric-based."
+   "Coupling degrees are counted, measurable key figures - quantitative.",
+   "Cyclomatic complexity counts control-flow paths - quantitative.",
+   "Instability is a computed metric value between 0 and 1 - quantitative.",
+   "The classification in an ATAM workshop arises in a facilitated, expert-based analysis - qualitative.",
+   "A coarse high/medium/low prioritization is a qualitative assessment, not a metric."
   ],
-  "explanation": "Degree of coupling and cyclomatic complexity are quantitative metrics. Expert assessment and ATAM workshops are qualitative procedures."
+  "explanation": "Coupling degrees, cyclomatic complexity, and instability according to Martin are computed metrics. ATAM classifications and the coarse scenario prioritization are qualitative judgments."
  },
  "c5q5": {
-  "q": "What is the purpose of a quality tree (utility tree)?",
+  "q": "What is the purpose of a utility tree in a scenario-based evaluation?",
   "options": [
-   "To structure and prioritize quality goals and associated scenarios in order to focus the evaluation.",
-   "To represent the inheritance hierarchy of the classes as a tree.",
-   "To depict the call order of the building blocks at runtime.",
-   "To visualize the folder structure of the project."
+   "It arranges quality attributes hierarchically down to prioritized, concrete quality scenarios and thereby focuses the evaluation.",
+   "It arranges identified risks by probability of occurrence and severity of damage in a matrix.",
+   "It represents the decomposition of the system into building blocks and their responsibilities.",
+   "It documents the architecture decisions taken together with their rationale and rejected alternatives."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: It structures and prioritizes quality goals and associated scenarios.",
-   "The utility tree does not show a class inheritance hierarchy.",
-   "The quality tree does not depict the runtime call order.",
-   "Folder structures have nothing to do with the quality tree."
+   "Correct: The utility tree structures quality attributes down to prioritized scenarios and directs the focus.",
+   "This describes a risk matrix, not the utility tree.",
+   "The decomposition into building blocks and responsibilities is provided by the building block view.",
+   "Justified decisions together with alternatives are recorded by an Architecture Decision Record (ADR)."
   ],
-  "explanation": "A quality tree organizes and prioritizes quality attributes and scenarios in order to focus the evaluation. It has nothing to do with class hierarchy, runtime flows, or folders."
+  "explanation": "A utility tree structures quality attributes hierarchically down to prioritized scenarios and focuses the evaluation. Risk matrix, building block view, and ADR are each other artifacts."
  },
  "c5q6": {
-  "q": "Why does one evaluate architectures at all?",
+  "q": "Which statements accurately describe the goals of an architecture evaluation?",
   "options": [
-   "To recognize risks and weaknesses regarding the quality goals early.",
-   "To make trade-offs between quality attributes visible.",
-   "To guarantee that the later implementation is error-free.",
-   "To exactly determine the number of developers needed.",
-   "To retroactively justify architecture decisions already made."
+   "Recognizing risks and weaknesses regarding the quality goals early, while corrections are still cheap.",
+   "Making trade-offs between competing quality attributes explicit, in order to decide consciously.",
+   "Checking whether the architecture is likely to be able to support the required quality goals.",
+   "Proving that the later implementation will be free of defects.",
+   "Demonstrating that without a formal evaluation no viable architecture can fundamentally come about."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Early recognition of risks and weaknesses is a central evaluation goal.",
-   "Evaluation makes trade-offs between quality attributes visible.",
-   "Evaluation does not guarantee an error-free later implementation.",
-   "Staffing planning is not a purpose of architecture evaluation.",
-   "Evaluation should critically examine decisions, not justify them retroactively."
+   "Correct: Early recognition of risks lowers the correction costs - a core goal.",
+   "Correct: Evaluation makes trade-offs visible and enables conscious decisions.",
+   "Correct: A central goal is assessing whether the architecture supports the quality goals.",
+   "Wrong: Evaluation reduces risk but guarantees no defect-free implementation.",
+   "Wrong: Evaluation is valuable, but viable architectures also come about without a formal evaluation method - the statement overstates it."
   ],
-  "explanation": "Evaluation uncovers risks/weaknesses and trade-offs early. It does not guarantee an error-free implementation and does not serve staffing planning."
+  "explanation": "Evaluation uncovers risks and trade-offs early and checks the viability against the quality goals. It guarantees no freedom from defects and is not a mandatory precondition for the existence of a viable architecture."
  },
  "c5q7": {
   "q": "What does high coupling of a module tend to express?",
   "options": [
-   "Many incoming and outgoing dependencies - often an indication of harder isolated modifiability.",
-   "That the module is particularly performant.",
-   "That the module needs no interfaces.",
-   "That the module is particularly well tested."
+   "Many incoming and outgoing dependencies - tends to be harder to change and test in isolation and more susceptible to the propagation of changes.",
+   "A high functional cohesiveness of the elements within the module.",
+   "A high instability that is always an architecture defect and must be eliminated.",
+   "A low reusability that is directly reflected in the cyclomatic complexity."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Many dependencies make isolated modifiability harder.",
-   "Coupling says nothing about the performance of the module.",
-   "High coupling means many interfaces, not none.",
-   "Coupling says nothing about the test quality of the module."
+   "Correct: Many dependencies make isolated changes and tests harder and let changes propagate more easily.",
+   "This describes high cohesion (cohesiveness), not coupling - a classic confusion.",
+   "Coupling is indeed related to instability, but high coupling is not automatically a defect (e.g. deliberately unstable, changeable peripheral modules).",
+   "Coupling says nothing directly about cyclomatic complexity - these are different metrics."
   ],
-  "explanation": "High coupling means many dependencies and makes isolated changes and tests harder. It says nothing about performance, interface needs, or test quality. (R3.)"
+  "explanation": "High coupling means many dependencies and makes isolated changeability/testability harder. Internal cohesiveness is cohesion; high coupling is not per se a defect and not the same as cyclomatic complexity."
  },
  "c5q8": {
   "q": "What does cyclomatic complexity measure?",
   "options": [
-   "The number of linearly independent paths through the control flow (branches).",
-   "The number of a module's dependencies on other modules.",
-   "The nesting depth of the inheritance hierarchy.",
-   "The code volume, measured in lines (LOC)."
+   "The number of linearly independent paths through the control flow, essentially determined by the branches.",
+   "The number of dependencies of a module to other modules.",
+   "The nesting depth of the inheritance hierarchy of a class.",
+   "The code size, measured in lines (LOC)."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: It counts linearly independent paths through the control flow.",
-   "Module dependencies are measured by coupling, not this metric.",
-   "Inheritance depth is an entirely different metric.",
-   "Lines of code (LOC) measure volume, not the paths."
+   "Correct: It counts the linearly independent control-flow paths and increases with the branches.",
+   "Module dependencies are captured by coupling, not this metric.",
+   "The inheritance depth (Depth of Inheritance Tree) is a different metric.",
+   "LOC measures the size, not the number of paths."
   ],
-  "explanation": "Cyclomatic complexity counts independent control flow paths. Module dependencies (coupling), inheritance depth, and LOC are each different metrics."
+  "explanation": "Cyclomatic complexity counts independent control-flow paths. Coupling, inheritance depth, and LOC are each other, easily confused metrics."
  },
  "c5q9": {
   "q": "Which statements about the benefit of quality scenarios in evaluation are correct?",
   "options": [
-   "They make abstract quality goals concrete and verifiable.",
+   "They make abstract quality goals concrete, measurable, and thereby verifiable.",
    "They serve as a benchmark against which architecture decisions are evaluated.",
-   "They replace the elicitation of the functional requirements.",
-   "They guarantee that the stated quality goals are actually achieved.",
-   "They are usefully applicable only for performance requirements."
+   "They help prioritize quality goals, since not all scenarios are equally important.",
+   "They guarantee that the stated quality goals are actually achieved in the finished system.",
+   "They replace the elicitation of the functional requirements."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Scenarios make abstract quality goals concrete and verifiable.",
-   "They provide the benchmark for evaluating architecture decisions.",
-   "Scenarios do not replace the elicitation of functional requirements.",
-   "Scenarios make goals verifiable but do not guarantee their achievement.",
-   "Scenarios are suitable for all quality attributes, not just performance."
+   "Correct: Scenarios make abstract goals concrete and verifiable.",
+   "Correct: They provide the evaluation benchmark for architecture decisions.",
+   "Correct: Through the prioritization of scenarios, goals can be weighted.",
+   "Wrong: Scenarios make goals verifiable but do not guarantee their achievement.",
+   "Wrong: Scenarios concern quality requirements and do not replace the functional requirements."
   ],
-  "explanation": "Scenarios concretize quality goals and provide an evaluation benchmark. They do not replace functional requirements and guarantee nothing - they only make things verifiable."
+  "explanation": "Scenarios make quality goals concrete and prioritized and provide an evaluation benchmark. They do not guarantee goal achievement and do not replace functional requirements."
  },
  "c5q10": {
-  "q": "What is an architecture review (or walkthrough) as an evaluation method?",
+  "q": "What characterizes an architecture review (or walkthrough) as an evaluation method?",
   "options": [
-   "A qualitative, expert-supported examination of the architecture based on goals and scenarios.",
-   "An automatic measurement of metrics entirely without human involvement.",
-   "A load test to determine the maximum response time.",
-   "The merging of parallel development branches in the code."
+   "A qualitative, expert-supported examination of the architecture on the basis of quality goals and scenarios.",
+   "A facilitated method whose result consists primarily of automatically measured code metrics.",
+   "A dynamic test that checks the running system against defined load profiles.",
+   "A method that can only be sensibly carried out after completion of the code."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: A qualitative examination by experts based on scenarios.",
-   "Automatic metric measurement is quantitative, not a review.",
-   "A load test measures response times, but is not a review.",
-   "The merging of branches is version control, not a review."
+   "Correct: A review is a qualitative, expert-supported examination against goals and scenarios.",
+   "Reviews can draw on metrics, but their core is human judgment - not primarily measurement.",
+   "A load test is a dynamic measurement, not a review.",
+   "Reviews are valuable precisely early on, at the model/design level, and are not only possible after code completion."
   ],
-  "explanation": "Reviews/walkthroughs are qualitative, expert-supported procedures against goals and scenarios. Automatic measurement is quantitative; load test and merge are something else."
+  "explanation": "Reviews/walkthroughs are qualitative, expert-supported methods against goals and scenarios - applicable early. Metric measurement and load tests are something different."
  },
  "c5q11": {
-  "q": "Which of the following are qualitative evaluation methods?",
+  "q": "Which of the following methods are qualitative evaluation methods?",
   "options": [
    "Scenario-based analysis (e.g. ATAM).",
-   "Architecture review by experts.",
-   "Automatically counting the lines of code (LOC).",
-   "Measuring the degree of coupling between modules.",
-   "Calculating the cyclomatic complexity per component.",
-   "Determining the test coverage as a percentage value."
+   "Architecture review or inspection by experts.",
+   "Automatic counting of lines of code (LOC).",
+   "Measurement of the coupling degree between modules.",
+   "Calculation of the cyclomatic complexity per component.",
+   "Determination of test coverage as a percentage value."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Scenario-based analysis such as ATAM is a qualitative method.",
-   "An expert review is a qualitative evaluation method.",
-   "LOC counting yields a metric and is therefore quantitative.",
-   "Coupling measurement is metric-based and therefore quantitative.",
-   "Cyclomatic complexity is a metric and therefore quantitative.",
-   "A percentage test coverage is a metric and therefore quantitative."
+   "Scenario-based analysis such as ATAM is qualitative (facilitated, expert-based).",
+   "An expert review/inspection is a qualitative method.",
+   "LOC counting delivers a key figure and is quantitative.",
+   "Coupling measurement is metric-based and thus quantitative.",
+   "Cyclomatic complexity is a metric and thus quantitative.",
+   "A percentage test coverage is a key figure and thus quantitative."
   ],
-  "explanation": "ATAM and expert reviews are qualitative. LOC counting and coupling measurement are quantitative (metric-based) methods."
+  "explanation": "Scenario analyses and expert reviews are qualitative. LOC, coupling, cyclomatic complexity, and test coverage are quantitative (metric-based) quantities."
  },
  "c5q12": {
   "q": "When should an architecture be evaluated?",
   "options": [
-   "Early and repeatedly, accompanying important decisions.",
-   "As late as possible, once a lot of code exists, so that the evaluation is based on facts rather than assumptions.",
-   "Only once, bundled together for acceptance by the client.",
-   "Exclusively reactively, as soon as problems occur in operation."
+   "Early and repeatedly, accompanying important architecture decisions.",
+   "As late as possible, when a lot of code exists, so that the evaluation is based on facts instead of assumptions.",
+   "Only once, bundled for acceptance by the client.",
+   "Exclusively reactively, as soon as problems arise in operation."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: early and repeatedly, accompanying important decisions.",
-   "Waiting until late makes necessary corrections unnecessarily expensive.",
-   "A single evaluation at acceptance is too late for corrections.",
-   "Purely reactive at operational problems is clearly too late."
+   "Correct: Early and repeatedly, while corrections are still cheap.",
+   "Sounds plausible, but is wrong: waiting too long makes necessary corrections needlessly expensive.",
+   "A single time for acceptance is too late for corrections.",
+   "Purely reactively upon operational problems is clearly too late."
   ],
-  "explanation": "Evaluation is most valuable early and repeatedly, while corrections are still cheap. Waiting for a lot of code sounds plausible but makes corrections expensive; a single evaluation at acceptance or purely reactive is too late."
+  "explanation": "Evaluation is most valuable early and repeatedly. Waiting for a lot of code sounds fact-based but makes corrections expensive; once for acceptance or purely reactively is too late."
  },
  "c5q13": {
-  "q": "What limitation do metric-based (quantitative) evaluations have?",
+  "q": "Which statements accurately describe the limits of metric-based (quantitative) evaluation?",
   "options": [
-   "Numbers alone do not yet provide an assessment – they need context and interpretation.",
-   "Metrics are fundamentally worthless and should never be collected.",
-   "A high metric value is always unambiguously bad.",
-   "Metrics completely replace any professional judgment."
+   "Metric values must be interpreted in context; a threshold value alone is not yet an evaluation.",
+   "Some quality attributes (e.g. maintainability or security) can only be partially represented by metrics.",
+   "A high value of a metric is always an unambiguous deficiency, independent of the context.",
+   "Metrics completely replace the technical judgment by experts.",
+   "Since metrics are subjective, they are fundamentally unsuitable for evaluation."
+  ],
+  "correct": [
+   0,
+   1
   ],
   "optExpl": [
-   "Correct: numbers need context and interpretation in order to assess.",
-   "Metrics are not worthless; they provide useful indications.",
-   "A high metric value is not automatically unambiguously bad.",
-   "Metrics do not replace professional judgment in context."
+   "Correct: Only context and interpretation turn a number into an evaluation.",
+   "Correct: Many quality attributes can only be partially captured by metrics.",
+   "Wrong: Whether a high value is problematic depends on the context.",
+   "Wrong: Metrics provide indications but do not replace technical judgment.",
+   "Wrong: Metrics are precisely objective/reproducible; their limit is the necessary interpretation, not subjectivity."
   ],
-  "explanation": "Metrics provide indications but must be interpreted in context. They are not worthless, not automatically good or bad, and do not replace professional judgment."
+  "explanation": "Metrics need context-dependent interpretation and cover some qualities only partially. They are not automatically bad at a high value, do not replace experts, and are precisely not subjective."
  },
  "c5q14": {
   "q": "What is a typical result of an architecture evaluation?",
   "options": [
-   "Identified risks, weaknesses and trade-offs as well as concrete improvement proposals.",
-   "A binding proof that the system is free of defects.",
-   "Final approval without any further conditions.",
-   "A mere collection of new diagrams without statements."
+   "Identified risks, weaknesses, and trade-offs together with prioritized improvement proposals.",
+   "A formal proof that the system is free of defects.",
+   "A binding release of the architecture that fundamentally rules out further rework.",
+   "A complete, newly elaborated target architecture that replaces the previous one."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: risks, weaknesses, trade-offs and concrete improvement proposals.",
-   "An evaluation does not prove the system is defect-free.",
-   "It does not deliver unconditional final approval.",
-   "New diagrams without statements are not an evaluation result."
+   "Correct: Risks, weaknesses, trade-offs, and prioritized recommendations are typical results.",
+   "An evaluation does not prove freedom from defects.",
+   "It delivers no unconditional release that rules out rework.",
+   "It identifies problems and recommends measures, but does not elaborate a completely new target architecture as a result."
   ],
-  "explanation": "An evaluation delivers risks, trade-offs and recommendations. It is not a proof of defect-freeness, not an unconditional approval, and not merely new diagrams."
+  "explanation": "An evaluation delivers risks, trade-offs, and prioritized recommendations. It is not a proof of freedom from defects, not an unconditional release, and does not produce a complete new architecture as a result."
  },
  "k10": {
-  "q": "Qualitative or quantitative evaluation method?",
-  "explanation": "Scenario analyses and reviews are qualitative (expert-/scenario-based). Coupling measures and LOC are quantitative (measurable metrics).",
+  "q": "Assign each method or key figure correctly: qualitative or quantitative method?",
   "categories": [
    "Qualitative",
    "Quantitative"
   ],
   "rows": [
-   "Scenario-based analysis (ATAM)",
-   "Measuring the coupling between modules",
-   "Expert review / walkthrough",
-   "Counting the lines of code (LOC)"
-  ]
+   "Scenario-based analysis with stakeholders (ATAM)",
+   "Instability I = Ce / (Ca + Ce) according to R. C. Martin",
+   "Expert inspection with minutes and independent moderator",
+   "Percentage test coverage",
+   "Facilitated walkthrough through the architecture design",
+   "Cyclomatic complexity per method"
+  ],
+  "explanation": "ATAM, inspection, and walkthrough are qualitative (expert-/scenario-based). Instability, test coverage, and cyclomatic complexity are quantitative (computed key figures)."
  },
  "c5q15": {
-  "q": "Why are clearly formulated quality goals a prerequisite for a meaningful architecture evaluation?",
+  "q": "Why are clearly formulated, prioritized quality goals a precondition for a meaningful architecture evaluation?",
   "options": [
-   "Because without goals there is no yardstick against which the architecture could be evaluated.",
-   "Because quality goals make the evaluation superfluous.",
-   "Because evaluation relies exclusively on the source code.",
-   "Because goals should only be formulated after the evaluation."
+   "Without prioritized quality goals there is no benchmark against which architecture decisions could be evaluated at all.",
+   "Because the scope of an evaluation can only be derived from the functional requirements.",
+   "Because without documented quality goals no valid architecture can fundamentally exist.",
+   "Because quality goals determine which concrete technologies must be used in the system."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: without goals there is no yardstick for the evaluation.",
-   "Goals do not make evaluation superfluous; they make it possible in the first place.",
-   "Evaluation does not rely exclusively on the source code.",
-   "Quality goals belong before the evaluation, not after it."
+   "Correct: Evaluation measures against the quality goals - without them there is no benchmark.",
+   "Wrong: The focus of the evaluation arises from the quality goals, not primarily from the functional requirements.",
+   "Wrong: Architecture can also exist without documented goals - it just cannot be meaningfully evaluated.",
+   "Wrong: Quality goals describe requirements (WHAT), not the concrete technology choice (HOW)."
   ],
-  "explanation": "Evaluation measures against the quality goals – if they are missing, there is no yardstick. They do not make evaluation superfluous, do not rely only on code, and are not formulated only afterwards."
+  "explanation": "Evaluation measures against prioritized quality goals; if they are missing, there is no benchmark. They do not depend on the scope of functional requirements, are not an existence condition for architecture, and do not determine technologies."
  },
  "c5q16": {
-  "q": "What are static code/architecture analysis tools used for?",
+  "q": "What is the purpose of tools for static code or architecture analysis?",
   "options": [
-   "For (semi-)automated checking of metrics and rules, e.g. dependencies or complexity.",
-   "For running the system with real users under load.",
-   "For gathering qualitative expert assessments in workshops.",
-   "For automatically fixing all weaknesses found."
+   "For (partially) automated checking of code and structure without execution - such as metrics as well as naming and dependency rules.",
+   "For measuring the runtime behavior (response times, memory consumption) under real load.",
+   "For eliciting qualitative expert assessments in facilitated workshops.",
+   "For automatically fixing all rule violations found in the code."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: it checks metrics and rules (semi-)automatically without execution.",
-   "Static analysis does not run the system under load.",
+   "Correct: Static analysis checks code/structure without execution against metrics and rules.",
+   "That is dynamic analysis (measurement at runtime) - obvious, but wrong.",
    "Expert workshops are qualitative and not static analysis.",
-   "Static analysis finds weaknesses but does not fix them."
+   "Static analysis finds violations but does not fix them automatically."
   ],
-  "explanation": "Static analysis checks code/structure without execution (metrics, rules, dependencies). It is not a load test, not a workshop, and does not fix weaknesses automatically."
+  "explanation": "Static analysis checks code/structure without execution (metrics, rules, dependencies). Runtime measurement is dynamic, workshops are qualitative, and fixing does not happen automatically."
  },
  "c5q17": {
   "q": "What is a trade-off point in architecture evaluation (e.g. in ATAM)?",
   "options": [
-   "A decision that influences several quality attributes in opposing directions.",
-   "A decision that influences exactly one single quality attribute.",
-   "A point at which all quality goals are simultaneously optimally fulfilled.",
-   "An identified risk with no relation whatsoever to quality attributes."
+   "A decision or property that affects several quality attributes in opposing ways.",
+   "A decision that is decisive for exactly one single quality attribute.",
+   "A point at which all relevant quality goals are simultaneously optimally fulfilled.",
+   "An identified risk that has no relation whatsoever to quality attributes."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: it influences several quality attributes in opposing directions.",
-   "If it affects only one, it is a sensitivity point.",
-   "There is no simultaneous optimum of all quality goals.",
-   "A trade-off point relates precisely to quality attributes."
+   "Correct: A trade-off point affects several quality attributes in opposing ways.",
+   "If a decision affects only exactly one, it is a sensitivity point - not the same thing.",
+   "A simultaneous optimum of all quality goals is precisely what trade-offs prevent.",
+   "A trade-off point relates by definition to quality attributes."
   ],
-  "explanation": "A trade-off point affects several quality attributes in opposing directions. If a decision affects only exactly one, it is a sensitivity point – not the same thing."
+  "explanation": "A trade-off point affects several quality attributes in opposing ways. If a decision affects only one, it is a sensitivity point."
  },
  "c5q18": {
-  "q": "What should an architecture evaluation with limited time focus on?",
+  "q": "What should an architecture evaluation with severely limited time concentrate on?",
   "options": [
-   "On the most important quality goals and the biggest risks.",
-   "On as many minor details as possible, in order to be complete.",
-   "On the building blocks with the most lines of code, regardless of risk.",
-   "On the most recently committed changes, regardless of the goals."
+   "On the highest-prioritized quality goals and the scenarios with the greatest risk.",
+   "On a check of all building blocks that is as complete as possible, so as to miss nothing.",
+   "On the building blocks with the highest change rate according to version control.",
+   "On the technically newest components, because the team knowledge there is lowest."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: on the most important quality goals and the biggest risks.",
-   "Minor details are not worthwhile when time is scarce.",
-   "Sheer code size says nothing about risk.",
-   "The most recently committed changes are not a sensible selection criterion."
+   "Correct: With scarce time, prioritized quality goals and the greatest risks count.",
+   "Completeness is precisely not achievable with scarce time - focusing beats completeness.",
+   "Change rate is an indication, but not a primary selection criterion over goal and risk.",
+   "The novelty degree of a component is not a risk-oriented selection criterion."
   ],
-  "explanation": "With limited time, focus on the prioritized quality goals and the biggest risks – not minor matters, sheer code size, or the latest commits."
+  "explanation": "With limited time you focus on prioritized quality goals and the greatest risks. Completeness, mere change rate, or novelty degree are secondary or unsuitable criteria."
  },
  "c5q19": {
   "q": "Which statements about architecture evaluation are correct?",
   "options": [
    "It uncovers risks and weaknesses early.",
-   "It needs clear quality goals as a yardstick.",
-   "It can be carried out qualitatively or quantitatively.",
-   "It is only meaningful once, at the very end of the project.",
-   "It may be carried out exclusively by independent external assessors."
+   "It needs clear, prioritized quality goals as a benchmark.",
+   "It can be done qualitatively or quantitatively - or combined.",
+   "It is only sensible once, at the very end of the project.",
+   "It may only be carried out by independent external reviewers."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Evaluation uncovers risks and weaknesses early.",
-   "Without clear quality goals there is no yardstick for evaluation.",
-   "Evaluation can be carried out qualitatively or quantitatively.",
-   "It is meaningful early and repeatedly, not only at the end.",
-   "Evaluation can also be done internally, not only by external parties."
+   "Correct: Early uncovering of risks is a core benefit.",
+   "Correct: Without prioritized quality goals the evaluation benchmark is missing.",
+   "Correct: Qualitative and quantitative methods are possible and combinable.",
+   "Wrong: It is sensible early and repeatedly, not only at the project end.",
+   "Wrong: Internal reviews are also permissible; external reviewers are not mandatory."
   ],
-  "explanation": "Evaluation uncovers risks, needs quality goals, and can be qualitative or quantitative. It is meaningful not only at the end of the project but early and repeatedly."
+  "explanation": "Evaluation uncovers risks early, needs prioritized quality goals, and can be done qualitatively as well as quantitatively. It is not limited to the project end and not reserved for external parties."
  },
  "c5q20": {
   "q": "What is a sensitivity point in an architecture evaluation (e.g. in ATAM)?",
   "options": [
-   "A decision or property that is particularly decisive for exactly one quality attribute.",
-   "A decision that influences several quality attributes in opposing directions.",
+   "A decision or property that is especially decisive for exactly one quality attribute.",
+   "A decision that affects several quality attributes in opposing ways.",
    "A point at which all quality goals are automatically fulfilled.",
    "A risk that touches no quality attribute whatsoever."
   ],
+  "correct": [
+   0
+  ],
   "optExpl": [
-   "Correct: it is decisive for exactly one quality attribute.",
-   "An opposing effect on several attributes is a trade-off point.",
+   "Correct: A sensitivity point is decisive for exactly one quality attribute.",
+   "Opposing effect on several attributes characterizes a trade-off point.",
    "There is no automatic optimum of all quality goals.",
    "A sensitivity point concerns precisely one quality attribute."
   ],
-  "explanation": "A sensitivity point is decisive for a single quality attribute. If a decision has an opposing effect on several attributes, it is a trade-off point."
+  "explanation": "A sensitivity point is decisive for a single quality attribute. Opposing effect on several attributes makes it a trade-off point."
  },
  "c5q21": {
-  "q": "Which result types does a scenario-based evaluation such as ATAM deliver?",
+  "q": "Which types of result does a scenario-based evaluation such as ATAM typically deliver?",
   "options": [
-   "Risks and explicitly named non-risks.",
+   "Identified risks and explicitly named non-risks.",
    "Sensitivity and trade-off points.",
-   "A binding schedule for the project.",
-   "The finished source code of the critical components.",
-   "A complete test case specification for later acceptance."
+   "A prioritized utility tree of the relevant scenarios.",
+   "A binding schedule and effort plan for the implementation.",
+   "The refactored source code of the critical components."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
    "ATAM names risks and explicitly also non-risks.",
    "Sensitivity and trade-off points are typical ATAM results.",
-   "Architecture evaluation does not deliver a binding schedule.",
-   "Finished source code is not a result of an evaluation.",
-   "Test case specifications are not a result of a scenario-based evaluation."
+   "The prioritized utility tree arises in the course and is a central interim/final result.",
+   "A binding schedule/effort plan is not delivered by the evaluation.",
+   "Source code is not a result of an architecture evaluation."
   ],
-  "explanation": "ATAM delivers, among other things, risks, non-risks as well as sensitivity and trade-off points. Project schedules or source code are not results of an architecture evaluation."
+  "explanation": "ATAM delivers risks, non-risks, sensitivity and trade-off points, as well as a prioritized utility tree. Schedules or source code do not belong to it."
  },
  "c5q22": {
-  "q": "How can ATAM be classified methodically?",
+  "q": "A team wants to evaluate an architecture already before implementation and involve stakeholders in doing so. How is ATAM to be classified in this context?",
   "options": [
-   "As a scenario-based, predominantly qualitative evaluation method.",
-   "As a purely quantitative method that works exclusively with metrics.",
-   "As an automated tool that manages without participants.",
-   "As a method that is only applicable after completion of the system."
+   "As a scenario-based, predominantly qualitative method that is facilitated with stakeholders and thus also applicable early in the lifecycle.",
+   "As a purely quantitative method that derives metrics exclusively from the existing code.",
+   "As a fully automated tool that manages without participants.",
+   "As a method that is only applicable after completion and commissioning of the system."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: ATAM is scenario-based and predominantly qualitative.",
-   "ATAM does not work exclusively with metrics.",
+   "Correct: ATAM is scenario-based, qualitative, and facilitated - thereby precisely suitable early, without finished code.",
+   "ATAM does not work exclusively with code metrics.",
    "ATAM needs participants and is not fully automatic.",
-   "ATAM is meaningful precisely early in the lifecycle."
+   "ATAM is precisely sensible early and not limited to finished systems."
   ],
-  "explanation": "ATAM is scenario-based and qualitative (facilitated analysis with stakeholders based on quality scenarios). It is not purely metric-based, not fully automatic, and meaningful precisely early in the lifecycle."
+  "explanation": "ATAM is scenario-based, qualitative, and facilitated and thus ideal for an early evaluation with stakeholders. It is neither purely metric-based nor fully automatic nor limited to finished systems."
  },
  "c5q23": {
   "q": "Which form of review has the highest degree of formalization?",
   "options": [
-   "The inspection – with preparation, minutes and an independent moderator.",
-   "The walkthrough, in which the author casually leads through the design.",
-   "The informal review without fixed roles and minutes.",
-   "The automated metric measurement by an analysis tool."
+   "The inspection - with preparation, defined roles, minutes, and an independent moderator.",
+   "The walkthrough, in which the author guides the participants through the design.",
+   "The informal review without fixed roles and without minutes.",
+   "Pair programming, in which two developers work on the code together."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: the inspection is the most formal, with minutes and a moderator.",
-   "The walkthrough is looser and less formal than the inspection.",
-   "An informal review has hardly any roles and formalization.",
-   "Automatic metric measurement is not a review format at all."
+   "Correct: The inspection is the most formal (preparation, roles, minutes, independent moderator).",
+   "The walkthrough is looser and author-guided - less formal than the inspection.",
+   "An informal review has hardly any roles and no fixed formalization.",
+   "Pair programming is a development practice, not a formalized review format."
   ],
-  "explanation": "The degree of formalization increases: informal → walkthrough → inspection. The inspection is the most formal (preparation, minutes, independent moderator). Automated metric measurement is not a review format at all."
+  "explanation": "The degree of formalization increases: informal -> walkthrough -> inspection. The inspection is the most formal; pair programming is not a review format at all."
  },
  "c5q24": {
   "q": "What does risk management from an architecture perspective focus on above all?",
   "options": [
-   "On product risks – most commonly they are mitigated by reducing their probability of occurrence.",
+   "On product risks - most commonly they are mitigated by lowering their probability of occurrence.",
    "On project risks such as schedule and budget planning, which the architect is solely responsible for.",
-   "Exclusively on completely avoiding every risk.",
-   "On ignoring risks as long as the system is still running."
+   "Exclusively on completely avoiding every identified risk.",
+   "On consciously accepting risks and only reacting upon occurrence."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: product risks, mostly by reducing the probability of occurrence.",
-   "Schedule and budget risks lie primarily with project management.",
-   "Completely avoiding every risk is rarely possible.",
-   "Ignoring risks is not risk management."
+   "Correct: Product risks are in focus; the most common mitigation lowers the probability of occurrence.",
+   "Schedule and budget risks lie primarily with project management, not with the architect alone.",
+   "Complete avoidance of every risk is rarely possible and rarely economical.",
+   "Mere acceptance and reactive action is a strategy for residual risks, but not the focus of active architecture work."
   ],
-  "explanation": "Architecturally, product risks are in focus; the most common mitigation reduces the probability of occurrence (reducing the impact is often more expensive, complete avoidance rarely possible). Project risks lie primarily with project management."
+  "explanation": "Architecturally, product risks are in focus; usually one lowers the probability of occurrence. Project risks lie with project management, complete avoidance is rarely possible, and mere acceptance is only sensible for residual risks."
  },
  "c5q25": {
-  "q": "What does the term \"architecture erosion\" describe?",
+  "q": "In a long-running system, the actually implemented structure increasingly diverges from the documented target architecture. Which statements are correct?",
   "options": [
-   "The gradual divergence of the actually implemented architecture from the intended one – the \"disorder\" increases over time.",
-   "The deliberate, documented evolution of the architecture according to plan.",
-   "The one-time replacement of a technology in operation.",
-   "The automatic improvement of the structure through longer runtime."
+   "This is called architecture erosion; without countermeasures the „disorder“ increases over time.",
+   "The planned qualities can only be reliably expected if the implementation follows the intended structure.",
+   "Regular conformity checks (e.g. dependency analysis) help to make such deviations visible early.",
+   "As long as the documentation is kept up to date, the deviation is uncritical.",
+   "Since the target architecture is anyway only a non-binding recommendation, there is no need for action."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: the as-is architecture gradually drifts away from the target architecture.",
-   "Planned, documented evolution according to plan is not erosion.",
-   "A one-time technology change in operation is not erosion.",
-   "The structure does not improve on its own over time."
+   "Correct: The gradual drifting apart of actual and target is architecture erosion.",
+   "Correct: Only if the code follows the structure do the structural qualities reliably hold.",
+   "Correct: Conformity/dependency checks uncover deviations early.",
+   "Wrong: Up-to-date documentation changes nothing about the fact that the actual structure deviates from the target structure.",
+   "Wrong: The target architecture is a binding benchmark, not merely a recommendation - erosion must be actively counteracted."
   ],
-  "explanation": "Erosion = the as-is architecture drifts unintentionally away from the target architecture; the structure deteriorates gradually. It is not a planned redesign and does not improve on its own – one must actively counteract it (evaluate early and continuously)."
+  "explanation": "The gradual deviation of actual and target is architecture erosion; structural qualities only hold if the code follows the structure, and conformity checks make deviations visible early. Up-to-date documentation or dismissing the target architecture as a recommendation do not cure the erosion."
  },
  "c5q26": {
   "q": "What does a conformity or consistency analysis of the architecture check?",
   "options": [
-   "Whether the actually implemented architecture (as-is) matches the intended one (target).",
-   "Whether the requirements were completely elicited.",
-   "Whether the team adheres to the agreed working hours.",
-   "Whether the users like the user interface."
+   "Whether the actually implemented (actual) architecture matches the intended (target) architecture.",
+   "Whether the architecture documentation is written free of contradictions and completely.",
+   "Whether the elicited requirements completely cover the quality goals.",
+   "Whether the libraries used are at the current version level."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: it compares the implemented as-is with the target architecture.",
-   "It does not check the completeness of the requirements.",
-   "The team's working hours are not the subject of this analysis.",
-   "The users' UI taste is not part of it."
+   "Correct: It compares the implemented actual with the planned target architecture.",
+   "Checking the inner quality of the documentation is a documentation review, not a target/actual comparison.",
+   "The coverage of the quality goals by requirements is the subject of requirements engineering.",
+   "The version level of libraries is a matter of dependency management, not conformity analysis."
   ],
-  "explanation": "A conformity analysis compares as-is and target architecture and thus uncovers erosion or deviations. Requirements elicitation, time tracking, or UI taste are something different."
+  "explanation": "A conformity analysis compares actual and target architecture and thus uncovers erosion. Documentation quality, requirements coverage, and library versions are each other checks."
  },
  "c5q27": {
-  "q": "What is the most suitable way to check adherence to planned dependency or layer rules?",
+  "q": "With what can compliance with planned dependency or layer rules be checked most reliably?",
   "options": [
-   "With static analysis or tools that check dependencies against defined rules.",
-   "Exclusively by asking individual developers based on gut feeling.",
-   "By counting the lines of code per file.",
-   "Solely by measuring the response times in operation."
+   "With static analysis or tools that check actual dependencies against defined rules.",
+   "Through spot-check surveying of individual developers for their assessment.",
+   "Through counting the lines of code per file and layer.",
+   "Solely through measuring the response times of the system in operation."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: static analysis checks dependencies against defined rules.",
-   "The gut feeling of individual developers does not reliably check structural rules.",
-   "LOC counting says nothing about dependency rules.",
-   "Pure runtime response times do not check the structural conformity of the architecture."
+   "Correct: Static analysis systematically checks the real dependencies against target rules.",
+   "Individual opinions do not check structural rules reliably and completely.",
+   "LOC says nothing about permitted or forbidden dependencies.",
+   "Runtime response times say nothing about the structural conformity of the dependencies."
   ],
-  "explanation": "Forbidden dependencies (e.g. between layers/modules) are reliably found with static analysis/dependency checking. Gut feeling, LOC counting, or runtime measurement do not check structural conformity."
+  "explanation": "Forbidden dependencies (e.g. between layers) are found reliably with static dependency analysis. Surveys, LOC counting, or runtime measurement do not check structural conformity."
  },
  "c6q1": {
-  "q": "What is the purpose of the chapter 'Examples of Software Architectures' in the curriculum?",
+  "q": "A colleague argues that Chapter 6 (\"Examples of software architectures\") is dispensable because it contains \"nothing new\". How can the purpose of the chapter be accurately characterized?",
   "options": [
-   "To apply and illustrate what has been learned in a comprehensible way using concrete examples.",
-   "To introduce new, binding architecture rules that dominate the exam.",
-   "To replace the content of the preceding chapters.",
-   "To prescribe a specific technology as a binding standard."
+   "It applies the content of the previous chapters to concrete cases and makes relationships comprehensible, without introducing new examinable material.",
+   "It summarizes the central definitions of the previous chapters in an exam-relevant way and thus replaces reviewing them separately.",
+   "It derives generalizable rules from the examples that are to be learned as a supplement to the previous learning goals.",
+   "It primarily serves to present preferred reference architectures and technology stacks for typical domains."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: examples apply what has been learned concretely and illustrate it comprehensibly.",
-   "Examples do not introduce new rules and do not dominate the exam.",
-   "Examples supplement the chapters for illustration but do not replace them.",
-   "No example prescribes a specific technology as a binding standard."
+   "Correct: The examples illustrate what has already been learned using concrete cases; they are R3 and not new examinable material.",
+   "Tempting but wrong: The chapter does not provide an exam-relevant summary and does not replace the subject chapters.",
+   "Wrong: No additional rules to be learned are derived from the examples – the gain in insight lies in understanding, not in memorizing.",
+   "Wrong: It is about illustrating approaches and relationships, not about prescribing preferred stacks."
   ],
-  "explanation": "The examples illustrate the application of what has been learned. They do not introduce new rules, do not replace chapters, and do not prescribe a technology. (R3.)"
+  "explanation": "Chapter 6 applies what has been learned using examples and makes relationships comprehensible (R3). It is not new examinable material, not an exam-relevant summary, derives no additional rules, and prescribes no technologies."
  },
  "c6q2": {
-  "q": "What should one primarily be able to recognize in an end-to-end architecture example?",
+  "q": "A continuous architecture example is meant to show the \"common thread\" from the requirements to the solution. Which aspects should one above all be able to recognize in it? (Multiple choice)",
   "options": [
-   "How requirements lead to decisions, structures and views.",
-   "Exclusively the technologies and frameworks used.",
-   "Only the sheer size of the source code.",
-   "The personal working style of the individual developers."
+   "How quality requirements and constraints influence the central design decisions.",
+   "How a decision shapes the structure and becomes visible in various views.",
+   "Which alternatives were considered and for what reasons they were rejected.",
+   "The complete, production-ready implementation including all configuration files.",
+   "A ranking of the frameworks used according to their market prevalence."
+  ],
+  "correct": [
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Correct: it shows the common thread from requirement to structure and views.",
-   "Technologies alone fall short; the common thread remains decisive.",
-   "Sheer code size says nothing about requirements, decisions and structures.",
-   "The individual working styles of the developers are not the learning purpose of an architecture example."
+   "Correct: Relating quality requirements and constraints to the decisions is the core of the common thread.",
+   "Correct: An architecture only becomes comprehensible when decisions are reflected in structure and views.",
+   "Correct: Rejected alternatives and their rationale are also part of the instructive core of an example.",
+   "Wrong: A complete, production-ready implementation is not the learning purpose – examples illustrate relationships.",
+   "Wrong: The market prevalence of the frameworks is irrelevant to the common thread."
   ],
-  "explanation": "A good example shows the common thread from requirements through decisions to structure and views – not just technologies, code size, or working styles. (R3.)"
+  "explanation": "The common thread shows how requirements and constraints lead to decisions, how these shape structure and views, and which alternatives were rejected for which reasons. A complete implementation or framework rankings are not the purpose. (R3.)"
  },
  "c6q3": {
-  "q": "How should the exam relevance of Chapter 6 (Examples) be classified?",
+  "q": "How should the role of Chapter 6 (examples) be correctly classified in relation to the CPSA-F exam?",
   "options": [
-   "Predominantly R3 – for illustration, but not direct exam material.",
-   "R1 – the examples are the most important exam chapter.",
-   "It is the only basis that is queried in the exam.",
-   "It is not part of the curriculum at all."
+   "It is predominantly R3: part of the curriculum for illustration, but not a direct subject of the exam.",
+   "It is R2: not examined directly, but one must know the examples as reference solutions.",
+   "It is R1: the continuous examples form a focal point of the exam questions.",
+   "It lies outside the curriculum and is purely optional supplementary material."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: Chapter 6 is predominantly R3 and serves for illustration.",
-   "The examples are not R1 and not the most important exam chapter.",
-   "Chapter 6 is by no means the only basis queried in the exam.",
-   "Chapter 6 very much belongs to the curriculum, only as R3."
+   "Correct: Chapter 6 is predominantly R3 – a curricular component for illustration, but not directly exam-relevant.",
+   "Wrong: The examples are not R2 and do not have to be mastered as reference solutions.",
+   "Wrong: Chapter 6 is not R1 and does not form an exam focal point.",
+   "Wrong: The chapter is part of the curriculum – it is R3, not outside it."
   ],
-  "explanation": "Chapter 6 is predominantly R3: part of the curriculum for illustration, but not direct exam material. It is neither R1 nor the only basis nor outside the curriculum."
+  "explanation": "Chapter 6 is predominantly R3: part of the curriculum for illustration, but not direct examinable material. It is neither R2 nor R1 and does not lie outside the curriculum."
  },
  "c6q4": {
-  "q": "What can be learned particularly well from an end-to-end architecture example?",
+  "q": "Two examples solve a similar requirement with different architectural approaches. What is the actual learning benefit of this?",
   "options": [
-   "How concepts, patterns and decisions interact in context.",
-   "A model solution to be memorized for the exam.",
-   "The exact project duration and budget.",
-   "A universally valid blueprint that fits every system."
+   "That design decisions are context-dependent and the same requirement can be sensibly solved differently depending on the constraints.",
+   "That one of the two examples represents the objectively superior solution that one should prefer in future.",
+   "That a universally valid model solution can be derived from the comparison, to be memorized for the exam.",
+   "That the choice of approach is ultimately a matter of taste and hardly depends on requirements."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: it shows the interplay of concepts, patterns and decisions.",
-   "An example is not a model solution to be memorized for the exam.",
-   "Project duration and budget are not the learning purpose of an architecture example.",
-   "There is no universally valid blueprint that fits every system."
+   "Correct: The comparison shows that decisions depend on the context and the constraints – there is no single right solution.",
+   "Wrong: Without context there is no objectively superior solution; both can be appropriate in their environment.",
+   "Wrong: There is no universally valid model solution to be memorized.",
+   "Wrong: The choice is precisely not arbitrary, but justified by requirements and constraints."
   ],
-  "explanation": "An end-to-end example shows the interplay of concepts, patterns and decisions. It is not a model solution to be memorized and not a blueprint that fits everyone. (R3.)"
+  "explanation": "Comparing different approaches for the same requirement shows the context-dependence of decisions. Neither is one solution superior regardless of context, nor is there a blueprint to be memorized, nor is the choice arbitrary. (R3.)"
  },
  "c6q5": {
-  "q": "What is the benefit of studying several different architecture examples?",
+  "q": "What benefit does studying several different architecture examples bring? (Multiple choice)",
   "options": [
-   "One gets to know a range of solutions and patterns and can transfer them to one's own problems.",
-   "One receives a ready-made solution that only needs to be copied.",
-   "One no longer has to make any decisions of one's own afterwards.",
-   "One learns above all the programming language used in each case."
+   "One expands one's own repertoire of solution patterns and practices transferring them to new problems.",
+   "One sharpens one's eye for which constraints justify which decisions.",
+   "One obtains a ready-made copy template for one's own projects that makes one's own decisions dispensable.",
+   "One recognizes recurring patterns and at the same time learns to assess their limits and context-dependence.",
+   "One arrives at a single, generally superior reference architecture for future systems."
+  ],
+  "correct": [
+   0,
+   1,
+   3
   ],
   "optExpl": [
-   "Correct: several examples expand the solution repertoire and train the transfer.",
-   "Examples do not provide a ready-made copy template for one's own problems.",
-   "Own decisions remain necessary despite many examples studied.",
-   "The learning value lies in solutions and patterns, not in programming languages."
+   "Correct: Several examples expand the solution repertoire and train transferring them to one's own problems.",
+   "Correct: The comparison sharpens the understanding of how constraints justify decisions.",
+   "Wrong: Examples do not provide a copy template and do not spare one's own decisions.",
+   "Correct: One recognizes recurring patterns as well as their limits and context-dependence.",
+   "Wrong: There is no generally superior reference architecture for all future systems."
   ],
-  "explanation": "Several examples expand the solution repertoire and train the transfer. They do not provide a copy template, do not spare one's own decisions, and do not serve language learning. (R3.)"
+  "explanation": "Several examples expand the repertoire, train transfer, sharpen the eye for the justifying effect of constraints, and show patterns together with their limits. They are not a copy template and do not provide a universally superior reference architecture. (R3.)"
  },
  "c6q6": {
-  "q": "Why are the trade-offs made deliberately also considered in architecture examples?",
+  "q": "In an architecture example, a decision is explicitly documented together with its disadvantages. Why is looking at such trade-offs in particular instructive?",
   "options": [
-   "Because there is rarely the one perfect solution – only well-founded compromises.",
-   "Because trade-offs are a sign of a flawed architecture.",
-   "Because one wants to highlight the worst option for learning purposes.",
-   "Because compromises are fundamentally avoidable in practice."
+   "Because architecture decisions weigh competing quality goals against each other, and the conscious, justified compromise forms the core of the decision.",
+   "Because the documented disadvantages prove that a better, disadvantage-free solution was overlooked at this point.",
+   "Because a good design should be reworked until no disadvantages remain.",
+   "Because disclosing disadvantages serves above all to later defend against criticism and less the design itself."
+  ],
+  "correct": [
+   0
   ],
   "optExpl": [
-   "Correct: architecture consists of deliberate, well-founded compromises instead of a perfect solution.",
-   "Trade-offs are not a flaw but a normal part of every architecture.",
-   "The aim is not to highlight the worst option for learning purposes.",
-   "Compromises cannot be fundamentally avoided in practice."
+   "Correct: Architecture weighs competing quality goals; the justified compromise is the actual core of the decision.",
+   "Wrong: Documented disadvantages are no proof of an overlooked, disadvantage-free solution – such a solution generally does not exist.",
+   "Wrong: A design cannot be optimized to be free of disadvantages; compromises remain unavoidable.",
+   "Wrong: Disclosure serves the comprehensibility of the trade-off, not primarily defense against criticism."
   ],
-  "explanation": "Examples show that architecture consists of deliberate trade-offs – trade-offs are not a flaw and are not avoidable. Understanding the compromises is the learning value. (R3.)"
+  "explanation": "Trade-offs are instructive because architecture weighs competing quality goals and the justified compromise forms the core of every decision. Disadvantages do not prove an overlooked ideal solution, cannot be optimized away, and are not documented merely as a defense. (R3.)"
  }
 };
