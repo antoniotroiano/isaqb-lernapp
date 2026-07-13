@@ -3,9 +3,10 @@
 Übungs‑App (Multiple Choice) zur Vorbereitung auf die Zertifizierung
 **CPSA‑F** (Certified Professional for Software Architecture – Foundation Level).
 Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lokale Datei** (PC/Mac),
-**ohne Installation und ohne Konto**. Enthält **206 eigenständige Fragen** über alle 6 Kapitel des Curriculums.
+**ohne Installation und ohne Konto**. Enthält **206 eigenständige Fragen** über alle 6 Kapitel des Curriculums,
+zusätzlich die **offizielle iSAQB‑Beispielprüfung** als Generalprobe. Oberfläche wahlweise **Deutsch oder Englisch** (Umschalter **DE/EN** oben rechts).
 
-*Version 1.6.0*
+*Version 1.7.0*
 
 ---
 
@@ -45,6 +46,9 @@ Die Datei **`isaqb-trainer.html`** per **Doppelklick** im Browser öffnen — fe
 | **📖 Durchblättern** | Nachschlagen | Alle Fragen (nach Kapitel gruppiert, gefiltert) durchsehen; Antippen blendet Lösung + Erklärung ein. Kein Quiz. |
 | **📚 Lernstoff** | Verstehen statt nur MC | Curriculum-Themen je **Lernziel** nachlesen (nach Kapitel gegliedert, mit Suche). Tipp: Aus einer beantworteten Frage auf die **LZ-Nummer** tippen → springt direkt zum passenden Abschnitt. |
 | **🗺 Concept Map** | Zusammenhänge sehen | Alle 38 Lernziele nach Kapitel; ein Lernziel antippen zeigt Kurzbeschreibung, **verwandte Lernziele** (mit Begründung) und „Im Lernstoff öffnen“. Der Schalter „Nur R1/R2“ blendet R3 aus. |
+| **🎓 Musterprüfung** | Generalprobe vor der Prüfung | Die **offizielle iSAQB‑Beispielprüfung** (Version 2026.2 · 38 Fragen · 52 Punkte · 75 Min · 60 % zum Bestehen) im echten Prüfungsformat. **Separat** vom eigenen Fragenkatalog; die Ergebnisse fließen **nicht** in die normale Statistik. |
+
+> **🌐 Sprache:** Der Umschalter **DE/EN** oben rechts stellt die gesamte App auf Deutsch oder Englisch um — Oberfläche, alle Fragen, Lernstoff, Concept Map und die offizielle Musterprüfung. Die Wahl wird gespeichert.
 
 ---
 
@@ -185,10 +189,11 @@ Die Fragen sind **eigenständig formuliert** und orientieren sich an den **öffe
 ## 8. Wichtiger Hinweis (Disclaimer)
 
 - **Inoffiziell** – nicht mit dem iSAQB® verbunden.
-- Die Fragen sind **keine Original‑ oder Musterprüfungsfragen** (diese sind urheberrechtlich geschützt), sondern eigene Formulierungen zum Üben.
-- Fragen wurden **KI‑gestützt erstellt und geprüft**. Sie eignen sich sehr gut zum Trainieren; im Zweifel bitte mit dem Curriculum abgleichen.
-- Das iSAQB‑Curriculum ist urheberrechtlich geschützt (© iSAQB e. V.); hier dienen nur die **öffentlichen Lernziele** als inhaltliche Orientierung.
-- Empfehlung: Die **offizielle Musterprüfung** des iSAQB erst **nach** dem Lernen durchspielen.
+- Die **Übungsfragen im Katalog** sind **keine Original‑Prüfungsfragen**, sondern eigene Formulierungen zum Üben.
+- Fragen wurden **KI‑gestützt erstellt und geprüft**. Sie eignen sich sehr gut zum Trainieren; im Zweifel bitte mit dem Curriculum abgleichen. Auch die **englischen Übersetzungen** sind KI‑gestützt.
+- Die **🎓 Musterprüfung** enthält die **offizielle iSAQB‑Beispielprüfung** (© iSAQB e. V.), genutzt zur **Prüfungsvorbereitung** gemäß deren Nutzungsbedingungen (Quelle & Copyright werden in der App genannt).
+- Das iSAQB‑Curriculum ist urheberrechtlich geschützt (© iSAQB e. V.); für den Fragenkatalog dienen nur die **öffentlichen Lernziele** als inhaltliche Orientierung.
+- Empfehlung: Die **🎓 Musterprüfung** am besten erst **nach** dem Lernen als Generalprobe durchspielen.
 
 ---
 
