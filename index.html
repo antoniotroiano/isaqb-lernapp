@@ -15,75 +15,78 @@
   <header class="top">
     <h1><span class="logo">iSA</span> CPSA-F Trainer</h1>
     <div style="display:flex;gap:8px">
-      <button class="iconbtn" id="statsBtn" title="Statistik">📊</button>
-      <button class="iconbtn" id="themeBtn" title="Design">🌓</button>
+      <button class="iconbtn" id="langBtn" title="Language / Sprache" style="font-weight:700;font-size:.85rem">EN</button>
+      <button class="iconbtn" id="statsBtn" data-i18n-title="hdr.stats" title="Statistik">📊</button>
+      <button class="iconbtn" id="themeBtn" data-i18n-title="hdr.theme" title="Design">🌓</button>
     </div>
   </header>
 
   <!-- HOME -->
   <section id="home">
     <div class="card" id="resumeCard" style="display:none;border-color:var(--accent)">
-      <h2>⏸ Unterbrochene Runde</h2>
+      <h2 data-i18n="home.resumeTitle">⏸ Unterbrochene Runde</h2>
       <p class="hint" id="resumeInfo"></p>
       <div class="row" style="margin-top:12px">
-        <button class="btn" id="resumeBtn" style="flex:2">▶ Fortsetzen</button>
-        <button class="btn ghost" id="discardBtn" style="flex:1">Verwerfen</button>
+        <button class="btn" id="resumeBtn" data-i18n="home.resume" style="flex:2">▶ Fortsetzen</button>
+        <button class="btn ghost" id="discardBtn" data-i18n="home.discard" style="flex:1">Verwerfen</button>
       </div>
     </div>
     <div class="card">
-      <h2>Modus</h2>
+      <h2 data-i18n="home.mode">Modus</h2>
       <div class="seg" id="modeSeg">
-        <button data-mode="practice" class="active">Üben</button>
-        <button data-mode="exam">Prüfung simulieren</button>
+        <button data-mode="practice" class="active" data-i18n="mode.practice">Üben</button>
+        <button data-mode="exam" data-i18n="mode.exam">Prüfung simulieren</button>
       </div>
       <p class="hint" id="modeHint">Üben: sofortiges Feedback mit Erklärung nach jeder Frage.</p>
     </div>
 
     <div class="card">
-      <h2>Kapitel <span class="count-tag" id="chapCount"></span></h2>
+      <h2><span data-i18n="home.chapters">Kapitel</span> <span class="count-tag" id="chapCount"></span></h2>
       <div class="chips" id="chapterChips"></div>
     </div>
 
     <div class="card">
-      <h2>Prüfungsrelevanz</h2>
+      <h2 data-i18n="home.relevance">Prüfungsrelevanz</h2>
       <div class="chips" id="rChips">
-        <span class="chip r active" data-r="R1">R1 · kommt sicher</span>
-        <span class="chip r active" data-r="R2">R2 · kann drankommen</span>
-        <span class="chip r" data-r="R3">R3 · nicht prüfungsrelevant</span>
+        <span class="chip r active" data-r="R1" data-i18n="r1.chip">R1 · kommt sicher</span>
+        <span class="chip r active" data-r="R2" data-i18n="r2.chip">R2 · kann drankommen</span>
+        <span class="chip r" data-r="R3" data-i18n="r3.chip">R3 · nicht prüfungsrelevant</span>
       </div>
-      <p class="hint">Standard: R1 + R2. R3 dient nur dem Verständnis.</p>
+      <p class="hint" data-i18n="relevance.hint">Standard: R1 + R2. R3 dient nur dem Verständnis.</p>
     </div>
 
     <div class="card">
-      <h2>Weitere Optionen</h2>
+      <h2 data-i18n="home.moreOptions">Weitere Optionen</h2>
       <div class="chips">
-        <span class="chip" id="onlyBookmarks">☆ Nur Lesezeichen</span>
-        <span class="chip" id="onlyWrong">✕ Nur falsch beantwortete</span>
-        <span class="chip active" id="spacedRep">↻ Fehler bevorzugen</span>
-        <span class="chip active" id="shuffleOpts">🔀 Antworten mischen</span>
+        <span class="chip" id="onlyBookmarks" data-i18n="opt.bookmarks">☆ Nur Lesezeichen</span>
+        <span class="chip" id="onlyWrong" data-i18n="opt.wrong">✕ Nur falsch beantwortete</span>
+        <span class="chip active" id="spacedRep" data-i18n="opt.spaced">↻ Fehler bevorzugen</span>
+        <span class="chip active" id="shuffleOpts" data-i18n="opt.shuffle">🔀 Antworten mischen</span>
       </div>
       <label style="display:block;margin-top:12px;font-size:.9rem">
-        Anzahl Fragen pro Runde: <b id="numLabel">20</b> von <span id="poolTotal">–</span> verfügbaren
+        <span data-i18n="home.numLabel">Anzahl Fragen pro Runde:</span> <b id="numLabel">20</b> <span data-i18n="home.of">von</span> <span id="poolTotal">–</span> <span data-i18n="home.available">verfügbaren</span>
         <input type="range" id="numRange" min="5" max="60" step="5" value="20" style="width:100%;margin-top:6px">
       </label>
     </div>
 
-    <button class="btn" id="startBtn">Start</button>
+    <button class="btn" id="startBtn" data-i18n="home.start">Start</button>
     <div class="row" style="margin-top:10px">
       <button class="btn secondary" id="srsBtn" style="flex:1">🔁 Wiederholen (0)</button>
-      <button class="btn secondary" id="flashBtn" style="flex:1">🃏 Karteikarten</button>
+      <button class="btn secondary" id="flashBtn" data-i18n="home.flash" style="flex:1">🃏 Karteikarten</button>
     </div>
-    <button class="btn secondary" id="refBtn" style="margin-top:10px">📚 Lernstoff nachschlagen</button>
-    <button class="btn secondary" id="cmBtn" style="margin-top:10px">🗺 Concept Map</button>
-    <button class="btn secondary" id="browseBtn" style="margin-top:10px">📖 Fragen durchblättern</button>
-    <p class="hint" style="margin-top:8px">🔁 <b>Wiederholen</b>: Fragen, die laut Lernplan (Spaced Repetition) heute dran sind · 🃏 <b>Karteikarten</b>: Antwort aufdecken &amp; selbst einschätzen · 📚 <b>Lernstoff</b>: Curriculum-Themen nachlesen · 🗺 <b>Concept Map</b>: Zusammenhänge der Lernziele · 📖 <b>Durchblättern</b>: alle Fragen mit Lösung nachschlagen.</p>
-    <button class="btn ghost" id="resetBtn" style="margin-top:10px">Fortschritt zurücksetzen</button>
+    <button class="btn secondary" id="refBtn" data-i18n="home.ref" style="margin-top:10px">📚 Lernstoff nachschlagen</button>
+    <button class="btn secondary" id="cmBtn" data-i18n="home.cm" style="margin-top:10px">🗺 Concept Map</button>
+    <button class="btn secondary" id="browseBtn" data-i18n="home.browse" style="margin-top:10px">📖 Fragen durchblättern</button>
+    <p class="hint" data-i18n="home.toolsHint" style="margin-top:8px">🔁 <b>Wiederholen</b>: Fragen, die laut Lernplan (Spaced Repetition) heute dran sind · 🃏 <b>Karteikarten</b>: Antwort aufdecken &amp; selbst einschätzen · 📚 <b>Lernstoff</b>: Curriculum-Themen nachlesen · 🗺 <b>Concept Map</b>: Zusammenhänge der Lernziele · 📖 <b>Durchblättern</b>: alle Fragen mit Lösung nachschlagen.</p>
+    <button class="btn secondary" id="mockBtn" data-i18n="home.mock" style="margin-top:16px">🎓 Offizielle Musterprüfung</button>
+    <p class="hint" data-i18n="home.mockHint" style="margin-top:6px">🎓 <b>Musterprüfung</b>: die offizielle iSAQB-Beispielprüfung (2026.2) als Generalprobe im Prüfungsformat — separat vom eigenen Fragenkatalog.</p>
+    <button class="btn ghost" id="resetBtn" data-i18n="home.reset" style="margin-top:10px">Fortschritt zurücksetzen</button>
 
     <footer class="disc">
-      Inoffizielles Lernwerkzeug. Nicht mit dem iSAQB® verbunden. Fragen sind eigenständig
+      <span data-i18n="footer.disc">Inoffizielles Lernwerkzeug. Nicht mit dem iSAQB® verbunden. Fragen sind eigenständig
       formuliert (keine Original-Prüfungsfragen) und dienen nur zur Übung.
-      Bedeutung: <b>R1</b> kommt sicher dran · <b>R2</b> kann drankommen · <b>R3</b> nicht prüfungsrelevant.
-      <br>Version 1.6.0
+      Bedeutung: <b>R1</b> kommt sicher dran · <b>R2</b> kann drankommen · <b>R3</b> nicht prüfungsrelevant.</span>
+      <br>Version 1.7.0
     </footer>
   </section>
 
@@ -97,7 +100,7 @@
     <div class="card">
       <div class="qmeta" style="margin-bottom:6px">
         <span><span class="badge" id="qBadge">R1</span> <span class="pts" id="qPts" style="display:none"></span> <span class="lz" id="qChapter" style="margin:0"></span></span>
-        <button class="bookmark" id="qBookmark" title="Lesezeichen">☆</button>
+        <button class="bookmark" id="qBookmark" data-i18n-title="q.bookmark" title="Lesezeichen">☆</button>
       </div>
       <div class="qtext" id="qText"></div>
       <div class="qtype" id="qType"></div>
@@ -116,58 +119,58 @@
       </div>
     </div>
     <div class="card">
-      <h2>Ergebnis pro Kapitel</h2>
+      <h2 data-i18n="result.byChapter">Ergebnis pro Kapitel</h2>
       <div id="resByChapter"></div>
     </div>
-    <button class="btn secondary" id="reviewAnswersBtn">🔍 Antworten durchsehen</button>
-    <button class="btn" id="againBtn" style="margin-top:10px">Neue Runde</button>
-    <button class="btn secondary" id="reviewWrongBtn" style="margin-top:10px">Falsche wiederholen</button>
-    <button class="btn ghost" id="homeBtn" style="margin-top:10px">Zur Startseite</button>
+    <button class="btn secondary" id="reviewAnswersBtn" data-i18n="result.review">🔍 Antworten durchsehen</button>
+    <button class="btn" id="againBtn" data-i18n="result.again" style="margin-top:10px">Neue Runde</button>
+    <button class="btn secondary" id="reviewWrongBtn" data-i18n="result.reviewWrong" style="margin-top:10px">Falsche wiederholen</button>
+    <button class="btn ghost" id="homeBtn" data-i18n="result.home" style="margin-top:10px">Zur Startseite</button>
   </section>
 
   <!-- STATS -->
   <section id="stats" class="hidden">
     <div class="card">
-      <h2>Gesamtfortschritt</h2>
+      <h2 data-i18n="stats.total">Gesamtfortschritt</h2>
       <div class="stat-grid">
-        <div class="stat"><div class="num" id="stSeen">0</div><div class="lbl">bearbeitet</div></div>
-        <div class="stat"><div class="num" id="stAcc">–</div><div class="lbl">Trefferquote</div></div>
-        <div class="stat"><div class="num" id="stMastered">0</div><div class="lbl">sicher (3× richtig)</div></div>
-        <div class="stat"><div class="num" id="stBookmarks">0</div><div class="lbl">Lesezeichen</div></div>
+        <div class="stat"><div class="num" id="stSeen">0</div><div class="lbl" data-i18n="stats.seen">bearbeitet</div></div>
+        <div class="stat"><div class="num" id="stAcc">–</div><div class="lbl" data-i18n="stats.acc">Trefferquote</div></div>
+        <div class="stat"><div class="num" id="stMastered">0</div><div class="lbl" data-i18n="stats.mastered">sicher (3× richtig)</div></div>
+        <div class="stat"><div class="num" id="stBookmarks">0</div><div class="lbl" data-i18n="stats.bookmarks">Lesezeichen</div></div>
       </div>
     </div>
-    <div class="card"><h2>Prüfungsreife (Schätzung)</h2><div id="readiness"></div></div>
-    <div class="card"><h2>Abdeckung</h2><div id="statCoverage"></div></div>
-    <div class="card"><h2>Trefferquote nach Prüfungsrelevanz</h2><div id="statByR"></div></div>
-    <div class="card"><h2>Trefferquote nach Fragetyp</h2><div id="statByType"></div><p class="hint">A = Einfachauswahl · P = Mehrfachauswahl · K = Zuordnung</p></div>
+    <div class="card"><h2 data-i18n="stats.readiness">Prüfungsreife (Schätzung)</h2><div id="readiness"></div></div>
+    <div class="card"><h2 data-i18n="stats.coverage">Abdeckung</h2><div id="statCoverage"></div></div>
+    <div class="card"><h2 data-i18n="stats.byR">Trefferquote nach Prüfungsrelevanz</h2><div id="statByR"></div></div>
+    <div class="card"><h2 data-i18n="stats.byType">Trefferquote nach Fragetyp</h2><div id="statByType"></div><p class="hint" data-i18n="stats.typeHint">A = Einfachauswahl · P = Mehrfachauswahl · K = Zuordnung</p></div>
     <div class="card">
-      <h2>Trefferquote pro Kapitel</h2>
+      <h2 data-i18n="stats.byChapter">Trefferquote pro Kapitel</h2>
       <div id="statByChapter"></div>
     </div>
-    <div class="card"><h2>Schwächste Kapitel</h2><div id="statWeak"></div></div>
-    <div class="card"><h2>Prüfungshistorie</h2><div id="statExamHist"></div></div>
-    <button class="btn secondary" id="dataBtn">💾 Daten sichern / laden</button>
-    <button class="btn ghost" id="statsHomeBtn" style="margin-top:10px">Zurück</button>
+    <div class="card"><h2 data-i18n="stats.weak">Schwächste Kapitel</h2><div id="statWeak"></div></div>
+    <div class="card"><h2 data-i18n="stats.examHist">Prüfungshistorie</h2><div id="statExamHist"></div></div>
+    <button class="btn secondary" id="dataBtn" data-i18n="stats.data">💾 Daten sichern / laden</button>
+    <button class="btn ghost" id="statsHomeBtn" data-i18n="common.back" style="margin-top:10px">Zurück</button>
   </section>
 
   <!-- DATA (Export/Import) -->
   <section id="data" class="hidden">
     <div class="card">
-      <h2>Fortschritt sichern (Export)</h2>
-      <p class="hint">Diesen Text kopieren oder als Datei speichern – als Backup oder um ihn auf einem anderen Gerät/Browser einzuspielen.</p>
+      <h2 data-i18n="data.exportTitle">Fortschritt sichern (Export)</h2>
+      <p class="hint" data-i18n="data.exportHint">Diesen Text kopieren oder als Datei speichern – als Backup oder um ihn auf einem anderen Gerät/Browser einzuspielen.</p>
       <textarea id="exportArea" class="ta" rows="5" readonly></textarea>
       <div class="row" style="margin-top:8px">
-        <button class="btn secondary" id="copyExportBtn">Kopieren</button>
-        <button class="btn secondary" id="downloadExportBtn">Als Datei</button>
+        <button class="btn secondary" id="copyExportBtn" data-i18n="data.copy">Kopieren</button>
+        <button class="btn secondary" id="downloadExportBtn" data-i18n="data.asFile">Als Datei</button>
       </div>
     </div>
     <div class="card">
-      <h2>Fortschritt laden (Import)</h2>
-      <p class="hint">Gesicherten Text einfügen und importieren. <b>Achtung:</b> ersetzt den aktuellen Fortschritt auf diesem Gerät.</p>
-      <textarea id="importArea" class="ta" rows="5" placeholder="Hier den gesicherten Text einfügen …"></textarea>
-      <button class="btn" id="importBtn" style="margin-top:8px">Importieren</button>
+      <h2 data-i18n="data.importTitle">Fortschritt laden (Import)</h2>
+      <p class="hint" data-i18n="data.importHint">Gesicherten Text einfügen und importieren. <b>Achtung:</b> ersetzt den aktuellen Fortschritt auf diesem Gerät.</p>
+      <textarea id="importArea" class="ta" rows="5" data-i18n-ph="data.importPh" placeholder="Hier den gesicherten Text einfügen …"></textarea>
+      <button class="btn" id="importBtn" data-i18n="data.import" style="margin-top:8px">Importieren</button>
     </div>
-    <button class="btn ghost" id="dataHomeBtn">Zurück zur Statistik</button>
+    <button class="btn ghost" id="dataHomeBtn" data-i18n="data.backToStats">Zurück zur Statistik</button>
   </section>
 
   <!-- FLASHCARDS -->
@@ -183,60 +186,73 @@
 
   <!-- BROWSE -->
   <section id="browse" class="hidden">
-    <div class="card"><h2 id="browseTitle">Fragen durchblättern</h2><p class="hint">Tippe eine Frage an, um die Lösung ein-/auszublenden. Nutzt die Filter (Kapitel & Prüfungsrelevanz) von der Startseite.</p></div>
+    <div class="card"><h2 id="browseTitle" data-i18n="browse.title">Fragen durchblättern</h2><p class="hint" data-i18n="browse.hint">Tippe eine Frage an, um die Lösung ein-/auszublenden. Nutzt die Filter (Kapitel & Prüfungsrelevanz) von der Startseite.</p></div>
     <div id="browseList"></div>
-    <button class="btn ghost" id="browseHomeBtn">Zurück</button>
+    <button class="btn ghost" id="browseHomeBtn" data-i18n="common.back">Zurück</button>
   </section>
 
   <!-- LERNSTOFF / REFERENZ -->
   <section id="reference" class="hidden">
     <button class="btn secondary hidden" id="refBackBtn" style="margin:0 0 12px">← Zurück</button>
     <div class="card">
-      <h2>📚 Lernstoff</h2>
+      <h2 data-i18n="ref.title">📚 Lernstoff</h2>
       <div id="refIntro" class="refintro"></div>
-      <input id="refSearch" class="refsearch" type="search" placeholder="Suchen: Thema, Stichwort oder LZ-Nummer …" autocomplete="off">
+      <input id="refSearch" class="refsearch" type="search" data-i18n-ph="ref.searchPh" placeholder="Suchen: Thema, Stichwort oder LZ-Nummer …" autocomplete="off">
     </div>
     <div id="refList"></div>
-    <button class="btn ghost" id="refHomeBtn">Zurück</button>
+    <button class="btn ghost" id="refHomeBtn" data-i18n="common.back">Zurück</button>
   </section>
 
   <!-- CONCEPT MAP -->
   <section id="conceptmap" class="hidden">
     <div class="card">
-      <h2>🗺 Concept Map</h2>
-      <p class="hint">Zeigt Zusammenhänge zwischen den 38 Lernzielen. Lernziel antippen → Kurzbeschreibung, Verknüpfungen und „Im Lernstoff öffnen".</p>
+      <h2 data-i18n="cm.title">🗺 Concept Map</h2>
+      <p class="hint" data-i18n="cm.hint">Zeigt Zusammenhänge zwischen den 38 Lernzielen. Lernziel antippen → Kurzbeschreibung, Verknüpfungen und „Im Lernstoff öffnen".</p>
     </div>
     <div class="cm-controls">
       <div class="cm-legend">
-        <span class="cm-legend-item"><span class="cm-dot r1"></span>R1 · wird geprüft</span>
-        <span class="cm-legend-item"><span class="cm-dot r2"></span>R2 · kann geprüft werden</span>
-        <span class="cm-legend-item"><span class="cm-dot r3"></span>R3 · nicht geprüft</span>
+        <span class="cm-legend-item"><span class="cm-dot r1"></span><span data-i18n="cm.r1">R1 · wird geprüft</span></span>
+        <span class="cm-legend-item"><span class="cm-dot r2"></span><span data-i18n="cm.r2">R2 · kann geprüft werden</span></span>
+        <span class="cm-legend-item"><span class="cm-dot r3"></span><span data-i18n="cm.r3">R3 · nicht geprüft</span></span>
       </div>
       <div class="cm-toggle-row">
-        <span>Nur R1/R2</span>
+        <span data-i18n="cm.onlyR12">Nur R1/R2</span>
         <label class="cm-switch"><input type="checkbox" id="cmR3toggle" onchange="cmToggleR3(this.checked)"><span class="cm-track"></span><span class="cm-knob"></span></label>
       </div>
     </div>
-    <div id="cmDetail" class="cm-detail"><div class="cm-placeholder">Wähle ein Lernziel aus der Übersicht, um Details und Verknüpfungen zu sehen.</div></div>
+    <div id="cmDetail" class="cm-detail"><div class="cm-placeholder" data-i18n="cm.placeholder">Wähle ein Lernziel aus der Übersicht, um Details und Verknüpfungen zu sehen.</div></div>
     <div class="cm-grid" id="cmGrid"></div>
-    <button class="btn ghost" id="cmHomeBtn" style="margin-top:14px">Zurück</button>
+    <button class="btn ghost" id="cmHomeBtn" data-i18n="common.back" style="margin-top:14px">Zurück</button>
+  </section>
+
+  <!-- MUSTERPRÜFUNG (offizielle iSAQB-Beispielprüfung) -->
+  <section id="mockexam" class="hidden">
+    <div class="card">
+      <h2 data-i18n="mock.title">🎓 Offizielle Musterprüfung</h2>
+      <p class="hint" id="mockMeta"></p>
+      <p data-i18n="mock.desc" style="font-size:.92rem;margin:12px 0 0">Dies ist die offizielle <b>iSAQB®-CPSA-F®-Beispielprüfung</b> (Dokumentversion 2026.2) — dieselben 38 Fragen wie im offiziellen PDF, im echten Prüfungsformat mit Timer, Punkten und 60-%-Grenze. Ideal als Generalprobe kurz vor der echten Prüfung.</p>
+      <p class="hint" id="mockLast" style="display:none;margin-top:10px"></p>
+      <button class="btn" id="mockStartBtn" data-i18n="mock.start" style="margin-top:14px">Musterprüfung starten</button>
+      <p class="hint" data-i18n="mock.source" style="margin-top:14px">Quelle &amp; © <b>iSAQB® e. V.</b> — CPSA-F® Beispielprüfung 2026.2 (Curriculum 2025.1). Nutzung zur Prüfungsvorbereitung gemäß den Nutzungsbedingungen der Beispielprüfung. <a href="https://public.isaqb.org/foundation-exam-questions/mock-de.pdf" target="_blank" rel="noopener">Original-PDF</a></p>
+    </div>
+    <button class="btn ghost" id="mockHomeBtn" data-i18n="common.back" style="margin-top:4px">Zurück</button>
   </section>
 
   <!-- REVIEW -->
   <section id="review" class="hidden">
     <div class="card">
-      <h2 id="reviewTitle">Antworten durchsehen</h2>
-      <p class="hint">Falsch oder nur teilweise richtig beantwortete Fragen – mit deiner Wahl und der richtigen Lösung.</p>
+      <h2 id="reviewTitle" data-i18n="review.title">Antworten durchsehen</h2>
+      <p class="hint" data-i18n="review.hint">Falsch oder nur teilweise richtig beantwortete Fragen – mit deiner Wahl und der richtigen Lösung.</p>
     </div>
     <div id="reviewList"></div>
-    <button class="btn ghost" id="reviewBackBtn" style="margin-top:4px">Zurück zum Ergebnis</button>
+    <button class="btn ghost" id="reviewBackBtn" data-i18n="review.back" style="margin-top:4px">Zurück zum Ergebnis</button>
   </section>
 </div>
 
 <!-- FIXED ACTION BAR (quiz) -->
 <div class="fixedbar hidden" id="quizBar">
   <div class="inner">
-    <button class="btn secondary" id="quitBtn" style="flex:0 0 90px">Pause</button>
+    <button class="btn secondary" id="quitBtn" data-i18n="bar.pause" style="flex:0 0 90px">Pause</button>
     <button class="btn" id="primaryBtn">Prüfen</button>
   </div>
 </div>
@@ -247,9 +263,14 @@
 </div>
 
 <script src="js/questions.js"></script>
+<script src="js/questions_en.js"></script>
 <script src="js/reference.js"></script>
+<script src="js/reference_en.js"></script>
 <script src="js/conceptmap.js"></script>
+<script src="js/conceptmap_en.js"></script>
+<script src="js/mockexam.js"></script>
 <script src="js/store.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/quiz.js"></script>
 <script src="js/screens.js"></script>
 <script src="js/app.js"></script>
