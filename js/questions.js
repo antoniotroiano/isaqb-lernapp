@@ -938,7 +938,7 @@ const QUESTIONS = [
    "Wartbarkeit (Maintainability) ist ein Hauptmerkmal.",
    "Skalierbarkeit (Scalability) ist ein eigenständiges Hauptmerkmal.",
    "Performanz (Performance Efficiency) ist ein Unteraspekt der Zuverlässigkeit.",
-   "Kompatibilität (Compatibility) wurde 2023 aus dem Modell entfernt."
+   "Portabilität (Portability) ist in der 2023-Fassung weiterhin ein eigenständiges Hauptmerkmal."
   ],
   "correct": [
    0
@@ -947,7 +947,7 @@ const QUESTIONS = [
    "Richtig: Wartbarkeit ist eines der Hauptmerkmale der ISO 25010.",
    "Falsch (Near-Miss): Skalierbarkeit ist kein eigenständiges Hauptmerkmal, sondern ein Aspekt (u. a. der Performanz-/Flexibilitätsbetrachtung).",
    "Falsch: Performanz (Performance Efficiency) ist selbst ein Hauptmerkmal, kein Unteraspekt der Zuverlässigkeit.",
-   "Falsch: Kompatibilität besteht als Hauptmerkmal weiterhin fort."
+   "Falsch: Portabilität wurde 2023 in das breitere Hauptmerkmal „Flexibilität“ überführt und existiert nicht mehr eigenständig unter diesem Namen."
   ],
   "explanation": "Wartbarkeit ist ein Hauptmerkmal der ISO 25010. Skalierbarkeit ist kein eigenständiges Hauptmerkmal; Performanz (Performance Efficiency) ist selbst ein Hauptmerkmal und kein Unteraspekt der Zuverlässigkeit; Kompatibilität besteht weiterhin."
  },
@@ -1405,7 +1405,7 @@ const QUESTIONS = [
    "„Safety“ (Betriebssicherheit) wurde als eigenständiges Hauptmerkmal aufgenommen.",
    "Die Zahl der Hauptmerkmale wurde auf drei reduziert.",
    "„Portabilität“ wurde ersatzlos gestrichen und hat keinen Nachfolger im Modell.",
-   "„Zuverlässigkeit“ und „Wartbarkeit“ wurden im Zuge der Revision entfernt."
+   "„Usability“ wurde unter diesem Namen unverändert beibehalten."
   ],
   "correct": [
    0
@@ -1414,7 +1414,7 @@ const QUESTIONS = [
    "Richtig: Safety wurde 2023 als eigenständiges Hauptmerkmal aufgenommen.",
    "Falsch (Trap): Die Zahl der Hauptmerkmale wurde nicht auf drei reduziert (es sind neun).",
    "Falsch (Near-Miss): Portabilität wurde nicht ersatzlos gestrichen, sondern in „Flexibilität“ überführt.",
-   "Falsch: Zuverlässigkeit und Wartbarkeit bestehen weiterhin fort."
+   "Falsch: „Usability“ wurde 2023 zu „Interaktionsfähigkeit (Interaction Capability)“ umbenannt und erweitert."
   ],
   "explanation": "2023 kam u. a. Safety als eigenständiges Hauptmerkmal hinzu; das Modell hat weiterhin mehrere (neun) Hauptmerkmale. Portabilität wurde nicht gestrichen, sondern in „Flexibilität“ überführt, und Zuverlässigkeit/Wartbarkeit bestehen fort."
  },
@@ -2193,7 +2193,7 @@ const QUESTIONS = [
    "Die Kopplung an Implementierungsdetails sinkt.",
    "Das isolierte Testen wird erleichtert, weil Abhängigkeiten durch Testdoubles ersetzt werden können.",
    "Aufrufe über eine Schnittstelle sind zur Laufzeit grundsätzlich schneller.",
-   "Konkrete Implementierungen werden dadurch überflüssig und müssen nicht mehr geschrieben werden."
+   "Man benötigt dadurch keine bewusste Verwaltung der Abhängigkeiten mehr (z. B. Dependency Injection entfällt)."
   ],
   "correct": [
    0,
@@ -2205,7 +2205,7 @@ const QUESTIONS = [
    "Richtig: Die Kopplung an konkrete Details sinkt.",
    "Richtig: Testdoubles lassen sich hinter Schnittstellen leicht einsetzen.",
    "Falsch: Ein pauschaler Laufzeit-Performancevorteil besteht nicht.",
-   "Near-Miss: Konkrete Implementierungen bleiben nötig; die Schnittstelle ersetzt sie nicht."
+   "Falsch: Die Bindung an eine konkrete Implementierung muss weiterhin bewusst erfolgen (z. B. per Dependency Injection) – Schnittstellen nehmen einem das nicht ab."
   ],
   "explanation": "Gegen Schnittstellen zu programmieren macht Implementierungen austauschbar, senkt die Kopplung an Details und erleichtert das isolierte Testen. Ein pauschaler Performancevorteil besteht nicht, und konkrete Implementierungen bleiben nötig."
  },
