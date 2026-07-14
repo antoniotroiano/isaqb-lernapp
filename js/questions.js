@@ -93,13 +93,13 @@ const QUESTIONS = [
   "lz": "LZ 01-01",
   "r": "R1",
   "type": "multi",
-  "q": "Welche der folgenden gehören zu den etablierten Architektursichten?",
+  "q": "Welche Aussagen zu Architektursichten treffen zu?",
   "options": [
-   "Bausteinsicht – die statische Zerlegung des Systems in Bausteine und ihre Beziehungen.",
-   "Laufzeitsicht – das dynamische Zusammenspiel der Bausteine in Szenarien.",
-   "Verteilungssicht – die Abbildung der Bausteine auf Hardware-/Infrastrukturknoten.",
-   "Entscheidungssicht – eine eigenständige Sicht, die die Bausteine der übrigen Sichten vollständig ersetzt.",
-   "Die Kontextsicht zählt nicht zu den Architektursichten, da sie nur das Umfeld und nicht das System zeigt."
+   "Die Bausteinsicht zeigt die statische Zerlegung des Systems in Bausteine und deren Beziehungen.",
+   "Die Laufzeitsicht beschreibt das dynamische Zusammenspiel der Bausteine in konkreten Szenarien.",
+   "Die Verteilungssicht bildet Bausteine bzw. Artefakte auf Hardware- und Ausführungsknoten ab.",
+   "Sobald das System implementiert ist, ersetzt die Laufzeitsicht die Bausteinsicht.",
+   "Jede Sicht muss alle Bausteine des Systems in identischer Detailtiefe enthalten."
   ],
   "correct": [
    0,
@@ -107,13 +107,13 @@ const QUESTIONS = [
    2
   ],
   "optExpl": [
-   "Richtig: die Bausteinsicht (statische Zerlegung) ist eine Kernsicht.",
-   "Richtig: die Laufzeitsicht (dynamisches Verhalten) ist eine Kernsicht.",
-   "Richtig: die Verteilungssicht (Deployment) gehört zu den etablierten Sichten.",
-   "Falsch: Entscheidungen werden dokumentiert, ersetzen aber keine Sicht mit ihren Bausteinen.",
-   "Falsch: die Kontextsicht (Abgrenzung zum Umfeld, externe Schnittstellen) ist eine anerkannte Architektursicht."
+   "Richtig: Bausteinsicht = statische Zerlegung samt Beziehungen.",
+   "Richtig: Laufzeitsicht = dynamisches Zusammenspiel in Szenarien.",
+   "Richtig: Verteilungssicht = Abbildung auf Hardware-/Ausführungsknoten.",
+   "Falsch: Sichten ergänzen einander und bestehen nebeneinander – keine ersetzt eine andere.",
+   "Falsch: Sichten zeigen bewusst unterschiedliche Aspekte und Detailtiefen; sie müssen nur widerspruchsfrei sein."
   ],
-  "explanation": "Baustein-, Laufzeit- und Verteilungssicht sind etablierte Sichten (ebenso die Kontextsicht). Es gibt keine die anderen ersetzende „Entscheidungssicht“, und die Kontextsicht gehört sehr wohl dazu."
+  "explanation": "Architektur wird über mehrere sich ergänzende Sichten beschrieben (Kontext-, Baustein-, Laufzeit-, Verteilungssicht). Sie beleuchten unterschiedliche Aspekte desselben Systems und ersetzen einander nicht."
  },
  {
   "id": "c1q5",
@@ -229,7 +229,7 @@ const QUESTIONS = [
   "type": "single",
   "q": "Welche der folgenden Tätigkeiten gehört am wenigsten zum Kern der Architekturrolle?",
   "options": [
-   "Die Termin- und Ressourcenplanung des Projekts sowie die Personaleinsatzsteuerung verantworten.",
+   "Das detaillierte Interaktions- und Oberflächendesign (UX) der Benutzeroberflächen ausarbeiten.",
    "Übergreifende Querschnittskonzepte (z. B. Persistenz, Sicherheit, Fehlerbehandlung) festlegen.",
    "Architekturentscheidungen und deren Begründung dokumentieren und kommunizieren.",
    "Die Einhaltung der Architektur in der Implementierung prüfen und das Team beraten."
@@ -238,12 +238,12 @@ const QUESTIONS = [
    0
   ],
   "optExpl": [
-   "Richtig: Termin-, Ressourcen- und Personalplanung ist Projektmanagement; Architekt:innen liefern nur Input.",
+   "Richtig: das detaillierte UX-/Interaktionsdesign ist Aufgabe der UX-/UI-Gestaltung; die Architektur legt die GUI allenfalls als Querschnittskonzept grob fest, gestaltet sie aber nicht im Detail.",
    "Falsch (ist Kernaufgabe): Querschnittskonzepte festzulegen gehört klar zur Architekturrolle.",
    "Falsch (ist Kernaufgabe): Entscheidungen dokumentieren und kommunizieren ist zentral.",
    "Falsch (ist Kernaufgabe): die Umsetzung prüfen und beraten gehört dazu."
   ],
-  "explanation": "Projekt-, Ressourcen- und Personalplanung liegt beim Projektmanagement, nicht im Kern der Architekturrolle. Querschnittskonzepte, Dokumentation/Kommunikation und die Umsetzungsbegleitung gehören dagegen dazu."
+  "explanation": "Das detaillierte Oberflächen- und Interaktionsdesign verantwortet die UX-/UI-Gestaltung, nicht die Architekturrolle – diese legt die GUI höchstens als Querschnittskonzept grob fest. Querschnittskonzepte, Dokumentation/Kommunikation und die Umsetzungsbegleitung gehören dagegen dazu."
  },
  {
   "id": "k5",
@@ -291,8 +291,8 @@ const QUESTIONS = [
   "options": [
    "Komplexität beherrschbar halten und das Erreichen der geforderten Qualitätsziele unter den Randbedingungen unterstützen.",
    "Möglichst viele zukünftige Anforderungen bereits heute vorwegnehmen, damit später keine Änderungen mehr nötig sind.",
-   "Die Einhaltung von Budget und Zeitplan des Projekts garantieren.",
-   "Ausschließlich die funktionale Korrektheit des Systems sicherstellen."
+   "Vor allem festlegen, welche Technologien und Frameworks im Projekt eingesetzt werden.",
+   "Primär die funktionale Vollständigkeit des Systems sicherstellen; Qualitätsmerkmale sind nachrangig."
   ],
   "correct": [
    0
@@ -300,10 +300,10 @@ const QUESTIONS = [
   "optExpl": [
    "Richtig: beherrschbare Komplexität und das Erreichen der Qualitätsziele sind der Kern.",
    "Falsch: Vorwegnahme aller künftigen Anforderungen widerspricht YAGNI und ist kein Ziel.",
-   "Falsch: Architektur unterstützt, garantiert aber weder Budget noch Termine.",
-   "Falsch: es geht um mehr als funktionale Korrektheit – gerade Qualitätsziele stehen im Fokus."
+   "Falsch: die Technologieauswahl ist eine mögliche Folge von Architekturentscheidungen, nicht ihr Kernziel – Architektur ist nicht gleich Werkzeugauswahl.",
+   "Falsch: funktionale Vollständigkeit allein greift zu kurz – gerade die Qualitätsziele stehen im Fokus."
   ],
-  "explanation": "Ziel ist beherrschbare Komplexität und das Erreichen der Qualitätsziele unter Randbedingungen. „Alles auf Vorrat“ (gegen YAGNI), Budget-/Termingarantien oder reine Korrektheit sind keine tragfähigen Kernziele."
+  "explanation": "Ziel ist beherrschbare Komplexität und das Erreichen der Qualitätsziele unter Randbedingungen. „Alles auf Vorrat“ (gegen YAGNI), die bloße Technologieauswahl oder rein funktionale Vollständigkeit sind keine tragfähigen Kernziele."
  },
  {
   "id": "c1q11",
@@ -476,8 +476,8 @@ const QUESTIONS = [
    "Sie macht Komplexität beherrschbar und unterstützt arbeitsteiliges Arbeiten im Team.",
    "Sie schafft eine gemeinsame Grundlage für die Kommunikation zwischen den Stakeholdern.",
    "Sie unterstützt das gezielte Erreichen von Qualitätszielen, indem sie tragende Entscheidungen bewusst macht.",
-   "Sie stellt die funktionale Korrektheit sicher, sodass systematisches Testen entbehrlich wird.",
-   "Sie garantiert die Einhaltung von Budget und Terminen des Projekts."
+   "Sie stellt sicher, dass jede künftige Anforderung ohne strukturelle Änderung umsetzbar bleibt.",
+   "Sie macht Detailentwurf und Codierung weitgehend überflüssig, da die tragenden Entscheidungen bereits feststehen."
   ],
   "correct": [
    0,
@@ -488,10 +488,10 @@ const QUESTIONS = [
    "Richtig: Komplexität beherrschen und Arbeitsteilung ermöglichen sind Kernnutzen.",
    "Richtig: sie schafft eine gemeinsame Kommunikationsgrundlage.",
    "Richtig: durch bewusste tragende Entscheidungen werden Qualitätsziele gezielt adressiert.",
-   "Falsch: Korrektheit garantiert sie nicht – Testen bleibt nötig.",
-   "Falsch: Budget- und Termintreue hängen von vielen Faktoren ab, nicht nur von der Architektur."
+   "Falsch: keine Architektur nimmt jede künftige Änderung strukturfrei auf – das wäre Über-Flexibilität und widerspricht YAGNI.",
+   "Falsch: Architektur liefert Leitplanken, ersetzt aber weder Detailentwurf noch Implementierung."
   ],
-  "explanation": "Architektur beherrscht Komplexität, ermöglicht Arbeitsteilung und Kommunikation und unterstützt das Erreichen von Qualitätszielen. Sie garantiert weder funktionale Korrektheit (Tests bleiben nötig) noch Budget-/Termintreue."
+  "explanation": "Architektur beherrscht Komplexität, ermöglicht Arbeitsteilung und Kommunikation und unterstützt das Erreichen von Qualitätszielen. Sie kann aber weder jede künftige Änderung strukturfrei auffangen noch Detailentwurf und Implementierung ersetzen."
  },
  {
   "id": "c1q18",
@@ -550,20 +550,20 @@ const QUESTIONS = [
   "q": "Welche Rolle spielen Kommunikationsfähigkeiten für Softwarearchitekt:innen?",
   "options": [
    "Sie sind zentral, um zwischen Stakeholdern zu vermitteln und Entscheidungen adressatengerecht zu begründen.",
-   "Sie sind wichtiger als technische Kompetenz; solange die Architektur überzeugend präsentiert wird, ist ihre technische Tragfähigkeit zweitrangig.",
-   "Gute mündliche Kommunikation macht eine schriftliche Architekturdokumentation überflüssig.",
-   "Sie betreffen nur die Kommunikation innerhalb des Entwicklungsteams, nicht mit fachlichen Stakeholdern."
+   "Kommunikation ist vor allem beim Präsentieren der fertigen Architektur wichtig; während des Entwurfs zählt primär die technische Arbeit.",
+   "Mündliche Abstimmung ist der schriftlichen Begründung vorzuziehen, weil sie schneller ist und Missverständnisse direkt klärt.",
+   "Kommunikation richtet sich vor allem an das Entwicklungsteam; fachliche Stakeholder werden über das Produktmanagement erreicht."
   ],
   "correct": [
    0
   ],
   "optExpl": [
-   "Richtig: Vermitteln und adressatengerechtes Begründen sind Kernkompetenzen.",
-   "Falsch: Kommunikation ersetzt keine technische Tragfähigkeit – beide sind nötig.",
-   "Falsch: wichtige Entscheidungen gehören auch dokumentiert; Reden ersetzt Doku nicht.",
-   "Falsch: Kommunikation richtet sich an alle Stakeholder, nicht nur ans Team."
+   "Richtig: früh und laufend vermitteln und adressatengerecht begründen sind Kernkompetenzen.",
+   "Falsch: Kommunikation ist gerade während des Entwurfs entscheidend (Anliegen klären, Feedback einholen), nicht erst bei der Präsentation.",
+   "Falsch: mündliche Abstimmung ist flüchtig; tragende Entscheidungen brauchen nachvollziehbare, dauerhafte schriftliche Begründung.",
+   "Falsch: Architekt:innen kommunizieren direkt mit allen relevanten Stakeholdern, nicht nur mittelbar über das Produktmanagement."
   ],
-  "explanation": "Kommunikation ist zentral, um zwischen Stakeholdern zu vermitteln und Entscheidungen zu begründen. Sie ersetzt weder technische Substanz noch Dokumentation und beschränkt sich nicht auf das Team."
+  "explanation": "Kommunikation ist früh und laufend zentral, um zwischen allen Stakeholdern zu vermitteln und Entscheidungen zu begründen. Sie findet nicht erst bei der Präsentation statt, ersetzt die schriftliche Begründung nicht und beschränkt sich nicht auf das Team."
  },
  {
   "id": "c1q21",
@@ -1209,13 +1209,13 @@ const QUESTIONS = [
   "lz": "LZ 02-03",
   "r": "R1",
   "type": "multi",
-  "q": "Welche der folgenden sind Qualitätsanforderungen (nicht funktionale)?",
+  "q": "Welche der folgenden sind Qualitätsanforderungen (nicht funktionale Anforderungen)?",
   "options": [
-   "Die Anwendung verarbeitet 1000 Anfragen pro Sekunde bei einer Antwortzeit unter 200 ms (Performanz).",
-   "Sensible Daten werden nach dem Stand der Technik verschlüsselt gespeichert (Sicherheit).",
-   "Ein neuer Entwickler kann eine typische Änderung ohne Rücksprache in unter einem Tag umsetzen (Wartbarkeit).",
-   "Der Nutzer kann eine Rechnung stornieren.",
-   "Das System exportiert Berichte im CSV-Format."
+   "Die Anwendung verarbeitet 1000 Anfragen pro Sekunde bei einer Antwortzeit unter 200 ms.",
+   "Sensible Daten werden nach dem Stand der Technik verschlüsselt gespeichert.",
+   "Eine typische Änderung ist von neuen Entwickler:innen in unter einem Tag umsetzbar.",
+   "Das System muss die bereits vorhandene Oracle-Datenbank des Kunden weiterverwenden.",
+   "Nutzer:innen können eine Rechnung stornieren und erhalten eine Bestätigung."
   ],
   "correct": [
    0,
@@ -1223,13 +1223,13 @@ const QUESTIONS = [
    2
   ],
   "optExpl": [
-   "Richtig: Durchsatz und Antwortzeit beschreiben WIE GUT – Performanz.",
-   "Richtig: Verschlüsselte Speicherung betrifft die Sicherheit.",
-   "Richtig: Schnelle, eigenständige Änderbarkeit betrifft die Wartbarkeit.",
-   "Falsch (Trap): Stornieren beschreibt eine Funktion – funktionale Anforderung.",
-   "Falsch: Der CSV-Export beschreibt eine Funktion – funktionale Anforderung."
+   "Richtig: messbare Performanz-Anforderung (wie gut).",
+   "Richtig: Sicherheit – eine Qualitätsanforderung.",
+   "Richtig: Wartbarkeit/Änderbarkeit – eine Qualitätsanforderung.",
+   "Falsch: Das ist eine <em>Randbedingung</em> (einschränkende Vorgabe), keine Qualitätsanforderung.",
+   "Falsch: Das beschreibt eine <em>funktionale</em> Anforderung (WAS das System tut)."
   ],
-  "explanation": "Performanz, Sicherheit und Wartbarkeit sind Qualitätsanforderungen (WIE GUT). „Rechnung stornieren“ und „CSV-Export“ beschreiben Funktionen – funktionale Anforderungen."
+  "explanation": "Qualitätsanforderungen beschreiben, WIE GUT ein System etwas tut (Performanz, Sicherheit, Wartbarkeit …). Eine funktionale Anforderung beschreibt WAS es tut; eine Randbedingung ist eine einschränkende Vorgabe – beide sind keine Qualitätsanforderungen."
  },
  {
   "id": "c2q15",
@@ -1659,10 +1659,10 @@ const QUESTIONS = [
   "q": "Welche Aussagen zur Schichtenarchitektur (Layers) treffen zu?",
   "options": [
    "Höhere Schichten nutzen Dienste tieferliegender Schichten; die Abhängigkeiten verlaufen in eine Richtung.",
-   "Eine Schicht bündelt Bausteine eines ähnlichen Abstraktionsniveaus, was den Austausch einzelner Schichten erleichtert.",
-   "Aufrufe von einer tieferen zu einer höheren Schicht (Rückwärtsabhängigkeiten) gelten als Schichtungsverletzung.",
-   "Da Schichten technische Belange trennen, liegt die fachliche Logik typischerweise in der untersten Schicht.",
-   "Die Anzahl der Schichten ist durch das Muster fest vorgegeben und unabhängig vom konkreten System."
+   "Aufrufe von einer tieferen zu einer höheren Schicht (Rückwärtsabhängigkeit) gelten als Schichtungsverletzung.",
+   "Zusätzliche Schichten bringen Indirektion und können zu Lasten der Laufzeit-Performance gehen.",
+   "In der strikten (closed) Variante darf eine Schicht eine tieferliegende Schicht überspringen, wenn das die Performance verbessert.",
+   "Da Schichten technische Belange trennen, gehört die fachliche Logik grundsätzlich in die unterste Schicht."
   ],
   "correct": [
    0,
@@ -1670,13 +1670,13 @@ const QUESTIONS = [
    2
   ],
   "optExpl": [
-   "Richtig: Die geordnete Abhängigkeitsrichtung von oben nach unten ist das Kernmerkmal.",
-   "Richtig: Ähnliches Abstraktionsniveau je Schicht erleichtert Verständnis und Austausch.",
-   "Richtig: Rückwärtsabhängigkeiten erzeugen Zyklen und verletzen die Schichtungsregel.",
-   "Falsch: Die unterste Schicht kapselt üblicherweise technische Belange (z. B. Persistenz), nicht die Fachlogik.",
-   "Falsch: Drei Schichten sind nur ein häufiges Beispiel; die Zahl ergibt sich aus dem System."
+   "Richtig: Abhängigkeiten verlaufen von oben nach unten.",
+   "Richtig: Rückwärtsabhängigkeiten verletzen die Schichtung.",
+   "Richtig: Die zusätzliche Indirektion kann Performance kosten – ein bewusster Trade-off.",
+   "Falsch: Das Überspringen von Schichten ist gerade die <em>relaxed/open</em> Variante; die strikte Variante verbietet es.",
+   "Falsch: Die fachliche Logik liegt typischerweise nicht in der untersten (Datenzugriffs-)Schicht."
   ],
-  "explanation": "Höhere Schichten nutzen tieferliegende Dienste in einer Richtung; jede Schicht bündelt ein ähnliches Abstraktionsniveau, und Rückwärtsabhängigkeiten sind Verletzungen. Fachlogik liegt nicht per se ganz unten, und die Schichtenzahl ist nicht fest vorgeschrieben."
+  "explanation": "Schichten ordnen Abhängigkeiten in eine Richtung (oben nutzt unten); Rückwärtsaufrufe sind Verletzungen. Striktes Layering verbietet das Überspringen (relaxed erlaubt es). Mehr Schichten = mehr Indirektion, ggf. auf Kosten der Performance."
  },
  {
   "id": "c3q5",
@@ -1745,8 +1745,8 @@ const QUESTIONS = [
    "Trennung der Zuständigkeiten (Separation of Concerns).",
    "Abstraktion.",
    "Kapselung bzw. Information Hiding.",
-   "Möglichst frühe Festlegung auf ein konkretes Framework, um Entwurfsentscheidungen früh zu stabilisieren.",
-   "Maximierung der Wiederverwendung durch generische Bausteine, auch wenn dadurch die Kohäsion sinkt."
+   "„Big Design Up Front“ – den gesamten Entwurf vollständig vor Implementierungsbeginn festlegen.",
+   "„Premature Generalization“ – Bausteine vorsorglich möglichst generisch halten, auch ohne konkreten Bedarf."
   ],
   "correct": [
    0,
@@ -1757,10 +1757,10 @@ const QUESTIONS = [
    "Richtig: Separation of Concerns ist ein grundlegendes Entwurfsprinzip.",
    "Richtig: Abstraktion gehört zu den grundlegenden Entwurfsprinzipien.",
    "Richtig: Kapselung/Information Hiding ist ein grundlegendes Entwurfsprinzip.",
-   "Falsch: Grundsatzentscheidungen sollten eher aufgeschoben werden; eine frühe Framework-Bindung ist kein Entwurfsprinzip.",
-   "Falsch: Wiederverwendung auf Kosten der Kohäsion widerspricht guten Entwurfszielen und ist kein Prinzip."
+   "Falsch: „Big Design Up Front“ ist ein Vorgehens-Antimuster, kein Entwurfsprinzip – es widerspricht iterativem Vorgehen und dem Aufschieben von Entscheidungen.",
+   "Falsch: vorsorgliche Generalisierung ohne Bedarf (Premature Generalization) erhöht die Komplexität – Abstraktion meint zweckmäßige, nicht maximale Generalisierung."
   ],
-  "explanation": "Separation of Concerns, Abstraktion und Kapselung sind grundlegende Entwurfsprinzipien. Eine frühe Framework-Festlegung oder Wiederverwendung auf Kosten der Kohäsion sind hingegen keine Prinzipien, sondern eher zu vermeidende Fehlanreize."
+  "explanation": "Separation of Concerns, Abstraktion und Kapselung sind grundlegende Entwurfsprinzipien. „Big Design Up Front“ und vorsorgliche Übergeneralisierung klingen verwandt, sind aber Antimuster – keine Prinzipien."
  },
  {
   "id": "c3q8",
@@ -2462,8 +2462,8 @@ const QUESTIONS = [
    "Modularisierung in überschaubare Bausteine.",
    "Klar definierte, stabile Schnittstellen.",
    "Geringe Kopplung zwischen den Bausteinen.",
-   "Möglichst viele geteilte globale Variablen für kurzen Datenaustausch.",
-   "Umfangreiche Code-Duplizierung, damit jede Stelle unabhängig geändert werden kann."
+   "Möglichst viele Konfigurationsoptionen, um das System jederzeit flexibel anpassen zu können.",
+   "Ausführliche Inline-Kommentare an jeder Codestelle, die das Verhalten erklären."
   ],
   "correct": [
    0,
@@ -2474,10 +2474,10 @@ const QUESTIONS = [
    "Richtig: Überschaubare Bausteine fördern die Wartbarkeit.",
    "Richtig: Stabile Schnittstellen erleichtern Änderungen.",
    "Richtig: Geringe Kopplung erlaubt unabhängige Änderungen.",
-   "Falsch: Geteilte globale Variablen erhöhen die Kopplung und erschweren Änderungen.",
-   "Near-Miss: Duplizierung zwingt dazu, Änderungen an vielen Stellen konsistent nachzuziehen (Verletzung von DRY)."
+   "Falsch: viele Konfigurationsoptionen vergrößern den Zustandsraum und erschweren Test und Wartung, statt sie zu fördern.",
+   "Near-Miss: Kommentare helfen lokal beim Verständnis, adressieren aber nicht die strukturelle Wartbarkeit (Kopplung, Kohäsion, Schnittstellen)."
   ],
-  "explanation": "Modularität, stabile Schnittstellen und geringe Kopplung fördern die Wartbarkeit. Geteilte globale Variablen erhöhen die Kopplung, und Code-Duplizierung erschwert konsistente Änderungen – beides schadet der Änderbarkeit."
+  "explanation": "Modularität, stabile Schnittstellen und geringe Kopplung fördern die Wartbarkeit. Viele Konfigurationsoptionen erhöhen die Komplexität, und ausführliche Kommentare adressieren die Struktur nicht – beides ist kein struktureller Hebel für die Änderbarkeit."
  },
  {
   "id": "c3q32",
@@ -2733,8 +2733,8 @@ const QUESTIONS = [
    "Unabhängige Entwicklung einzelner Teile durch verschiedene Personen/Teams.",
    "Wiederverwendbarkeit klar geschnittener Bausteine.",
    "Lokale Begrenzung der Auswirkung von Änderungen.",
-   "Bausteine sollen ihren Zustand direkt gegenseitig lesen, um die Zahl der Schnittstellen zu minimieren.",
-   "Möglichst hohe Kopplung, damit Bausteine eng zusammenarbeiten."
+   "Die Gesamtzahl der Bausteine möglichst gering halten, um die Übersicht zu wahren.",
+   "Bausteine möglichst generisch auslegen, um maximale Wiederverwendung zu erreichen."
   ],
   "correct": [
    0,
@@ -2745,10 +2745,10 @@ const QUESTIONS = [
    "Richtig: Klar getrennte Module lassen sich parallel entwickeln.",
    "Richtig: Gut geschnittene Bausteine sind wiederverwendbar.",
    "Richtig: Änderungen bleiben lokal begrenzt und wirken nicht überall.",
-   "Direkter Zustandszugriff durchbricht die Kapselung und erhöht die Kopplung – das Gegenteil des Ziels.",
-   "Enge Kopplung ist gerade nicht das Ziel; angestrebt wird lose Kopplung bei hoher Kohäsion."
+   "Falsch: die Bausteinzahl zu minimieren ist kein Ziel der Modularisierung – zu grobe Bausteine senken die Kohäsion und erschweren die Zerlegung.",
+   "Near-Miss: Wiederverwendung ist ein Ziel, aber „möglichst generisch“ auf die Spitze getrieben senkt die Kohäsion und erhöht die Komplexität – kein Kernziel."
   ],
-  "explanation": "Modularisierung zielt auf unabhängige Entwicklung, Wiederverwendung und lokal begrenzte Änderungen. Direkter gegenseitiger Zustandszugriff und hohe Kopplung widersprechen dem Ziel."
+  "explanation": "Modularisierung zielt auf unabhängige Entwicklung, Wiederverwendung und lokal begrenzte Änderungen. Weder die bloße Minimierung der Bausteinzahl noch maximale Übergeneralisierung sind Ziele – beide können die Kohäsion senken."
  },
  {
   "id": "c3q41",
@@ -3405,8 +3405,8 @@ const QUESTIONS = [
    "Je später Rückmeldung kommt, desto teurer werden Korrekturen tendenziell.",
    "Riskante oder unsichere Entscheidungen sollten früh mit Feedback abgesichert werden (risikogetrieben).",
    "Die Reihenfolge der Entscheidungen sollte sich am Risiko orientieren, nicht am reinen Bauplan-Fortschritt.",
-   "Feedback ist erst sinnvoll, wenn das System vollständig implementiert ist.",
-   "Ignorierte Risiken lösen sich im Projektverlauf typischerweise von selbst auf."
+   "Risiken sollten erst dann adressiert werden, wenn sie im Betrieb tatsächlich auftreten (rein reaktiv).",
+   "Prototypen oder Durchstiche zur frühen Risikoabsicherung lohnen sich erst ab sehr großen Projekten."
   ],
   "correct": [
    0,
@@ -3414,13 +3414,13 @@ const QUESTIONS = [
    2
   ],
   "optExpl": [
-   "Richtig: Späte Rückmeldung verteuert Korrekturen.",
-   "Richtig: Riskante Entscheidungen früh absichern ist der Kern risikogetriebenen Vorgehens.",
-   "Richtig: Priorisiert wird nach Risiko, nicht nach starrem Ablaufplan.",
-   "Falsch: Feedback erst am Ende käme viel zu spät.",
-   "Falsch: Ignorierte Risiken verschwinden nicht von selbst."
+   "Richtig: späte Rückmeldung = teurere Korrekturen.",
+   "Richtig: Unsicheres früh absichern (risikogetrieben).",
+   "Richtig: Entscheidungsreihenfolge am Risiko ausrichten.",
+   "Falsch: Rein reaktives Abwarten widerspricht dem risikogetriebenen Vorgehen und macht Korrekturen teurer.",
+   "Falsch: Frühe Risikoabsicherung (z. B. Durchstich/Prototyp) lohnt sich unabhängig von der Projektgröße."
   ],
-  "explanation": "Späte Rückmeldung verteuert Korrekturen, daher sichert man riskante Entscheidungen früh ab und priorisiert nach Risiko. Feedback nur am Ende oder das Ignorieren von Risiken ist das Gegenteil."
+  "explanation": "Feedback früh und risikogetrieben einholen: unsichere/riskante Entscheidungen zuerst absichern, Reihenfolge am Risiko ausrichten. Spätes oder rein reaktives Vorgehen verteuert Korrekturen."
  },
  {
   "id": "c3q63",
@@ -4194,21 +4194,21 @@ const QUESTIONS = [
    "Alle Sichten beschreiben dasselbe System; derselbe Baustein darf in verschiedenen Sichten nicht widersprüchlich dargestellt sein.",
    "Sichten dürfen unterschiedliche Aspekte und Detailtiefen zeigen, müssen aber widerspruchsfrei zueinander sein.",
    "Konsistenz bedeutet, dass jede Sicht exakt dieselben Elemente in identischer Detailtiefe enthält.",
-   "Widersprüche zwischen Sichten sind unkritisch, solange jede Sicht für sich betrachtet korrekt ist.",
-   "Eine einzige, umfassende Sicht ist grundsätzlich vorzuziehen, um Konsistenzprobleme von vornherein zu vermeiden."
+   "Bei einem Widerspruch zwischen zwei Sichten genügt es, die weniger wichtige Sicht zu entfernen.",
+   "Eine einzige, alles umfassende Sicht ist grundsätzlich vorzuziehen, um Konsistenzprobleme zu vermeiden."
   ],
   "correct": [
    0,
    1
   ],
   "optExpl": [
-   "Richtig: Die Sichten zeigen ein System aus verschiedenen Blickwinkeln; Widersprüche würden in die Irre führen.",
-   "Richtig: Unterschiedliche Perspektiven und Detailgrade sind erwünscht, dürfen sich aber nicht widersprechen.",
-   "Near-Miss: Konsistenz verlangt Widerspruchsfreiheit, nicht identischen Inhalt und Detailgrad.",
-   "Trugschluss: Genau die Widerspruchsfreiheit zwischen den Sichten ist entscheidend.",
-   "Eine einzelne Sicht kann die verschiedenen Belange nicht angemessen abdecken; mehrere abgestimmte Sichten sind gerade der Zweck."
+   "Richtig: dasselbe System – keine widersprüchliche Darstellung desselben Bausteins.",
+   "Richtig: unterschiedliche Aspekte/Detailtiefen sind ok, solange sie widerspruchsfrei sind.",
+   "Falsch: Sichten zeigen bewusst Unterschiedliches; identische Elemente/Detailtiefe sind nicht gefordert.",
+   "Falsch: Ein Widerspruch wird aufgelöst, indem man die Ursache klärt – nicht, indem man eine Sicht wegwirft.",
+   "Falsch: Eine einzige Sicht überfordert die Adressaten; mehrere abgestimmte Sichten sind gerade der Zweck."
   ],
-  "explanation": "Sichten zeigen dasselbe System aus verschiedenen Blickwinkeln und müssen widerspruchsfrei zueinander sein. Konsistenz heißt aber nicht identischer Inhalt/Detailgrad, und eine einzige Sicht genügt nicht."
+  "explanation": "Verschiedene Sichten zeigen unterschiedliche Aspekte desselben Systems in unterschiedlicher Tiefe – müssen aber zueinander widerspruchsfrei sein. Widersprüche löst man durch Klärung, nicht durch Weglassen; eine einzige Allsicht ist kein Ziel."
  },
  {
   "id": "k11",
