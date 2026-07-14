@@ -64,13 +64,13 @@ const QUESTIONS_EN = {
   "explanation": "Black box = external view (interface, responsibility, guaranteed properties), white box = additionally the contained building blocks. Both are useful; it is not a runtime/building block view question, and the interface is precisely not hidden."
  },
  "c1q4": {
-  "q": "Which of the following belong to the established architecture views?",
+  "q": "Which statements about architecture views are correct?",
   "options": [
-   "Building block view – the static decomposition of the system into building blocks and their relationships.",
-   "Runtime view – the dynamic interplay of the building blocks in scenarios.",
-   "Deployment view – the mapping of the building blocks onto hardware/infrastructure nodes.",
-   "Decision view – an independent view that completely replaces the building blocks of the other views.",
-   "The context view does not count among the architecture views, since it shows only the environment and not the system."
+   "The building block view shows the static decomposition of the system into building blocks and their relationships.",
+   "The runtime view describes the dynamic interplay of the building blocks in concrete scenarios.",
+   "The deployment view maps building blocks or artifacts onto hardware and execution nodes.",
+   "Once the system is implemented, the runtime view replaces the building block view.",
+   "Every view must contain all building blocks of the system at identical level of detail."
   ],
   "correct": [
    0,
@@ -78,13 +78,13 @@ const QUESTIONS_EN = {
    2
   ],
   "optExpl": [
-   "Correct: the building block view (static decomposition) is a core view.",
-   "Correct: the runtime view (dynamic behavior) is a core view.",
-   "Correct: the deployment view (deployment) is one of the established views.",
-   "Wrong: decisions are documented, but do not replace a view with its building blocks.",
-   "Wrong: the context view (delimitation from the environment, external interfaces) is a recognized architecture view."
+   "Correct: building block view = static decomposition with relationships.",
+   "Correct: runtime view = dynamic interplay in scenarios.",
+   "Correct: deployment view = mapping onto hardware/execution nodes.",
+   "Incorrect: views complement each other and coexist – none replaces another.",
+   "Incorrect: views deliberately show different aspects and levels of detail; they only need to be consistent."
   ],
-  "explanation": "Building block, runtime and deployment views are established views (as is the context view). There is no \"decision view\" that replaces the others, and the context view very much belongs among them."
+  "explanation": "Architecture is described through several complementary views (context, building block, runtime, deployment). They illuminate different aspects of the same system and do not replace one another."
  },
  "c1q5": {
   "q": "Which tasks belong to the core of the role of software architects?",
@@ -175,7 +175,7 @@ const QUESTIONS_EN = {
  "c1q9": {
   "q": "Which of the following activities belongs least to the core of the architecture role?",
   "options": [
-   "Being responsible for the schedule and resource planning of the project as well as the staffing management.",
+   "Working out the detailed interaction and interface design (UX) of the user interfaces.",
    "Defining cross-cutting concepts (e.g. persistence, security, error handling).",
    "Documenting and communicating architecture decisions and their rationale.",
    "Checking compliance with the architecture in the implementation and advising the team."
@@ -184,12 +184,12 @@ const QUESTIONS_EN = {
    0
   ],
   "optExpl": [
-   "Correct: schedule, resource and staffing planning is project management; architects only provide input.",
+   "Correct: detailed UX/interaction design is the task of UX/UI design; architecture at most roughly defines the GUI as a cross-cutting concept but does not design it in detail.",
    "Wrong (is a core task): defining cross-cutting concepts clearly belongs to the architecture role.",
    "Wrong (is a core task): documenting and communicating decisions is central.",
    "Wrong (is a core task): checking the implementation and advising belongs to it."
   ],
-  "explanation": "Project, resource and staffing planning lies with project management, not at the core of the architecture role. Cross-cutting concepts, documentation/communication and accompanying the implementation, by contrast, belong to it."
+  "explanation": "The detailed interface and interaction design is the responsibility of UX/UI design, not the architecture role – which at most roughly defines the GUI as a cross-cutting concept. Cross-cutting concepts, documentation/communication and accompanying the implementation, by contrast, belong to it."
  },
  "k5": {
   "q": "Assess each statement: correct or wrong?",
@@ -211,8 +211,8 @@ const QUESTIONS_EN = {
   "options": [
    "Keeping complexity manageable and supporting the achievement of the required quality goals under the constraints.",
    "Anticipating as many future requirements as possible today, so that no more changes are needed later.",
-   "Guaranteeing compliance with the budget and schedule of the project.",
-   "Ensuring exclusively the functional correctness of the system."
+   "Above all determining which technologies and frameworks are used in the project.",
+   "Primarily ensuring the functional completeness of the system; quality attributes are secondary."
   ],
   "correct": [
    0
@@ -220,10 +220,10 @@ const QUESTIONS_EN = {
   "optExpl": [
    "Correct: manageable complexity and achieving the quality goals are the core.",
    "Wrong: anticipating all future requirements contradicts YAGNI and is not a goal.",
-   "Wrong: architecture supports, but guarantees neither budget nor schedule.",
-   "Wrong: it is about more than functional correctness – it is precisely quality goals that are in focus."
+   "Wrong: technology selection is a possible consequence of architecture decisions, not its core goal – architecture is not the same as tool selection.",
+   "Wrong: functional completeness alone falls short – it is precisely the quality goals that are in focus."
   ],
-  "explanation": "The goal is manageable complexity and achieving the quality goals under constraints. \"Everything in stock\" (against YAGNI), budget/schedule guarantees or pure correctness are not viable core goals."
+  "explanation": "The goal is manageable complexity and achieving the quality goals under constraints. \"Everything in stock\" (against YAGNI), the mere selection of technologies or purely functional completeness are not viable core goals."
  },
  "c1q11": {
   "q": "Which statements about stakeholders of an architecture are correct?",
@@ -361,8 +361,8 @@ const QUESTIONS_EN = {
    "It makes complexity manageable and supports collaborative work in the team.",
    "It creates a common basis for communication among the stakeholders.",
    "It supports the targeted achievement of quality goals by making key decisions conscious.",
-   "It ensures the functional correctness, so that systematic testing becomes dispensable.",
-   "It guarantees compliance with the budget and schedule of the project."
+   "It ensures that every future requirement remains implementable without structural change.",
+   "It makes detailed design and coding largely superfluous, since the key decisions are already fixed."
   ],
   "correct": [
    0,
@@ -373,10 +373,10 @@ const QUESTIONS_EN = {
    "Correct: mastering complexity and enabling division of labor are core benefits.",
    "Correct: it creates a common basis for communication.",
    "Correct: through conscious key decisions, quality goals are addressed in a targeted manner.",
-   "Wrong: it does not guarantee correctness – testing remains necessary.",
-   "Wrong: budget and schedule adherence depend on many factors, not only on the architecture."
+   "Wrong: no architecture absorbs every future change without structural work – that would be over-flexibility and contradicts YAGNI.",
+   "Wrong: architecture provides guard rails but replaces neither detailed design nor implementation."
   ],
-  "explanation": "Architecture masters complexity, enables division of labor and communication, and supports the achievement of quality goals. It guarantees neither functional correctness (tests remain necessary) nor budget/schedule adherence."
+  "explanation": "Architecture masters complexity, enables division of labor and communication, and supports the achievement of quality goals. But it can neither absorb every future change without structural work nor replace detailed design and implementation."
  },
  "c1q18": {
   "q": "What characterizes an iterative (evolutionary) approach to architecture work?",
@@ -420,20 +420,20 @@ const QUESTIONS_EN = {
   "q": "What role do communication skills play for software architects?",
   "options": [
    "They are central for mediating between stakeholders and justifying decisions in an audience-appropriate manner.",
-   "They are more important than technical competence; as long as the architecture is presented convincingly, its technical viability is secondary.",
-   "Good oral communication makes a written architecture documentation superfluous.",
-   "They concern only the communication within the development team, not with functional stakeholders."
+   "Communication matters above all when presenting the finished architecture; during design, the technical work is what primarily counts.",
+   "Oral agreement is preferable to written rationale because it is faster and clears up misunderstandings directly.",
+   "Communication is directed mainly at the development team; functional stakeholders are reached via product management."
   ],
   "correct": [
    0
   ],
   "optExpl": [
-   "Correct: mediating and justifying in an audience-appropriate manner are core competencies.",
-   "Wrong: communication does not replace technical viability – both are necessary.",
-   "Wrong: important decisions also belong documented; talking does not replace documentation.",
-   "Wrong: communication is directed at all stakeholders, not only at the team."
+   "Correct: mediating early and continuously and justifying in an audience-appropriate manner are core competencies.",
+   "Wrong: communication is decisive precisely during design (clarifying concerns, gathering feedback), not only at the presentation.",
+   "Wrong: oral agreement is ephemeral; load-bearing decisions need traceable, durable written rationale.",
+   "Wrong: architects communicate directly with all relevant stakeholders, not only indirectly via product management."
   ],
-  "explanation": "Communication is central for mediating between stakeholders and justifying decisions. It replaces neither technical substance nor documentation and is not limited to the team."
+  "explanation": "Communication is central early and continuously, for mediating between all stakeholders and justifying decisions. It does not happen only at the presentation, does not replace written rationale, and is not limited to the team."
  },
  "c1q21": {
   "q": "What is the purpose of an early walking skeleton or proof of concept in architecture work?",
@@ -930,11 +930,11 @@ const QUESTIONS_EN = {
  "c2q14": {
   "q": "Which of the following are quality requirements (non-functional)?",
   "options": [
-   "The application processes 1000 requests per second with a response time under 200 ms (performance).",
-   "Sensitive data is stored encrypted according to the state of the art (security).",
-   "A new developer can implement a typical change in under a day without consultation (maintainability).",
-   "The user can cancel an invoice.",
-   "The system exports reports in CSV format."
+   "The application processes 1000 requests per second with a response time under 200 ms.",
+   "Sensitive data is stored encrypted according to the state of the art.",
+   "A typical change can be made by new developers in under a day.",
+   "The system must reuse the customer's existing Oracle database.",
+   "Users can cancel an invoice and receive a confirmation."
   ],
   "correct": [
    0,
@@ -942,13 +942,13 @@ const QUESTIONS_EN = {
    2
   ],
   "optExpl": [
-   "Correct: Throughput and response time describe HOW WELL – performance.",
-   "Correct: Encrypted storage concerns security.",
-   "Correct: Fast, independent modifiability concerns maintainability.",
-   "Incorrect (trap): Cancellation describes a function – a functional requirement.",
-   "Incorrect: CSV export describes a function – a functional requirement."
+   "Correct: a measurable performance requirement (how well).",
+   "Correct: security – a quality requirement.",
+   "Correct: maintainability/modifiability – a quality requirement.",
+   "Incorrect: this is a <em>constraint</em> (a given), not a quality requirement.",
+   "Incorrect: this describes a <em>functional</em> requirement (WHAT the system does)."
   ],
-  "explanation": "Performance, security, and maintainability are quality requirements (HOW WELL). “Cancel an invoice” and “CSV export” describe functions – functional requirements."
+  "explanation": "Quality requirements describe HOW WELL a system does something (performance, security, maintainability …). A functional requirement describes WHAT it does; a constraint is a limiting given – neither is a quality requirement."
  },
  "c2q15": {
   "q": "Which of the following are organizational constraints (as distinct from technical or regulatory ones)?",
@@ -1290,13 +1290,13 @@ const QUESTIONS_EN = {
   "explanation": "The ‚S‘ is the Single Responsibility Principle - one reason to change per building block. It does not require only one method. Separation of Concerns is a different principle (not part of SOLID), and substitutability is the ‚L‘."
  },
  "c3q4": {
-  "q": "Which statements about the layered architecture (layers) are correct?",
+  "q": "Which statements about layered architecture (Layers) are correct?",
   "options": [
-   "Higher layers use services of lower-lying layers; the dependencies run in one direction.",
-   "A layer bundles building blocks of a similar abstraction level, which facilitates the replacement of individual layers.",
-   "Calls from a lower to a higher layer (backward dependencies) count as a layering violation.",
-   "Since layers separate technical concerns, the business logic typically resides in the lowest layer.",
-   "The number of layers is fixed by the pattern and independent of the concrete system."
+   "Higher layers use the services of lower layers; the dependencies run in one direction.",
+   "Calls from a lower layer to a higher one (a backward dependency) count as a layering violation.",
+   "Additional layers add indirection and can come at the expense of runtime performance.",
+   "In the strict (closed) variant, a layer may skip a lower layer if that improves performance.",
+   "Since layers separate technical concerns, the business logic generally belongs in the bottom layer."
   ],
   "correct": [
    0,
@@ -1304,13 +1304,13 @@ const QUESTIONS_EN = {
    2
   ],
   "optExpl": [
-   "Correct: The ordered direction of dependencies from top to bottom is the key characteristic.",
-   "Correct: A similar abstraction level per layer facilitates understanding and replacement.",
-   "Correct: Backward dependencies create cycles and violate the layering rule.",
-   "Wrong: The lowest layer usually encapsulates technical concerns (e.g. persistence), not the business logic.",
-   "Wrong: Three layers are only a common example; the number results from the system."
+   "Correct: dependencies run top-down.",
+   "Correct: backward dependencies violate the layering.",
+   "Correct: the added indirection can cost performance – a deliberate trade-off.",
+   "Incorrect: skipping layers is exactly the <em>relaxed/open</em> variant; the strict variant forbids it.",
+   "Incorrect: business logic typically does not belong in the bottom (data-access) layer."
   ],
-  "explanation": "Higher layers use lower-lying services in one direction; each layer bundles a similar abstraction level, and backward dependencies are violations. Business logic does not per se reside at the very bottom, and the number of layers is not fixed."
+  "explanation": "Layers order dependencies in one direction (higher uses lower); backward calls are violations. Strict layering forbids skipping (relaxed allows it). More layers = more indirection, possibly at the cost of performance."
  },
  "c3q5": {
   "q": "Which statements about Ports & Adapters (hexagonal architecture) are correct?",
@@ -1364,8 +1364,8 @@ const QUESTIONS_EN = {
    "Separation of Concerns.",
    "Abstraction.",
    "Encapsulation, i.e. information hiding.",
-   "Committing to a concrete framework as early as possible, in order to stabilize design decisions early.",
-   "Maximizing reuse through generic building blocks, even if this lowers cohesion."
+   "'Big Design Up Front' – specifying the entire design completely before implementation starts.",
+   "'Premature Generalization' – keeping building blocks as generic as possible in advance, even without concrete need."
   ],
   "correct": [
    0,
@@ -1376,10 +1376,10 @@ const QUESTIONS_EN = {
    "Correct: Separation of Concerns is a fundamental design principle.",
    "Correct: Abstraction is one of the fundamental design principles.",
    "Correct: Encapsulation/information hiding is a fundamental design principle.",
-   "Wrong: Fundamental decisions should rather be deferred; an early framework commitment is not a design principle.",
-   "Wrong: Reuse at the expense of cohesion contradicts good design goals and is not a principle."
+   "Wrong: 'Big Design Up Front' is a process anti-pattern, not a design principle – it contradicts iterative work and deferring decisions.",
+   "Wrong: generalizing in advance without need (premature generalization) increases complexity – abstraction means purposeful, not maximal, generalization."
   ],
-  "explanation": "Separation of Concerns, abstraction, and encapsulation are fundamental design principles. An early framework commitment or reuse at the expense of cohesion, by contrast, are not principles but rather counterproductive incentives to be avoided."
+  "explanation": "Separation of Concerns, abstraction, and encapsulation are fundamental design principles. 'Big Design Up Front' and premature over-generalization sound related but are anti-patterns – not principles."
  },
  "c3q8": {
   "q": "Which of the following are typical cross-cutting concerns?",
@@ -1907,8 +1907,8 @@ const QUESTIONS_EN = {
    "Modularization into manageable building blocks.",
    "Clearly defined, stable interfaces.",
    "Low coupling between the building blocks.",
-   "As many shared global variables as possible for short data exchange.",
-   "Extensive code duplication, so that each place can be changed independently."
+   "As many configuration options as possible, to keep the system flexibly adjustable at all times.",
+   "Extensive inline comments at every point in the code that explain the behavior."
   ],
   "correct": [
    0,
@@ -1919,10 +1919,10 @@ const QUESTIONS_EN = {
    "Correct: Manageable building blocks promote maintainability.",
    "Correct: Stable interfaces facilitate changes.",
    "Correct: Low coupling allows independent changes.",
-   "Wrong: Shared global variables increase coupling and complicate changes.",
-   "Near-Miss: Duplication forces changes to be consistently carried out in many places (violation of DRY)."
+   "Wrong: many configuration options enlarge the state space and complicate testing and maintenance instead of promoting them.",
+   "Near-Miss: comments help local understanding but do not address structural maintainability (coupling, cohesion, interfaces)."
   ],
-  "explanation": "Modularity, stable interfaces, and low coupling promote maintainability. Shared global variables increase coupling, and code duplication complicates consistent changes - both harm changeability."
+  "explanation": "Modularity, stable interfaces, and low coupling promote maintainability. Many configuration options increase complexity, and extensive comments do not address the structure - neither is a structural lever for changeability."
  },
  "c3q32": {
   "q": "What is the purpose of resilience patterns such as timeout, retry, or circuit breaker?",
@@ -2115,8 +2115,8 @@ const QUESTIONS_EN = {
    "Independent development of individual parts by different people/teams.",
    "Reusability of clearly cut building blocks.",
    "Locally limiting the impact of changes.",
-   "Building blocks should read each other's state directly in order to minimize the number of interfaces.",
-   "The highest possible coupling, so that building blocks work closely together."
+   "Keeping the total number of building blocks as low as possible to preserve overview.",
+   "Designing building blocks as generic as possible to achieve maximum reuse."
   ],
   "correct": [
    0,
@@ -2127,10 +2127,10 @@ const QUESTIONS_EN = {
    "Correct: Clearly separated modules can be developed in parallel.",
    "Correct: Well-cut building blocks are reusable.",
    "Correct: Changes stay locally limited and do not have an effect everywhere.",
-   "Direct state access breaks encapsulation and increases coupling – the opposite of the goal.",
-   "Tight coupling is precisely not the goal; the aim is loose coupling with high cohesion."
+   "Wrong: minimizing the number of building blocks is not a goal of modularization – overly coarse building blocks lower cohesion and hinder decomposition.",
+   "Near-Miss: reuse is a goal, but 'as generic as possible' taken to the extreme lowers cohesion and increases complexity – not a core goal."
   ],
-  "explanation": "Modularization aims at independent development, reuse, and locally limited changes. Direct mutual state access and high coupling contradict the goal."
+  "explanation": "Modularization aims at independent development, reuse, and locally limited changes. Neither merely minimizing the number of building blocks nor maximal over-generalization are goals – both can lower cohesion."
  },
  "c3q41": {
   "q": "Which statements about the trade-off with heavy reuse are correct?",
@@ -2609,10 +2609,10 @@ const QUESTIONS_EN = {
   "q": "Which statements about the relationship between feedback and risk in design are correct?",
   "options": [
    "The later feedback arrives, the more expensive corrections tend to become.",
-   "Risky or uncertain decisions should be safeguarded early with feedback (risk-driven).",
+   "Risky or uncertain decisions should be validated early with feedback (risk-driven).",
    "The order of decisions should be guided by risk, not by mere blueprint progress.",
-   "Feedback is only meaningful once the system is fully implemented.",
-   "Ignored risks typically resolve themselves over the course of the project."
+   "Risks should only be addressed once they actually occur in operation (purely reactive).",
+   "Prototypes or walking skeletons for early risk mitigation only pay off in very large projects."
   ],
   "correct": [
    0,
@@ -2620,13 +2620,13 @@ const QUESTIONS_EN = {
    2
   ],
   "optExpl": [
-   "Correct: Late feedback makes corrections more expensive.",
-   "Correct: Safeguarding risky decisions early is the core of the risk-driven approach.",
-   "Correct: Prioritization is by risk, not by a rigid schedule.",
-   "Wrong: Feedback only at the end would come far too late.",
-   "Wrong: Ignored risks do not disappear by themselves."
+   "Correct: late feedback = more expensive corrections.",
+   "Correct: validate the uncertain early (risk-driven).",
+   "Correct: order decisions by risk.",
+   "Incorrect: purely reactive waiting contradicts the risk-driven approach and makes corrections more expensive.",
+   "Incorrect: early risk mitigation (e.g. a walking skeleton/prototype) pays off regardless of project size."
   ],
-  "explanation": "Late feedback makes corrections more expensive, so risky decisions are safeguarded early and prioritized by risk. Feedback only at the end or ignoring risks is the opposite."
+  "explanation": "Seek feedback early and risk-driven: validate uncertain/risky decisions first and order decisions by risk. Late or purely reactive approaches make corrections more expensive."
  },
  "c3q63": {
   "q": "What is the central principle when designing an interface?",
@@ -3219,26 +3219,26 @@ const QUESTIONS_EN = {
   "explanation": "A good overview conveys context/goals, the main building blocks, and the core decisions with their rationale. Complete interface, data model, or method details are too fine-grained for an overview."
  },
  "c4q24": {
-  "q": "Which statements about the consistency of different architecture views are true?",
+  "q": "Which statements about the consistency of different architecture views are correct?",
   "options": [
    "All views describe the same system; the same building block must not be depicted contradictorily in different views.",
-   "Views may show different aspects and levels of detail, but must be free of contradictions with one another.",
-   "Consistency means that each view contains exactly the same elements at an identical level of detail.",
-   "Contradictions between views are uncritical, as long as each view is correct when considered on its own.",
-   "A single, comprehensive view is generally preferable, in order to avoid consistency problems from the outset."
+   "Views may show different aspects and levels of detail but must be consistent with one another.",
+   "Consistency means every view contains exactly the same elements at identical level of detail.",
+   "If two views contradict each other, it is enough to remove the less important view.",
+   "A single, all-encompassing view is generally preferable in order to avoid consistency problems."
   ],
   "correct": [
    0,
    1
   ],
   "optExpl": [
-   "Correct: The views show one system from different perspectives; contradictions would be misleading.",
-   "Correct: Different perspectives and levels of detail are desirable, but must not contradict one another.",
-   "Near-Miss: Consistency requires freedom from contradictions, not identical content and level of detail.",
-   "Fallacy: It is precisely the freedom from contradictions between the views that is decisive.",
-   "A single view cannot adequately cover the various concerns; several coordinated views are precisely the purpose."
+   "Correct: same system – no contradictory depiction of the same building block.",
+   "Correct: different aspects/levels of detail are fine as long as they are consistent.",
+   "Incorrect: views deliberately show different things; identical elements/detail are not required.",
+   "Incorrect: a contradiction is resolved by clarifying its cause – not by discarding a view.",
+   "Incorrect: a single view overwhelms the audiences; several coordinated views are precisely the point."
   ],
-  "explanation": "Views show the same system from different perspectives and must be free of contradictions with one another. However, consistency does not mean identical content/level of detail, and a single view is not sufficient."
+  "explanation": "Different views show different aspects of the same system at different depths – but must be mutually consistent. Contradictions are resolved by clarification, not by omission; a single all-in-one view is not the goal."
  },
  "k11": {
   "q": "Does the content belong in an architecture documentation?",
