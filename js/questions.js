@@ -286,22 +286,25 @@ const QUESTIONS = [
   "chapter": 1,
   "lz": "LZ 01-02",
   "r": "R1",
-  "type": "single",
-  "q": "Was ist im Kern das Ziel von Softwarearchitektur?",
+  "type": "multi",
+  "q": "Welche zwei Aussagen beschreiben Kernziele von Softwarearchitektur?",
   "options": [
    "Komplexität beherrschbar halten und das Erreichen der geforderten Qualitätsziele unter den Randbedingungen unterstützen.",
    "Möglichst viele zukünftige Anforderungen bereits heute vorwegnehmen, damit später keine Änderungen mehr nötig sind.",
    "Vor allem festlegen, welche Technologien und Frameworks im Projekt eingesetzt werden.",
-   "Primär die funktionale Vollständigkeit des Systems sicherstellen; Qualitätsmerkmale sind nachrangig."
+   "Primär die funktionale Vollständigkeit des Systems sicherstellen; Qualitätsmerkmale sind nachrangig.",
+   "Sie schafft ein gemeinsames Verständnis des Systems bei den Stakeholdern."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: beherrschbare Komplexität und das Erreichen der Qualitätsziele sind der Kern.",
    "Falsch: Vorwegnahme aller künftigen Anforderungen widerspricht YAGNI und ist kein Ziel.",
    "Falsch: die Technologieauswahl ist eine mögliche Folge von Architekturentscheidungen, nicht ihr Kernziel – Architektur ist nicht gleich Werkzeugauswahl.",
-   "Falsch: funktionale Vollständigkeit allein greift zu kurz – gerade die Qualitätsziele stehen im Fokus."
+   "Falsch: funktionale Vollständigkeit allein greift zu kurz – gerade die Qualitätsziele stehen im Fokus.",
+   "Richtig: gemeinsames Verständnis bei den Stakeholdern ist ein zentrales Ziel von Architektur."
   ],
   "explanation": "Ziel ist beherrschbare Komplexität und das Erreichen der Qualitätsziele unter Randbedingungen. „Alles auf Vorrat“ (gegen YAGNI), die bloße Technologieauswahl oder rein funktionale Vollständigkeit sind keine tragfähigen Kernziele."
  },
@@ -546,22 +549,25 @@ const QUESTIONS = [
   "chapter": 1,
   "lz": "LZ 01-06",
   "r": "R1",
-  "type": "single",
+  "type": "multi",
   "q": "Welche Rolle spielen Kommunikationsfähigkeiten für Softwarearchitekt:innen?",
   "options": [
    "Sie sind zentral, um zwischen Stakeholdern zu vermitteln und Entscheidungen adressatengerecht zu begründen.",
    "Kommunikation ist vor allem beim Präsentieren der fertigen Architektur wichtig; während des Entwurfs zählt primär die technische Arbeit.",
    "Mündliche Abstimmung ist der schriftlichen Begründung vorzuziehen, weil sie schneller ist und Missverständnisse direkt klärt.",
-   "Kommunikation richtet sich vor allem an das Entwicklungsteam; fachliche Stakeholder werden über das Produktmanagement erreicht."
+   "Kommunikation richtet sich vor allem an das Entwicklungsteam; fachliche Stakeholder werden über das Produktmanagement erreicht.",
+   "Sie sind über den gesamten Entwurf hinweg wichtig – nicht erst beim Präsentieren der fertigen Architektur."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: früh und laufend vermitteln und adressatengerecht begründen sind Kernkompetenzen.",
    "Falsch: Kommunikation ist gerade während des Entwurfs entscheidend (Anliegen klären, Feedback einholen), nicht erst bei der Präsentation.",
    "Falsch: mündliche Abstimmung ist flüchtig; tragende Entscheidungen brauchen nachvollziehbare, dauerhafte schriftliche Begründung.",
-   "Falsch: Architekt:innen kommunizieren direkt mit allen relevanten Stakeholdern, nicht nur mittelbar über das Produktmanagement."
+   "Falsch: Architekt:innen kommunizieren direkt mit allen relevanten Stakeholdern, nicht nur mittelbar über das Produktmanagement.",
+   "Richtig: Kommunikation ist gerade früh und laufend entscheidend, nicht nur am Ende."
   ],
   "explanation": "Kommunikation ist früh und laufend zentral, um zwischen allen Stakeholdern zu vermitteln und Entscheidungen zu begründen. Sie findet nicht erst bei der Präsentation statt, ersetzt die schriftliche Begründung nicht und beschränkt sich nicht auf das Team."
  },
@@ -1607,22 +1613,25 @@ const QUESTIONS = [
   "chapter": 3,
   "lz": "LZ 03-04",
   "r": "R1",
-  "type": "single",
-  "q": "Welche Aussage beschreibt Information Hiding (Geheimnisprinzip) im Sinne von Parnas am genauesten?",
+  "type": "multi",
+  "q": "Welche Aussagen beschreiben Information Hiding (Geheimnisprinzip) nach Parnas zutreffend?",
   "options": [
    "Entwurfsentscheidungen, die sich voraussichtlich ändern, werden hinter einer stabilen Schnittstelle verborgen, sodass Änderungen lokal bleiben.",
    "Jeder Baustein besitzt genau eine fachliche Verantwortlichkeit und damit nur einen Änderungsgrund.",
    "Interne Datenstrukturen dürfen von anderen Bausteinen genutzt werden, solange sie dokumentiert sind.",
-   "Sensible Felder werden verschlüsselt abgelegt, um unbefugten Datenzugriff zu verhindern."
+   "Sensible Felder werden verschlüsselt abgelegt, um unbefugten Datenzugriff zu verhindern.",
+   "Ziel ist, dass sich voraussichtliche Änderungen auf einen einzelnen Baustein beschränken (lokale Änderbarkeit)."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Parnas verbirgt gerade die änderungswahrscheinlichen Entwurfsentscheidungen hinter einer stabilen Schnittstelle.",
    "Near-Miss: Das beschreibt das Single Responsibility Principle, nicht Information Hiding.",
    "Falsch: Offengelegte interne Strukturen widersprechen dem Verbergen von Implementierungsdetails, auch wenn sie dokumentiert sind.",
-   "Falsch: Information Hiding meint Kapselung von Entwurfsentscheidungen, nicht Verschlüsselung von Daten."
+   "Falsch: Information Hiding meint Kapselung von Entwurfsentscheidungen, nicht Verschlüsselung von Daten.",
+   "Richtig: gerade die Begrenzung der Änderungsauswirkung ist der Zweck des Geheimnisprinzips."
   ],
   "explanation": "Information Hiding verbirgt die voraussichtlich veränderlichen Entwurfsentscheidungen hinter einer stabilen Schnittstelle, damit Änderungen lokal bleiben. Es ist weder das SRP noch Datenverschlüsselung, und das Offenlegen dokumentierter Interna widerspricht dem Prinzip."
  },
@@ -2887,22 +2896,25 @@ const QUESTIONS = [
   "chapter": 3,
   "lz": "LZ 03-06",
   "r": "R1",
-  "type": "single",
+  "type": "multi",
   "q": "Wie ist das Ziel „lose Kopplung“ richtig einzuordnen?",
   "options": [
    "Kopplung soll so gering wie möglich, aber so stark wie fachlich nötig sein – ohne Kopplung gäbe es keine Zusammenarbeit.",
    "Kopplung sollte auf null reduziert werden; Bausteine sollten möglichst gar nicht voneinander abhängen.",
    "Lose Kopplung und hohe Kohäsion bezeichnen dasselbe Ziel, nur anders benannt.",
-   "Lose Kopplung bedeutet, Abhängigkeiten bevorzugt über konkrete Klassen statt über Schnittstellen zu führen."
+   "Lose Kopplung bedeutet, Abhängigkeiten bevorzugt über konkrete Klassen statt über Schnittstellen zu führen.",
+   "Geringere Kopplung senkt die Auswirkung von Änderungen und erleichtert isoliertes Testen."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: So wenig Kopplung wie möglich, so viel wie fachlich nötig.",
    "Null Kopplung verhindert jede Zusammenarbeit; ein angemessenes Maß ist nötig.",
    "Kopplung (Beziehungen zwischen Bausteinen) und Kohäsion (Zusammenhalt in einem Baustein) sind verschieden.",
-   "Umgekehrt: Kopplung über Schnittstellen/Abstraktionen ist loser als über konkrete Klassen."
+   "Umgekehrt: Kopplung über Schnittstellen/Abstraktionen ist loser als über konkrete Klassen.",
+   "Richtig: das ist der wesentliche Nutzen loser Kopplung."
   ],
   "explanation": "Lose Kopplung ist kein Selbstzweck: Bausteine müssen zusammenarbeiten, also braucht es ein angemessenes Maß. Null Kopplung verhindert Funktionalität, Kopplung ist nicht dasselbe wie Kohäsion, und Abstraktionen koppeln loser als konkrete Klassen."
  },
@@ -3191,22 +3203,25 @@ const QUESTIONS = [
   "chapter": 3,
   "lz": "LZ 03-08",
   "r": "R1",
-  "type": "single",
-  "q": "Nach welchem Kriterium sollten Microservices vorrangig geschnitten werden?",
+  "type": "multi",
+  "q": "Was sollte beim fachlichen Schnitt von Microservices beachtet werden?",
   "options": [
    "Nach fachlichen Gesichtspunkten (z. B. Bounded Context) – ein zu feiner Schnitt führt zu „Nano-Services“ mit hohem Overhead.",
    "Nach rein technischen Schichten – je ein separater UI-, Logik- und Datenbank-Service.",
    "So klein wie möglich, denn mehr Services bedeuten pauschal bessere Skalierbarkeit.",
-   "Entlang der bestehenden Team-/Organisationsstruktur, unabhängig von fachlichen Grenzen."
+   "Entlang der bestehenden Team-/Organisationsstruktur, unabhängig von fachlichen Grenzen.",
+   "Jeder Service sollte unabhängig deploybar sein und einen klar abgegrenzten fachlichen Verantwortungsbereich haben."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Fachlich schneiden nach Bounded Context; zu fein erzeugt teure Nano-Services.",
    "Ein rein technischer Schnitt in UI, Logik und DB koppelt fachlich zusammengehörige Änderungen über Services.",
    "Immer kleiner ist nicht besser – Kommunikations- und Betriebs-Overhead steigen stark.",
-   "Team-Struktur allein ist kein fachliches Kriterium; ein rein daran ausgerichteter Schnitt kann fachliche Grenzen verletzen."
+   "Team-Struktur allein ist kein fachliches Kriterium; ein rein daran ausgerichteter Schnitt kann fachliche Grenzen verletzen.",
+   "Richtig: unabhängige Deploybarkeit und klarer fachlicher Zuschnitt sind Kernmerkmale von Microservices."
   ],
   "explanation": "Der Schnitt erfolgt fachlich (z. B. Bounded Context). Ein rein technischer, ein extrem feiner oder ein allein an der Org-Struktur ausgerichteter Schnitt erzeugt schlecht abgegrenzte oder Nano-Services mit unverhältnismäßigem Overhead."
  },
@@ -3427,22 +3442,25 @@ const QUESTIONS = [
   "chapter": 3,
   "lz": "LZ 03-07",
   "r": "R1",
-  "type": "single",
-  "q": "Was ist beim Entwurf einer Schnittstelle das zentrale Prinzip?",
+  "type": "multi",
+  "q": "Welche Aussagen treffen auf den Entwurf einer guten Schnittstelle zu?",
   "options": [
    "Sie legt einen stabilen „Vertrag“ fest (das WAS) und verbirgt die interne Umsetzung (das WIE).",
    "Sie sollte möglichst viele Interna offenlegen, damit Nutzer flexibel darauf zugreifen können.",
    "Eine gute Schnittstelle bildet die interne Datenstruktur des Anbieters möglichst 1:1 ab.",
-   "Der Vertrag umfasst nur die Signaturen; Vor-/Nachbedingungen und Fehlerverhalten gehören nicht dazu."
+   "Der Vertrag umfasst nur die Signaturen; Vor-/Nachbedingungen und Fehlerverhalten gehören nicht dazu.",
+   "Eine gute Schnittstelle ist leicht korrekt zu nutzen und schwer zu missbrauchen."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Sie ist ein stabiler Vertrag (das WAS) und verbirgt das WIE.",
    "Interna offenzulegen widerspricht dem Information Hiding und koppelt Nutzer an Details.",
    "Ein 1:1-Abbild der Interna macht die Schnittstelle brüchig und koppelt an die Implementierung.",
-   "Zum Vertrag gehören auch Semantik, Vor-/Nachbedingungen und Fehlerverhalten, nicht nur Signaturen."
+   "Zum Vertrag gehören auch Semantik, Vor-/Nachbedingungen und Fehlerverhalten, nicht nur Signaturen.",
+   "Richtig: leichte korrekte Nutzung und Missbrauchssicherheit sind zentrale Entwurfsziele."
   ],
   "explanation": "Eine gute Schnittstelle ist ein stabiler Vertrag (inkl. Semantik, Vor-/Nachbedingungen, Fehlerverhalten) und verbirgt die Interna (Information Hiding). Interna offenlegen, 1:1 abbilden oder den Vertrag auf Signaturen verkürzen widerspricht dem Zweck."
  },
@@ -3503,22 +3521,25 @@ const QUESTIONS = [
   "chapter": 3,
   "lz": "LZ 03-01",
   "r": "R1",
-  "type": "single",
-  "q": "Wie erfüllt eine Architektur gezielt eine Qualitätsanforderung wie „hohe Verfügbarkeit“?",
+  "type": "multi",
+  "q": "Welche Aussagen treffen zu, wenn eine Architektur gezielt eine Qualitätsanforderung wie „hohe Verfügbarkeit“ erfüllen soll?",
   "options": [
    "Durch bewusste Entwurfsentscheidungen bzw. Taktiken (z. B. Redundanz, Ausfallübernahme), die auf das Qualitätsziel einzahlen.",
    "Allein dadurch, dass die Anforderung im Anforderungsdokument dokumentiert ist.",
    "Ausschließlich durch die Wahl einer performanteren Programmiersprache oder Hardware.",
-   "Verfügbarkeit ergibt sich automatisch, sobald das System sauber modularisiert ist."
+   "Verfügbarkeit ergibt sich automatisch, sobald das System sauber modularisiert ist.",
+   "Solche Taktiken bringen Trade-offs mit sich (z. B. erhöht Redundanz Kosten und Komplexität), die bewusst abzuwägen sind."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Gezielte Taktiken wie Redundanz und Failover erfüllen das Qualitätsziel.",
    "Eine bloß notierte Anforderung erfüllt sich nicht von allein.",
    "Sprach-/Hardwarewahl adressiert eher Performance, nicht zwingend Verfügbarkeit.",
-   "Modularisierung hilft der Wartbarkeit, garantiert aber keine Verfügbarkeit (z. B. gegen Ausfälle)."
+   "Modularisierung hilft der Wartbarkeit, garantiert aber keine Verfügbarkeit (z. B. gegen Ausfälle).",
+   "Richtig: Taktiken für ein Qualitätsziel wirken meist auf andere Qualitäten zurück – Abwägen gehört dazu."
   ],
   "explanation": "Qualitätsziele werden durch gezielte Entwurfsentscheidungen/Taktiken erreicht (z. B. Redundanz und Failover für Verfügbarkeit). Das bloße Notieren, eine Sprach-/Hardwarewahl allein oder gute Modularisierung erfüllen Verfügbarkeit nicht automatisch."
  },
@@ -3635,22 +3656,25 @@ const QUESTIONS = [
   "chapter": 4,
   "lz": "LZ 04-05",
   "r": "R2",
-  "type": "single",
-  "q": "Was beschreibt die Laufzeitsicht am zutreffendsten?",
+  "type": "multi",
+  "q": "Welche Aussagen beschreiben die Laufzeitsicht zutreffend?",
   "options": [
    "Das dynamische Zusammenspiel von Bausteinen in ausgewählten konkreten Szenarien.",
    "Die statische Zerlegung des Systems in seine Bausteine und deren Schnittstellen.",
    "Sämtliche theoretisch möglichen Ausführungspfade des Systems, vollständig und lückenlos.",
-   "Die endgültige Zuordnung der Bausteine zu physischen Ausführungsknoten."
+   "Die endgültige Zuordnung der Bausteine zu physischen Ausführungsknoten.",
+   "Sie wird typischerweise anhand ausgewählter Szenarien dargestellt, nicht für alle denkbaren Abläufe."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Die Laufzeitsicht zeigt dynamische Abläufe anhand ausgewählter, aussagekräftiger Szenarien.",
    "Statische Zerlegung und Schnittstellen zeigt die Bausteinsicht.",
    "Vollständigkeit ist nicht das Ziel: Man wählt bewusst wenige, relevante Szenarien – nicht alle Pfade.",
-   "Die Zuordnung zu Knoten ist die Verteilungssicht."
+   "Die Zuordnung zu Knoten ist die Verteilungssicht.",
+   "Richtig: die Laufzeitsicht beleuchtet ausgewählte, relevante Szenarien statt sämtlicher Abläufe."
   ],
   "explanation": "Die Laufzeitsicht zeigt dynamisches Verhalten anhand ausgewählter Szenarien – nicht vollständig alle Pfade. Statische Struktur = Bausteinsicht; Zuordnung zu Knoten = Verteilungssicht."
  },
@@ -3731,22 +3755,25 @@ const QUESTIONS = [
   "chapter": 4,
   "lz": "LZ 04-08",
   "r": "R2",
-  "type": "single",
+  "type": "multi",
   "q": "Ein Team möchte nachvollziehbar festhalten, warum es sich für einen Message-Broker statt für synchrone REST-Aufrufe entschieden hat. Wozu dient dafür ein Architecture Decision Record (ADR)?",
   "options": [
    "Die getroffene Entscheidung mit Kontext, betrachteten Alternativen und Konsequenzen festzuhalten.",
    "Alle Architekturentscheidungen des Projekts gebündelt in einem einzigen großen Dokument zu führen.",
    "Erst nach Projektende die endgültig gewählten Lösungen rückblickend zu dokumentieren.",
-   "Die noch offenen, künftig zu treffenden Entscheidungen samt ihren Deadlines zu verwalten."
+   "Die noch offenen, künftig zu treffenden Entscheidungen samt ihren Deadlines zu verwalten.",
+   "Die Entscheidung dauerhaft und für spätere Nachvollziehbarkeit begründet festzuhalten."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Ein ADR hält je Entscheidung Kontext, Alternativen und Konsequenzen fest.",
    "ADRs werden typischerweise je Entscheidung geführt (eins pro Thema), nicht als ein einziges Sammeldokument.",
    "ADRs entstehen, wenn die Entscheidung getroffen wird, nicht erst rückblickend nach Projektende.",
-   "Offene, künftige Aufgaben verwaltet ein Backlog; das ADR dokumentiert bereits getroffene Entscheidungen."
+   "Offene, künftige Aufgaben verwaltet ein Backlog; das ADR dokumentiert bereits getroffene Entscheidungen.",
+   "Richtig: ein ADR bewahrt Entscheidung und Begründung dauerhaft nachvollziehbar."
   ],
   "explanation": "Ein ADR dokumentiert eine getroffene Entscheidung mit Kontext, Alternativen und Konsequenzen – meist eins pro Entscheidung, zeitnah zur Entscheidung. Es ist kein Sammeldokument, keine Rückschau erst am Projektende und kein Backlog offener Aufgaben."
  },
@@ -3815,22 +3842,25 @@ const QUESTIONS = [
   "chapter": 4,
   "lz": "LZ 04-05",
   "r": "R1",
-  "type": "single",
-  "q": "Was unterscheidet fachlichen und technischen Kontext in der Kontextabgrenzung?",
+  "type": "multi",
+  "q": "Welche Aussagen treffen auf fachlichen und technischen Kontext in der Kontextabgrenzung zu?",
   "options": [
    "Der fachliche Kontext zeigt Kommunikationspartner und ausgetauschte Daten fachlich; der technische die konkreten Kanäle und Protokolle.",
    "Der fachliche Kontext gehört in die Anforderungsdokumentation, der technische in die Architekturdokumentation.",
    "Der technische Kontext zeigt bereits die interne technische Bausteinstruktur des Systems.",
-   "Beide unterscheiden sich nur durch die verwendete Notation, nicht durch den dargestellten Inhalt."
+   "Beide unterscheiden sich nur durch die verwendete Notation, nicht durch den dargestellten Inhalt.",
+   "Beide gehören zur Kontextsicht, die das System als Ganzes von seiner Umgebung abgrenzt."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: fachlich = Partner und Daten fachlich; technisch = konkrete Kanäle/Protokolle – beide an der Systemgrenze.",
    "Beide sind Teil der Kontextsicht der Architekturdoku; die Trennung verläuft nicht entlang Anforderungs- vs. Architekturdoku.",
    "Auch der technische Kontext bleibt an der Systemgrenze (Blackbox) und zeigt keine Interna.",
-   "Der Unterschied liegt im dargestellten Inhalt (fachlich vs. technisch), nicht bloß in der Notation."
+   "Der Unterschied liegt im dargestellten Inhalt (fachlich vs. technisch), nicht bloß in der Notation.",
+   "Richtig: fachlicher und technischer Kontext sind zwei Ausprägungen der Kontextsicht."
   ],
   "explanation": "Beide Darstellungen betreffen die Systemgrenze: fachlich (welche Partner/Daten) vs. technisch (welche Kanäle/Protokolle). Sie zeigen keine Interna, unterscheiden sich inhaltlich (nicht nur notationell) und sind beide Teil der Kontextsicht."
  },
@@ -4887,22 +4917,25 @@ const QUESTIONS = [
   "chapter": 5,
   "lz": "LZ 05-01",
   "r": "R1",
-  "type": "single",
+  "type": "multi",
   "q": "Wann sollte eine Architektur bewertet werden?",
   "options": [
    "Früh und wiederholt, begleitend zu wichtigen Architekturentscheidungen.",
    "Möglichst spät, wenn viel Code vorliegt, damit die Bewertung auf Fakten statt Annahmen beruht.",
    "Nur einmalig, gebündelt zur Abnahme durch den Auftraggeber.",
-   "Ausschließlich reaktiv, sobald im Betrieb Probleme auftreten."
+   "Ausschließlich reaktiv, sobald im Betrieb Probleme auftreten.",
+   "Auch begleitend nach Umsetzungsschritten, um die Ist- gegen die Soll-Architektur und erkannte Risiken zu prüfen."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Früh und wiederholt, solange Korrekturen noch günstig sind.",
    "Klingt plausibel, ist aber falsch: spät zu warten macht nötige Korrekturen unnötig teuer.",
    "Einmalig zur Abnahme ist für Korrekturen zu spät.",
-   "Rein reaktiv bei Betriebsproblemen ist deutlich zu spät."
+   "Rein reaktiv bei Betriebsproblemen ist deutlich zu spät.",
+   "Richtig: Bewertung ist auch während und nach der Implementierung sinnvoll (Soll-Ist, Risiken)."
   ],
   "explanation": "Bewertung ist am wertvollsten früh und wiederholt. Auf viel Code zu warten klingt faktenbasiert, macht Korrekturen aber teuer; einmalig zur Abnahme oder rein reaktiv ist zu spät."
  },
@@ -4938,22 +4971,25 @@ const QUESTIONS = [
   "chapter": 5,
   "lz": "LZ 05-02",
   "r": "R1",
-  "type": "single",
-  "q": "Was ist ein typisches Ergebnis einer Architekturbewertung?",
+  "type": "multi",
+  "q": "Welche Ergebnisse sind typisch für eine Architekturbewertung?",
   "options": [
    "Erkannte Risiken, Schwachstellen und Trade-offs samt priorisierter Verbesserungsvorschläge.",
    "Ein formaler Nachweis, dass das System frei von Fehlern ist.",
    "Eine verbindliche Freigabe der Architektur, die weitere Nacharbeiten grundsätzlich ausschließt.",
-   "Eine vollständige, neu ausgearbeitete Zielarchitektur, welche die bisherige ersetzt."
+   "Eine vollständige, neu ausgearbeitete Zielarchitektur, welche die bisherige ersetzt.",
+   "Aufgedeckte Sensitivitäts- und Trade-off-Punkte, an denen einzelne Qualitätsmerkmale besonders beeinflusst werden."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Risiken, Schwachstellen, Trade-offs und priorisierte Empfehlungen sind typische Ergebnisse.",
    "Eine Bewertung beweist keine Fehlerfreiheit.",
    "Sie liefert keine bedingungslose Freigabe, die Nacharbeiten ausschließt.",
-   "Sie identifiziert Probleme und empfiehlt Maßnahmen, erarbeitet aber nicht als Ergebnis eine komplett neue Zielarchitektur."
+   "Sie identifiziert Probleme und empfiehlt Maßnahmen, erarbeitet aber nicht als Ergebnis eine komplett neue Zielarchitektur.",
+   "Richtig: das Identifizieren von Sensitivitäts- und Trade-off-Punkten ist ein typisches Bewertungsergebnis."
   ],
   "explanation": "Eine Bewertung liefert Risiken, Trade-offs und priorisierte Empfehlungen. Sie ist kein Fehlerfreiheits-Nachweis, keine bedingungslose Freigabe und produziert nicht als Ergebnis eine vollständige neue Architektur."
  },
@@ -5350,7 +5386,7 @@ const QUESTIONS = [
   "chapter": 6,
   "lz": "LZ 06-02",
   "r": "R3",
-  "type": "multiple",
+  "type": "multi",
   "q": "Ein durchgängiges Architekturbeispiel soll den „roten Faden“ von den Anforderungen bis zur Lösung zeigen. Welche Aspekte sollte man daran vor allem erkennen können? (Mehrfachauswahl)",
   "options": [
    "Wie Qualitätsanforderungen und Randbedingungen die zentralen Entwurfsentscheidungen beeinflussen.",
@@ -5426,7 +5462,7 @@ const QUESTIONS = [
   "chapter": 6,
   "lz": "LZ 06-01",
   "r": "R3",
-  "type": "multiple",
+  "type": "multi",
   "q": "Welchen Nutzen bringt das Studium mehrerer unterschiedlicher Architekturbeispiele? (Mehrfachauswahl)",
   "options": [
    "Man erweitert das eigene Repertoire an Lösungsmustern und trainiert, sie auf neue Probleme zu übertragen.",
@@ -5472,5 +5508,485 @@ const QUESTIONS = [
    "Falsch: Das Offenlegen dient der Nachvollziehbarkeit der Abwägung, nicht primär der Absicherung gegen Kritik."
   ],
   "explanation": "Trade-offs sind lehrreich, weil Architektur konkurrierende Qualitätsziele abwägt und der begründete Kompromiss den Kern jeder Entscheidung bildet. Nachteile belegen keine übersehene Ideallösung, lassen sich nicht wegoptimieren und werden nicht zur bloßen Absicherung dokumentiert. (R3.)"
+ },
+ {
+  "id": "k16",
+  "chapter": 4,
+  "lz": "LZ 04-02",
+  "r": "R1",
+  "type": "k",
+  "points": 2,
+  "q": "Du bist Architekt:in eines komplexen Systems, das von drei Teams mit jeweils eigenen Architekt:innen entwickelt wird. Ordne die Aussagen zur Struktur- und Dokumentations-Governance ein.",
+  "categories": [
+   "Sinnvoll",
+   "Nicht sinnvoll"
+  ],
+  "rows": [
+   {
+    "text": "Du gibst die übergreifende Struktur und die Schnittstellen zwischen den Teams zentral vor, überlässt aber die interne Struktur der Bausteine den Teams.",
+    "cat": 0
+   },
+   {
+    "text": "Jedes Team gestaltet seine Struktur völlig frei; gemeinsame Vorgaben oder Schnittstellen-Absprachen gibt es nicht.",
+    "cat": 1
+   },
+   {
+    "text": "Das Team, das zuerst mit der Umsetzung beginnt, legt die Struktur für alle anderen verbindlich fest.",
+    "cat": 1
+   },
+   {
+    "text": "Ihr vereinbart ein gemeinsames Dokumentationstemplate (z. B. arc42) für alle Teams.",
+    "cat": 0
+   },
+   {
+    "text": "Du dokumentierst die übergreifenden Architekturentscheidungen zentral; teamspezifische Details dokumentieren die Teams selbst.",
+    "cat": 0
+   },
+   {
+    "text": "Die Beiträge der Teams werden nie konsolidiert – widersprüchliche Darstellungen bleiben nebeneinander stehen.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Bei mehreren Teams gibt man übergreifende Struktur/Schnittstellen und ein gemeinsames Template zentral vor, überlässt interne Details den Teams und konsolidiert die Beiträge (LZ 04-02). Völlige Beliebigkeit, „wer zuerst kommt“ oder fehlende Konsolidierung sind nicht tragfähig."
+ },
+ {
+  "id": "k17",
+  "chapter": 1,
+  "lz": "LZ 01-02",
+  "r": "R1",
+  "type": "k",
+  "points": 2,
+  "q": "Ein Stakeholder fragt, was die bewusste Architekturarbeit dem Projekt bringt. Ordne die Aussagen über Ziele und Nutzen von Softwarearchitektur ein.",
+  "categories": [
+   "Trifft zu",
+   "Trifft nicht zu"
+  ],
+  "rows": [
+   {
+    "text": "Sie hilft, die Komplexität des Systems beherrschbar zu halten.",
+    "cat": 0
+   },
+   {
+    "text": "Sie garantiert die Einhaltung von Budget und Terminen.",
+    "cat": 1
+   },
+   {
+    "text": "Sie unterstützt das Erreichen von Qualitätszielen wie Wartbarkeit und Sicherheit.",
+    "cat": 0
+   },
+   {
+    "text": "Sie macht systematisches Testen überflüssig.",
+    "cat": 1
+   },
+   {
+    "text": "Sie schafft ein gemeinsames Verständnis bei den Stakeholdern.",
+    "cat": 0
+   },
+   {
+    "text": "Sie nimmt alle künftigen Anforderungen vorweg, sodass nie wieder Änderungen nötig sind.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Architektur senkt Komplexität, ermöglicht Qualitätsziele und schafft gemeinsames Verständnis (LZ 01-02). Sie garantiert weder Budget/Termine, macht Testen nicht überflüssig und kann nicht alle künftigen Anforderungen vorwegnehmen."
+ },
+ {
+  "id": "k18",
+  "chapter": 2,
+  "lz": "LZ 02-02",
+  "r": "R1",
+  "type": "k",
+  "points": 2,
+  "q": "Ein neues System soll gebaut werden. Ordne jede Vorgabe ein: (fachliche/qualitative) Anforderung oder (einschränkende) Randbedingung?",
+  "categories": [
+   "Anforderung",
+   "Randbedingung"
+  ],
+  "rows": [
+   {
+    "text": "Das System muss Zahlungen per Kreditkarte abwickeln können.",
+    "cat": 0
+   },
+   {
+    "text": "Es muss die bereits vorhandene Oracle-Datenbank weiterverwenden.",
+    "cat": 1
+   },
+   {
+    "text": "Antworten sollen im Mittel unter zwei Sekunden erfolgen.",
+    "cat": 0
+   },
+   {
+    "text": "Die Entwicklung ist verpflichtend in Java durchzuführen.",
+    "cat": 1
+   },
+   {
+    "text": "Nutzer sollen Berichte als PDF exportieren können.",
+    "cat": 0
+   },
+   {
+    "text": "Das Projektbudget ist auf 200 Personentage begrenzt.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Anforderungen beschreiben, was das System leisten soll – funktional (Kreditkarte, PDF) oder qualitativ (Antwortzeit). Randbedingungen schränken den Lösungsraum ein (vorgegebene DB, Sprache, Budget) – LZ 02-02."
+ },
+ {
+  "id": "k19",
+  "chapter": 2,
+  "lz": "LZ 02-03",
+  "r": "R1",
+  "type": "k",
+  "points": 2,
+  "q": "Ordne jede Anforderung ein: beschreibt sie, WAS das System tun soll (funktional), oder WIE GUT (Qualität)?",
+  "categories": [
+   "Funktionale Anforderung",
+   "Qualitätsanforderung"
+  ],
+  "rows": [
+   {
+    "text": "Nutzer melden sich mit E-Mail und Passwort an.",
+    "cat": 0
+   },
+   {
+    "text": "Das System ist zu 99,9 % der Zeit verfügbar.",
+    "cat": 1
+   },
+   {
+    "text": "Aus einer Bestellung wird eine Rechnung als PDF erzeugt.",
+    "cat": 0
+   },
+   {
+    "text": "Eine neue Zahlart lässt sich in weniger als fünf Personentagen integrieren.",
+    "cat": 1
+   },
+   {
+    "text": "Die Oberfläche ist ohne Schulung in unter zehn Minuten bedienbar.",
+    "cat": 1
+   },
+   {
+    "text": "Das System unterstützt Deutsch und Englisch.",
+    "cat": 0
+   }
+  ],
+  "explanation": "Funktionale Anforderungen sagen, WAS das System tut (Anmeldung, Rechnung, Sprachen); Qualitätsanforderungen sagen, WIE GUT (Verfügbarkeit, Änderbarkeit, Bedienbarkeit) – LZ 02-03."
+ },
+ {
+  "id": "k20",
+  "chapter": 3,
+  "lz": "LZ 03-06",
+  "r": "R1",
+  "type": "k",
+  "points": 2,
+  "q": "In einem System soll die Wartbarkeit verbessert werden. Ordne die folgenden Eigenschaften ein.",
+  "categories": [
+   "Fördert Wartbarkeit",
+   "Schadet Wartbarkeit"
+  ],
+  "rows": [
+   {
+    "text": "Hohe Kohäsion innerhalb der Bausteine.",
+    "cat": 0
+   },
+   {
+    "text": "Enge, weitreichende Kopplung zwischen vielen Bausteinen.",
+    "cat": 1
+   },
+   {
+    "text": "Klar definierte, stabile Schnittstellen.",
+    "cat": 0
+   },
+   {
+    "text": "Viele geteilte, global veränderliche Zustände.",
+    "cat": 1
+   },
+   {
+    "text": "Information Hiding: interne Details sind gekapselt.",
+    "cat": 0
+   },
+   {
+    "text": "Zyklische Abhängigkeiten zwischen Modulen.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Hohe Kohäsion, stabile Schnittstellen und Information Hiding senken die Kopplung und erleichtern Änderungen (LZ 03-06/03-04). Enge Kopplung, globaler veränderlicher Zustand und Zyklen erschweren Änderungen."
+ },
+ {
+  "id": "k21",
+  "chapter": 3,
+  "lz": "LZ 03-08",
+  "r": "R1",
+  "type": "k",
+  "points": 2,
+  "q": "Ordne die Aussagen zu den prüfungsrelevanten Architekturmustern (Schichten, Pipes & Filter, Microservices) ein.",
+  "categories": [
+   "Richtig",
+   "Falsch"
+  ],
+  "rows": [
+   {
+    "text": "Eine Schichtenarchitektur fördert Austauschbarkeit, kann aber zusätzliche Latenz kosten.",
+    "cat": 0
+   },
+   {
+    "text": "Microservices verringern gegenüber einem Monolithen die betriebliche Komplexität.",
+    "cat": 1
+   },
+   {
+    "text": "Pipes & Filter eignen sich gut für schrittweise Datenverarbeitung.",
+    "cat": 0
+   },
+   {
+    "text": "Microservices sind fachlich geschnitten und unabhängig voneinander deploybar.",
+    "cat": 0
+   },
+   {
+    "text": "Je kleiner und je mehr Microservices, desto besser – eine Untergrenze gibt es nicht.",
+    "cat": 1
+   },
+   {
+    "text": "In einer strengen Schichtung darf eine höhere Schicht beliebige tiefere Schichten überspringen.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Schichten fördern Austauschbarkeit (ggf. Latenz), strikt ohne Überspringen; Pipes & Filter passen zu Datenpipelines; Microservices sind fachlich geschnitten/unabhängig deploybar, erhöhen aber die betriebliche Komplexität, und zu feine Schnitte (Nano-Services) schaden – LZ 03-08."
+ },
+ {
+  "id": "k22",
+  "chapter": 3,
+  "lz": "LZ 03-10",
+  "r": "R1",
+  "type": "k",
+  "points": 2,
+  "q": "Ordne ein, ob es sich typischerweise um ein Querschnittsthema handelt (betrifft viele Bausteine) oder um eine lokale, fachliche Aufgabe.",
+  "categories": [
+   "Querschnittsthema",
+   "Kein Querschnittsthema"
+  ],
+  "rows": [
+   {
+    "text": "Protokollierung (Logging).",
+    "cat": 0
+   },
+   {
+    "text": "Die konkrete Berechnung der Rechnungssumme im Bestellmodul.",
+    "cat": 1
+   },
+   {
+    "text": "Fehlerbehandlung.",
+    "cat": 0
+   },
+   {
+    "text": "Authentifizierung und Autorisierung (Sicherheit).",
+    "cat": 0
+   },
+   {
+    "text": "Persistenz bzw. Datenzugriff.",
+    "cat": 0
+   },
+   {
+    "text": "Das Layout eines einzelnen Dialogfensters.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Querschnittsthemen betreffen viele/alle Bausteine und brauchen ein einheitliches Konzept (Logging, Fehlerbehandlung, Sicherheit, Persistenz) – LZ 03-10. Eine einzelne fachliche Berechnung oder ein einzelnes Dialog-Layout sind lokal."
+ },
+ {
+  "id": "k23",
+  "chapter": 3,
+  "lz": "LZ 03-02",
+  "r": "R1",
+  "type": "k",
+  "points": 2,
+  "q": "Du beginnst den Entwurf einer neuen Architektur. Ordne die Vorgehensweisen ein.",
+  "categories": [
+   "Sinnvoll",
+   "Nicht sinnvoll"
+  ],
+  "rows": [
+   {
+    "text": "Architektur früh mit einem Prototyp gegen die größten Risiken absichern.",
+    "cat": 0
+   },
+   {
+    "text": "Alle Entscheidungen zu Projektbeginn endgültig festlegen und nicht mehr iterieren.",
+    "cat": 1
+   },
+   {
+    "text": "Fachliche und technische Belange bewusst trennen.",
+    "cat": 0
+   },
+   {
+    "text": "Bausteine schrittweise von der Blackbox zur Whitebox verfeinern.",
+    "cat": 0
+   },
+   {
+    "text": "Die Technologie endgültig festlegen, bevor die Qualitätsanforderungen geklärt sind.",
+    "cat": 1
+   },
+   {
+    "text": "Rückmeldung von QS und Betrieb erst nach der Fertigstellung einholen.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Guter Entwurf ist iterativ, risikogetrieben (früher Prototyp), trennt Fachliches/Technisches und verfeinert Blackbox→Whitebox mit laufendem Feedback (LZ 03-02/03-05). Alles vorab final festzulegen, Technologie vor Qualitätsklärung zu fixieren oder Feedback erst am Ende einzuholen ist riskant."
+ },
+ {
+  "id": "k24",
+  "chapter": 4,
+  "lz": "LZ 04-08",
+  "r": "R2",
+  "type": "k",
+  "points": 2,
+  "q": "Welche Inhalte gehören in ein Architecture Decision Record (ADR)?",
+  "categories": [
+   "Gehört ins ADR",
+   "Gehört nicht hinein"
+  ],
+  "rows": [
+   {
+    "text": "Der Kontext bzw. das zugrunde liegende Problem.",
+    "cat": 0
+   },
+   {
+    "text": "Die getroffene Entscheidung.",
+    "cat": 0
+   },
+   {
+    "text": "Der vollständige Quellcode der Lösung.",
+    "cat": 1
+   },
+   {
+    "text": "Die betrachteten Alternativen.",
+    "cat": 0
+   },
+   {
+    "text": "Die Konsequenzen (Vor- und Nachteile) der Entscheidung.",
+    "cat": 0
+   },
+   {
+    "text": "Die detaillierte Termin- und Ressourcenplanung des Projekts.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Ein ADR hält Kontext, Entscheidung, Status, Konsequenzen und betrachtete Alternativen fest (LZ 04-08). Quellcode oder Projekt-Terminplanung gehören nicht hinein – ein ADR dokumentiert Entscheidung und Begründung, nicht Implementierung oder Projektmanagement."
+ },
+ {
+  "id": "k25",
+  "chapter": 5,
+  "lz": "LZ 05-02",
+  "r": "R1",
+  "type": "k",
+  "points": 2,
+  "q": "Ordne die Analysemethoden ein: liefern sie vor allem Messwerte (quantitativ) oder Einschätzungen (qualitativ)?",
+  "categories": [
+   "Quantitative Methode",
+   "Qualitative Methode"
+  ],
+  "rows": [
+   {
+    "text": "Messung der Antwortzeiten unter Last.",
+    "cat": 0
+   },
+   {
+    "text": "Experten-Interview zur Architektur.",
+    "cat": 1
+   },
+   {
+    "text": "Zählen ein- und ausgehender Abhängigkeiten (Kopplungsmetrik).",
+    "cat": 0
+   },
+   {
+    "text": "Szenariobasierte Bewertung in einem Workshop.",
+    "cat": 1
+   },
+   {
+    "text": "Messen von LOC und zyklomatischer Komplexität.",
+    "cat": 0
+   },
+   {
+    "text": "Nutzerumfrage zur Bedienbarkeit.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Quantitative Methoden liefern Messwerte (Laufzeit, Kopplungs-/Code-Metriken); qualitative liefern Einschätzungen (Interviews, szenariobasierte Bewertung, Umfragen) – LZ 05-02. Beides ergänzt sich."
+ },
+ {
+  "id": "k26",
+  "chapter": 5,
+  "lz": "LZ 05-03",
+  "r": "R2",
+  "type": "k",
+  "points": 2,
+  "q": "Es soll geprüft werden, ob die Implementierung noch zu den Architekturvorgaben passt (Soll-Ist-Abgleich). Ordne die Ansätze ein.",
+  "categories": [
+   "Deckt Abweichung auf",
+   "Dafür ungeeignet"
+  ],
+  "rows": [
+   {
+    "text": "Statische Analyse der Abhängigkeits- und Schichtungsregeln im Build.",
+    "cat": 0
+   },
+   {
+    "text": "Architektur-Review gegen die dokumentierten Vorgaben.",
+    "cat": 0
+   },
+   {
+    "text": "Fitness-Funktionen, die eine Architekturregel dauerhaft überwachen.",
+    "cat": 0
+   },
+   {
+    "text": "Mehr Inline-Kommentare in den Code schreiben.",
+    "cat": 1
+   },
+   {
+    "text": "Automatischer Soll-Ist-Abgleich der erlaubten Schichtzugriffe.",
+    "cat": 0
+   },
+   {
+    "text": "Ausschließlich die Oberfläche manuell durchklicken.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Konformität und Erosion deckt man über statische Abhängigkeitsanalyse, Reviews gegen Vorgaben, Fitness-Funktionen und automatisierte Soll-Ist-Abgleiche auf (LZ 05-03). Mehr Kommentare oder reines UI-Durchklicken prüfen die Struktur nicht."
+ },
+ {
+  "id": "k27",
+  "chapter": 3,
+  "lz": "LZ 03-07",
+  "r": "R1",
+  "type": "k",
+  "points": 2,
+  "q": "Ordne die Eigenschaften einer entworfenen Schnittstelle ein.",
+  "categories": [
+   "Wünschenswert",
+   "Nicht wünschenswert"
+  ],
+  "rows": [
+   {
+    "text": "Schwer missbrauchbar – Fehlbenutzung fällt schwer.",
+    "cat": 0
+   },
+   {
+    "text": "Leicht erlernbar und nutzbar.",
+    "cat": 0
+   },
+   {
+    "text": "Legt interne Implementierungsdetails offen.",
+    "cat": 1
+   },
+   {
+    "text": "Aus Nutzersicht funktional vollständig.",
+    "cat": 0
+   },
+   {
+    "text": "Bricht bei nahezu jeder internen Änderung der Implementierung.",
+    "cat": 1
+   },
+   {
+    "text": "Trennt Schnittstelle und Implementierung, sodass die Umsetzung austauschbar bleibt.",
+    "cat": 0
+   }
+  ],
+  "explanation": "Gute Schnittstellen sind leicht nutzbar, schwer missbrauchbar, funktional vollständig und trennen Schnittstelle von Implementierung (austauschbar) – LZ 03-07. Interne Details offenzulegen oder bei jeder Änderung zu brechen ist unerwünscht (zu enge Kopplung)."
  }
 ];
