@@ -188,28 +188,28 @@ function renderQuestion(){
   const list=$("#optList"); list.innerHTML="";
   if(q.type==="k"){ renderKRows(it, list); }
   else it.order.forEach(optIdx=>{
+    const reveal = it.submitted && session.mode!=="exam";   // Prüfungsmodus deckt erst am Ende auf
     const el=document.createElement("div");
     el.className="opt";
     const isSel=it.selected.includes(optIdx);
     if(isSel) el.classList.add("selected");
-    if(it.submitted){
+    if(reveal){
       el.classList.add("disabled");
-      const isCorrect=q.correct.includes(optIdx);
-      if(isCorrect) el.classList.add("correct");
+      if(q.correct.includes(optIdx)) el.classList.add("correct");
       else if(isSel) el.classList.add("wrong");
     }
     const mark=document.createElement("span"); mark.className="mark";
-    mark.textContent = it.submitted ? (q.correct.includes(optIdx)?"✓":(isSel?"✕":"")) : (isSel?"✓":"");
+    mark.textContent = reveal ? (q.correct.includes(optIdx)?"✓":(isSel?"✕":"")) : (isSel?"✓":"");
     const body=document.createElement("div"); body.className="optbody";
     const txt=document.createElement("div"); txt.textContent=Lopts(q)[optIdx];
     body.appendChild(txt);
     const oe=LoptExpl(q);
-    if(it.submitted && oe && oe[optIdx]){
+    if(reveal && oe && oe[optIdx]){
       const why=document.createElement("div"); why.className="optwhy"; why.textContent=oe[optIdx];
       body.appendChild(why);
     }
     el.appendChild(mark); el.appendChild(body);
-    if(!it.submitted){
+    if(!reveal){
       el.onclick=()=>{
         const i=it.selected.indexOf(optIdx); if(i>=0) it.selected.splice(i,1); else it.selected.push(optIdx);
         renderQuestion();
@@ -229,13 +229,18 @@ function renderQuestion(){
   // primary button
   const pb=$("#primaryBtn");
   const last = session.idx===total-1;
-  if(!it.submitted){
-    pb.textContent = session.mode==="exam" ? (last?T("Abgeben & Auswerten","Submit & evaluate"):T("Weiter →","Next →")) : T("Prüfen","Check");
-    pb.disabled = session.mode==="exam" ? false : !hasSelection(it);
+  if(session.mode==="exam"){
+    pb.textContent = last ? T("Abgeben & Auswerten","Submit & evaluate") : T("Weiter →","Next →");
+    pb.disabled = false;
+  } else if(!it.submitted){
+    pb.textContent = T("Prüfen","Check");
+    pb.disabled = !hasSelection(it);
   } else {
     pb.textContent = last ? T("Ergebnis anzeigen","Show result") : T("Nächste Frage →","Next question →");
-    pb.disabled=false;
+    pb.disabled = false;
   }
+  const prev=$("#prevBtn");
+  if(prev){ prev.classList.toggle("hidden", session.idx===0); prev.textContent=T("← Zurück","← Back"); }
   persistSession();
 }
 
@@ -244,6 +249,7 @@ function escapeHtml(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<"
 /* ---- K-Fragen: Matrix aus Zeilen mit je zwei Kategorien ---- */
 function renderKRows(it, list){
   const q=it.q;
+  const reveal = it.submitted && session.mode!=="exam";   // Prüfungsmodus deckt erst am Ende auf
   q.rows.forEach((row,ri)=>{
     const wrap=document.createElement("div"); wrap.className="krow";
     const st=document.createElement("div"); st.className="kstmt"; st.textContent=Lrow(row);
@@ -251,7 +257,7 @@ function renderKRows(it, list){
     Lcats(q).forEach((label,ci)=>{
       const b=document.createElement("button"); b.className="kcat"; b.textContent=label;
       const sel=it.selected[ri];
-      if(!it.submitted){
+      if(!reveal){
         if(sel===ci) b.classList.add("sel");
         b.onclick=()=>{ it.selected[ri]=(it.selected[ri]===ci?null:ci); renderQuestion(); };
       } else {
@@ -284,6 +290,9 @@ function startExamTimer(){
 }
 function stopExamTimer(){ if(timerId){ clearInterval(timerId); timerId=null; } }
 
+function goPrev(){
+  if(session && session.idx>0){ session.idx--; renderQuestion(); }
+}
 function onPrimary(){
   const it=session.items[session.idx];
   const total=session.items.length;
