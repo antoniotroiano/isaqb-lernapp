@@ -28,14 +28,16 @@ function finishQuiz(){
   clearSession();
   const exam = session.mode==="exam";
   const mock = !!session.mock;
-  if(exam && !mock){ session.items.forEach(it=>{ if(it.submitted) recordStat(it); }); }
   const total=session.items.length;
   const box=$("#resByChapter"); box.innerHTML="";
 
   if(exam){
+    // Prüfungsmodus wertet die FINALE Auswahl (nach evtl. Zurück-Navigation); submitted-Flag ist dafür egal
+    session.items.forEach(it=>{ it.correct = hasSelection(it) ? isCorrect(it.q, it.selected) : false; });
+    if(!mock){ session.items.forEach(it=>{ if(hasSelection(it)) recordStat(it); }); }
     let earned=0, maxpts=0; const byCh={};
     session.items.forEach(it=>{
-      const p=questionPoints(it.q), sc=scoreQuestion(it.q, it.submitted?it.selected:[]);
+      const p=questionPoints(it.q), sc=scoreQuestion(it.q, it.selected);
       earned+=sc; maxpts+=p;
       const c=it.q.chapter; (byCh[c]=byCh[c]||{e:0,m:0}); byCh[c].e+=sc; byCh[c].m+=p;
     });
