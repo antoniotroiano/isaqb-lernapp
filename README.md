@@ -3,10 +3,10 @@
 Übungs‑App (Multiple Choice) zur Vorbereitung auf die Zertifizierung
 **CPSA‑F** (Certified Professional for Software Architecture – Foundation Level).
 Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lokale Datei** (PC/Mac),
-**ohne Installation und ohne Konto**. Enthält **206 eigenständige Fragen** über alle 6 Kapitel des Curriculums,
+**ohne Installation und ohne Konto**. Enthält **218 eigenständige Fragen** über alle 6 Kapitel des Curriculums,
 zusätzlich die **offizielle iSAQB‑Beispielprüfung** als Generalprobe. Oberfläche wahlweise **Deutsch oder Englisch** (Umschalter **DE/EN** oben rechts).
 
-*Version 1.8.0*
+*Version 1.9.0*
 
 ---
 
@@ -60,6 +60,7 @@ Die Datei **`isaqb-trainer.html`** per **Doppelklick** im Browser öffnen — fe
 - **Fehler bevorzugen** & **Antworten mischen** – schwache Fragen häufiger bzw. gemischte Antwort‑Reihenfolge.
 - **Weniger Wiederholungen** – zuletzt gezeigte Fragen werden in Folgerunden gemieden.
 - **Pause / Fortsetzen** – unterbrochene Runde wird gespeichert und exakt wieder aufgenommen.
+- **Zurück zur vorherigen Frage** – mit **„← Zurück"** in der Fußleiste (ab Frage 2) frühere Fragen erneut ansehen; im **Prüfungsmodus** bleiben die Antworten dabei änderbar (wie in der echten Prüfung), die Auswertung nutzt am Ende deine finale Auswahl.
 - **Antworten durchsehen** – nach jeder Runde alle falsch/teilweise richtig beantworteten Fragen mit deiner Wahl, der Lösung und Erklärung.
 - **Lesezeichen**, **Dark Mode** (🌓 oben rechts) und **Fortschritt zurücksetzen**.
 
