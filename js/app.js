@@ -48,6 +48,7 @@ function initHome(){
 }
 
 $("#primaryBtn").onclick=onPrimary;
+$("#prevBtn").onclick=goPrev;
 $("#quitBtn").onclick=()=>{ stopExamTimer(); persistSession(); updateResumeBanner(); updatePool(); show("home"); };
 $("#statsBtn").onclick=renderStats;
 $("#statsHomeBtn").onclick=()=>show("home");
