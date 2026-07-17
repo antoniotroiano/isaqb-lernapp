@@ -76,6 +76,7 @@
     </div>
     <button class="btn secondary" id="refBtn" data-i18n="home.ref" style="margin-top:10px">📚 Lernstoff nachschlagen</button>
     <button class="btn secondary" id="cmBtn" data-i18n="home.cm" style="margin-top:10px">🗺 Concept Map</button>
+    <button class="btn secondary" id="glossaryBtn" data-i18n="home.glossary" style="margin-top:10px">📖 Glossar (Begriffe lernen)</button>
     <button class="btn secondary" id="browseBtn" data-i18n="home.browse" style="margin-top:10px">📖 Fragen durchblättern</button>
     <p class="hint" data-i18n="home.toolsHint" style="margin-top:8px">🔁 <b>Wiederholen</b>: Fragen, die laut Lernplan (Spaced Repetition) heute dran sind · 🃏 <b>Karteikarten</b>: Antwort aufdecken &amp; selbst einschätzen · 📚 <b>Lernstoff</b>: Curriculum-Themen nachlesen · 🗺 <b>Concept Map</b>: Zusammenhänge der Lernziele · 📖 <b>Durchblättern</b>: alle Fragen mit Lösung nachschlagen.</p>
     <button class="btn secondary" id="mockBtn" data-i18n="home.mock" style="margin-top:16px">🎓 Offizielle Musterprüfung</button>
@@ -86,7 +87,7 @@
       <span data-i18n="footer.disc">Inoffizielles Lernwerkzeug. Nicht mit dem iSAQB® verbunden. Fragen sind eigenständig
       formuliert (keine Original-Prüfungsfragen) und dienen nur zur Übung.
       Bedeutung: <b>R1</b> kommt sicher dran · <b>R2</b> kann drankommen · <b>R3</b> nicht prüfungsrelevant.</span>
-      <br>Version 1.9.0
+      <br>Version 1.10.0
     </footer>
   </section>
 
@@ -225,6 +226,25 @@
     <button class="btn ghost" id="cmHomeBtn" data-i18n="common.back" style="margin-top:14px">Zurück</button>
   </section>
 
+  <!-- GLOSSAR -->
+  <section id="glossary" class="hidden">
+    <div class="card">
+      <h2 id="glTitle">📖 Glossar</h2>
+      <div id="glIntro" class="refintro"></div>
+      <input id="glSearch" class="refsearch" type="search" placeholder="Begriff suchen …" autocomplete="off">
+      <div id="glFilter" class="chips" style="margin-top:10px">
+        <span class="chip r active" data-r="R1">R1</span>
+        <span class="chip r active" data-r="R2">R2</span>
+        <span class="chip r active" data-r="R3">R3</span>
+      </div>
+      <button class="btn secondary" id="glStudyBtn" style="margin-top:10px">🃏 Begriffe lernen</button>
+    </div>
+    <div id="glProgress"></div>
+    <div id="glList"></div>
+    <div id="glStudy" class="hidden"></div>
+    <button class="btn ghost" id="glHomeBtn" data-i18n="common.back">Zurück</button>
+  </section>
+
   <!-- MUSTERPRÜFUNG (offizielle iSAQB-Beispielprüfung) -->
   <section id="mockexam" class="hidden">
     <div class="card">
@@ -269,6 +289,7 @@
 <script src="js/reference_en.js"></script>
 <script src="js/conceptmap.js"></script>
 <script src="js/conceptmap_en.js"></script>
+<script src="js/glossary.js"></script>
 <script src="js/mockexam.js"></script>
 <script src="js/store.js"></script>
 <script src="js/i18n.js"></script>
