@@ -1088,8 +1088,8 @@ const QUESTIONS = [
    "Weil sie die grundlegenden Strukturentscheidungen prägen, die sich später nur mit hohem Aufwand ändern lassen.",
    "Weil sie oft implizit bleiben und andernfalls erst spät – etwa im Betrieb – schmerzhaft sichtbar werden.",
    "Weil eine frühe Klärung hilft, Zielkonflikte zwischen Qualitätsmerkmalen rechtzeitig abzuwägen.",
-   "Weil sie nach dem ersten Release nicht mehr geändert werden dürfen.",
-   "Weil sie sonst automatisch zu funktionalen Anforderungen werden."
+   "Weil sich Qualitätsanforderungen nach dem ersten Release grundsätzlich nicht mehr messbar formulieren lassen.",
+   "Weil eine frühe Klärung garantiert, dass später gar keine Zielkonflikte zwischen Qualitäten mehr auftreten."
   ],
   "correct": [
    0,
@@ -1100,10 +1100,10 @@ const QUESTIONS = [
    "Richtig: Qualitätsanforderungen treiben Strukturentscheidungen; späte Änderungen sind teuer.",
    "Richtig: Implizite Qualitätsanforderungen werden sonst erst spät sichtbar.",
    "Richtig: Frühe Klärung erlaubt rechtzeitiges Abwägen von Trade-offs.",
-   "Falsch (Trap): Qualitätsanforderungen sind nach dem Release nicht eingefroren.",
-   "Falsch: Sie werden nicht zu funktionalen Anforderungen – die Kategorie ändert sich nicht."
+   "Falsch: Qualitätsanforderungen lassen sich auch später (messbar) formulieren – nur teurer umzusetzen; eingefroren sind sie nicht.",
+   "Falsch: Frühe Klärung hilft, Zielkonflikte rechtzeitig abzuwägen, beseitigt sie aber nicht garantiert."
   ],
-  "explanation": "Frühe Klärung lohnt, weil Qualitätsanforderungen die Struktur treiben, oft implizit bleiben und Zielkonflikte rechtzeitig abgewogen werden müssen. Sie sind nach dem Release nicht eingefroren und werden nicht zu funktionalen Anforderungen."
+  "explanation": "Frühe Klärung lohnt, weil Qualitätsanforderungen die Struktur treiben, oft implizit bleiben und Zielkonflikte rechtzeitig abgewogen werden müssen. Sie lassen sich auch später noch messbar formulieren (nur teurer) und werden durch frühe Klärung nicht konfliktfrei garantiert."
  },
  {
   "id": "c2q10",
@@ -2466,13 +2466,13 @@ const QUESTIONS = [
   "lz": "LZ 03-06",
   "r": "R1",
   "type": "multi",
-  "q": "Welche Eigenschaften fördern die Wartbarkeit/Änderbarkeit eines Systems?",
+  "q": "Welche Eigenschaften fördern strukturell die Wartbarkeit bzw. Änderbarkeit eines Systems?",
   "options": [
-   "Modularisierung in überschaubare Bausteine.",
-   "Klar definierte, stabile Schnittstellen.",
+   "Hohe Kohäsion je Baustein (zusammengehörige Aufgaben sind gebündelt).",
+   "Klar definierte, stabile Schnittstellen, hinter denen die Implementierung austauschbar bleibt.",
    "Geringe Kopplung zwischen den Bausteinen.",
-   "Möglichst viele Konfigurationsoptionen, um das System jederzeit flexibel anpassen zu können.",
-   "Ausführliche Inline-Kommentare an jeder Codestelle, die das Verhalten erklären."
+   "Möglichst wenige, dafür sehr große Bausteine, um die Zahl der Schnittstellen klein zu halten.",
+   "Ein global geteiltes Datenmodell, auf das alle Bausteine direkt zugreifen."
   ],
   "correct": [
    0,
@@ -2480,13 +2480,13 @@ const QUESTIONS = [
    2
   ],
   "optExpl": [
-   "Richtig: Überschaubare Bausteine fördern die Wartbarkeit.",
-   "Richtig: Stabile Schnittstellen erleichtern Änderungen.",
-   "Richtig: Geringe Kopplung erlaubt unabhängige Änderungen.",
-   "Falsch: viele Konfigurationsoptionen vergrößern den Zustandsraum und erschweren Test und Wartung, statt sie zu fördern.",
-   "Near-Miss: Kommentare helfen lokal beim Verständnis, adressieren aber nicht die strukturelle Wartbarkeit (Kopplung, Kohäsion, Schnittstellen)."
+   "Richtig: Hohe Kohäsion hält Zusammengehöriges beisammen und erleichtert lokale Änderungen.",
+   "Richtig: Stabile Schnittstellen entkoppeln Nutzung von Implementierung – die Umsetzung bleibt austauschbar.",
+   "Richtig: Geringe Kopplung erlaubt unabhängiges Ändern und Testen.",
+   "Falsch: Sehr große Bausteine senken die Kohäsion und bündeln Unzusammenhängendes – trotz weniger Schnittstellen schlechter wartbar.",
+   "Falsch: Ein global direkt genutztes Datenmodell erzeugt starke Kopplung; Änderungen daran wirken sich überall aus."
   ],
-  "explanation": "Modularität, stabile Schnittstellen und geringe Kopplung fördern die Wartbarkeit. Viele Konfigurationsoptionen erhöhen die Komplexität, und ausführliche Kommentare adressieren die Struktur nicht – beides ist kein struktureller Hebel für die Änderbarkeit."
+  "explanation": "Strukturell zahlen hohe Kohäsion, stabile Schnittstellen und geringe Kopplung auf die Wartbarkeit ein. Wenige sehr große Bausteine (geringe Kohäsion) und ein global geteiltes Datenmodell (starke Kopplung) klingen einfach, verschlechtern die Änderbarkeit aber."
  },
  {
   "id": "c3q32",
@@ -2634,8 +2634,8 @@ const QUESTIONS = [
    "Sie bündeln erprobtes Lösungswissen und senken so Entwurfsrisiken.",
    "Sie schaffen ein gemeinsames Vokabular, das die Kommunikation im Team erleichtert.",
    "Ein Muster ist stets im Kontext seiner Trade-offs zu bewerten; ein falsch gewähltes Muster kann schaden.",
-   "Der Einsatz eines Musters ersetzt die Analyse der konkreten Qualitätsanforderungen.",
-   "Je mehr Muster gleichzeitig eingesetzt werden, desto höher ist die Qualität des Systems."
+   "Ein bekanntes Muster ist auch dann die beste Wahl, wenn ein einfacherer, musterfreier Entwurf ausreichen würde.",
+   "Ein einmal gewähltes Muster ist unverändert zu übernehmen; eine Anpassung an den Kontext ist nicht nötig."
   ],
   "correct": [
    0,
@@ -2646,10 +2646,10 @@ const QUESTIONS = [
    "Richtig: Muster kondensieren bewährtes Wissen und senken das Risiko, das Rad neu zu erfinden.",
    "Richtig: Bekannte Musternamen bilden eine gemeinsame Sprache.",
    "Richtig: Jedes Muster hat Kontextbedingungen und Konsequenzen; falsch angewandt schadet es.",
-   "Falsch: Muster ergänzen die Anforderungsanalyse, ersetzen sie aber nicht.",
-   "Falsch: Die bloße Menge an Mustern (Over-Engineering) verbessert ein System nicht automatisch."
+   "Falsch: Der einfachste tragfähige Entwurf ist vorzuziehen; ein Muster nur um seiner selbst willen ist Over-Engineering.",
+   "Falsch: Muster sind an ihren Kontext anzupassen – die unveränderte Übernahme passt selten exakt."
   ],
-  "explanation": "Muster senken Risiko, schaffen ein gemeinsames Vokabular und sind anhand ihrer Trade-offs auszuwählen. Sie ersetzen keine Anforderungsanalyse, und ihre bloße Anzahl verbessert nichts."
+  "explanation": "Muster senken Risiko, schaffen ein gemeinsames Vokabular und sind anhand ihrer Trade-offs auszuwählen. Ein Muster nur um seiner selbst willen (statt des einfachsten tragfähigen Entwurfs) oder die unangepasste Übernahme sind Fehlanwendungen."
  },
  {
   "id": "c3q37",
@@ -2828,20 +2828,20 @@ const QUESTIONS = [
   "q": "Was empfiehlt sich beim Entwurf hinsichtlich fachlicher und technischer Architektur?",
   "options": [
    "Zuerst den fachlichen Schnitt (Problemraum) verstehen und die technische Lösung darauf ausrichten.",
-   "Zuerst die technische Infrastruktur vollständig festlegen; der fachliche Schnitt ergibt sich daraus.",
-   "Fachliche und technische Sicht sind stets deckungsgleich und müssen nicht getrennt betrachtet werden.",
-   "Der fachliche Schnitt ist nachrangig, solange die nichtfunktionalen Anforderungen (z. B. Performance) erfüllt sind."
+   "Fachlichen und technischen Schnitt strikt getrennt und unabhängig voneinander entwerfen, ohne sie aufeinander abzustimmen.",
+   "Den technischen Schnitt vorrangig am Organigramm der Entwicklungsteams ausrichten.",
+   "Den fachlichen Schnitt erst festlegen, nachdem alle nichtfunktionalen Anforderungen (z. B. Performance) vollständig erfüllt sind."
   ],
   "correct": [
    0
   ],
   "optExpl": [
    "Richtig: Erst den Problemraum verstehen, dann die Technik darauf ausrichten.",
-   "Technik zuerst festzulegen führt zu schlecht geschnittenen, an der Fachlichkeit vorbei entworfenen Systemen.",
-   "Beide Sichten hängen zusammen, sind aber getrennt zu betrachten – sie sind nicht identisch.",
-   "Der fachliche Schnitt bestimmt die Struktur maßgeblich; Performance rechtfertigt keinen willkürlichen Schnitt."
+   "Near-Miss: Beide Sichten sind zu unterscheiden, müssen aber aufeinander abgestimmt sein – ein völlig unabhängiger Entwurf passt nicht zusammen.",
+   "Falsch: Sich allein am Organigramm auszurichten ist ein Conway-Fehlschluss – maßgeblich ist der fachliche Schnitt, nicht die Teamstruktur.",
+   "Falsch: Der fachliche Schnitt bestimmt die Struktur maßgeblich; NFRs wie Performance rechtfertigen keinen an der Fachlichkeit vorbei gewählten Schnitt."
   ],
-  "explanation": "Erst den fachlichen Schnitt/Problemraum verstehen, dann die Technik darauf ausrichten. Technik-zuerst, das Gleichsetzen beider Sichten oder das Nachordnen der Fachlichkeit hinter Performance führen zu schlecht geschnittenen Systemen."
+  "explanation": "Erst den fachlichen Schnitt/Problemraum verstehen, dann die Technik darauf ausrichten. Ein völlig unabhängiger Technik-/Fachschnitt, die Ausrichtung am Organigramm oder das Nachordnen der Fachlichkeit hinter NFRs führen zu schlecht geschnittenen Systemen."
  },
  {
   "id": "c3q43",
@@ -3368,8 +3368,8 @@ const QUESTIONS = [
    "Sie überprüfen Annahmen und Risiken früh und ermöglichen Anpassungen bei neuem Wissen.",
    "Sie sind besonders für unsichere/riskante Entscheidungen wertvoll (risikogetrieben).",
    "Ein Prototyp kann bewusst als „Wegwerf“-Artefakt dienen, nur um eine Annahme zu prüfen.",
-   "Sie ersetzen die Architekturdokumentation vollständig.",
-   "Nach der ersten Festlegung sollte die Architektur eingefroren und nicht mehr geändert werden."
+   "Ein Wegwerf-Prototyp sollte immer direkt zum Produktionscode weiterentwickelt werden, um Aufwand zu sparen.",
+   "Frühe Feedback-Schleifen sind nur bei agilem Vorgehen sinnvoll, in plangetriebenen Projekten nicht."
   ],
   "correct": [
    0,
@@ -3377,13 +3377,13 @@ const QUESTIONS = [
    2
   ],
   "optExpl": [
-   "Richtig: Feedback prüft Annahmen/Risiken früh und ermöglicht Kurskorrekturen.",
+   "Richtig: Feedback prüft Annahmen und Risiken früh und ermöglicht Kurskorrekturen.",
    "Richtig: Gerade unsichere Entscheidungen profitieren von frühem Feedback.",
    "Richtig: Ein Prototyp darf nach der Erkenntnisgewinnung verworfen werden.",
-   "Falsch: Feedback-Schleifen ersetzen keine Dokumentation.",
-   "Falsch: Feedback dient gerade der Anpassung, nicht dem Einfrieren."
+   "Falsch: Ein Wegwerf-Prototyp dient der Erkenntnis und wird danach verworfen – ihn zu Produktionscode zu machen, übernimmt seine Abkürzungen und Schulden.",
+   "Falsch: Frühes Feedback zur Risikominderung ist vorgehensunabhängig sinnvoll, nicht nur agil."
   ],
-  "explanation": "Feedback-Schleifen prüfen Annahmen und Risiken früh (auch per Wegwerf-Prototyp) und sind bei unsicheren Entscheidungen besonders wertvoll. Sie ersetzen keine Doku und dienen der Anpassung, nicht dem Einfrieren."
+  "explanation": "Feedback-Schleifen prüfen Annahmen und Risiken früh (auch per Wegwerf-Prototyp) und sind bei unsicheren Entscheidungen besonders wertvoll. Ein Wegwerf-Prototyp wird verworfen (nicht zu Produktionscode), und frühes Feedback ist vorgehensunabhängig nützlich."
  },
  {
   "id": "c3q61",
@@ -4869,19 +4869,19 @@ const QUESTIONS = [
   "options": [
    "Eine qualitative, expertengestützte Durchsicht der Architektur anhand von Qualitätszielen und Szenarien.",
    "Ein moderiertes Verfahren, dessen Ergebnis primär aus automatisch gemessenen Code-Metriken besteht.",
-   "Ein dynamischer Test, der das laufende System gegen definierte Lastprofile prüft.",
-   "Ein Verfahren, das erst nach Fertigstellung des Codes sinnvoll durchführbar ist."
+   "Eine rein checklistenbasierte Abnahme ohne Bezug zu priorisierten Qualitätszielen oder Szenarien.",
+   "Ein Verfahren, das ausschließlich fertigen Code prüfen kann und für Entwurfsmodelle ungeeignet ist."
   ],
   "correct": [
    0
   ],
   "optExpl": [
-   "Richtig: Ein Review ist eine qualitative, expertengestützte Durchsicht gegen Ziele und Szenarien.",
-   "Reviews können Metriken heranziehen, ihr Kern ist aber die menschliche Beurteilung – nicht primär die Messung.",
-   "Ein Lasttest ist eine dynamische Messung, kein Review.",
-   "Reviews sind gerade früh, auf Modell-/Entwurfsebene, wertvoll und nicht erst nach Code-Fertigstellung möglich."
+   "Richtig: Ein Review ist eine qualitative, expertengestützte Durchsicht gegen Qualitätsziele und Szenarien.",
+   "Near-Miss: Reviews können Metriken heranziehen, ihr Kern ist aber die menschliche Beurteilung – nicht primär die Messung.",
+   "Near-Miss: Eine gute Bewertung orientiert sich an priorisierten Qualitätszielen und Szenarien; eine reine Checkliste ohne diesen Bezug greift zu kurz.",
+   "Falsch: Reviews sind gerade früh, auf Modell-/Entwurfsebene wertvoll – nicht erst bei fertigem Code."
   ],
-  "explanation": "Reviews/Walkthroughs sind qualitative, expertengestützte Verfahren gegen Ziele und Szenarien – früh einsetzbar. Metrikmessung und Lasttests sind etwas anderes."
+  "explanation": "Reviews/Walkthroughs sind qualitative, expertengestützte Verfahren gegen priorisierte Qualitätsziele und Szenarien – auch früh auf Modellebene einsetzbar. Reine Metrikmessung, eine checklistenbasierte Abnahme ohne Szenariobezug oder die Beschränkung auf fertigen Code greifen zu kurz."
  },
  {
   "id": "c5q11",
@@ -5342,20 +5342,20 @@ const QUESTIONS = [
   "q": "Womit lässt sich die Einhaltung geplanter Abhängigkeits- bzw. Schichtregeln am zuverlässigsten überprüfen?",
   "options": [
    "Mit statischer Analyse bzw. Werkzeugen, die tatsächliche Abhängigkeiten gegen definierte Regeln prüfen.",
-   "Durch stichprobenartige Befragung einzelner Entwickler nach ihrer Einschätzung.",
-   "Durch Zählen der Codezeilen pro Datei und Schicht.",
-   "Allein durch Messung der Antwortzeiten des Systems im Betrieb."
+   "Mit einem manuellen Code-Review, bei dem stichprobenartig einzelne Klassen gesichtet werden.",
+   "Mit Laufzeit-Monitoring, das die im Betrieb tatsächlich aufgerufenen Module protokolliert.",
+   "Mit verbindlichen Namenskonventionen, an die sich alle Teams halten sollen."
   ],
   "correct": [
    0
   ],
   "optExpl": [
-   "Richtig: Statische Analyse prüft die realen Abhängigkeiten systematisch gegen Soll-Regeln.",
-   "Einzelmeinungen prüfen Strukturregeln nicht zuverlässig und vollständig.",
-   "LOC sagt nichts über erlaubte oder verbotene Abhängigkeiten aus.",
-   "Laufzeit-Antwortzeiten sagen nichts über die strukturelle Konformität der Abhängigkeiten aus."
+   "Richtig: Statische Analyse prüft die realen Abhängigkeiten systematisch und vollständig gegen die Soll-Regeln – automatisiert im Build.",
+   "Near-Miss: Ein manuelles Review deckt Verstöße auf, prüft aber stichprobenhaft und fehleranfällig – nicht so zuverlässig und vollständig wie ein Werkzeug.",
+   "Falsch: Laufzeit-Monitoring erfasst nur tatsächlich durchlaufene Pfade, nicht alle (auch verbotenen) statischen Abhängigkeiten.",
+   "Falsch: Konventionen sind eine Absicht, kein Nachweis – sie prüfen die Einhaltung nicht."
   ],
-  "explanation": "Verbotene Abhängigkeiten (z. B. zwischen Schichten) findet man zuverlässig mit statischer Abhängigkeitsanalyse. Befragungen, LOC-Zählung oder Laufzeitmessung prüfen keine Strukturkonformität."
+  "explanation": "Verbotene Abhängigkeiten (z. B. zwischen Schichten) findet man am zuverlässigsten mit statischer Abhängigkeitsanalyse – automatisiert und vollständig. Manuelle Reviews (stichprobenhaft), Laufzeit-Monitoring (nur durchlaufene Pfade) oder bloße Namenskonventionen (kein Nachweis) sind weniger verlässlich."
  },
  {
   "id": "c6q1",
