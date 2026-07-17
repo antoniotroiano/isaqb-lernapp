@@ -66,6 +66,11 @@ $("#refHomeBtn").onclick=()=>show("home");
 $("#refBackBtn").onclick=()=>{ const r=refReturn; if(r&&r.kind==="cm"){ renderConceptMap(); show("conceptmap"); if(r.id) cmSelect(r.id); } else if(r&&r.kind==="quiz"){ show("quiz"); } };
 $("#cmBtn").onclick=()=>{ renderConceptMap(); show("conceptmap"); };
 $("#cmHomeBtn").onclick=()=>show("home");
+$("#glossaryBtn").onclick=()=>{ endGlossaryStudy(); renderGlossary(""); show("glossary"); };
+$("#glHomeBtn").onclick=()=>show("home");
+$("#glStudyBtn").onclick=()=>startGlossaryStudy();
+(function(){ const gs=$("#glSearch"); if(gs) gs.oninput=()=>renderGlossary(gs.value); })();
+(function(){ $$("#glFilter .chip.r").forEach(ch=>{ ch.onclick=()=>{ const r=ch.getAttribute("data-r"); if(glFilter.has(r)&&glFilter.size>1) glFilter.delete(r); else glFilter.add(r); renderGlossary($("#glSearch")?$("#glSearch").value:""); }; }); })();
 $("#mockBtn").onclick=()=>{ renderMockExam(); show("mockexam"); };
 $("#mockHomeBtn").onclick=()=>{ updateResumeBanner(); show("home"); };
 $("#mockStartBtn").onclick=()=>{ if(store.session && !confirm(T("Es gibt eine unterbrochene Runde. Musterprüfung starten und die alte verwerfen?","There is an interrupted round. Start the mock exam and discard the old one?"))) return; clearSession(); startMockExam(); };
@@ -103,6 +108,7 @@ function rerenderCurrent(){
   else if(vis("flash") && flash) renderFlash();
   else if(vis("browse")) renderBrowse();
   else if(vis("conceptmap")) renderConceptMap();
+  else if(vis("glossary")){ if(typeof glStudy!=="undefined" && glStudy) renderGlossaryStudy(); else renderGlossary($("#glSearch")?$("#glSearch").value:""); }
   else if(vis("reference")) renderReference($("#refSearch")?$("#refSearch").value:"");
 }
 
