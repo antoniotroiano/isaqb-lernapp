@@ -6,7 +6,7 @@ Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lok
 **ohne Installation und ohne Konto**. Enthält **218 eigenständige Fragen** über alle 6 Kapitel des Curriculums,
 zusätzlich die **offizielle iSAQB‑Beispielprüfung** als Generalprobe. Oberfläche wahlweise **Deutsch oder Englisch** (Umschalter **DE/EN** oben rechts).
 
-*Version 1.9.0*
+*Version 1.10.0*
 
 ---
 
@@ -46,9 +46,10 @@ Die Datei **`isaqb-trainer.html`** per **Doppelklick** im Browser öffnen — fe
 | **📖 Durchblättern** | Nachschlagen | Alle Fragen (nach Kapitel gruppiert, gefiltert) durchsehen; Antippen blendet Lösung + Erklärung ein. Kein Quiz. |
 | **📚 Lernstoff** | Verstehen statt nur MC | Curriculum-Themen je **Lernziel** nachlesen (nach Kapitel gegliedert, mit Suche). Tipp: Aus einer beantworteten Frage auf die **LZ-Nummer** tippen → springt direkt zum passenden Abschnitt. |
 | **🗺 Concept Map** | Zusammenhänge sehen | Alle 38 Lernziele nach Kapitel; ein Lernziel antippen zeigt Kurzbeschreibung, **verwandte Lernziele** (mit Begründung) und „Im Lernstoff öffnen“. Der Schalter „Nur R1/R2“ blendet R3 aus. |
+| **📖 Glossar** | Begriffe pauken | **105 Fachbegriffe** (nach Kategorie, je mit Kurzdefinition, **Beispiel** und **Merksatz**), durchsuchbar und nach **R1/R2/R3 filterbar**. **„🃏 Begriffe lernen“** übt sie als Karteikarten mit eigener Wiedervorlage (gewusst/nicht gewusst, Leitner-Boxen) — **getrennt** von der Fragen-Statistik. |
 | **🎓 Musterprüfung** | Generalprobe vor der Prüfung | Die **offizielle iSAQB‑Beispielprüfung** (Version 2026.2 · 38 Fragen · 52 Punkte · 75 Min · 60 % zum Bestehen) im echten Prüfungsformat. **Separat** vom eigenen Fragenkatalog; die Ergebnisse fließen **nicht** in die normale Statistik. |
 
-> **🌐 Sprache:** Der Umschalter **DE/EN** oben rechts stellt die gesamte App auf Deutsch oder Englisch um — Oberfläche, alle Fragen, Lernstoff, Concept Map und die offizielle Musterprüfung. Die Wahl wird gespeichert.
+> **🌐 Sprache:** Der Umschalter **DE/EN** oben rechts stellt die gesamte App auf Deutsch oder Englisch um — Oberfläche, alle Fragen, Lernstoff, Concept Map, Glossar und die offizielle Musterprüfung. Die Wahl wird gespeichert.
 
 ---
 
