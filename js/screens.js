@@ -302,6 +302,113 @@ function openReference(lz,origin){
   else { const ch=parseInt(String(lz).slice(0,2),10); const c=document.getElementById("refchap-"+ch); if(c) c.scrollIntoView({behavior:"smooth",block:"start"}); }
 }
 
+/* ============================================================
+   Glossar (Begriffsübersicht + Karteikarten)
+   ============================================================ */
+function GL(o,f){ return (typeof LANG!=="undefined" && LANG==="en") ? (o[f+"_en"]||o[f]) : o[f]; }
+function glBadgeClass(r){ return (r||"").toLowerCase(); }
+/* R-Filter + getrenntes Spaced-Repetition für Begriffe (eigener Speicher, unabhängig von den Fragen-Stats) */
+let glFilter = new Set(["R1","R2","R3"]);
+function glStat(key){ return (store.glossarySrs && store.glossarySrs[key]) || {box:0,due:0,seen:0}; }  // reiner Lesezugriff, legt nichts an
+function glGrade(key, ok){ store.glossarySrs=store.glossarySrs||{}; const s=store.glossarySrs[key]||(store.glossarySrs[key]={box:0,due:0,seen:0}); s.seen++; s.box = ok?Math.min(5,(s.box||0)+1):0; s.due=Date.now()+SRS_INT[s.box||0]; saveStore(); }
+function glAllFiltered(){ const a=[]; GLOSSARY.categories.forEach(c=>c.terms.forEach(t=>{ if(glFilter.has(t.r)) a.push(t); })); return a; }
+function glDueCount(){ const now=Date.now(); return glAllFiltered().filter(t=>{ const s=(store.glossarySrs||{})[t.t]; return !s || (s.due||0)<=now; }).length; }
+function glStudySet(){ const scored=shuffle(glAllFiltered()).map(t=>({t,due:glStat(t.t).due||0})); scored.sort((a,b)=>a.due-b.due); return scored.map(x=>x.t); }
+function glProgressStats(){
+  const now=Date.now(), srs=store.glossarySrs||{};
+  const a={all:{t:0,l:0,s:0,d:0}, R1:{t:0,l:0,s:0}, R2:{t:0,l:0,s:0}, R3:{t:0,l:0,s:0}};
+  GLOSSARY.categories.forEach(c=>c.terms.forEach(term=>{
+    const e=srs[term.t], seen=!!(e&&e.seen>0), box=e?(e.box||0):0, due=!e||(e.due||0)<=now;
+    const R=a[term.r]||(a[term.r]={t:0,l:0,s:0}); a.all.t++; R.t++;
+    if(seen){ a.all.l++; R.l++; if(box>=4){ a.all.s++; R.s++; } }
+    if(due) a.all.d++;
+  })); return a;
+}
+function glProgressEl(){
+  const a=glProgressStats(), box=document.createElement("div"); box.className="card";
+  const hd=document.createElement("div"); hd.className="glproghd"; hd.textContent=T("📖 Dein Glossar-Fortschritt","📖 Your glossary progress"); box.appendChild(hd);
+  const sub=document.createElement("div"); sub.className="hint"; sub.style.margin="0 0 10px";
+  sub.textContent=a.all.l+" / "+a.all.t+" "+T("gelernt","learned")+"  ·  ✅ "+a.all.s+" "+T("sicher (Box 4–5)","solid (box 4–5)")+"  ·  🔁 "+a.all.d+" "+T("fällig","due");
+  box.appendChild(sub);
+  ["R1","R2","R3"].forEach(r=>{ const o=a[r]; if(!o||!o.t) return; const p=Math.round(o.l/o.t*100); box.appendChild(barRow(r, p, o.l+"/"+o.t+" · "+o.s+"✓")); });
+  return box;
+}
+function glTermCard(t){
+  return "<div class='glitem'>"+
+    "<div class='glhead'><span class='refbadge "+glBadgeClass(t.r)+"'>"+escapeHtml(t.r||"–")+"</span>"+
+    "<span class='glterm'>"+escapeHtml(GL(t,"t"))+"</span>"+
+    (t.lz?"<span class='lznum'>"+lzLink("LZ "+t.lz)+"</span>":"")+"</div>"+
+    "<div class='gldef'>"+escapeHtml(GL(t,"d"))+"</div>"+
+    (GL(t,"ex")?"<div class='glex'><b>"+T("Beispiel","Example")+":</b> "+escapeHtml(GL(t,"ex"))+"</div>":"")+
+    "<div class='glmerke'><b>"+T("Merke","Remember")+":</b> "+escapeHtml(GL(t,"m"))+"</div></div>";
+}
+function renderGlossary(filter){
+  const box=$("#glList"); if(!box||typeof GLOSSARY==="undefined") return;
+  const tt=$("#glTitle"); if(tt) tt.textContent=T("📖 Glossar","📖 Glossary");
+  const gi=$("#glIntro"); if(gi) gi.innerHTML=GL(GLOSSARY,"intro")||"";
+  const se=$("#glSearch"); if(se) se.placeholder=T("Begriff suchen …","Search term …");
+  const due=glDueCount();
+  const sb=$("#glStudyBtn"); if(sb) sb.textContent=T("🃏 Begriffe lernen","🃏 Study terms")+(due?" ("+due+")":"");
+  $$("#glFilter .chip.r").forEach(ch=>{ const r=ch.getAttribute("data-r"); ch.classList.toggle("active", glFilter.has(r)); });
+  const gp=$("#glProgress"); if(gp){ gp.innerHTML=""; gp.appendChild(glProgressEl()); }
+  const f=(filter||"").trim().toLowerCase();
+  box.innerHTML="";
+  GLOSSARY.categories.forEach(c=>{
+    let terms=c.terms.filter(t=>glFilter.has(t.r));
+    if(f) terms=terms.filter(t=>((GL(t,"t")+" "+GL(t,"d")+" "+GL(t,"m")+" "+GL(t,"ex")).toLowerCase().includes(f)));
+    if(!terms.length) return;
+    const hd=document.createElement("div"); hd.className="refchap"; hd.textContent=GL(c,"cat")+" · "+terms.length; box.appendChild(hd);
+    terms.forEach(t=>{ const w=document.createElement("div"); w.innerHTML=glTermCard(t); box.appendChild(w.firstChild); });
+  });
+  if(!box.children.length){ box.innerHTML="<div class='card'><p class='hint'>"+T("Kein Begriff gefunden.","No term found.")+"</p></div>"; }
+}
+
+/* --- Begriffs-Karteikarten (Flip-Durchlauf, gemischt) --- */
+let glStudy=null;
+function startGlossaryStudy(){
+  const set=glStudySet();
+  if(!set.length){ alert(T("Kein Begriff im aktuellen R-Filter.","No term in the current R-level filter.")); return; }
+  glStudy={terms:set, idx:0, revealed:false};
+  ["#glList","#glSearch","#glStudyBtn","#glFilter","#glHomeBtn","#glProgress"].forEach(s=>{ const e=$(s); if(e) e.classList.add("hidden"); });
+  $("#glStudy").classList.remove("hidden");
+  renderGlossaryStudy();
+}
+function endGlossaryStudy(){
+  glStudy=null;
+  const s=$("#glStudy"); if(s){ s.classList.add("hidden"); s.innerHTML=""; }
+  ["#glList","#glSearch","#glStudyBtn","#glFilter","#glHomeBtn","#glProgress"].forEach(x=>{ const e=$(x); if(e) e.classList.remove("hidden"); });
+  renderGlossary($("#glSearch")?$("#glSearch").value:"");
+}
+function renderGlossaryStudy(){
+  const el=$("#glStudy"); if(!el||!glStudy) return;
+  const total=glStudy.terms.length, t=glStudy.terms[glStudy.idx], st=glStat(t.t);
+  let h="<div class='card glcard'>";
+  h+="<div class='glprog'>"+(glStudy.idx+1)+" / "+total+" · "+T("Box","Box")+" "+(st.box||0)+"/5</div>";
+  h+="<div class='glcardterm'><span class='refbadge "+glBadgeClass(t.r)+"'>"+escapeHtml(t.r||"–")+"</span> "+escapeHtml(GL(t,"t"))+"</div>";
+  if(glStudy.revealed){
+    h+="<div class='gldef'>"+escapeHtml(GL(t,"d"))+"</div>";
+    if(GL(t,"ex")) h+="<div class='glex'><b>"+T("Beispiel","Example")+":</b> "+escapeHtml(GL(t,"ex"))+"</div>";
+    h+="<div class='glmerke'><b>"+T("Merke","Remember")+":</b> "+escapeHtml(GL(t,"m"))+"</div>";
+    if(t.lz) h+="<div class='glhintline hint'>"+lzLink("LZ "+t.lz)+"</div>";
+  } else {
+    h+="<div class='glhintline hint'>"+T("Definition im Kopf durchgehen, dann aufdecken.","Recall the definition, then reveal.")+"</div>";
+  }
+  h+="</div>";
+  if(!glStudy.revealed){
+    h+="<div class='glbtns'><button class='btn' id='glReveal'>"+T("Antwort zeigen","Show answer")+"</button></div>";
+  } else {
+    h+="<div class='glbtns2'><button class='btn secondary' id='glBad'>"+T("Nicht gewusst","Didn't know")+"</button><button class='btn' id='glGood'>"+T("Gewusst","Knew it")+"</button></div>";
+  }
+  h+="<div class='glbtns2'><button class='btn ghost' id='glPrev'"+(glStudy.idx===0?" disabled":"")+">"+T("← Zurück","← Back")+"</button><button class='btn ghost' id='glExit'>"+T("Beenden","Exit")+"</button></div>";
+  el.innerHTML=h;
+  const adv=()=>{ if(glStudy.idx<total-1){ glStudy.idx++; glStudy.revealed=false; renderGlossaryStudy(); } else { alert(T("Durchlauf abgeschlossen.","Session complete.")); endGlossaryStudy(); } };
+  const rv=$("#glReveal"); if(rv) rv.onclick=()=>{ glStudy.revealed=true; renderGlossaryStudy(); };
+  const gd=$("#glGood"); if(gd) gd.onclick=()=>{ glGrade(t.t,true); adv(); };
+  const bd=$("#glBad"); if(bd) bd.onclick=()=>{ glGrade(t.t,false); adv(); };
+  const pv=$("#glPrev"); if(pv) pv.onclick=()=>{ if(glStudy.idx>0){ glStudy.idx--; glStudy.revealed=true; renderGlossaryStudy(); } };
+  const ex=$("#glExit"); if(ex) ex.onclick=endGlossaryStudy;
+}
+
 /* --- Concept Map --- */
 function cmTier(tag){ return tag.includes("R1")?"r1":(tag.includes("R2")?"r2":"r3"); }
 function cmPureR3(tag){ return tag.trim()==="R3"; }
