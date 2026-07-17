@@ -161,6 +161,26 @@
 .refbadge.r1{background:var(--r1-bg);color:var(--r1);border-color:var(--r1-bd)}
 .refbadge.r2{background:var(--r2-bg);color:var(--r2);border-color:var(--r2-bd)}
 .refbadge.r3{background:var(--r3-bg);color:var(--r3);border-color:var(--r3-bd)}
+/* Glossar */
+.glitem{border:1px solid var(--border);background:var(--card);border-radius:12px;padding:12px 14px;margin-bottom:8px}
+.glhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px}
+.glterm{font-weight:700;font-size:.98rem}
+.glitem .lznum{font-size:.74rem;color:var(--muted);font-variant-numeric:tabular-nums;margin-left:auto}
+.gldef{font-size:.9rem;line-height:1.45}
+.glex{font-size:.85rem;color:var(--muted);margin-top:6px;line-height:1.4}
+.glex b{color:var(--text)}
+.glmerke{font-size:.85rem;color:var(--muted);margin-top:6px;padding-top:6px;border-top:1px dashed var(--border)}
+.glmerke b{color:var(--accent)}
+.glproghd{font-weight:700;font-size:.95rem;margin-bottom:6px}
+.glcard{text-align:center}
+.glprog{font-size:.78rem;color:var(--muted);margin-bottom:10px}
+.glcardterm{font-size:1.25rem;font-weight:700;margin:8px 0 14px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+.glcard .gldef{text-align:left}
+.glcard .glmerke{text-align:left}
+.glhintline{margin-top:10px}
+.glbtns{margin-top:4px}
+.glbtns2{display:flex;gap:8px;margin-top:10px}
+.glbtns2 .btn{flex:1}
 .refbody{padding:0 14px 14px;font-size:.9rem;line-height:1.5}
 .refbody p{margin:8px 0}
 .refbody ul{margin:8px 0;padding-left:20px}
