@@ -832,8 +832,8 @@ const QUESTIONS_EN = {
    "Because they shape the fundamental structural decisions, which can later only be changed with great effort.",
    "Because they often remain implicit and otherwise become painfully visible only late – for example in operation.",
    "Because early clarification helps to weigh up trade-offs between quality characteristics in good time.",
-   "Because they may no longer be changed after the first release.",
-   "Because they otherwise automatically turn into functional requirements."
+   "Because quality requirements can no longer be formulated measurably at all after the first release.",
+   "Because early clarification guarantees that no trade-offs between qualities will arise later at all."
   ],
   "correct": [
    0,
@@ -841,13 +841,13 @@ const QUESTIONS_EN = {
    2
   ],
   "optExpl": [
-   "Correct: Quality requirements drive structural decisions; late changes are expensive.",
-   "Correct: Implicit quality requirements otherwise become visible only late.",
-   "Correct: Early clarification allows timely weighing of trade-offs.",
-   "Incorrect (trap): Quality requirements are not frozen after the release.",
-   "Incorrect: They do not turn into functional requirements – the category does not change."
+   "Correct: quality requirements drive structural decisions; late changes are expensive.",
+   "Correct: implicit quality requirements otherwise become visible only late.",
+   "Correct: early clarification allows timely weighing of trade-offs.",
+   "Wrong: quality requirements can still be formulated (measurably) later – just costlier to realize; they are not frozen.",
+   "Wrong: early clarification helps weigh trade-offs in time but does not guarantee eliminating them."
   ],
-  "explanation": "Early clarification is worthwhile because quality requirements drive the structure, often remain implicit, and trade-offs must be weighed in good time. They are not frozen after the release and do not turn into functional requirements."
+  "explanation": "Early clarification pays off because quality requirements drive the structure, often remain implicit, and trade-offs must be weighed in time. They can still be formulated measurably later (just costlier), and early clarification does not guarantee a conflict-free result."
  },
  "c2q10": {
   "q": "A stakeholder demands: “The system must also be operable by visually impaired users.” What is most likely correct?",
@@ -1911,13 +1911,13 @@ const QUESTIONS_EN = {
   "explanation": "Without bound session state, any instance can handle any request, which facilitates scaling and load distribution; cross-request state is externalized. Sticky sessions are stateful, and stateless does not mean that no data is processed."
  },
  "c3q31": {
-  "q": "Which properties promote the maintainability/changeability of a system?",
+  "q": "Which properties structurally promote the maintainability/changeability of a system?",
   "options": [
-   "Modularization into manageable building blocks.",
-   "Clearly defined, stable interfaces.",
+   "High cohesion per building block (related tasks are bundled together).",
+   "Clearly defined, stable interfaces behind which the implementation stays replaceable.",
    "Low coupling between the building blocks.",
-   "As many configuration options as possible, to keep the system flexibly adjustable at all times.",
-   "Extensive inline comments at every point in the code that explain the behavior."
+   "As few but very large building blocks as possible, to keep the number of interfaces small.",
+   "A globally shared data model that all building blocks access directly."
   ],
   "correct": [
    0,
@@ -1925,13 +1925,13 @@ const QUESTIONS_EN = {
    2
   ],
   "optExpl": [
-   "Correct: Manageable building blocks promote maintainability.",
-   "Correct: Stable interfaces facilitate changes.",
-   "Correct: Low coupling allows independent changes.",
-   "Wrong: many configuration options enlarge the state space and complicate testing and maintenance instead of promoting them.",
-   "Near-Miss: comments help local understanding but do not address structural maintainability (coupling, cohesion, interfaces)."
+   "Correct: high cohesion keeps related things together and eases local changes.",
+   "Correct: stable interfaces decouple usage from implementation – the realization stays replaceable.",
+   "Correct: low coupling allows independent changing and testing.",
+   "Wrong: very large building blocks lower cohesion and bundle unrelated things – less maintainable despite fewer interfaces.",
+   "Wrong: a globally, directly used data model creates strong coupling; changes to it affect everything."
   ],
-  "explanation": "Modularity, stable interfaces, and low coupling promote maintainability. Many configuration options increase complexity, and extensive comments do not address the structure - neither is a structural lever for changeability."
+  "explanation": "Structurally, high cohesion, stable interfaces and low coupling promote maintainability. Few very large building blocks (low cohesion) and a globally shared data model (strong coupling) sound simple but worsen changeability."
  },
  "c3q32": {
   "q": "What is the purpose of resilience patterns such as timeout, retry, or circuit breaker?",
@@ -2036,8 +2036,8 @@ const QUESTIONS_EN = {
    "They bundle proven solution knowledge and thereby reduce design risks.",
    "They create a common vocabulary that facilitates communication within the team.",
    "A pattern must always be evaluated in the context of its trade-offs; a wrongly chosen pattern can do harm.",
-   "Using a pattern replaces the analysis of the concrete quality requirements.",
-   "The more patterns are used simultaneously, the higher the quality of the system."
+   "A well-known pattern is the best choice even when a simpler, pattern-free design would suffice.",
+   "Once chosen, a pattern is to be adopted unchanged; adapting it to the context is not necessary."
   ],
   "correct": [
    0,
@@ -2045,13 +2045,13 @@ const QUESTIONS_EN = {
    2
   ],
   "optExpl": [
-   "Correct: Patterns condense proven knowledge and reduce the risk of reinventing the wheel.",
-   "Correct: Well-known pattern names form a common language.",
-   "Correct: Every pattern has context conditions and consequences; applied wrongly it does harm.",
-   "Wrong: Patterns complement requirements analysis but do not replace it.",
-   "Wrong: The sheer number of patterns (over-engineering) does not automatically improve a system."
+   "Correct: patterns condense proven knowledge and reduce the risk of reinventing the wheel.",
+   "Correct: well-known pattern names form a common language.",
+   "Correct: every pattern has context conditions and consequences; applied wrongly it does harm.",
+   "Wrong: the simplest viable design is preferable; a pattern for its own sake is over-engineering.",
+   "Wrong: patterns must be adapted to their context – unchanged adoption rarely fits exactly."
   ],
-  "explanation": "Patterns reduce risk, create a common vocabulary, and are to be chosen based on their trade-offs. They do not replace requirements analysis, and their sheer number improves nothing."
+  "explanation": "Patterns reduce risk, create a common vocabulary and are chosen based on their trade-offs. A pattern for its own sake (instead of the simplest viable design) or unadapted adoption are misapplications."
  },
  "c3q37": {
   "q": "Which statements about a domain-oriented partitioning (e.g., bounded contexts in DDD) are correct?",
@@ -2182,20 +2182,20 @@ const QUESTIONS_EN = {
   "q": "What is advisable in design regarding domain and technical architecture?",
   "options": [
    "First understand the domain-oriented partitioning (problem space) and align the technical solution with it.",
-   "First fully define the technical infrastructure; the domain-oriented partitioning follows from it.",
-   "The domain and technical views are always identical and need not be considered separately.",
-   "The domain-oriented partitioning is secondary, as long as the non-functional requirements (e.g., performance) are met."
+   "Design the domain and technical partitioning strictly separately and independently, without aligning them.",
+   "Align the technical partitioning primarily with the org chart of the development teams.",
+   "Define the domain partitioning only after all non-functional requirements (e.g. performance) are fully met."
   ],
   "correct": [
    0
   ],
   "optExpl": [
-   "Correct: First understand the problem space, then align the technology with it.",
-   "Defining technology first leads to poorly cut systems designed past the domain.",
-   "Both views are related but must be considered separately – they are not identical.",
-   "The domain-oriented partitioning largely determines the structure; performance does not justify an arbitrary partitioning."
+   "Correct: first understand the problem space, then align the technology with it.",
+   "Near-miss: the two views must be distinguished but also aligned – a fully independent design does not fit together.",
+   "Wrong: aligning solely with the org chart is a Conway fallacy – the domain partitioning is decisive, not the team structure.",
+   "Wrong: the domain partitioning largely determines the structure; NFRs like performance do not justify a partitioning that ignores the domain."
   ],
-  "explanation": "First understand the domain-oriented partitioning/problem space, then align the technology with it. Technology-first, equating both views, or subordinating the domain to performance lead to poorly cut systems."
+  "explanation": "First understand the domain partitioning/problem space, then align the technology. A fully independent technical/domain split, aligning with the org chart, or subordinating the domain to NFRs lead to poorly cut systems."
  },
  "c3q43": {
   "q": "What does the \"Miller number\" (7±2) indicate when structuring an architecture?",
@@ -2584,8 +2584,8 @@ const QUESTIONS_EN = {
    "They verify assumptions and risks early and enable adjustments when new knowledge arises.",
    "They are especially valuable for uncertain/risky decisions (risk-driven).",
    "A prototype can deliberately serve as a \"throwaway\" artifact, just to verify an assumption.",
-   "They completely replace the architecture documentation.",
-   "After the first decision, the architecture should be frozen and no longer changed."
+   "A throwaway prototype should always be developed directly into production code to save effort.",
+   "Early feedback loops are only sensible in agile approaches, not in plan-driven projects."
   ],
   "correct": [
    0,
@@ -2593,13 +2593,13 @@ const QUESTIONS_EN = {
    2
   ],
   "optExpl": [
-   "Correct: Feedback verifies assumptions/risks early and enables course corrections.",
-   "Correct: Uncertain decisions in particular benefit from early feedback.",
-   "Correct: A prototype may be discarded after gaining insight.",
-   "Wrong: Feedback loops do not replace documentation.",
-   "Wrong: Feedback serves precisely for adjustment, not for freezing."
+   "Correct: feedback verifies assumptions and risks early and enables course corrections.",
+   "Correct: uncertain decisions in particular benefit from early feedback.",
+   "Correct: a prototype may be discarded after gaining insight.",
+   "Wrong: a throwaway prototype serves insight and is discarded afterwards – turning it into production code carries over its shortcuts and debt.",
+   "Wrong: early feedback for risk reduction is useful regardless of the process, not only in agile."
   ],
-  "explanation": "Feedback loops verify assumptions and risks early (also via throwaway prototype) and are especially valuable for uncertain decisions. They do not replace documentation and serve for adjustment, not for freezing."
+  "explanation": "Feedback loops verify assumptions and risks early (including via a throwaway prototype) and are especially valuable for uncertain decisions. A throwaway prototype is discarded (not turned into production code), and early feedback is useful regardless of the process."
  },
  "c3q61": {
   "q": "What characterizes an \"evolutionary architecture\" with fitness functions?",
@@ -3750,19 +3750,19 @@ const QUESTIONS_EN = {
   "options": [
    "A qualitative, expert-supported examination of the architecture on the basis of quality goals and scenarios.",
    "A facilitated method whose result consists primarily of automatically measured code metrics.",
-   "A dynamic test that checks the running system against defined load profiles.",
-   "A method that can only be sensibly carried out after completion of the code."
+   "A purely checklist-based sign-off without reference to prioritized quality goals or scenarios.",
+   "A method that can only examine finished code and is unsuitable for design models."
   ],
   "correct": [
    0
   ],
   "optExpl": [
-   "Correct: A review is a qualitative, expert-supported examination against goals and scenarios.",
-   "Reviews can draw on metrics, but their core is human judgment - not primarily measurement.",
-   "A load test is a dynamic measurement, not a review.",
-   "Reviews are valuable precisely early on, at the model/design level, and are not only possible after code completion."
+   "Correct: a review is a qualitative, expert-supported examination against quality goals and scenarios.",
+   "Near-miss: reviews can draw on metrics, but their core is human judgment – not primarily measurement.",
+   "Near-miss: a good evaluation is guided by prioritized quality goals and scenarios; a pure checklist without that reference falls short.",
+   "Wrong: reviews are valuable precisely early, at the model/design level – not only with finished code."
   ],
-  "explanation": "Reviews/walkthroughs are qualitative, expert-supported methods against goals and scenarios - applicable early. Metric measurement and load tests are something different."
+  "explanation": "Reviews/walkthroughs are qualitative, expert-supported methods against prioritized quality goals and scenarios – usable early at the model level too. Pure metric measurement, checklist sign-off without scenario reference, or restriction to finished code all fall short."
  },
  "c5q11": {
   "q": "Which of the following methods are qualitative evaluation methods?",
@@ -4114,20 +4114,20 @@ const QUESTIONS_EN = {
   "q": "With what can compliance with planned dependency or layer rules be checked most reliably?",
   "options": [
    "With static analysis or tools that check actual dependencies against defined rules.",
-   "Through spot-check surveying of individual developers for their assessment.",
-   "Through counting the lines of code per file and layer.",
-   "Solely through measuring the response times of the system in operation."
+   "With a manual code review that spot-checks individual classes.",
+   "With runtime monitoring that logs the modules actually invoked in operation.",
+   "With binding naming conventions that all teams are supposed to follow."
   ],
   "correct": [
    0
   ],
   "optExpl": [
-   "Correct: Static analysis systematically checks the real dependencies against target rules.",
-   "Individual opinions do not check structural rules reliably and completely.",
-   "LOC says nothing about permitted or forbidden dependencies.",
-   "Runtime response times say nothing about the structural conformity of the dependencies."
+   "Correct: static analysis checks the real dependencies systematically and completely against the target rules – automated in the build.",
+   "Near-miss: a manual review can spot violations but samples and is error-prone – not as reliable or complete as a tool.",
+   "Wrong: runtime monitoring captures only paths actually executed, not all (including forbidden) static dependencies.",
+   "Wrong: conventions are an intention, not a proof – they do not verify compliance."
   ],
-  "explanation": "Forbidden dependencies (e.g. between layers) are found reliably with static dependency analysis. Surveys, LOC counting, or runtime measurement do not check structural conformity."
+  "explanation": "Forbidden dependencies (e.g. between layers) are found most reliably with static dependency analysis – automated and complete. Manual reviews (sampling), runtime monitoring (only executed paths) or mere naming conventions (no proof) are less reliable."
  },
  "c6q1": {
   "q": "A colleague argues that Chapter 6 (\"Examples of software architectures\") is dispensable because it contains \"nothing new\". How can the purpose of the chapter be accurately characterized?",
