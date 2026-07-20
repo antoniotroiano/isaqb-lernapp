@@ -3516,7 +3516,7 @@ const QUESTIONS_EN = {
  "c4q35": {
   "q": "What applies to the documentation of interfaces?",
   "options": [
-   "External interfaces form a \"contract\" with third parties and are usually specified earlier and in more detail.",
+   "External interfaces form a \"contract\" with third parties and are therefore usually documented earlier, more formally and in more detail – including versioning.",
    "Internal interfaces must generally be documented in more detail than external ones.",
    "An interface description should also disclose the internal implementation, in order to avoid misunderstandings.",
    "For interfaces, the signature is sufficient; data formats and error behavior are dispensable."
@@ -3525,12 +3525,12 @@ const QUESTIONS_EN = {
    0
   ],
   "optExpl": [
-   "Correct: External interfaces are binding for third parties and are therefore specified early and carefully.",
+   "Correct: because third parties rely on them, external interfaces are documented early, formally and with versioning.",
    "Fallacy: Internal interfaces are not per se more detailed; the level of detail depends on need.",
    "Near-Miss: The internal implementation in particular remains deliberately hidden (blackbox).",
    "Data formats and error behavior are mandatory parts of the interface description."
   ],
-  "explanation": "External interfaces are a contract with third parties and are specified early/in detail (data formats, protocols, error and versioning behavior). The internal implementation is deliberately left out (blackbox)."
+  "explanation": "External interfaces are a contract with third parties and are documented early, formally and in detail (data formats, protocols, error and versioning behavior). The internal implementation is deliberately left out (black box); data formats and error behavior are mandatory parts."
  },
  "c4q36": {
   "q": "Which statements about the central documentation of cross-cutting concepts (e.g., security, error handling, logging) are true?",
