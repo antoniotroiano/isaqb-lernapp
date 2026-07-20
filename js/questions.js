@@ -4580,7 +4580,7 @@ const QUESTIONS = [
   "type": "single",
   "q": "Was gilt für die Dokumentation von Schnittstellen?",
   "options": [
-   "Externe Schnittstellen bilden einen „Vertrag“ mit Dritten und werden meist früher und ausführlicher festgelegt.",
+   "Externe Schnittstellen bilden einen „Vertrag“ mit Dritten und werden daher meist früher, formeller und ausführlicher dokumentiert – inklusive Versionierung.",
    "Interne Schnittstellen müssen grundsätzlich detaillierter dokumentiert werden als externe.",
    "Eine Schnittstellenbeschreibung sollte auch die interne Implementierung offenlegen, um Missverständnisse zu vermeiden.",
    "Für Schnittstellen genügt die Signatur; Datenformate und Fehlerverhalten sind verzichtbar."
@@ -4589,12 +4589,12 @@ const QUESTIONS = [
    0
   ],
   "optExpl": [
-   "Richtig: Externe Schnittstellen sind für Dritte verbindlich und werden daher früh und sorgfältig festgelegt.",
+   "Richtig: Weil Dritte sich darauf verlassen, werden externe Schnittstellen früh, formell und mit Versionierung dokumentiert.",
    "Trugschluss: Interne Schnittstellen sind nicht per se detaillierter; der Detailgrad richtet sich nach Bedarf.",
    "Near-Miss: Gerade die interne Implementierung bleibt bewusst verborgen (Blackbox).",
    "Datenformate und Fehlerverhalten gehören zwingend zur Schnittstellenbeschreibung."
   ],
-  "explanation": "Externe Schnittstellen sind ein Vertrag mit Dritten und werden früh/ausführlich festgelegt (Datenformate, Protokolle, Fehler- und Versionierungsverhalten). Die interne Implementierung bleibt bewusst außen vor (Blackbox)."
+  "explanation": "Externe Schnittstellen sind ein Vertrag mit Dritten und werden früh, formell und ausführlich dokumentiert (Datenformate, Protokolle, Fehler- und Versionierungsverhalten). Die interne Implementierung bleibt bewusst außen vor (Blackbox); Datenformate und Fehlerverhalten sind Pflichtbestandteile."
  },
  {
   "id": "c4q36",
