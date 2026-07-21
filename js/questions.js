@@ -449,22 +449,25 @@ const QUESTIONS = [
   "chapter": 1,
   "lz": "LZ 01-01",
   "r": "R2",
-  "type": "single",
+  "type": "multi",
   "q": "Wie verhält sich Softwarearchitektur zu den verschiedenen Abstraktionsebenen eines Systems?",
   "options": [
    "Sie beschreibt Strukturen auf mehreren, ineinander geschachtelten Ebenen (System, Subsysteme, Bausteine); Prinzipien wie Kohäsion und Kopplung greifen dabei rekursiv.",
    "Architekturrelevant ist nur die oberste Systemebene; jede feinere Zerlegung zählt ausschließlich zum Detailentwurf.",
    "Die Ebenen sind strikt getrennt: Entscheidungen einer Ebene haben keine Auswirkungen auf tiefere Ebenen.",
-   "Die Anzahl der Abstraktionsebenen ist durch den Lehrplan fest auf drei vorgegeben."
+   "Die Anzahl der Abstraktionsebenen ist durch den Lehrplan fest auf drei vorgegeben.",
+   "Auf jeder Ebene lässt sich ein Baustein wieder als Blackbox oder Whitebox betrachten."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Strukturen werden auf mehreren geschachtelten Ebenen betrachtet, dieselben Prinzipien greifen rekursiv.",
    "Falsch: die Grenze zwischen Architektur und Detailentwurf ist fließend, nicht auf die oberste Ebene beschränkt.",
    "Falsch: Entscheidungen höherer Ebenen rahmen und beeinflussen die tieferen.",
-   "Falsch: es gibt keine fest vorgegebene Ebenenzahl."
+   "Falsch: es gibt keine fest vorgegebene Ebenenzahl.",
+   "Richtig: Blackbox/Whitebox greifen rekursiv auf jeder Verfeinerungsebene."
   ],
   "explanation": "Architektur betrachtet Strukturen hierarchisch auf mehreren Ebenen, wobei Kohäsion/Kopplung rekursiv gelten. Die Grenze zum Detailentwurf ist fließend, Ebenen beeinflussen sich, und die Ebenenzahl ist nicht fix vorgegeben."
  },
@@ -886,22 +889,25 @@ const QUESTIONS = [
   "chapter": 2,
   "lz": "LZ 02-04",
   "r": "R1",
-  "type": "single",
-  "q": "Ein Stakeholder fordert: „Das System soll schnell sein.“ Wie macht man diese Anforderung am ehesten überprüfbar?",
+  "type": "multi",
+  "q": "Ein Stakeholder fordert: „Das System soll schnell sein.“ Wodurch wird diese Anforderung überprüfbar?",
   "options": [
    "Durch ein Qualitätsszenario mit Auslöser, Umgebung/Kontext und einem messbaren Antwortmaß (z. B. „95 % der Suchen unter 1 s bei Volllast“).",
    "Indem man ein pauschales Antwortmaß von „unter 1 Sekunde“ festlegt, ohne Auslöser und Betriebszustand zu benennen.",
    "Indem man die Anforderung als Randbedingung „performante Programmiersprache verwenden“ formuliert.",
-   "Indem man vereinbart, dass das Team „schnell“ nach eigenem Ermessen bewertet."
+   "Indem man vereinbart, dass das Team „schnell“ nach eigenem Ermessen bewertet.",
+   "Durch die Angabe einer konkreten Messgröße mit Zielwert (z. B. Antwortzeit unter 2 s im 95. Perzentil)."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Ein vollständiges Qualitätsszenario (Auslöser, Kontext, messbares Antwortmaß) macht die Anforderung eindeutig prüfbar.",
    "Falsch (Near-Miss): Eine bloße Zahl ohne Auslöser und Lastkontext ist nur scheinbar präzise – „unter 1 s“ ist ohne definierte Bedingungen nicht eindeutig prüfbar.",
    "Falsch: Eine Technologie-Randbedingung präzisiert die Qualitätsanforderung nicht und legt eine Lösung fest.",
-   "Falsch: Ein subjektives Urteil bleibt vage und ist gerade nicht messbar."
+   "Falsch: Ein subjektives Urteil bleibt vage und ist gerade nicht messbar.",
+   "Richtig: eine messbare Zielgröße macht die Anforderung überprüfbar."
   ],
   "explanation": "Überprüfbar wird die Anforderung erst durch ein vollständiges Qualitätsszenario mit Auslöser, Umgebung und messbarem Antwortmaß. Eine nackte Zahl ohne Kontext ist nur scheinbar präzise, eine Technologie-Randbedingung verwechselt Anforderung und Lösung, und ein subjektives Urteil ist nicht messbar."
  },
@@ -1162,22 +1168,25 @@ const QUESTIONS = [
   "chapter": 2,
   "lz": "LZ 02-03",
   "r": "R1",
-  "type": "single",
+  "type": "multi",
   "q": "Was gilt typischerweise für das Verhältnis verschiedener Qualitätsanforderungen zueinander?",
   "options": [
    "Sie stehen häufig in Zielkonflikt (Trade-off) und müssen bewusst gegeneinander abgewogen werden.",
    "Sie verstärken sich in der Regel gegenseitig, sodass die Verbesserung einer meist auch andere verbessert.",
    "Sie sind grundsätzlich voneinander unabhängig und beeinflussen sich nicht.",
-   "Es ist zu jedem Zeitpunkt nur eine einzige Qualitätsanforderung relevant."
+   "Es ist zu jedem Zeitpunkt nur eine einzige Qualitätsanforderung relevant.",
+   "Eine einzelne Anforderung kann zudem mehrere Qualitäten gleichzeitig betreffen."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Qualitätsmerkmale konkurrieren oft (z. B. Sicherheit vs. Bedienbarkeit) und müssen abgewogen werden.",
    "Falsch (Near-Miss): Manche Qualitäten harmonieren zwar, aber „in der Regel gegenseitige Verstärkung“ ist falsch – Konflikte sind typisch.",
    "Falsch: Sie sind nicht unabhängig, sondern beeinflussen sich häufig.",
-   "Falsch: Meist sind mehrere Qualitätsanforderungen zugleich relevant."
+   "Falsch: Meist sind mehrere Qualitätsanforderungen zugleich relevant.",
+   "Richtig: Qualitäten überlappen; eine Anforderung kann mehrere zugleich betreffen."
   ],
   "explanation": "Qualitätsmerkmale stehen häufig in Zielkonflikt und müssen abgewogen werden. Sie verstärken sich nicht in der Regel gegenseitig, sind nicht unabhängig und selten einzeln-exklusiv."
  },
@@ -1931,22 +1940,25 @@ const QUESTIONS = [
   "chapter": 3,
   "lz": "LZ 03-04",
   "r": "R2",
-  "type": "single",
-  "q": "Was fordert das Dependency-Inversion-Prinzip (DIP)?",
+  "type": "multi",
+  "q": "Welche Aussagen treffen auf das Dependency-Inversion-Prinzip (DIP) zu?",
   "options": [
    "High-Level- und Low-Level-Module hängen von gemeinsamen Abstraktionen ab; Abstraktionen hängen nicht von Details ab, sondern Details von Abstraktionen.",
    "Objekte sollen ihre Abhängigkeiten von außen übergeben bekommen, statt sie selbst zu erzeugen.",
    "High-Level-Module sollen direkt von den konkreten Low-Level-Modulen abhängen, um Umwege zu vermeiden.",
-   "Die Aufrufrichtung zwischen Modulen muss stets der Übersetzungsabhängigkeit entsprechen."
+   "Die Aufrufrichtung zwischen Modulen muss stets der Übersetzungsabhängigkeit entsprechen.",
+   "Dadurch werden konkrete Implementierungen leicht austauschbar (z. B. per Dependency Injection)."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Beide Ebenen hängen von Abstraktionen ab; Details hängen von Abstraktionen, nicht umgekehrt.",
    "Near-Miss: Das beschreibt Dependency Injection (eine Technik), nicht das DIP (ein Prinzip).",
    "Falsch: Eine direkte Abhängigkeit von konkreten Low-Level-Modulen ist genau das, was das DIP vermeidet.",
-   "Falsch: Das DIP kehrt die Quell-/Übersetzungsabhängigkeit gegenüber der Aufrufrichtung gerade um."
+   "Falsch: Das DIP kehrt die Quell-/Übersetzungsabhängigkeit gegenüber der Aufrufrichtung gerade um.",
+   "Richtig: die Abhängigkeit von Abstraktionen macht Implementierungen austauschbar."
   ],
   "explanation": "Das DIP verlangt, dass beide Ebenen von Abstraktionen abhängen und Details von Abstraktionen, nicht umgekehrt. Dependency Injection ist eine Umsetzungstechnik, nicht das Prinzip selbst; eine direkte Abhängigkeit von Low-Level-Modulen widerspricht dem DIP."
  },
@@ -2143,22 +2155,25 @@ const QUESTIONS = [
   "chapter": 3,
   "lz": "LZ 03-06",
   "r": "R2",
-  "type": "single",
-  "q": "In einem System referenzieren sich die Bausteine A und B gegenseitig (zyklische Abhängigkeit). Welche Aussage trifft zu?",
+  "type": "multi",
+  "q": "In einem System referenzieren sich die Bausteine A und B gegenseitig (zyklische Abhängigkeit). Welche Aussagen treffen zu?",
   "options": [
    "Der Zyklus erschwert isoliertes Testen und unabhängiges Ändern; A und B lassen sich kaum getrennt verstehen oder wiederverwenden.",
    "In einer strengen Schichtenarchitektur ist ein solcher Zyklus zulässig, solange beide Bausteine in derselben Schicht liegen.",
    "Der Zyklus betrifft nur die Übersetzungs-/Buildzeit und hat keine Auswirkung auf die Wartbarkeit.",
-   "Die gegenseitigen Referenzen verbessern die Performance, weil Umwege über dritte Bausteine entfallen."
+   "Die gegenseitigen Referenzen verbessern die Performance, weil Umwege über dritte Bausteine entfallen.",
+   "Der Zyklus sollte aufgebrochen werden – etwa durch eine gemeinsame Abstraktion oder das Umkehren einer Abhängigkeit."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Der Zyklus bindet A und B fest aneinander und erschwert Test, Änderung und Wiederverwendung.",
    "Near-Miss: Zyklen sind auch innerhalb einer Schicht unerwünscht und kein zulässiges Merkmal der Schichtung.",
    "Falsch: Zyklen wirken sich sehr wohl auf Verständnis und Wartbarkeit aus.",
-   "Falsch: Zyklen bringen keinen Performancevorteil, erhöhen aber die Kopplung."
+   "Falsch: Zyklen bringen keinen Performancevorteil, erhöhen aber die Kopplung.",
+   "Richtig: Zyklen bricht man über eine Abstraktion oder Dependency-Inversion auf."
   ],
   "explanation": "Zyklen koppeln A und B gegenseitig fest und erschweren Verständnis, isoliertes Testen, Änderung und Wiederverwendung. Sie sind auch innerhalb einer Schicht unerwünscht, betreffen die Wartbarkeit und bringen keinen Performancevorteil."
  },
@@ -2947,22 +2962,25 @@ const QUESTIONS = [
   "chapter": 3,
   "lz": "LZ 03-06",
   "r": "R2",
-  "type": "single",
-  "q": "Bedeutet dynamische (erst zur Laufzeit aufgelöste) Kopplung automatisch „lose“ Kopplung?",
+  "type": "multi",
+  "q": "Was gilt für dynamische (erst zur Laufzeit aufgelöste) Kopplung?",
   "options": [
    "Nein – die Abhängigkeit wird oft nur verschoben oder versteckt, nicht wirklich verringert.",
    "Ja – sobald etwas zur Laufzeit aufgelöst wird, ist die Kopplung immer minimal.",
    "Ja – dynamische Kopplung entfernt jede Abhängigkeit vollständig.",
-   "Nein – dynamische Kopplung ist grundsätzlich stärker als jede statische Kopplung."
+   "Nein – dynamische Kopplung ist grundsätzlich stärker als jede statische Kopplung.",
+   "Entscheidend ist die zugrunde liegende fachliche Abhängigkeit, nicht der Zeitpunkt ihrer Auflösung."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Die Abhängigkeit wird häufig nur verlagert oder verborgen, nicht verringert.",
    "Laufzeit-Auflösung macht die Kopplung nicht automatisch minimal.",
    "Dynamische Kopplung entfernt keine Abhängigkeit vollständig.",
-   "Dynamische Kopplung ist nicht generell stärker als statische."
+   "Dynamische Kopplung ist nicht generell stärker als statische.",
+   "Richtig: der Auflösungszeitpunkt ändert die eigentliche Abhängigkeit nicht."
   ],
   "explanation": "Dynamische Auflösung (z. B. per Konfiguration/Reflection) verlagert oder verbirgt Abhängigkeiten häufig nur; sie ist nicht per se lose. Umgekehrt ist sie auch nicht generell stärker als statische Kopplung."
  },
@@ -3869,22 +3887,25 @@ const QUESTIONS = [
   "chapter": 4,
   "lz": "LZ 04-03",
   "r": "R2",
-  "type": "single",
-  "q": "Was stellt ein UML-Komponentendiagramm primär dar?",
+  "type": "multi",
+  "q": "Welche Aussagen über ein UML-Komponentendiagramm treffen zu?",
   "options": [
    "Komponenten/Bausteine und ihre angebotenen bzw. benötigten Schnittstellen.",
    "Physische Rechnerknoten und die darauf ausgeführten Artefakte.",
    "Die vollständige Signatur jeder Operation samt Parametertypen und Sichtbarkeiten.",
-   "Die Reihenfolge, in der die Komponenten zur Laufzeit instanziiert und aufgerufen werden."
+   "Die Reihenfolge, in der die Komponenten zur Laufzeit instanziiert und aufgerufen werden.",
+   "Es zeigt die statische Struktur, nicht das zeitliche Ablaufverhalten."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Komponentendiagramme zeigen Bausteine und ihre angebotenen/benötigten Schnittstellen.",
    "Knoten und darauf ausgeführte Artefakte zeigt das Verteilungsdiagramm.",
    "Detaillierte Operationssignaturen je Klasse zeigt das Klassendiagramm; Komponenten zeigen Schnittstellen, nicht jede Signatur.",
-   "Die zeitliche Reihenfolge von Instanziierung/Aufrufen zeigt das Sequenz-/Laufzeitdiagramm."
+   "Die zeitliche Reihenfolge von Instanziierung/Aufrufen zeigt das Sequenz-/Laufzeitdiagramm.",
+   "Richtig: das Komponentendiagramm ist statisch (Ablauf zeigt z. B. das Sequenzdiagramm)."
   ],
   "explanation": "Komponentendiagramme zeigen Bausteine mit angebotenen/benötigten Schnittstellen (statische Struktur). Knoten+Artefakte = Verteilungsdiagramm; volle Signaturen = Klassendiagramm; zeitliche Reihenfolge = Sequenzdiagramm."
  },
@@ -3917,54 +3938,29 @@ const QUESTIONS = [
   "explanation": "Mehrere Sichten adressieren verschiedene Fragen/Adressaten, weil keine einzelne alles zeigt, und dieselben Bausteine tauchen mehrfach auf. Sichten sind aber nicht unabhängig (Konsistenzpflicht), und mehr Sichten sind nicht per se besser."
  },
  {
-  "id": "c4q14",
-  "chapter": 4,
-  "lz": "LZ 04-01",
-  "r": "R1",
-  "type": "multi",
-  "q": "Welche Eigenschaften machen Architekturdokumentation besonders nützlich?",
-  "options": [
-   "Sie ist aktuell und wird bei relevanten Änderungen mitgepflegt.",
-   "Sie ist auf die jeweilige Zielgruppe zugeschnitten.",
-   "Sie ist so knapp wie möglich und so ausführlich wie nötig.",
-   "Sie ist so umfangreich wie möglich; die Aktualität ist dabei zweitrangig.",
-   "Sie wird möglichst vollständig aus dem Code generiert, denn generierte Doku ist automatisch nützlich."
-  ],
-  "correct": [
-   0,
-   1,
-   2
-  ],
-  "optExpl": [
-   "Aktuelle, mitgepflegte Doku bleibt verlässlich und nützlich.",
-   "Auf die Zielgruppe zugeschnittene Doku trifft den Informationsbedarf.",
-   "Angemessen knappe Doku ist gut lesbar und pflegbar.",
-   "Maximaler Umfang auf Kosten der Aktualität ist gerade schädlich.",
-   "Near-Miss: Code-Generierung kann Struktur-Doku aktuell halten, ersetzt aber nicht Entscheidungen/Rationale und macht Doku nicht automatisch nützlich."
-  ],
-  "explanation": "Nützliche Doku ist aktuell, zielgruppengerecht und angemessen knapp. Maximaler Umfang auf Kosten der Aktualität schadet, und generierte Doku ist nicht per se nützlich (Rationale/Entscheidungen lassen sich nicht generieren)."
- },
- {
   "id": "c4q15",
   "chapter": 4,
   "lz": "LZ 04-03",
   "r": "R2",
-  "type": "single",
-  "q": "Welchen Vorteil bietet eine standardisierte Notation (z. B. UML) gegenüber beliebigen „Kästchen und Pfeilen“?",
+  "type": "multi",
+  "q": "Welche Vorteile bietet eine standardisierte Notation (z. B. UML) gegenüber beliebigen „Kästchen und Pfeilen“?",
   "options": [
    "Die Diagrammelemente haben eine vereinbarte, für andere eindeutig nachvollziehbare Bedeutung.",
    "Diagramme lassen sich von Werkzeugen prüfen und teils in Code umsetzen, wodurch Entwurfsfehler ausgeschlossen werden.",
    "Eine erklärende Legende ist nicht mehr nötig, da die Notation vollständig selbsterklärend ist.",
-   "Standardnotation erzwingt einen einheitlichen Detailgrad über alle Diagramme hinweg."
+   "Standardnotation erzwingt einen einheitlichen Detailgrad über alle Diagramme hinweg.",
+   "Sie erleichtert die eindeutige Kommunikation zwischen verschiedenen Stakeholdern und Werkzeugen."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Standardnotation gibt den Elementen eine vereinbarte, klare Bedeutung.",
    "Near-Miss: Werkzeugunterstützung/Codegenerierung gibt es, sie schließt fachliche Entwurfsfehler aber nicht aus.",
    "Auch bei Standardnotation bleiben Erklärungen/Legenden je nach Leser sinnvoll.",
-   "Ein einheitlicher Detailgrad wird durch die Notation nicht erzwungen."
+   "Ein einheitlicher Detailgrad wird durch die Notation nicht erzwungen.",
+   "Richtig: eine gemeinsame Notation verbessert Verständigung und Werkzeugunterstützung."
   ],
   "explanation": "Standardnotationen geben Elementen eine vereinbarte Bedeutung und damit bessere Verständlichkeit. Sie schließen keine Entwurfsfehler aus, ersetzen nicht jede Erklärung und erzwingen keinen einheitlichen Detailgrad."
  },
@@ -5038,22 +5034,25 @@ const QUESTIONS = [
   "chapter": 5,
   "lz": "LZ 05-01",
   "r": "R1",
-  "type": "single",
+  "type": "multi",
   "q": "Warum sind klar formulierte, priorisierte Qualitätsziele Voraussetzung für eine sinnvolle Architekturbewertung?",
   "options": [
    "Ohne priorisierte Qualitätsziele fehlt der Maßstab, gegen den Architekturentscheidungen überhaupt bewertet werden könnten.",
    "Weil sich der Umfang einer Bewertung erst aus den funktionalen Anforderungen ableiten lässt.",
    "Weil ohne dokumentierte Qualitätsziele grundsätzlich keine gültige Architektur existieren kann.",
-   "Weil Qualitätsziele festlegen, welche konkreten Technologien im System eingesetzt werden müssen."
+   "Weil Qualitätsziele festlegen, welche konkreten Technologien im System eingesetzt werden müssen.",
+   "Die Priorisierung fokussiert die Bewertung auf die wichtigsten und riskantesten Punkte."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Bewertung misst gegen die Qualitätsziele – ohne sie fehlt der Maßstab.",
    "Falsch: Der Fokus der Bewertung ergibt sich aus den Qualitätszielen, nicht primär aus den funktionalen Anforderungen.",
    "Falsch: Architektur kann auch ohne dokumentierte Ziele existieren – sie lässt sich nur nicht sinnvoll bewerten.",
-   "Falsch: Qualitätsziele beschreiben Anforderungen (WAS), nicht die konkrete Technologiewahl (WIE)."
+   "Falsch: Qualitätsziele beschreiben Anforderungen (WAS), nicht die konkrete Technologiewahl (WIE).",
+   "Richtig: Priorisierung lenkt die begrenzte Bewertungszeit auf das Wesentliche."
   ],
   "explanation": "Bewertung misst gegen priorisierte Qualitätsziele; fehlen sie, gibt es keinen Maßstab. Sie hängen nicht am Umfang funktionaler Anforderungen, sind keine Existenzbedingung für Architektur und legen keine Technologien fest."
  },
@@ -5062,22 +5061,25 @@ const QUESTIONS = [
   "chapter": 5,
   "lz": "LZ 05-02",
   "r": "R2",
-  "type": "single",
+  "type": "multi",
   "q": "Wozu dienen Werkzeuge der statischen Code- bzw. Architekturanalyse?",
   "options": [
    "Zum (teil-)automatisierten Prüfen von Code und Struktur ohne Ausführung – etwa Metriken sowie Namens- und Abhängigkeitsregeln.",
    "Zum Messen des Laufzeitverhaltens (Antwortzeiten, Speicherverbrauch) unter realer Last.",
    "Zum Erheben qualitativer Experteneinschätzungen in moderierten Workshops.",
-   "Zum automatischen Beheben aller gefundenen Regelverstöße im Code."
+   "Zum automatischen Beheben aller gefundenen Regelverstöße im Code.",
+   "Sie können Abhängigkeits- und Schichtungsregeln automatisiert auf Verstöße prüfen."
   ],
   "correct": [
-   0
+   0,
+   4
   ],
   "optExpl": [
    "Richtig: Statische Analyse prüft Code/Struktur ohne Ausführung gegen Metriken und Regeln.",
    "Das ist dynamische Analyse (Messung zur Laufzeit) – naheliegend, aber falsch.",
    "Experten-Workshops sind qualitativ und keine statische Analyse.",
-   "Statische Analyse findet Verstöße, behebt sie aber nicht automatisch."
+   "Statische Analyse findet Verstöße, behebt sie aber nicht automatisch.",
+   "Richtig: statische Analyse deckt Verstöße gegen Abhängigkeits- und Schichtregeln auf."
   ],
   "explanation": "Statische Analyse prüft Code/Struktur ohne Ausführung (Metriken, Regeln, Abhängigkeiten). Laufzeitmessung ist dynamisch, Workshops sind qualitativ, und Behebung erfolgt nicht automatisch."
  },
@@ -5670,46 +5672,6 @@ const QUESTIONS = [
   "explanation": "Funktionale Anforderungen sagen, WAS das System tut (Anmeldung, Rechnung, Sprachen); Qualitätsanforderungen sagen, WIE GUT (Verfügbarkeit, Änderbarkeit, Bedienbarkeit) – LZ 02-03."
  },
  {
-  "id": "k20",
-  "chapter": 3,
-  "lz": "LZ 03-06",
-  "r": "R1",
-  "type": "k",
-  "points": 2,
-  "q": "In einem System soll die Wartbarkeit verbessert werden. Ordne die folgenden Eigenschaften ein.",
-  "categories": [
-   "Fördert Wartbarkeit",
-   "Schadet Wartbarkeit"
-  ],
-  "rows": [
-   {
-    "text": "Hohe Kohäsion innerhalb der Bausteine.",
-    "cat": 0
-   },
-   {
-    "text": "Enge, weitreichende Kopplung zwischen vielen Bausteinen.",
-    "cat": 1
-   },
-   {
-    "text": "Klar definierte, stabile Schnittstellen.",
-    "cat": 0
-   },
-   {
-    "text": "Viele geteilte, global veränderliche Zustände.",
-    "cat": 1
-   },
-   {
-    "text": "Information Hiding: interne Details sind gekapselt.",
-    "cat": 0
-   },
-   {
-    "text": "Zyklische Abhängigkeiten zwischen Modulen.",
-    "cat": 1
-   }
-  ],
-  "explanation": "Hohe Kohäsion, stabile Schnittstellen und Information Hiding senken die Kopplung und erleichtern Änderungen (LZ 03-06/03-04). Enge Kopplung, globaler veränderlicher Zustand und Zyklen erschweren Änderungen."
- },
- {
   "id": "k21",
   "chapter": 3,
   "lz": "LZ 03-08",
@@ -5988,5 +5950,628 @@ const QUESTIONS = [
    }
   ],
   "explanation": "Gute Schnittstellen sind leicht nutzbar, schwer missbrauchbar, funktional vollständig und trennen Schnittstelle von Implementierung (austauschbar) – LZ 03-07. Interne Details offenzulegen oder bei jeder Änderung zu brechen ist unerwünscht (zu enge Kopplung)."
+ },
+ {
+  "id": "c3q67",
+  "chapter": 3,
+  "lz": "LZ 03-06",
+  "r": "R1",
+  "type": "multi",
+  "q": "Was passiert typischerweise, wenn zwischen Bausteinen eine hohe, enge Kopplung besteht?",
+  "options": [
+   "Änderungen an einem Baustein pflanzen sich auf viele andere fort.",
+   "Bausteine lassen sich schlecht isoliert testen.",
+   "Die Wiederverwendbarkeit einzelner Bausteine sinkt.",
+   "Die Performance des Systems steigt dadurch garantiert.",
+   "Dokumentation wird dadurch überflüssig."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: enge Kopplung lässt Änderungen durch das System wandern (Ripple-Effekt).",
+   "Richtig: stark gekoppelte Bausteine sind ohne ihre Nachbarn kaum testbar.",
+   "Richtig: was fest an anderes gebunden ist, lässt sich schwer separat wiederverwenden.",
+   "Falsch: Kopplung hat mit Performance nichts direkt zu tun.",
+   "Falsch: Kopplung ändert nichts am Bedarf an Dokumentation."
+  ],
+  "explanation": "Hohe Kopplung erhöht die Änderungs-Auswirkung, erschwert isoliertes Testen und senkt die Wiederverwendbarkeit. Mit Performance oder Doku-Bedarf hat sie nichts zu tun."
+ },
+ {
+  "id": "c3q68",
+  "chapter": 3,
+  "lz": "LZ 03-04",
+  "r": "R1",
+  "type": "multi",
+  "q": "Ein Baustein legt seine internen Implementierungsdetails offen (kein Information Hiding). Was sind die Folgen?",
+  "options": [
+   "Nutzer binden sich an Interna – Änderungen daran brechen sie.",
+   "Die Kopplung an den Baustein steigt.",
+   "Die Implementierung lässt sich schlechter austauschen.",
+   "Die Kohäsion des Bausteins steigt automatisch.",
+   "Die Sicherheit des Systems wird dadurch erhöht."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: wer sich auf Interna verlässt, bricht bei deren Änderung.",
+   "Richtig: offengelegte Interna erzeugen zusätzliche Abhängigkeiten.",
+   "Richtig: ohne stabile Schnittstelle ist die Umsetzung nicht mehr frei austauschbar.",
+   "Falsch: Offenlegen hat nichts mit Kohäsion zu tun.",
+   "Falsch: mehr Offenlegung erhöht die Sicherheit nicht, eher im Gegenteil."
+  ],
+  "explanation": "Ohne Information Hiding binden sich Nutzer an Interna (brechen bei Änderungen), die Kopplung steigt und die Implementierung ist nicht mehr austauschbar. Kohäsion und Sicherheit werden dadurch nicht besser."
+ },
+ {
+  "id": "c3q69",
+  "chapter": 3,
+  "lz": "LZ 03-04",
+  "r": "R1",
+  "type": "multi",
+  "q": "Was passiert, wenn ein Baustein eine geringe Kohäsion hat (er bündelt Unzusammenhängendes)?",
+  "options": [
+   "Er ist schwerer zu verstehen und zu testen.",
+   "Er muss aus mehreren, unabhängigen Gründen geändert werden.",
+   "Er ist als Ganzes schlecht wiederverwendbar.",
+   "Er hat dadurch automatisch eine geringe Kopplung.",
+   "Er erfüllt damit das Single-Responsibility-Prinzip besonders gut."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: Unzusammenhängendes in einem Baustein ist schwer zu erfassen.",
+   "Richtig: mehrere Zwecke = mehrere Änderungsgründe.",
+   "Richtig: ein Gemischtwaren-Baustein passt selten woanders.",
+   "Falsch: geringe Kohäsion bedingt keine geringe Kopplung – oft das Gegenteil.",
+   "Falsch: das widerspricht dem SRP (nur ein Änderungsgrund)."
+  ],
+  "explanation": "Geringe Kohäsion macht Bausteine schwer verständlich/testbar, verursacht mehrere Änderungsgründe und senkt die Wiederverwendbarkeit. Sie bedingt keine lose Kopplung und verletzt das SRP."
+ },
+ {
+  "id": "c3q70",
+  "chapter": 3,
+  "lz": "LZ 03-04",
+  "r": "R1",
+  "type": "multi",
+  "q": "In einem System wird die Trennung der Belange (Separation of Concerns) missachtet – z. B. steckt Datenbankzugriff direkt im UI-Code. Was folgt daraus?",
+  "options": [
+   "Eine Änderung an einem Belang zwingt zu Änderungen an anderen.",
+   "Die Teile lassen sich schlecht einzeln testen und wiederverwenden.",
+   "Der Austausch der Technik (z. B. der Datenbank) wird erschwert.",
+   "Die Komplexität sinkt, weil alles an einem Ort steht.",
+   "Die Kohäsion der Bausteine steigt."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: vermischte Belange sind gekoppelt – Änderungen greifen ineinander.",
+   "Richtig: verschränkte Belange lassen sich kaum isolieren.",
+   "Richtig: steckt DB-Zugriff im UI, ist die DB nicht mehr frei tauschbar.",
+   "Falsch: Vermischung erhöht die Komplexität, sie senkt sie nicht.",
+   "Falsch: Vermischung senkt die Kohäsion."
+  ],
+  "explanation": "Missachtete Separation of Concerns koppelt Belange: Änderungen greifen ineinander, Teile sind schwer isoliert test-/austauschbar. Komplexität steigt und Kohäsion sinkt."
+ },
+ {
+  "id": "c3q71",
+  "chapter": 3,
+  "lz": "LZ 03-04",
+  "r": "R3",
+  "type": "multi",
+  "q": "Was passiert, wenn das DRY-Prinzip verletzt wird (dieselbe Entscheidung/Logik ist mehrfach dupliziert)?",
+  "options": [
+   "Eine Änderung muss an mehreren Stellen konsistent nachgezogen werden.",
+   "Es entsteht das Risiko, dass Kopien auseinanderlaufen (Inkonsistenz).",
+   "Der Pflegeaufwand und die Fehleranfälligkeit steigen.",
+   "Die Wartbarkeit wird dadurch verbessert.",
+   "Die Bausteine werden dadurch entkoppelt."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: dupliziertes Wissen muss überall gleich geändert werden.",
+   "Richtig: vergisst man eine Kopie, driften sie auseinander.",
+   "Richtig: mehr Stellen = mehr Pflege und mehr Fehlerquellen.",
+   "Falsch: Duplizierung verschlechtert die Wartbarkeit.",
+   "Falsch: Duplizierung entkoppelt nicht; sie schafft verstreute Abhängigkeiten vom selben Wissen."
+  ],
+  "explanation": "DRY-Verletzung zwingt zu mehrfachem, konsistentem Nachziehen, birgt Inkonsistenzrisiko und erhöht Pflegeaufwand/Fehler. Wartbarkeit sinkt, entkoppelt wird nichts. (R3)"
+ },
+ {
+  "id": "c3q72",
+  "chapter": 3,
+  "lz": "LZ 03-08",
+  "r": "R1",
+  "type": "multi",
+  "q": "In einer eigentlich strikten Schichtenarchitektur werden Schichten übersprungen und es gibt Rückwärts-Aufrufe (untere ruft obere). Was folgt daraus?",
+  "options": [
+   "Es entstehen unkontrollierte, schwer nachvollziehbare Abhängigkeiten.",
+   "Austauschbarkeit und isolierte Testbarkeit der Schichten leiden.",
+   "Die Architektur erodiert schleichend gegenüber dem geplanten Entwurf.",
+   "Die Performance verbessert sich dadurch garantiert.",
+   "Die Schichtung wird dadurch strenger durchgesetzt."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: Überspringen/Rückwärtsaufrufe hebeln die Schichtregeln aus.",
+   "Richtig: verletzte Schichtung koppelt Schichten unerwartet.",
+   "Richtig: unbemerkte Regelverstöße sind klassische Architekturerosion.",
+   "Falsch: Regelverstöße garantieren keine bessere Performance.",
+   "Falsch: das Gegenteil – die Schichtung wird aufgeweicht."
+  ],
+  "explanation": "Verletzte Schichtung erzeugt unkontrollierte Abhängigkeiten, schadet Austauschbarkeit/Testbarkeit und führt zu Architekturerosion. Sie verbessert weder Performance noch die Durchsetzung der Schichtung."
+ },
+ {
+  "id": "c1q30",
+  "chapter": 1,
+  "lz": "LZ 01-04",
+  "r": "R1",
+  "type": "multi",
+  "q": "Du bist Softwarearchitekt:in für ein Kernbanken-System. Worauf musst du in dieser Rolle besonders achten?",
+  "options": [
+   "Die Qualitätsanforderungen (z. B. Sicherheit, Nachvollziehbarkeit, Verfügbarkeit) klären und schärfen.",
+   "Regulatorische Randbedingungen und Compliance früh berücksichtigen.",
+   "Risiken früh erkennen und tragende Entscheidungen begründet dokumentieren.",
+   "Die fachliche Priorisierung der Features eigenverantwortlich festlegen.",
+   "Den Code bis auf Methodenebene verbindlich vorschreiben."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: gerade Sicherheit/Nachvollziehbarkeit/Verfügbarkeit prägen hier die Architektur.",
+   "Richtig: im Bankenumfeld sind Recht/Compliance zentrale Randbedingungen.",
+   "Richtig: Risiken erkennen und Entscheidungen begründen ist Kern der Rolle.",
+   "Falsch: die fachliche Feature-Priorisierung verantwortet der Product Owner.",
+   "Falsch: Detailcode auf Methodenebene vorzuschreiben ist nicht Kern der Architekturrolle."
+  ],
+  "explanation": "In einem Kernbanken-System stehen Qualitätsanforderungen (Sicherheit, Nachvollziehbarkeit, Verfügbarkeit), regulatorische Randbedingungen und frühe Risiko-/Entscheidungsarbeit im Fokus. Feature-Priorisierung (PO) und Detailcode gehören nicht zum Kern."
+ },
+ {
+  "id": "c1q33",
+  "chapter": 1,
+  "lz": "LZ 01-06",
+  "r": "R1",
+  "type": "multi",
+  "q": "Wie arbeiten Softwarearchitekt:innen mit anderen Stakeholdern zusammen?",
+  "options": [
+   "Sie liefern der Entwicklung tragfähige, verständliche Vorgaben.",
+   "Sie stimmen sich mit dem Betrieb zu Deployment und Betreibbarkeit ab.",
+   "Sie klären mit PO/Requirements die fachlichen Ziele und Anliegen.",
+   "Sie kommunizieren die Architektur erst, wenn sie vollständig fertig ist.",
+   "Sie arbeiten ausschließlich innerhalb des eigenen Entwicklungsteams."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: die Entwicklung braucht umsetzbare Vorgaben.",
+   "Richtig: Betreibbarkeit/Deployment wird mit dem Betrieb abgestimmt.",
+   "Richtig: fachliche Ziele/Anliegen werden mit PO/Requirements geklärt.",
+   "Falsch: Kommunikation läuft früh und laufend, nicht erst am Ende.",
+   "Falsch: die Rolle wirkt über das eigene Team hinaus."
+  ],
+  "explanation": "Architekt:innen liefern der Entwicklung Vorgaben, stimmen sich mit dem Betrieb ab und klären fachliche Ziele mit PO/Requirements – früh und laufend, über das eigene Team hinaus."
+ },
+ {
+  "id": "c1q34",
+  "chapter": 1,
+  "lz": "LZ 01-02",
+  "r": "R1",
+  "type": "multi",
+  "q": "Welche Eigenschaften eines Systems kann die Softwarearchitektur maßgeblich beeinflussen?",
+  "options": [
+   "Wartbarkeit und Änderbarkeit.",
+   "Performanz und Skalierbarkeit.",
+   "Sicherheit und Zuverlässigkeit.",
+   "Den Marktpreis der Konkurrenzprodukte.",
+   "Die fachlichen Anforderungen selbst (was das System können soll)."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: Wartbarkeit wird stark von der Struktur bestimmt.",
+   "Richtig: Performanz/Skalierbarkeit hängen an Architekturentscheidungen.",
+   "Richtig: Sicherheit und Zuverlässigkeit sind architekturgetrieben.",
+   "Falsch: den Marktpreis der Konkurrenz beeinflusst die Architektur nicht.",
+   "Falsch: die fachlichen Anforderungen kommen von außen; die Architektur setzt sie um, bestimmt sie aber nicht."
+  ],
+  "explanation": "Architektur beeinflusst vor allem Qualitätsmerkmale (Wartbarkeit, Performanz/Skalierbarkeit, Sicherheit/Zuverlässigkeit). Externe Marktpreise und die fachlichen Anforderungen selbst bestimmt sie nicht."
+ },
+ {
+  "id": "c2q28",
+  "chapter": 2,
+  "lz": "LZ 02-02",
+  "r": "R1",
+  "type": "multi",
+  "q": "Welche Faktoren beeinflussen die Softwarearchitektur (Einflussfaktoren und Randbedingungen)?",
+  "options": [
+   "Funktionale Anforderungen und Qualitätsanforderungen.",
+   "Technologische Vorgaben (vorhandene Infrastruktur, Frameworks, Sprachen).",
+   "Organisatorische Faktoren wie Teamstruktur und Budget (u. a. Conway's Law).",
+   "Regulatorische Vorgaben (Recht, Datenschutz, Compliance).",
+   "Die persönliche Zeilenformatierung im Quellcode."
+  ],
+  "correct": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "optExpl": [
+   "Richtig: Anforderungen (funktional wie qualitativ) prägen die Architektur.",
+   "Richtig: technologische Vorgaben schränken den Lösungsraum ein.",
+   "Richtig: Organisation/Teamzuschnitt wirken (Conway) auf die Struktur.",
+   "Richtig: Recht/Datenschutz/Compliance sind harte Randbedingungen.",
+   "Falsch: Code-Formatierung ist Stil, kein Architektur-Einflussfaktor."
+  ],
+  "explanation": "Die Architektur wird von Anforderungen, technologischen und organisatorischen Faktoren (Conway) sowie regulatorischen Vorgaben geprägt. Die reine Code-Formatierung ist kein Einflussfaktor."
+ },
+ {
+  "id": "c3q73",
+  "chapter": 3,
+  "lz": "LZ 03-08",
+  "r": "R2",
+  "type": "multi",
+  "q": "Welche der folgenden sind in der Praxis verbreitete Architektur- bzw. Entwurfsansätze?",
+  "options": [
+   "Schichtenarchitektur.",
+   "Microservices.",
+   "Domain-Driven Design (DDD).",
+   "Ports and Adapters (Hexagonal).",
+   "Scrum als Architekturmuster."
+  ],
+  "correct": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "optExpl": [
+   "Richtig: Schichten sind ein weitverbreitetes Architekturmuster.",
+   "Richtig: Microservices sind ein verbreiteter Ansatz.",
+   "Richtig: DDD ist ein gängiger Entwurfsansatz.",
+   "Richtig: Ports & Adapters/Hexagonal ist praxisüblich.",
+   "Falsch: Scrum ist ein Vorgehens-/Prozessrahmen, kein Architekturmuster."
+  ],
+  "explanation": "Schichten, Microservices, DDD und Ports & Adapters sind verbreitete Architektur-/Entwurfsansätze. Scrum ist ein Prozessrahmen, kein Architekturmuster."
+ },
+ {
+  "id": "c3q74",
+  "chapter": 3,
+  "lz": "LZ 03-03",
+  "r": "R1",
+  "type": "multi",
+  "q": "Welche Vorgehensweisen bzw. Heuristiken sind beim Architekturentwurf gängig?",
+  "options": [
+   "Top-down (vom Groben ins Feine).",
+   "Bottom-up (aus Details größere Strukturen bilden).",
+   "Iteratives/evolutionäres Vorgehen mit Feedback.",
+   "Sichtenbasiertes Erarbeiten über verschiedene Sichten.",
+   "Alles einmalig zu Beginn final festlegen, ohne Iteration."
+  ],
+  "correct": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "optExpl": [
+   "Richtig: Top-down ist eine gängige Vorgehensrichtung.",
+   "Richtig: Bottom-up ergänzt Top-down.",
+   "Richtig: iteratives Vorgehen mit Feedback ist Standard.",
+   "Richtig: sichtenbasiertes Erarbeiten ist üblich.",
+   "Falsch: rein einmaliges Festlegen ohne Iteration ist gerade nicht empfohlen."
+  ],
+  "explanation": "Gängig sind top-down, bottom-up, iteratives/evolutionäres und sichtenbasiertes Vorgehen – meist kombiniert. Alles einmalig ohne Iteration festzulegen ist nicht empfehlenswert."
+ },
+ {
+  "id": "c3q75",
+  "chapter": 3,
+  "lz": "LZ 03-08",
+  "r": "R1",
+  "type": "multi",
+  "q": "Welche Vorteile bietet eine Schichtenarchitektur?",
+  "options": [
+   "Klare Trennung von Belangen über die Schichten.",
+   "Einzelne Schichten lassen sich austauschen, ohne alles zu ändern.",
+   "Gute Verständlichkeit und Testbarkeit durch geordnete Struktur.",
+   "Sie garantiert die höchstmögliche Performance.",
+   "Sie macht Kopplung zwischen Bausteinen überflüssig."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: Schichten trennen Belange (z. B. UI/Fachlogik/Daten).",
+   "Richtig: hinter stabilen Schnittstellen ist eine Schicht austauschbar.",
+   "Richtig: die geordnete Struktur erhöht Verständlichkeit/Testbarkeit.",
+   "Falsch: Schichtung garantiert keine Performance – sie kann Latenz kosten.",
+   "Falsch: Kopplung bleibt nötig; Schichten ordnen sie nur."
+  ],
+  "explanation": "Schichten bieten Trennung von Belangen, Austauschbarkeit einzelner Schichten und gute Verständlichkeit/Testbarkeit. Höchstperformance garantieren sie nicht und Kopplung machen sie nicht überflüssig."
+ },
+ {
+  "id": "c3q76",
+  "chapter": 3,
+  "lz": "LZ 03-08",
+  "r": "R1",
+  "type": "multi",
+  "q": "Welche Nachteile oder Grenzen hat eine strikte Schichtenarchitektur?",
+  "options": [
+   "Das Durchreichen von Aufrufen durch viele Schichten kann Latenz kosten.",
+   "Änderungen ziehen sich oft durch mehrere Schichten.",
+   "Es kann viel gleichförmiger Weiterreich-Code (Boilerplate) entstehen.",
+   "Sie verhindert jede Form der Wiederverwendung.",
+   "Sie beseitigt sämtliche Abhängigkeiten im System."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: das Durchreichen kostet Latenz.",
+   "Richtig: eine Änderung berührt oft mehrere Schichten.",
+   "Richtig: reines Weiterreichen erzeugt Boilerplate.",
+   "Falsch: tiefere Schichten sind gerade gut wiederverwendbar.",
+   "Falsch: Schichtung ordnet Abhängigkeiten, sie beseitigt sie nicht."
+  ],
+  "explanation": "Grenzen der Schichtung: Latenz durch Durchreichen, schichtübergreifende Änderungen und Boilerplate. Sie verhindert keine Wiederverwendung und beseitigt keine Abhängigkeiten."
+ },
+ {
+  "id": "c4q38",
+  "chapter": 4,
+  "lz": "LZ 04-02",
+  "r": "R1",
+  "type": "multi",
+  "q": "Was gilt für zielgruppengerechtes Dokumentieren und Kommunizieren von Architektur?",
+  "options": [
+   "Management und Entwicklung brauchen unterschiedlich aufbereitete Inhalte.",
+   "Template-basierte Dokumentation (z. B. arc42) bringt Nutzen.",
+   "Mündliche und schriftliche Kommunikation sind zu balancieren.",
+   "Eine einzige Fassung passt unverändert für alle Zielgruppen.",
+   "Kommunikation ist erst nach Projektende relevant."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: verschiedene Zielgruppen brauchen verschiedene Aufbereitung.",
+   "Richtig: Templates wie arc42 helfen.",
+   "Richtig: mündlich und schriftlich ergänzen sich.",
+   "Falsch: eine Fassung für alle wird selten allen gerecht.",
+   "Falsch: Kommunikation läuft früh und laufend."
+  ],
+  "explanation": "Zielgruppengerecht heißt: unterschiedlich aufbereiten, Templates (arc42) nutzen, mündlich/schriftlich balancieren. Eine Einheitsfassung oder Kommunikation erst am Ende sind falsch."
+ },
+ {
+  "id": "k29",
+  "chapter": 1,
+  "lz": "LZ 01-04",
+  "r": "R1",
+  "type": "k",
+  "points": 2,
+  "q": "Aussagen zur Rolle und Verantwortung von Softwarearchitekt:innen – richtig oder falsch?",
+  "categories": [
+   "Richtig",
+   "Falsch"
+  ],
+  "rows": [
+   {
+    "text": "Sie klären die Qualitätsanforderungen mit den Stakeholdern.",
+    "cat": 0
+   },
+   {
+    "text": "Sie verantworten Projektbudget und Termine.",
+    "cat": 1
+   },
+   {
+    "text": "Sie treffen und begründen tragende Strukturentscheidungen.",
+    "cat": 0
+   },
+   {
+    "text": "Sie schreiben den gesamten Code selbst.",
+    "cat": 1
+   },
+   {
+    "text": "Sie begleiten die Umsetzung und beraten das Team.",
+    "cat": 0
+   },
+   {
+    "text": "Sie entscheiden alles allein, ohne Stakeholder einzubeziehen.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Kern: Qualitätsanforderungen klären, Strukturentscheidungen begründen, Umsetzung begleiten. Budget/Termine (PM), allen Code selbst schreiben oder Alleingänge ohne Stakeholder gehören nicht dazu."
+ },
+ {
+  "id": "k30",
+  "chapter": 4,
+  "lz": "LZ 04-01",
+  "r": "R1",
+  "type": "k",
+  "points": 2,
+  "q": "Aussagen zur Architekturdokumentation – richtig oder falsch?",
+  "categories": [
+   "Richtig",
+   "Falsch"
+  ],
+  "rows": [
+   {
+    "text": "Sie richtet sich nach der Zielgruppe.",
+    "cat": 0
+   },
+   {
+    "text": "Je umfangreicher, desto besser.",
+    "cat": 1
+   },
+   {
+    "text": "Sie sollte korrekt und aktuell sein.",
+    "cat": 0
+   },
+   {
+    "text": "Sie muss die interne Implementierung jedes Bausteins offenlegen.",
+    "cat": 1
+   },
+   {
+    "text": "Ein ADR hält Entscheidungen samt Begründung fest.",
+    "cat": 0
+   },
+   {
+    "text": "Mündliche Absprache macht schriftliche Doku grundsätzlich überflüssig.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Gute Doku ist zielgruppengerecht, korrekt/aktuell; ADRs halten Entscheidungen fest. „Je mehr desto besser“, das Offenlegen aller Interna oder der Verzicht auf schriftliche Doku sind falsch."
+ },
+ {
+  "id": "k31",
+  "chapter": 5,
+  "lz": "LZ 05-01",
+  "r": "R1",
+  "type": "k",
+  "points": 2,
+  "q": "Aussagen zur Analyse und Bewertung von Architektur – richtig oder falsch?",
+  "categories": [
+   "Richtig",
+   "Falsch"
+  ],
+  "rows": [
+   {
+    "text": "Man sollte früh und wiederholt bewerten.",
+    "cat": 0
+   },
+   {
+    "text": "Eine Bewertung ist erst nach Fertigstellung möglich.",
+    "cat": 1
+   },
+   {
+    "text": "Szenariobasierte Analyse ist eine gängige Methode.",
+    "cat": 0
+   },
+   {
+    "text": "Ohne priorisierte Qualitätsziele fehlt der Bewertungsmaßstab.",
+    "cat": 0
+   },
+   {
+    "text": "ATAM ist im Kern eine automatische Metrik-Messung.",
+    "cat": 1
+   },
+   {
+    "text": "Typische Ergebnisse sind erkannte Risiken und Trade-offs.",
+    "cat": 0
+   }
+  ],
+  "explanation": "Bewertung erfolgt früh/wiederholt, szenariobasiert, gegen priorisierte Qualitätsziele; Ergebnis sind Risiken/Trade-offs. Sie ist nicht auf „nach Fertigstellung“ beschränkt, und ATAM ist qualitativ, keine Metrik-Messung."
+ },
+ {
+  "id": "k32",
+  "chapter": 3,
+  "lz": "LZ 03-04",
+  "r": "R1",
+  "type": "k",
+  "points": 2,
+  "q": "Aussagen zu Entwurfsprinzipien – richtig oder falsch?",
+  "categories": [
+   "Richtig",
+   "Falsch"
+  ],
+  "rows": [
+   {
+    "text": "Hohe Kohäsion je Baustein ist erwünscht.",
+    "cat": 0
+   },
+   {
+    "text": "Enge Kopplung zwischen Bausteinen ist das Ziel.",
+    "cat": 1
+   },
+   {
+    "text": "Information Hiding verbirgt Änderliches hinter einer Schnittstelle.",
+    "cat": 0
+   },
+   {
+    "text": "DRY bedeutet, Logik möglichst oft zu duplizieren.",
+    "cat": 1
+   },
+   {
+    "text": "Open/Closed: offen für Erweiterung, geschlossen für Änderung.",
+    "cat": 0
+   },
+   {
+    "text": "Modularisierung zielt darauf, die Kopplung zu erhöhen.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Erwünscht: hohe Kohäsion, Information Hiding, Open/Closed. Enge Kopplung als Ziel, DRY = viel duplizieren und Modularisierung = mehr Kopplung sind falsch."
+ },
+ {
+  "id": "k33",
+  "chapter": 2,
+  "lz": "LZ 02-04",
+  "r": "R2",
+  "type": "k",
+  "points": 2,
+  "q": "Aussagen zu Qualitätsanforderungen – richtig oder falsch?",
+  "categories": [
+   "Richtig",
+   "Falsch"
+  ],
+  "rows": [
+   {
+    "text": "Ein Qualitätsszenario hat Kontext, Stimulus, Reaktion und Messung.",
+    "cat": 0
+   },
+   {
+    "text": "Qualitätsanforderungen sind nach dem ersten Release eingefroren.",
+    "cat": 1
+   },
+   {
+    "text": "Eine Anforderung kann mehrere Qualitäten gleichzeitig betreffen.",
+    "cat": 0
+   },
+   {
+    "text": "Skalierbarkeit ist ein Hauptmerkmal der ISO/IEC 25010.",
+    "cat": 1
+   },
+   {
+    "text": "Qualitäten stehen häufig in Zielkonflikt zueinander.",
+    "cat": 0
+   },
+   {
+    "text": "„Das System soll performant sein“ ist eine gute (prüfbare) Qualitätsanforderung.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Richtig: Szenario-Struktur, eine Anforderung kann mehrere Qualitäten betreffen, Zielkonflikte sind normal. Falsch: „eingefroren“, Skalierbarkeit als 25010-Hauptmerkmal (ist Teil von Flexibilität), und „performant“ ohne Messgröße ist nicht prüfbar."
  }
 ];
