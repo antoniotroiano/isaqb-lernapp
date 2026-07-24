@@ -6573,5 +6573,566 @@ const QUESTIONS = [
    }
   ],
   "explanation": "Richtig: Szenario-Struktur, eine Anforderung kann mehrere Qualitäten betreffen, Zielkonflikte sind normal. Falsch: „eingefroren“, Skalierbarkeit als 25010-Hauptmerkmal (ist Teil von Flexibilität), und „performant“ ohne Messgröße ist nicht prüfbar."
+ },
+ {
+  "id": "c1q35",
+  "chapter": 1,
+  "lz": "LZ 01-01",
+  "r": "R1",
+  "type": "single",
+  "q": "Ein Nutzer der Komponente „Zahlungsabwicklung“ fragt: „Welche Dienste bietet diese Komponente an?“ Aus welcher Sicht wird diese Frage beantwortet – und wodurch?",
+  "options": [
+   "Aus der Blackbox-Sicht: über die nach außen angebotenen Schnittstellen bzw. Dienste samt zugesicherter Eigenschaften – ohne die innere Realisierung offenzulegen.",
+   "Aus der Whitebox-Sicht: die angebotenen Dienste lassen sich erst benennen, wenn die enthaltenen Unterbausteine und ihre Algorithmen bekannt sind.",
+   "Aus der Verteilungssicht: die angebotenen Dienste ergeben sich aus der Zuordnung der Komponente zu Ausführungsknoten.",
+   "Die angebotenen Dienste sind kein Architekturthema, sondern reine Implementierungsdetails."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Richtig: Die angebotenen Dienste einer Komponente sind gerade die Außensicht (Blackbox): Schnittstellen/Dienste plus zugesicherte Eigenschaften, ohne Interna.",
+   "Falsch: Für die angebotenen Dienste muss man die Interna gerade nicht kennen – das ist der Kern des Blackbox-Prinzips.",
+   "Falsch: Die Verteilungssicht ordnet Artefakte auf Knoten zu; sie definiert nicht die angebotenen Dienste.",
+   "Falsch: Angebotene Dienste/Schnittstellen sind ein zentrales Architekturthema (Bausteinsicht), keine bloßen Implementierungsdetails."
+  ],
+  "explanation": "Welche Dienste eine Komponente anbietet, beschreibt die Blackbox-Sicht: nach außen sichtbare Schnittstellen/Dienste samt zugesicherter Eigenschaften – ohne Offenlegung der inneren Realisierung."
+ },
+ {
+  "id": "c1q36",
+  "chapter": 1,
+  "lz": "LZ 01-02",
+  "r": "R2",
+  "type": "multi",
+  "q": "Die Anforderungen stehen zu Projektbeginn noch nicht vollständig fest. Was beachtet man beim Architekturentwurf sinnvollerweise?",
+  "options": [
+   "Man arbeitet iterativ und inkrementell und lässt die Architektur mit dem wachsenden Wissen mitwachsen.",
+   "Weitreichende, teuer umkehrbare Entscheidungen trifft man möglichst spät, aber noch verantwortbar (last responsible moment).",
+   "Getroffene Annahmen werden explizit dokumentiert und später überprüft.",
+   "Man hält die Architektur änderbar und vermeidet unnötige Vorab-Festlegungen (YAGNI).",
+   "Man legt vorsorglich alle Details vollständig im Voraus fest, um spätere Änderungen von vornherein auszuschließen."
+  ],
+  "correct": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "optExpl": [
+   "Richtig: Bei unsicheren Anforderungen ist iteratives/inkrementelles Vorgehen angemessen.",
+   "Richtig: Folgenreiche Entscheidungen so spät wie verantwortbar zu treffen, hält Optionen offen.",
+   "Richtig: Annahmen sichtbar zu machen und zu überprüfen ist zentral, wenn Wissen fehlt.",
+   "Richtig: Änderbarkeit bewahren und Überkonstruktion vermeiden (YAGNI) senkt das Risiko falscher früher Festlegungen.",
+   "Falsch: Bei unklaren Anforderungen alles im Voraus festzulegen erhöht das Risiko teurer Fehlentscheidungen statt es zu senken."
+  ],
+  "explanation": "Bei unvollständigen Anforderungen entwirft man iterativ/inkrementell, verschiebt teure Entscheidungen bis zum last responsible moment, dokumentiert Annahmen und hält die Architektur änderbar (YAGNI). Ein vollständiges Vorab-Festlegen ist gerade nicht sinnvoll."
+ },
+ {
+  "id": "c2q29",
+  "chapter": 2,
+  "lz": "LZ 02-02",
+  "r": "R2",
+  "type": "single",
+  "q": "Eine Organisation richtet ihre Teams bewusst so zu, dass daraus die gewünschte Zielarchitektur entsteht, und wendet Conways Gesetz damit gezielt an. Welche Aussage trifft am ehesten zu?",
+  "options": [
+   "Da die Systemstruktur die Kommunikationsstruktur widerspiegelt, kann ein passender Team-Zuschnitt den gewünschten Architekturschnitt begünstigen („Inverse Conway Maneuver“) – das erfordert aber, die Organisation tatsächlich zu verändern.",
+   "Conways Gesetz lässt sich durch klare Coding-Richtlinien vollständig aushebeln, sodass die Teamstruktur für den Systemschnitt irrelevant wird.",
+   "Konsequent angewandt garantiert Conways Gesetz automatisch lose Kopplung zwischen allen Bausteinen.",
+   "Conways Gesetz betrifft nur die Dokumentation, nicht den tatsächlichen Schnitt des Systems."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Richtig: Weil Systemschnitt und Kommunikationsstruktur zusammenhängen, kann man die Organisation gezielt zuschneiden, um den Zielschnitt zu fördern – setzt aber echte organisatorische Veränderung voraus.",
+   "Falsch: Coding-Richtlinien heben den Effekt der Kommunikationsstrukturen nicht auf.",
+   "Falsch: Conways Gesetz beschreibt einen Zusammenhang, es garantiert keine lose Kopplung.",
+   "Falsch: Es betrifft den realen Systemschnitt, nicht nur die Dokumentation."
+  ],
+  "explanation": "Conways Gesetz besagt, dass die Systemstruktur die Kommunikationsstrukturen der Organisation widerspiegelt. Konsequent genutzt (Inverse Conway Maneuver) schneidet man Teams bewusst so zu, dass der gewünschte Architekturschnitt begünstigt wird – dazu muss die Organisation aber tatsächlich verändert werden."
+ },
+ {
+  "id": "c2q30",
+  "chapter": 2,
+  "lz": "LZ 02-03",
+  "r": "R2",
+  "type": "multi",
+  "q": "Für ein System ist „hohe Benutzerfreundlichkeit (Usability)“ ein wichtiges Qualitätsziel. Welche Aussagen zur Absicherung dieses Ziels treffen zu?",
+  "options": [
+   "Usability ist ein Qualitätsmerkmal (u. a. der ISO/IEC 25010) und sollte über konkrete, überprüfbare Qualitätsszenarien greifbar gemacht werden.",
+   "Sie wird vor allem durch Usability-Tests mit echten bzw. repräsentativen Nutzern, Prototypen und heuristische Evaluationen geprüft.",
+   "Das Qualitätsziel beeinflusst Architekturentscheidungen (z. B. Antwortzeiten, Fehlermeldungen, Bedienabläufe) und ist nicht rein kosmetisch.",
+   "Benutzerfreundlichkeit lässt sich vollständig durch Unit-Tests und statische Code-Analyse absichern.",
+   "Usability ist eine funktionale Anforderung und muss daher nicht gesondert als Qualitätsziel behandelt werden."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: Usability ist ein Qualitätsmerkmal; überprüfbar wird es über konkrete Qualitätsszenarien.",
+   "Richtig: Nutzertests, Prototypen und heuristische Evaluation sind die typischen Prüfmittel für Usability.",
+   "Richtig: Usability wirkt auf Architekturentscheidungen (Antwortzeiten, Fehlerbehandlung, Abläufe) zurück.",
+   "Falsch: Unit-Tests und statische Analyse prüfen die Bedienbarkeit für Menschen gerade nicht.",
+   "Falsch: Usability ist eine Qualitätsanforderung (nicht funktional) und muss als solche behandelt werden."
+  ],
+  "explanation": "Benutzerfreundlichkeit ist eine Qualitätsanforderung (ISO/IEC 25010). Sie wird über Qualitätsszenarien messbar gemacht und mit Usability-Tests, Prototypen und heuristischer Evaluation gesichert – nicht durch Unit-Tests/statische Analyse allein."
+ },
+ {
+  "id": "c3q77",
+  "chapter": 3,
+  "lz": "LZ 03-06",
+  "r": "R2",
+  "type": "multi",
+  "q": "Ein Baustein bindet eine externe Fremdkomponente (z. B. einen Cloud-Dienst eines Drittanbieters) direkt ein. Welche Folgen hat das typischerweise?",
+  "options": [
+   "Es entsteht eine Abhängigkeit von einem extern kontrollierten, potenziell volatilen Element – Versionswechsel, API-Änderungen oder Verfügbarkeit wirken zurück.",
+   "Die Kopplung an das Fremdsystem steigt; Änderungen dort können Anpassungen im eigenen System erzwingen.",
+   "Eine Kapselung hinter einer eigenen Schnittstelle bzw. einem Adapter reduziert die Kopplung und macht das Fremdsystem austauschbarer.",
+   "Die Einbindung senkt automatisch die Kopplung, weil Funktionalität nach außen ausgelagert wird.",
+   "Eine externe Abhängigkeit hat keine Auswirkung auf die eigene Architektur, solange die Schnittstelle aktuell funktioniert."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: Man bindet sich an ein fremdkontrolliertes, oft volatiles Element (Versionen, API, Verfügbarkeit).",
+   "Richtig: Die Kopplung an das Fremdsystem steigt; dessen Änderungen können ins eigene System durchschlagen.",
+   "Richtig: Ein Adapter/eine eigene Schnittstelle kapselt das Fremdsystem und reduziert so die Kopplung.",
+   "Falsch: Auslagern erzeugt eine Abhängigkeit; die Kopplung sinkt dadurch nicht automatisch.",
+   "Falsch: Externe Abhängigkeiten (Volatilität, Verfügbarkeit, Vertragslage) sind sehr wohl ein Architekturthema."
+  ],
+  "explanation": "Das direkte Einbinden einer Fremdkomponente erzeugt eine Abhängigkeit von einem extern kontrollierten, volatilen Element und erhöht die Kopplung. Kapselung hinter einem Adapter/einer eigenen Schnittstelle reduziert die Kopplung und erhält die Austauschbarkeit."
+ },
+ {
+  "id": "c3q78",
+  "chapter": 3,
+  "lz": "LZ 03-08",
+  "r": "R2",
+  "type": "single",
+  "q": "Die Entwickler möchten das System als Microservices bauen, der Betrieb bevorzugt aus Betriebsgründen einen Monolithen. Wie geht man mit diesem Zielkonflikt architektonisch am sinnvollsten um?",
+  "options": [
+   "Man macht die zugrunde liegenden Qualitätsziele und Trade-offs (unabhängige Deploybarkeit/Skalierung vs. Betriebseinfachheit) explizit und entscheidet anhand der Anforderungen – ein modularer Monolith kann ein tragfähiger Kompromiss sein.",
+   "Man folgt grundsätzlich der Präferenz der Entwickler, da Microservices die modernere und damit immer bessere Architektur sind.",
+   "Man folgt grundsätzlich der Präferenz des Betriebs, da ein Monolith immer einfacher und günstiger zu betreiben ist.",
+   "Man vertagt die Entscheidung, bis sich eine Seite durchsetzt; eine begründete Architekturentscheidung ist in solchen Konflikten nicht möglich."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Richtig: Man legt die Qualitätsziele und Trade-offs offen und entscheidet anforderungsbasiert; ein modularer Monolith ist oft ein guter Mittelweg.",
+   "Falsch: „Moderner“ ist kein Architekturkriterium; Microservices erhöhen die Betriebskomplexität.",
+   "Falsch: Ein Monolith ist nicht in jedem Fall einfacher/günstiger; es kommt auf die Anforderungen an.",
+   "Falsch: Gerade hier ist eine begründete, an Qualitätszielen orientierte Entscheidung möglich und nötig."
+  ],
+  "explanation": "Zielkonflikte löst man, indem man die dahinterliegenden Qualitätsziele und Trade-offs sichtbar macht und anhand der Anforderungen entscheidet. Ein modularer Monolith kann unabhängige Struktur und einfachen Betrieb verbinden – Präferenz oder Mode sind keine Entscheidungsgrundlage."
+ },
+ {
+  "id": "c4q39",
+  "chapter": 4,
+  "lz": "LZ 04-05",
+  "r": "R2",
+  "type": "multi",
+  "q": "Welche Angaben gehören typischerweise zur Whitebox-Beschreibung eines Bausteins?",
+  "options": [
+   "Die enthaltenen (Unter-)Bausteine und ihre Beziehungen.",
+   "Das Zusammenspiel der inneren Bausteine, soweit es für das Verständnis nötig ist.",
+   "Intern verwendete Algorithmen und Datenstrukturen, sofern sie den inneren Aufbau erklären.",
+   "Die juristischen Verträge und Lizenzen der Lieferanten der eingesetzten Fremdbausteine.",
+   "Die Zuordnung der inneren Bausteine zu konkreten Servern (Ausführungsknoten)."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: Die innere Zerlegung in Unterbausteine samt Beziehungen ist der Kern der Whitebox.",
+   "Richtig: Das relevante Zusammenspiel der inneren Bausteine gehört dazu.",
+   "Richtig: Intern verwendete Algorithmen/Datenstrukturen erläutern den inneren Aufbau.",
+   "Falsch: Verträge und Lizenzen der Zulieferer sind ein Beschaffungs-/Rechtsthema, nicht Teil der Whitebox-Bausteinsicht.",
+   "Falsch: Die Zuordnung zu Ausführungsknoten gehört in die Verteilungssicht, nicht in die Whitebox."
+  ],
+  "explanation": "Die Whitebox zeigt den inneren Aufbau: enthaltene Bausteine, ihr Zusammenspiel und die intern verwendeten Algorithmen/Datenstrukturen. Juristische Lieferantenverträge (Beschaffung/Recht) und die Zuordnung zu Knoten (Verteilungssicht) gehören ausdrücklich nicht dazu."
+ },
+ {
+  "id": "c5q28",
+  "chapter": 5,
+  "lz": "LZ 05-02",
+  "r": "R2",
+  "type": "multi",
+  "q": "Ein Stakeholder meldet: „Das System ist zu langsam.“ Wie untersucht man ein solches Performanz-/Effizienzproblem methodisch fundiert?",
+  "options": [
+   "Man macht das Ziel mit konkreten, messbaren Qualitätsszenarien greifbar (z. B. Antwortzeit für Vorgang X bei Last Y).",
+   "Man misst quantitativ – etwa mit Lasttests, Monitoring, Profiling und Benchmarks – statt nur zu vermuten.",
+   "Man identifiziert anhand der Messungen die Engstellen (Hotspots) und optimiert dann gezielt.",
+   "Man optimiert sofort die aus dem Bauch heraus wahrscheinlichsten Stellen, ohne vorher zu messen.",
+   "Performanz lässt sich seriös nur durch subjektive Nutzerbefragung, nicht durch Messwerte beurteilen."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: Ohne konkretes, messbares Szenario ist „zu langsam“ nicht überprüfbar.",
+   "Richtig: Performanz beurteilt man quantitativ (Lasttest, Monitoring, Profiling, Benchmark).",
+   "Richtig: Erst messen, Engstellen finden, dann gezielt optimieren.",
+   "Falsch: Optimieren ohne Messung ist Raten und verschwendet oft Aufwand an der falschen Stelle.",
+   "Falsch: Performanz ist gerade quantitativ messbar; subjektive Befragung reicht nicht."
+  ],
+  "explanation": "Performanzprobleme untersucht man messbasiert: Ziel als überprüfbares Qualitätsszenario formulieren, quantitativ messen (Lasttest, Monitoring, Profiling, Benchmark), Engstellen identifizieren und gezielt optimieren – nicht raten oder blind optimieren."
+ },
+ {
+  "id": "k34",
+  "chapter": 1,
+  "lz": "LZ 01-01",
+  "r": "R2",
+  "type": "k",
+  "points": 2,
+  "q": "Ordne die Angaben zu: Gehören sie in die Blackbox-Beschreibung (Außensicht) oder in die Whitebox-Beschreibung (Innensicht) eines Bausteins?",
+  "categories": [
+   "Blackbox (Außensicht)",
+   "Whitebox (Innensicht)"
+  ],
+  "rows": [
+   {
+    "text": "Die angebotenen (bereitgestellten) Schnittstellen und Dienste.",
+    "cat": 0
+   },
+   {
+    "text": "Die zugesicherten Eigenschaften (z. B. Verantwortung, Antwortzeit).",
+    "cat": 0
+   },
+   {
+    "text": "Die benötigten (geforderten) Schnittstellen nach außen.",
+    "cat": 0
+   },
+   {
+    "text": "Die enthaltenen Unterbausteine und ihre Beziehungen.",
+    "cat": 1
+   },
+   {
+    "text": "Die intern verwendeten Algorithmen und Datenstrukturen.",
+    "cat": 1
+   },
+   {
+    "text": "Das Zusammenspiel der inneren Bausteine.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Die Blackbox-Sicht beschreibt die Außensicht (angebotene und benötigte Schnittstellen, zugesicherte Eigenschaften) ohne Interna. Die Whitebox-Sicht ergänzt den inneren Aufbau: enthaltene Bausteine, ihre Beziehungen, ihr Zusammenspiel sowie intern verwendete Algorithmen/Datenstrukturen (LZ 01-01)."
+ },
+ {
+  "id": "k35",
+  "chapter": 4,
+  "lz": "LZ 04-05",
+  "r": "R2",
+  "type": "k",
+  "points": 2,
+  "q": "Verteilungssicht: Ordne jedes Element zu – ist es ein Ausführungs-/Hardware-Knoten oder ein darauf verteiltes Artefakt?",
+  "categories": [
+   "Knoten (Node)",
+   "Artefakt (Deployment-Artefakt)"
+  ],
+  "rows": [
+   {
+    "text": "Ein Applikationsserver (Laufzeitumgebung).",
+    "cat": 0
+   },
+   {
+    "text": "Ein physischer oder virtueller Rechner (VM).",
+    "cat": 0
+   },
+   {
+    "text": "Ein Datenbank-Server als Ausführungsumgebung.",
+    "cat": 0
+   },
+   {
+    "text": "Ein ausführbares Container-Image bzw. eine .jar-Datei der Anwendung.",
+    "cat": 1
+   },
+   {
+    "text": "Eine deploybare Web-Anwendung (z. B. WAR-Datei).",
+    "cat": 1
+   },
+   {
+    "text": "Eine mit ausgelieferte Konfigurationsdatei.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Die Verteilungssicht bildet Artefakte auf Knoten ab: Knoten sind Ausführungsumgebungen bzw. Hardware (Server, VM, DB-Server), Artefakte sind die darauf installierten/ausgeführten Dateien (Container-Image, JAR/WAR, Konfiguration) (LZ 04-05)."
+ },
+ {
+  "id": "c1q37",
+  "chapter": 1,
+  "lz": "LZ 01-01",
+  "r": "R2",
+  "type": "multi",
+  "q": "Welche Angaben haben in einer guten Blackbox-Beschreibung eines Bausteins Vorrang (gehören also zwingend hinein)?",
+  "options": [
+   "Die angebotenen (bereitgestellten) Schnittstellen und Dienste.",
+   "Die Verantwortung/Aufgabe des Bausteins und seine zugesicherten Eigenschaften (z. B. Qualitätszusagen).",
+   "Die benötigten (geforderten) Schnittstellen bzw. Abhängigkeiten nach außen.",
+   "Die intern verwendeten Algorithmen und Datenstrukturen des Bausteins.",
+   "Der vollständige Quellcode samt Zeilenzahl der Implementierung."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: Was der Baustein anbietet, ist Kern der Außensicht.",
+   "Richtig: Verantwortung und zugesicherte Eigenschaften machen den Baustein für Nutzer verwendbar.",
+   "Richtig: Auch die benötigten Schnittstellen/Abhängigkeiten gehören zur Außensicht.",
+   "Falsch: Interne Algorithmen/Datenstrukturen sind Whitebox – in der Blackbox bewusst verborgen.",
+   "Falsch: Quellcode ist Implementierungsdetail und gehört nicht in die Blackbox-Beschreibung."
+  ],
+  "explanation": "Vorrang in der Blackbox haben die Außensicht-Angaben: angebotene und benötigte Schnittstellen, Verantwortung und zugesicherte Eigenschaften. Interne Algorithmen/Datenstrukturen oder gar Quellcode sind Whitebox bzw. Implementierung und bleiben außen vor."
+ },
+ {
+  "id": "c1q38",
+  "chapter": 1,
+  "lz": "LZ 01-01",
+  "r": "R1",
+  "type": "single",
+  "q": "Eine Entwicklerin will einen bestehenden Baustein lediglich verwenden (aufrufen), nicht verändern. Welche Beschreibung benötigt sie dafür in erster Linie?",
+  "options": [
+   "Die Blackbox-Beschreibung: Schnittstellen, Verantwortung und zugesicherte Eigenschaften genügen zum Nutzen.",
+   "Die Whitebox-Beschreibung: ohne Kenntnis der inneren Bausteine und Algorithmen lässt sich der Baustein nicht aufrufen.",
+   "Die Verteilungssicht: erst die Zuordnung zu Ausführungsknoten macht den Baustein nutzbar.",
+   "Den vollständigen Quellcode, um sicherzugehen, dass der Baustein korrekt arbeitet."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Richtig: Zum reinen Nutzen genügt die Außensicht (Blackbox) – das ist der Sinn der Kapselung.",
+   "Falsch: Die Interna (Whitebox) braucht nur, wer den Baustein ändert/weiterentwickelt.",
+   "Falsch: Die Verteilungssicht betrifft das Deployment, nicht die Nutzung der Schnittstelle.",
+   "Falsch: Wer nur nutzt, soll sich gerade nicht auf Implementierungsdetails stützen (Kopplung)."
+  ],
+  "explanation": "Zum bloßen Nutzen eines Bausteins reicht die Blackbox-Sicht (Schnittstellen, Verantwortung, zugesicherte Eigenschaften). Die Whitebox mit den Interna benötigt nur, wer den Baustein selbst verändert – genau das ermöglicht die Kapselung."
+ },
+ {
+  "id": "c4q40",
+  "chapter": 4,
+  "lz": "LZ 04-05",
+  "r": "R2",
+  "type": "single",
+  "q": "Welche Angabe gehört am wenigsten in die Whitebox-Beschreibung eines Bausteins?",
+  "options": [
+   "Die juristischen Liefer- und Lizenzbedingungen der zugekauften Fremdbibliotheken.",
+   "Die enthaltenen Unterbausteine und ihre Beziehungen.",
+   "Das für das Verständnis nötige Zusammenspiel der inneren Bausteine.",
+   "Intern verwendete Algorithmen und Datenstrukturen, die den Aufbau erklären."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Richtig: Liefer-/Lizenzbedingungen sind ein Beschaffungs- und Rechtsthema, nicht Teil der Whitebox-Bausteinsicht.",
+   "Falsch: Die inneren Bausteine und ihre Beziehungen sind Kern der Whitebox.",
+   "Falsch: Das relevante Zusammenspiel der Interna gehört in die Whitebox.",
+   "Falsch: Intern verwendete Algorithmen/Datenstrukturen erklären den Aufbau und gehören dazu."
+  ],
+  "explanation": "Die Whitebox zeigt den inneren Aufbau (enthaltene Bausteine, Zusammenspiel, interne Algorithmen/Datenstrukturen). Juristische Liefer- und Lizenzbedingungen der Zulieferer sind Beschaffung/Recht und gehören nicht hinein."
+ },
+ {
+  "id": "c2q31",
+  "chapter": 2,
+  "lz": "LZ 02-02",
+  "r": "R2",
+  "type": "multi",
+  "q": "Welche Aussagen zu Conways Gesetz und seinen Folgen treffen zu?",
+  "options": [
+   "Die Struktur eines Systems tendiert dazu, die Kommunikationsstrukturen der entwickelnden Organisation abzubilden.",
+   "Getrennte, wenig kommunizierende Teams erzeugen tendenziell entsprechende Grenzen und Schnittstellen im System.",
+   "Man kann das Gesetz bewusst als organisatorische Randbedingung nutzen und Teams passend zum gewünschten Schnitt zuschneiden.",
+   "Es ist ein rein technisches Gesetz, das nur die Serverlast in Abhängigkeit von der Nutzerzahl beschreibt.",
+   "Es galt nur historisch und hat für heutige Architekturarbeit keine Bedeutung mehr."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: Das ist die Kernaussage von Conways Gesetz.",
+   "Richtig: Teamgrenzen schlagen sich typischerweise als Systemgrenzen/Schnittstellen nieder.",
+   "Richtig: Der gezielte Team-Zuschnitt (Inverse Conway Maneuver) nutzt das Gesetz als Randbedingung.",
+   "Falsch: Conways Gesetz betrifft den Zusammenhang von Organisation und Systemschnitt, nicht die Serverlast.",
+   "Falsch: Das Gesetz ist für heutige Team-/Architekturzuschnitte hochrelevant."
+  ],
+  "explanation": "Conways Gesetz besagt, dass der Systemschnitt die Kommunikationsstruktur der Organisation widerspiegelt; Teamgrenzen werden zu Systemgrenzen. Es ist eine nutzbare organisatorische Randbedingung – kein technisches Lastgesetz und keineswegs überholt."
+ },
+ {
+  "id": "c3q79",
+  "chapter": 3,
+  "lz": "LZ 03-06",
+  "r": "R2",
+  "type": "multi",
+  "q": "Ein System ist auf eine volatile externe Fremdkomponente angewiesen (häufige API-Änderungen, schwankende Verfügbarkeit). Welche Maßnahmen halten die Auswirkungen beherrschbar?",
+  "options": [
+   "Das Fremdsystem hinter einer eigenen, stabilen Abstraktion (Adapter/Fassade, ggf. Anti-Corruption-Layer) kapseln.",
+   "Nur an dieser einen Stelle gegen das Fremdsystem programmieren, statt dessen API im ganzen System zu verteilen.",
+   "Verfügbarkeitsprobleme mit Mustern wie Timeout, Retry und Circuit Breaker abfedern.",
+   "Die Fremd-API direkt und breit in vielen Bausteinen aufrufen, um Umwege zu vermeiden.",
+   "Auf jede Kapselung verzichten, da externe Abhängigkeiten ohnehin keine Auswirkung auf die Architektur haben."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Richtig: Eine eigene Abstraktion entkoppelt das System von der volatilen Fremd-API und macht sie austauschbar.",
+   "Richtig: Die Abhängigkeit an einer Stelle zu bündeln begrenzt die Ausbreitung von Änderungen.",
+   "Richtig: Timeout/Retry/Circuit Breaker fangen die schwankende Verfügbarkeit ab.",
+   "Falsch: Die Fremd-API breit zu verteilen maximiert gerade die Kopplung und die Änderungslast.",
+   "Falsch: Volatile externe Abhängigkeiten sind sehr wohl ein Architekturthema und müssen gekapselt werden."
+  ],
+  "explanation": "Eine volatile Fremdabhängigkeit hält man beherrschbar, indem man sie hinter einer eigenen stabilen Abstraktion bündelt (Adapter/ACL) und Verfügbarkeitsmuster (Timeout, Retry, Circuit Breaker) einsetzt. Die Fremd-API breit zu verteilen oder gar nicht zu kapseln erhöht Kopplung und Risiko."
+ },
+ {
+  "id": "c2q32",
+  "chapter": 2,
+  "lz": "LZ 02-04",
+  "r": "R2",
+  "type": "single",
+  "q": "Ein Stakeholder fordert: „Das System soll benutzerfreundlich sein.“ Wie macht man diese Qualitätsanforderung überprüfbar?",
+  "options": [
+   "Durch ein konkretes Qualitätsszenario, z. B.: „Ein neuer Nutzer schließt die Bestellung ohne fremde Hilfe in unter 3 Minuten mit einer Erfolgsquote von ≥ 90 % ab.“",
+   "Indem man festhält, dass die Oberfläche „modern und intuitiv“ auszusehen hat.",
+   "Indem man die Anforderung als funktionale Anforderung notiert und mit Unit-Tests prüft.",
+   "Gar nicht – Benutzerfreundlichkeit ist grundsätzlich subjektiv und nicht überprüfbar."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Richtig: Ein messbares Szenario (Nutzer, Aufgabe, Bedingung, messbares Ergebnis) macht Usability überprüfbar.",
+   "Falsch: „modern und intuitiv“ ist nicht messbar und damit nicht überprüfbar.",
+   "Falsch: Benutzerfreundlichkeit ist eine Qualitätsanforderung; Unit-Tests prüfen keine menschliche Bedienbarkeit.",
+   "Falsch: Über Szenarien (z. B. Aufgabenerfolg, Zeit, Fehlerrate) ist Usability sehr wohl überprüfbar."
+  ],
+  "explanation": "Vage Qualitätsziele wie „benutzerfreundlich“ macht man mit konkreten Qualitätsszenarien messbar (Nutzer, Aufgabe, Kontext, messbares Ergebnis wie Zeit/Erfolgsquote). Erst dann sind sie prüf- und abnehmbar."
+ },
+ {
+  "id": "c5q29",
+  "chapter": 5,
+  "lz": "LZ 05-02",
+  "r": "R2",
+  "type": "single",
+  "q": "Ein Team vermutet die Ursache einer langsamen Anwendung in einem bestimmten Modul und will es sofort optimieren. Was ist das methodisch sinnvollste Vorgehen?",
+  "options": [
+   "Zuerst messen (Profiling/Monitoring), den tatsächlichen Engpass belegen und dann gezielt genau dort optimieren.",
+   "Sofort das vermutete Modul optimieren – wer den Code kennt, erkennt die Ursache zuverlässig ohne Messung.",
+   "Vorsorglich möglichst viele Stellen gleichzeitig optimieren, um die Wahrscheinlichkeit zu erhöhen, die richtige zu treffen.",
+   "Die Optimierung auf einen leistungsfähigeren Server verlagern; die konkrete Ursache muss man nicht kennen."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Richtig: Erst messen und den Engpass belegen, dann gezielt optimieren – so vermeidet man Fehlaufwand.",
+   "Falsch: Vermutungen ohne Messung führen häufig zu Optimierung an der falschen Stelle (premature optimization).",
+   "Falsch: Breites Optimieren „auf Verdacht“ erhöht Aufwand und Risiko, ohne die Ursache zu treffen.",
+   "Falsch: Mehr Hardware kann die Ursache verschleiern und ist ohne Analyse weder wirtschaftlich noch verlässlich."
+  ],
+  "explanation": "Performanz optimiert man messbasiert: erst mit Profiling/Monitoring den tatsächlichen Engpass belegen, dann gezielt dort ansetzen. Optimieren auf Verdacht (premature optimization) verschwendet Aufwand an der falschen Stelle."
+ },
+ {
+  "id": "c1q39",
+  "chapter": 1,
+  "lz": "LZ 01-02",
+  "r": "R2",
+  "type": "single",
+  "q": "In einem Projekt mit anfangs unklaren Anforderungen ändert sich spät eine zentrale Anforderung. Das Team kann die Änderung mit überschaubarem Aufwand umsetzen. Worauf ist das am ehesten zurückzuführen?",
+  "options": [
+   "Auf eine bewusst änderbar gehaltene Architektur (Modularität, lose Kopplung), die späte Anpassungen billig macht.",
+   "Auf ein vollständig im Voraus fixiertes Detaildesign, das jede spätere Änderung von vornherein ausschloss.",
+   "Auf den Verzicht auf jegliche Architekturarbeit, wodurch es keine Struktur gibt, die im Weg stehen könnte.",
+   "Auf Zufall – die Änderbarkeit einer Architektur lässt sich nicht gezielt beeinflussen."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Richtig: Modularität und lose Kopplung lokalisieren Änderungen und senken die Änderungskosten.",
+   "Falsch: Ein starr vorab fixiertes Design macht späte Änderungen gerade teuer, nicht billig.",
+   "Falsch: Fehlende Struktur führt eher zu weitreichenden, teuren Änderungen (hohe Kopplung).",
+   "Falsch: Änderbarkeit ist eine gezielt gestaltbare Qualitätseigenschaft, kein Zufall."
+  ],
+  "explanation": "Bei unsicheren Anforderungen zahlt sich eine bewusst änderbar gehaltene Architektur aus: Modularität und lose Kopplung lokalisieren spätere Änderungen und halten sie kostengünstig. Das ist gestaltbar – weder Zufall noch Ergebnis eines starr vorab fixierten Designs."
+ },
+ {
+  "id": "c4q41",
+  "chapter": 4,
+  "lz": "LZ 04-05",
+  "r": "R1",
+  "type": "single",
+  "q": "Was unterscheidet in der Verteilungssicht einen Knoten von einem Artefakt?",
+  "options": [
+   "Ein Knoten ist eine Ausführungsumgebung bzw. Hardware (z. B. Server, VM); ein Artefakt ist eine darauf installierte/ausgeführte Einheit (z. B. Container-Image, JAR/WAR, Konfigurationsdatei).",
+   "Ein Knoten ist eine deploybare Datei; ein Artefakt ist der Rechner, auf dem sie läuft.",
+   "Knoten und Artefakt bezeichnen dasselbe und sind in der Verteilungssicht austauschbar.",
+   "Ein Knoten ist ein fachlicher Baustein, ein Artefakt eine Schnittstelle zwischen Bausteinen."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Richtig: Knoten = Ausführungsumgebung/Hardware, Artefakt = die darauf verteilte, ausführbare/installierte Einheit.",
+   "Falsch: Das vertauscht die Begriffe – der Rechner ist der Knoten, die Datei das Artefakt.",
+   "Falsch: Knoten und Artefakt sind klar verschiedene Konzepte der Verteilungssicht.",
+   "Falsch: Fachliche Bausteine und Schnittstellen gehören in die Bausteinsicht, nicht in diese Definition."
+  ],
+  "explanation": "In der Verteilungssicht ist ein Knoten eine Ausführungsumgebung bzw. Hardware (Server, VM), ein Artefakt die darauf verteilte ausführbare/installierte Einheit (Container-Image, JAR/WAR, Konfiguration). Die Sicht bildet Artefakte auf Knoten ab."
+ },
+ {
+  "id": "k36",
+  "chapter": 3,
+  "lz": "LZ 03-08",
+  "r": "R2",
+  "type": "k",
+  "points": 2,
+  "q": "Ordne zu: Spricht der Aspekt eher für einen (modularen) Monolithen oder eher für Microservices?",
+  "categories": [
+   "Eher Monolith",
+   "Eher Microservices"
+  ],
+  "rows": [
+   {
+    "text": "Das System lässt sich einfach als Ganzes end-to-end testen und betreiben.",
+    "cat": 0
+   },
+   {
+    "text": "Einzelne Teile sollen unabhängig voneinander deployt und skaliert werden.",
+    "cat": 1
+   },
+   {
+    "text": "Kleines Team, ein überschaubarer fachlicher Kontext, geringe Betriebskomplexität gewünscht.",
+    "cat": 0
+   },
+   {
+    "text": "Viele autonome Teams sollen weitgehend unabhängig voneinander entwickeln.",
+    "cat": 1
+   },
+   {
+    "text": "Strenge, unmittelbare Transaktionskonsistenz über den gesamten Datenbestand ist zwingend.",
+    "cat": 0
+   },
+   {
+    "text": "Verschiedene Teile sollen bewusst unterschiedliche Technologien nutzen dürfen.",
+    "cat": 1
+   }
+  ],
+  "explanation": "Für einen Monolithen sprechen einfacher Gesamttest/Betrieb, kleine Teams/Kontexte und starke Konsistenzanforderungen. Für Microservices sprechen unabhängiges Deployment/Skalieren, viele autonome Teams und heterogene Technologiewahl – erkauft mit höherer Betriebskomplexität (LZ 03-08)."
  }
 ];
