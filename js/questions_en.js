@@ -4861,5 +4861,409 @@ const QUESTIONS_EN = {
    "„The system should be performant“ is a good (testable) quality requirement."
   ],
   "explanation": "Correct: scenario structure, one requirement can affect several qualities, trade-offs are normal. Wrong: „frozen“, scalability as a 25010 top-level characteristic (part of flexibility), and „performant“ without a measure is not testable."
+ },
+ "c1q35": {
+  "q": "A user of the “Payment Processing” component asks: “Which services does this component offer?” From which view is this answered – and how?",
+  "options": [
+   "From the black-box view: via the externally offered interfaces / services together with their guaranteed properties – without revealing the internal realization.",
+   "From the white-box view: the offered services can only be named once the contained sub-building-blocks and their algorithms are known.",
+   "From the deployment view: the offered services result from mapping the component to execution nodes.",
+   "The offered services are not an architecture topic but purely implementation details."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Correct: the services a component offers are exactly the outside view (black box): interfaces/services plus guaranteed properties, without internals.",
+   "Wrong: you precisely do not need to know the internals for the offered services – that is the essence of the black-box principle.",
+   "Wrong: the deployment view maps artifacts to nodes; it does not define the offered services.",
+   "Wrong: offered services/interfaces are a central architecture topic (building block view), not mere implementation details."
+  ],
+  "explanation": "Which services a component offers is described by the black-box view: externally visible interfaces/services together with guaranteed properties – without disclosing the internal realization."
+ },
+ "c1q36": {
+  "q": "At the start of the project the requirements are not yet fully fixed. What do you sensibly keep in mind during architecture design?",
+  "options": [
+   "You work iteratively and incrementally and let the architecture grow with the increasing knowledge.",
+   "Far-reaching, expensive-to-reverse decisions are made as late as responsibly possible (last responsible moment).",
+   "Assumptions made are documented explicitly and reviewed later.",
+   "You keep the architecture changeable and avoid unnecessary upfront commitments (YAGNI).",
+   "You proactively fix all details completely in advance in order to rule out later changes from the outset."
+  ],
+  "correct": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "optExpl": [
+   "Correct: with uncertain requirements an iterative/incremental approach is appropriate.",
+   "Correct: making consequential decisions as late as responsible keeps options open.",
+   "Correct: making assumptions visible and reviewing them is central when knowledge is missing.",
+   "Correct: preserving changeability and avoiding over-engineering (YAGNI) reduces the risk of wrong early commitments.",
+   "Wrong: fixing everything in advance under unclear requirements raises rather than lowers the risk of expensive wrong decisions."
+  ],
+  "explanation": "With incomplete requirements you design iteratively/incrementally, defer expensive decisions to the last responsible moment, document assumptions and keep the architecture changeable (YAGNI). Fixing everything up front is precisely not sensible."
+ },
+ "c2q29": {
+  "q": "An organization deliberately shapes its teams so that the desired target architecture emerges, thereby applying Conway's law on purpose. Which statement is most accurate?",
+  "options": [
+   "Since the system structure mirrors the communication structure, a suitable team layout can favor the desired architectural split (“Inverse Conway Maneuver”) – but this requires actually changing the organization.",
+   "Conway's law can be fully overridden by clear coding guidelines, so that the team structure becomes irrelevant for the system split.",
+   "Applied consistently, Conway's law automatically guarantees loose coupling between all building blocks.",
+   "Conway's law only concerns the documentation, not the actual split of the system."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Correct: because system split and communication structure are related, you can shape the organization deliberately to foster the target split – but this presupposes real organizational change.",
+   "Wrong: coding guidelines do not cancel the effect of communication structures.",
+   "Wrong: Conway's law describes a relationship; it does not guarantee loose coupling.",
+   "Wrong: it concerns the real system split, not just the documentation."
+  ],
+  "explanation": "Conway's law states that the system structure mirrors the organization's communication structures. Used deliberately (Inverse Conway Maneuver) you shape teams so the desired architectural split is favored – but the organization must actually be changed for this."
+ },
+ "c2q30": {
+  "q": "For a system “high usability” is an important quality goal. Which statements on assuring this goal are correct?",
+  "options": [
+   "Usability is a quality characteristic (among others in ISO/IEC 25010) and should be made tangible via concrete, verifiable quality scenarios.",
+   "It is checked above all through usability tests with real or representative users, prototypes and heuristic evaluations.",
+   "The quality goal influences architecture decisions (e.g. response times, error messages, interaction flows) and is not purely cosmetic.",
+   "Usability can be fully assured by unit tests and static code analysis.",
+   "Usability is a functional requirement and therefore need not be treated separately as a quality goal."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Correct: usability is a quality characteristic; it becomes verifiable via concrete quality scenarios.",
+   "Correct: user tests, prototypes and heuristic evaluation are the typical means to check usability.",
+   "Correct: usability feeds back into architecture decisions (response times, error handling, flows).",
+   "Wrong: unit tests and static analysis precisely do not check human operability.",
+   "Wrong: usability is a quality (non-functional) requirement and must be treated as such."
+  ],
+  "explanation": "Usability is a quality requirement (ISO/IEC 25010). It is made measurable via quality scenarios and assured with usability tests, prototypes and heuristic evaluation – not by unit tests / static analysis alone."
+ },
+ "c3q77": {
+  "q": "A building block directly integrates an external third-party component (e.g. a third party's cloud service). What consequences does this typically have?",
+  "options": [
+   "A dependency on an externally controlled, potentially volatile element arises – version changes, API changes or availability feed back into your system.",
+   "The coupling to the external system increases; changes there can force adaptations in your own system.",
+   "Encapsulation behind your own interface / an adapter reduces the coupling and makes the external system more replaceable.",
+   "The integration automatically lowers coupling because functionality is outsourced externally.",
+   "An external dependency has no effect on your own architecture as long as the interface currently works."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Correct: you tie yourself to an externally controlled, often volatile element (versions, API, availability).",
+   "Correct: coupling to the external system increases; its changes can propagate into your system.",
+   "Correct: an adapter / your own interface encapsulates the external system and thus reduces coupling.",
+   "Wrong: outsourcing creates a dependency; coupling does not drop automatically because of it.",
+   "Wrong: external dependencies (volatility, availability, contractual situation) very much are an architecture topic."
+  ],
+  "explanation": "Directly integrating a third-party component creates a dependency on an externally controlled, volatile element and increases coupling. Encapsulation behind an adapter / your own interface reduces the coupling and preserves replaceability."
+ },
+ "c3q78": {
+  "q": "The developers want to build the system as microservices, while operations prefer a monolith for operational reasons. How do you best handle this goal conflict architecturally?",
+  "options": [
+   "You make the underlying quality goals and trade-offs explicit (independent deployability/scaling vs. operational simplicity) and decide based on the requirements – a modular monolith can be a viable compromise.",
+   "You generally follow the developers' preference, since microservices are the more modern and therefore always better architecture.",
+   "You generally follow operations' preference, since a monolith is always simpler and cheaper to operate.",
+   "You postpone the decision until one side prevails; a well-founded architecture decision is not possible in such conflicts."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Correct: you surface the quality goals and trade-offs and decide requirement-based; a modular monolith is often a good middle ground.",
+   "Wrong: “more modern” is not an architecture criterion; microservices increase operational complexity.",
+   "Wrong: a monolith is not simpler/cheaper in every case; it depends on the requirements.",
+   "Wrong: precisely here a well-founded decision oriented on quality goals is possible and necessary."
+  ],
+  "explanation": "Goal conflicts are resolved by making the underlying quality goals and trade-offs visible and deciding based on the requirements. A modular monolith can combine an independent structure with simple operation – preference or fashion is no basis for the decision."
+ },
+ "c4q39": {
+  "q": "Which information typically belongs in the white-box description of a building block?",
+  "options": [
+   "The contained (sub-)building-blocks and their relationships.",
+   "The interplay of the inner building blocks, as far as needed for understanding.",
+   "Internally used algorithms and data structures, insofar as they explain the internal structure.",
+   "The legal contracts and licenses of the suppliers of the third-party building blocks used.",
+   "The mapping of the inner building blocks to concrete servers (execution nodes)."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Correct: the inner decomposition into sub-building-blocks including relationships is the core of the white box.",
+   "Correct: the relevant interplay of the inner building blocks belongs to it.",
+   "Correct: internally used algorithms/data structures explain the internal structure.",
+   "Wrong: suppliers' contracts and licenses are a procurement/legal topic, not part of the white-box building block view.",
+   "Wrong: the mapping to execution nodes belongs to the deployment view, not the white box."
+  ],
+  "explanation": "The white box shows the internal structure: contained building blocks, their interplay and the internally used algorithms/data structures. Legal supplier contracts (procurement/law) and the mapping to nodes (deployment view) explicitly do not belong here."
+ },
+ "c5q28": {
+  "q": "A stakeholder reports: “The system is too slow.” How do you investigate such a performance/efficiency problem in a methodically sound way?",
+  "options": [
+   "You make the goal tangible with concrete, measurable quality scenarios (e.g. response time for operation X under load Y).",
+   "You measure quantitatively – e.g. with load tests, monitoring, profiling and benchmarks – instead of merely guessing.",
+   "Based on the measurements you identify the bottlenecks (hotspots) and then optimize in a targeted way.",
+   "You immediately optimize the spots that seem most likely by gut feeling, without measuring first.",
+   "Performance can seriously be judged only by subjective user surveys, not by measured values."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Correct: without a concrete, measurable scenario “too slow” is not verifiable.",
+   "Correct: performance is judged quantitatively (load test, monitoring, profiling, benchmark).",
+   "Correct: first measure, find bottlenecks, then optimize in a targeted way.",
+   "Wrong: optimizing without measuring is guessing and often wastes effort in the wrong place.",
+   "Wrong: performance is precisely quantitatively measurable; subjective surveys are not enough."
+  ],
+  "explanation": "Performance problems are investigated measurement-based: state the goal as a verifiable quality scenario, measure quantitatively (load test, monitoring, profiling, benchmark), identify bottlenecks and optimize in a targeted way – not guess or optimize blindly."
+ },
+ "k34": {
+  "q": "Classify each item: does it belong in the black-box description (outside view) or the white-box description (inside view) of a building block?",
+  "categories": [
+   "Black box (outside view)",
+   "White box (inside view)"
+  ],
+  "rows": [
+   "The offered (provided) interfaces and services.",
+   "The guaranteed properties (e.g. responsibility, response time).",
+   "The required (needed) interfaces towards the outside.",
+   "The contained sub-building-blocks and their relationships.",
+   "The internally used algorithms and data structures.",
+   "The interplay of the inner building blocks."
+  ],
+  "explanation": "The black-box view describes the outside view (provided and required interfaces, guaranteed properties) without internals. The white-box view adds the internal structure: contained building blocks, their relationships, their interplay and internally used algorithms/data structures (LG 01-01)."
+ },
+ "k35": {
+  "q": "Deployment view: classify each element – is it an execution/hardware node or an artifact distributed onto it?",
+  "categories": [
+   "Node",
+   "Artifact (deployment artifact)"
+  ],
+  "rows": [
+   "An application server (runtime environment).",
+   "A physical or virtual machine (VM).",
+   "A database server as an execution environment.",
+   "An executable container image or a .jar file of the application.",
+   "A deployable web application (e.g. WAR file).",
+   "A configuration file shipped along with it."
+  ],
+  "explanation": "The deployment view maps artifacts onto nodes: nodes are execution environments or hardware (server, VM, DB server), artifacts are the files installed/executed on them (container image, JAR/WAR, configuration) (LG 04-05)."
+ },
+ "c1q37": {
+  "q": "Which information takes priority in a good black-box description of a building block (i.e. must be included)?",
+  "options": [
+   "The offered (provided) interfaces and services.",
+   "The responsibility/task of the building block and its guaranteed properties (e.g. quality promises).",
+   "The required (needed) interfaces or dependencies towards the outside.",
+   "The internally used algorithms and data structures of the building block.",
+   "The complete source code including the line count of the implementation."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Correct: what the building block offers is at the core of the outside view.",
+   "Correct: responsibility and guaranteed properties make the block usable for consumers.",
+   "Correct: the required interfaces/dependencies also belong to the outside view.",
+   "Wrong: internal algorithms/data structures are white box – deliberately hidden in the black box.",
+   "Wrong: source code is an implementation detail and does not belong in the black-box description."
+  ],
+  "explanation": "The black box prioritizes the outside-view information: offered and required interfaces, responsibility and guaranteed properties. Internal algorithms/data structures or even source code are white box / implementation and stay out."
+ },
+ "c1q38": {
+  "q": "A developer only wants to use (call) an existing building block, not change it. Which description does she primarily need for that?",
+  "options": [
+   "The black-box description: interfaces, responsibility and guaranteed properties are enough to use it.",
+   "The white-box description: without knowing the inner building blocks and algorithms the block cannot be called.",
+   "The deployment view: only the mapping to execution nodes makes the block usable.",
+   "The complete source code, to be sure the block works correctly."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Correct: for mere use the outside view (black box) suffices – that is the point of encapsulation.",
+   "Wrong: the internals (white box) are only needed by whoever changes/extends the block.",
+   "Wrong: the deployment view concerns deployment, not use of the interface.",
+   "Wrong: someone who only uses it should precisely not rely on implementation details (coupling)."
+  ],
+  "explanation": "To merely use a building block the black-box view (interfaces, responsibility, guaranteed properties) is enough. The white box with the internals is only needed by whoever changes the block itself – that is exactly what encapsulation enables."
+ },
+ "c4q40": {
+  "q": "Which item belongs least in the white-box description of a building block?",
+  "options": [
+   "The legal delivery and licensing terms of the purchased third-party libraries.",
+   "The contained sub-building-blocks and their relationships.",
+   "The interplay of the inner building blocks needed for understanding.",
+   "Internally used algorithms and data structures that explain the structure."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Correct: delivery/licensing terms are a procurement and legal topic, not part of the white-box building block view.",
+   "Wrong: the inner building blocks and their relationships are the core of the white box.",
+   "Wrong: the relevant interplay of the internals belongs in the white box.",
+   "Wrong: internally used algorithms/data structures explain the structure and belong to it."
+  ],
+  "explanation": "The white box shows the internal structure (contained building blocks, interplay, internal algorithms/data structures). Legal delivery and licensing terms of suppliers are procurement/law and do not belong here."
+ },
+ "c2q31": {
+  "q": "Which statements about Conway's law and its consequences are correct?",
+  "options": [
+   "The structure of a system tends to mirror the communication structures of the developing organization.",
+   "Separate teams that communicate little tend to create corresponding boundaries and interfaces in the system.",
+   "You can deliberately use the law as an organizational constraint and shape teams to match the desired split.",
+   "It is a purely technical law that only describes server load as a function of the number of users.",
+   "It was only historically valid and has no relevance for today's architecture work anymore."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Correct: that is the core statement of Conway's law.",
+   "Correct: team boundaries typically manifest as system boundaries/interfaces.",
+   "Correct: deliberately shaping teams (Inverse Conway Maneuver) uses the law as a constraint.",
+   "Wrong: Conway's law concerns the link between organization and system split, not server load.",
+   "Wrong: the law is highly relevant for today's team/architecture design."
+  ],
+  "explanation": "Conway's law states that the system split mirrors the organization's communication structure; team boundaries become system boundaries. It is a usable organizational constraint – not a technical load law and by no means obsolete."
+ },
+ "c3q79": {
+  "q": "A system depends on a volatile external third-party component (frequent API changes, fluctuating availability). Which measures keep the impact manageable?",
+  "options": [
+   "Encapsulate the external system behind your own stable abstraction (adapter/facade, possibly an anti-corruption layer).",
+   "Program against the external system only in this one place instead of spreading its API throughout the whole system.",
+   "Cushion availability problems with patterns like timeout, retry and circuit breaker.",
+   "Call the external API directly and broadly in many building blocks to avoid detours.",
+   "Forego any encapsulation, since external dependencies have no effect on the architecture anyway."
+  ],
+  "correct": [
+   0,
+   1,
+   2
+  ],
+  "optExpl": [
+   "Correct: your own abstraction decouples the system from the volatile external API and makes it replaceable.",
+   "Correct: bundling the dependency in one place limits the spread of changes.",
+   "Correct: timeout/retry/circuit breaker absorb the fluctuating availability.",
+   "Wrong: spreading the external API broadly maximizes coupling and the change load.",
+   "Wrong: volatile external dependencies very much are an architecture topic and must be encapsulated."
+  ],
+  "explanation": "A volatile external dependency is kept manageable by bundling it behind your own stable abstraction (adapter/ACL) and using availability patterns (timeout, retry, circuit breaker). Spreading the external API broadly or not encapsulating it at all increases coupling and risk."
+ },
+ "c2q32": {
+  "q": "A stakeholder demands: “The system should be user-friendly.” How do you make this quality requirement verifiable?",
+  "options": [
+   "Via a concrete quality scenario, e.g.: “A new user completes the order without outside help in under 3 minutes with a success rate of ≥ 90%.”",
+   "By stating that the UI has to look “modern and intuitive”.",
+   "By noting the requirement as a functional requirement and checking it with unit tests.",
+   "Not at all – usability is inherently subjective and cannot be verified."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Correct: a measurable scenario (user, task, condition, measurable result) makes usability verifiable.",
+   "Wrong: “modern and intuitive” is not measurable and therefore not verifiable.",
+   "Wrong: usability is a quality requirement; unit tests do not check human operability.",
+   "Wrong: via scenarios (e.g. task success, time, error rate) usability very much can be verified."
+  ],
+  "explanation": "Vague quality goals like “user-friendly” are made measurable with concrete quality scenarios (user, task, context, measurable result such as time/success rate). Only then are they verifiable and acceptable."
+ },
+ "c5q29": {
+  "q": "A team suspects the cause of a slow application in a particular module and wants to optimize it right away. What is the methodically soundest approach?",
+  "options": [
+   "First measure (profiling/monitoring), prove the actual bottleneck and then optimize precisely there in a targeted way.",
+   "Immediately optimize the suspected module – whoever knows the code reliably identifies the cause without measuring.",
+   "Preemptively optimize as many spots as possible at once to increase the chance of hitting the right one.",
+   "Move the optimization to a more powerful server; the concrete cause need not be known."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Correct: first measure and prove the bottleneck, then optimize in a targeted way – this avoids wasted effort.",
+   "Wrong: guesses without measurement often lead to optimizing the wrong place (premature optimization).",
+   "Wrong: broad optimizing “on suspicion” increases effort and risk without hitting the cause.",
+   "Wrong: more hardware can mask the cause and is neither economical nor reliable without analysis."
+  ],
+  "explanation": "Performance is optimized measurement-based: first prove the actual bottleneck with profiling/monitoring, then act there in a targeted way. Optimizing on suspicion (premature optimization) wastes effort in the wrong place."
+ },
+ "c1q39": {
+  "q": "In a project with initially unclear requirements, a central requirement changes late. The team can implement the change with manageable effort. What is this most likely due to?",
+  "options": [
+   "To an architecture deliberately kept changeable (modularity, loose coupling) that makes late adaptations cheap.",
+   "To a detailed design fixed completely in advance that ruled out any later change from the outset.",
+   "To foregoing any architecture work, so that there is no structure that could get in the way.",
+   "To chance – the changeability of an architecture cannot be deliberately influenced."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Correct: modularity and loose coupling localize changes and lower change costs.",
+   "Wrong: a rigidly pre-fixed design makes late changes expensive, not cheap.",
+   "Wrong: a lack of structure tends to lead to far-reaching, expensive changes (high coupling).",
+   "Wrong: changeability is a deliberately designable quality property, not chance."
+  ],
+  "explanation": "With uncertain requirements a deliberately changeable architecture pays off: modularity and loose coupling localize later changes and keep them cheap. This is designable – neither chance nor the result of a rigidly pre-fixed design."
+ },
+ "c4q41": {
+  "q": "In the deployment view, what distinguishes a node from an artifact?",
+  "options": [
+   "A node is an execution environment or hardware (e.g. server, VM); an artifact is a unit installed/executed on it (e.g. container image, JAR/WAR, configuration file).",
+   "A node is a deployable file; an artifact is the machine on which it runs.",
+   "Node and artifact denote the same thing and are interchangeable in the deployment view.",
+   "A node is a business building block, an artifact an interface between building blocks."
+  ],
+  "correct": [
+   0
+  ],
+  "optExpl": [
+   "Correct: node = execution environment/hardware, artifact = the deployed executable/installed unit on it.",
+   "Wrong: that swaps the terms – the machine is the node, the file is the artifact.",
+   "Wrong: node and artifact are clearly different concepts of the deployment view.",
+   "Wrong: business building blocks and interfaces belong to the building block view, not this definition."
+  ],
+  "explanation": "In the deployment view a node is an execution environment or hardware (server, VM), an artifact the deployed executable/installed unit on it (container image, JAR/WAR, configuration). The view maps artifacts onto nodes."
+ },
+ "k36": {
+  "q": "Classify: does the aspect argue rather for a (modular) monolith or rather for microservices?",
+  "categories": [
+   "Rather monolith",
+   "Rather microservices"
+  ],
+  "rows": [
+   "The system can be tested and operated end-to-end easily as a whole.",
+   "Individual parts should be deployed and scaled independently of one another.",
+   "Small team, a manageable business context, low operational complexity desired.",
+   "Many autonomous teams should develop largely independently of one another.",
+   "Strict, immediate transactional consistency across the entire data set is mandatory.",
+   "Different parts should deliberately be allowed to use different technologies."
+  ],
+  "explanation": "A monolith is favored by easy overall testing/operation, small teams/contexts and strong consistency needs. Microservices are favored by independent deployment/scaling, many autonomous teams and heterogeneous technology choice – at the price of higher operational complexity (LG 03-08)."
  }
 };
