@@ -90,14 +90,13 @@ function renderReview(){
       });
     } else {
       h+="<div class='qtype'>"+T("Wählen Sie "+q.correct.length+" Antwort"+(q.correct.length>1?"en":"")+".","Select "+q.correct.length+" answer"+(q.correct.length>1?"s":"")+".")+"</div>";
-      Lopts(q).forEach((opt,oi)=>{ const isC=q.correct.includes(oi); const isS=it.selected.includes(oi);
-        const cls=isC?"revok":(isS?"revno":""); const pre=isC?"✓ ":(isS?"✗ ":"○ ");
-        const suf=isS&&!isC?T(" — deine Wahl (falsch)"," — your choice (wrong)"):(isC&&!isS?T(" — richtig (fehlte)"," — correct (missed)"):"");
-        const oe=LoptExpl(q); const why=(oe&&oe[oi])?"<div class='revwhy'>"+escapeHtml(oe[oi])+"</div>":"";
-        h+="<div class='revopt "+cls+"'>"+pre+escapeHtml(opt)+suf+why+"</div>";
+      const ord=(it.order&&it.order.length===q.options.length)?it.order:q.options.map((_,i)=>i);
+      ord.forEach((oi,pos)=>{ const opt=Lopts(q)[oi]; const isC=q.correct.includes(oi); const isS=it.selected.includes(oi);
+        const cls=isC?(isS?"revok":"revok revmiss"):(isS?"revno":""); const pre=isC?"✓ ":(isS?"✗ ":"○ ");
+        h+="<div class='revopt "+cls+"'>"+pre+"<b>"+optLetter(pos)+"</b> "+escapeHtml(opt)+"</div>";
       });
     }
-    h+="<div class='explain' style='margin-top:10px'><b>"+T("Erklärung","Explanation")+"</b>"+escapeHtml(Lexpl(q))+"</div>";
+    h+="<div style='margin-top:10px'>"+feedbackHtml(q, it.selected||[], it.order, it.correct===true, true)+"</div>";
     card.innerHTML=h; box.appendChild(card);
   });
   show("review");
