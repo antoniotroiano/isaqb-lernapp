@@ -187,7 +187,7 @@ function renderQuestion(){
 
   const list=$("#optList"); list.innerHTML="";
   if(q.type==="k"){ renderKRows(it, list); }
-  else it.order.forEach(optIdx=>{
+  else it.order.forEach((optIdx,pos)=>{
     const reveal = it.submitted && session.mode!=="exam";   // Prüfungsmodus deckt erst am Ende auf
     const el=document.createElement("div");
     el.className="opt";
@@ -195,19 +195,16 @@ function renderQuestion(){
     if(isSel) el.classList.add("selected");
     if(reveal){
       el.classList.add("disabled");
-      if(q.correct.includes(optIdx)) el.classList.add("correct");
+      if(q.correct.includes(optIdx)) el.classList.add(isSel?"correct":"missed");
       else if(isSel) el.classList.add("wrong");
     }
     const mark=document.createElement("span"); mark.className="mark";
     mark.textContent = reveal ? (q.correct.includes(optIdx)?"✓":(isSel?"✕":"")) : (isSel?"✓":"");
     const body=document.createElement("div"); body.className="optbody";
-    const txt=document.createElement("div"); txt.textContent=Lopts(q)[optIdx];
+    const txt=document.createElement("div");
+    const let_=document.createElement("span"); let_.className="optletter"; let_.textContent=optLetter(pos);
+    txt.appendChild(let_); txt.appendChild(document.createTextNode(Lopts(q)[optIdx]));
     body.appendChild(txt);
-    const oe=LoptExpl(q);
-    if(reveal && oe && oe[optIdx]){
-      const why=document.createElement("div"); why.className="optwhy"; why.textContent=oe[optIdx];
-      body.appendChild(why);
-    }
     el.appendChild(mark); el.appendChild(body);
     if(!reveal){
       el.onclick=()=>{
@@ -220,8 +217,8 @@ function renderQuestion(){
 
   const ex=$("#explainBox"); ex.innerHTML="";
   if(it.submitted && session.mode==="practice"){
-    const d=document.createElement("div"); d.className="explain";
-    d.innerHTML="<b>"+(it.correct?T("Richtig ✓","Correct ✓"):T("Nicht ganz ✕","Not quite ✕"))+"</b>"+escapeHtml(Lexpl(q))+
+    const d=document.createElement("div");
+    d.innerHTML=feedbackHtml(q, it.selected, it.order, it.correct)+
       "<div class='lz'>"+(q.r?q.r+" · ":"")+lzLink(q.lz)+" · "+T("Kapitel","Chapter")+" "+q.chapter+"</div>";
     ex.appendChild(d);
   }
@@ -245,6 +242,41 @@ function renderQuestion(){
 }
 
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+/* ---- Feedback-Block nach dem Prüfen (Übungsmodus + „Antworten durchsehen“) ---- */
+function optLetter(pos){ return "ABCDEFGH"[pos]||"?"; }
+function stripVerdict(s){ const t=String(s||"").replace(/^\s*(Richtig|Falsch|Correct|Wrong)\s*[:–-]\s*/i,""); return t.charAt(0).toUpperCase()+t.slice(1); }
+function joinLetters(ls){ return ls.length<2 ? ls.join("") : ls.slice(0,-1).join(", ")+T(" und "," and ")+ls[ls.length-1]; }
+function feedbackHtml(q, selected, order, isRight, rowsShown){   // rowsShown: K-Zeilen stehen schon darüber (Durchsicht)
+  const sec=(title,cls,body)=>"<div class='fbsec "+cls+"'><div class='fbtitle'>"+title+"</div>"+body+"</div>";
+  const head="<div class='fbhead "+(isRight?"ok":"no")+"'>"+(isRight?T("Richtig ✓","Correct ✓"):T("Nicht ganz ✕","Not quite ✕"))+"</div>";
+  const short=sec(T("Kurz gesagt","In short"),"sum","<p>"+escapeHtml(Lexpl(q))+"</p>");
+  if(q.type==="k"){
+    const wrongRows=q.rows.map((r,ri)=>({r,sel:selected[ri]})).filter(x=>x.sel!==x.r.cat);
+    let body="";
+    if(wrongRows.length && !rowsShown){
+      body=sec(T("Falsch zugeordnet","Assigned incorrectly"),"no",
+        wrongRows.map(x=>"<p>„"+escapeHtml(Lrow(x.r))+"“<br><span class='fbmeta'>"+T("Deine Zuordnung: ","Your assignment: ")+(x.sel==null?"—":escapeHtml(Lcats(q)[x.sel]))+" · "+T("Korrekt wäre: ","Correct would be: ")+"<b>"+escapeHtml(Lcats(q)[x.r.cat])+"</b>"+"</span></p>").join(""));
+    }
+    return "<div class='feedback'>"+head+body+short+"</div>";
+  }
+  const ord = (order&&order.length===q.options.length) ? order : q.options.map((_,i)=>i);
+  const L=i=>optLetter(ord.indexOf(i));
+  const oe=LoptExpl(q)||[]; const opts=Lopts(q);
+  const byPos=a=>a.slice().sort((x,y)=>ord.indexOf(x)-ord.indexOf(y));
+  const item=(i,extra)=>"<p><span class='fbletter'>"+L(i)+"</span>"+(extra?"<span class='fbtag'>"+extra+"</span>":"")+escapeHtml(stripVerdict(oe[i])||opts[i])+"</p>";
+  const corr=byPos(q.correct), wrongSel=byPos(selected.filter(i=>!q.correct.includes(i)));
+  const others=byPos(opts.map((_,i)=>i).filter(i=>!q.correct.includes(i)&&!selected.includes(i)));
+  const many=corr.length>1;
+  let h=head;
+  h+=sec((many?T("Warum ","Why ")+joinLetters(corr.map(L))+T(" richtig sind"," are correct"):T("Warum ","Why ")+L(corr[0])+T(" richtig ist"," is correct")),"ok",
+    corr.map(i=>item(i, selected.includes(i)?"":T("von dir übersehen","you missed this"))).join(""));
+  if(wrongSel.length) h+=sec((wrongSel.length>1?T("Warum deine Auswahl ","Why your choices ")+joinLetters(wrongSel.map(L))+T(" falsch ist"," are wrong"):T("Warum deine Auswahl ","Why your choice ")+L(wrongSel[0])+T(" falsch ist"," is wrong")),"no",
+    wrongSel.map(i=>item(i)).join(""));
+  h+=short;
+  if(others.length) h+="<details class='fbmore'><summary>"+T("Warum die übrigen Optionen falsch sind","Why the other options are wrong")+" ("+joinLetters(others.map(L))+")</summary>"+others.map(i=>item(i)).join("")+"</details>";
+  return "<div class='feedback'>"+h+"</div>";
+}
 
 /* ---- K-Fragen: Matrix aus Zeilen mit je zwei Kategorien ---- */
 function renderKRows(it, list){
