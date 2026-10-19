@@ -117,7 +117,27 @@
   .opt.correct .mark{border-color:var(--correct);background:var(--correct);color:#fff}
   .opt.wrong{border-color:var(--wrong);background:var(--wrong-bg)}
   .opt.wrong .mark{border-color:var(--wrong);background:var(--wrong);color:#fff}
+  .opt.missed{border-style:dashed;border-color:var(--correct)}
+  .opt.missed .mark{border-color:var(--correct);color:var(--correct)}
   .opt.disabled{cursor:default}
+  .optletter{display:inline-block;min-width:1.4em;font-weight:700;color:var(--muted);margin-right:4px}
+  .opt.correct .optletter,.opt.missed .optletter{color:var(--correct)}
+  .opt.wrong .optletter{color:var(--wrong)}
+  .revopt.revmiss{background:transparent;border-style:dashed}
+  .feedback{margin:6px 0 4px;font-size:.9rem}
+  .fbhead{font-weight:700;font-size:1rem;margin-bottom:8px}
+  .fbhead.ok{color:var(--correct)} .fbhead.no{color:var(--wrong)}
+  .fbsec{border-radius:10px;padding:11px 13px;margin-bottom:8px;background:var(--card);border:1px solid var(--border);border-left-width:4px}
+  .fbsec.ok{border-left-color:var(--correct)} .fbsec.no{border-left-color:var(--wrong)} .fbsec.sum{border-left-color:var(--accent);background:var(--accent-soft)}
+  .fbtitle{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .fbsec p{margin:5px 0;line-height:1.45}
+  .fbletter{display:inline-grid;place-items:center;width:1.5em;height:1.5em;border-radius:5px;font-size:.78rem;font-weight:700;margin-right:7px;background:var(--border);vertical-align:1px}
+  .fbsec.ok .fbletter{background:var(--correct);color:#fff} .fbsec.no .fbletter{background:var(--wrong);color:#fff}
+  .fbtag{font-size:.72rem;font-weight:700;color:var(--correct);border:1px dashed var(--correct);border-radius:5px;padding:0 5px;margin-right:6px}
+  .fbmeta{font-size:.82rem;color:var(--muted)}
+  .fbmore{margin:2px 0 6px;font-size:.88rem}
+  .fbmore summary{cursor:pointer;color:var(--muted);font-weight:600;padding:4px 0}
+  .fbmore p{margin:6px 0 6px 2px;line-height:1.45}
   .opt .optbody{flex:1;min-width:0}
   .optwhy{font-size:.82rem;color:var(--muted);margin-top:5px;line-height:1.4}
   .revwhy{font-size:.8rem;color:var(--muted);margin-top:4px;line-height:1.4}
