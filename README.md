@@ -3,10 +3,10 @@
 Übungs‑App (Multiple Choice) zur Vorbereitung auf die Zertifizierung
 **CPSA‑F** (Certified Professional for Software Architecture – Foundation Level).
 Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lokale Datei** (PC/Mac),
-**ohne Installation und ohne Konto**. Enthält **236 eigenständige Fragen** über alle 6 Kapitel des Curriculums,
+**ohne Installation und ohne Konto**. Enthält **256 eigenständige Fragen** über alle 6 Kapitel des Curriculums,
 zusätzlich die **offizielle iSAQB‑Beispielprüfung** als Generalprobe. Oberfläche wahlweise **Deutsch oder Englisch** (Umschalter **DE/EN** oben rechts).
 
-*Version 1.11.0*
+*Version 1.12.0*
 
 ---
 
@@ -39,7 +39,7 @@ Die Datei **`isaqb-trainer.html`** per **Doppelklick** im Browser öffnen — fe
 
 | Modus | Zweck | Verhalten |
 |---|---|---|
-| **Üben** | Lernen | Sofortiges Feedback nach jeder Frage: **pro Antwortoption eine kurze Begründung** (warum richtig bzw. falsch) plus Merksatz; kein Timer, keine Punkte. |
+| **Üben** | Lernen | Sofortiges Feedback nach jeder Frage: **warum die richtigen Antworten richtig sind**, bei Fehlern zusätzlich **warum deine Auswahl falsch ist** (übersehene richtige Antworten sind markiert), dazu ein **„Kurz gesagt“**; die Begründung zu den übrigen Optionen lässt sich aufklappen. Kein Timer, keine Punkte. |
 | **Prüfung simulieren** | Ernstfall proben | Wie die echte Prüfung: **40 Fragen · 75 Min Countdown**, Auswertung **erst am Ende**, Punkte nach offizieller iSAQB‑Bewertung, **60 % zum Bestehen**. |
 | **🔁 Wiederholen** | Langfristig behalten | **Spaced Repetition** (Leitner): übt genau die Fragen, die laut Lernplan heute **fällig** sind. Richtig → längeres Intervall (1 → 3 → 7 → 16 → 35 Tage), falsch → bald wieder. Die Zahl am Button = Anzahl fälliger Fragen. |
 | **🃏 Karteikarten** | Schnell wiederholen | Frage ansehen → **Antwort aufdecken** → Lösung + Erklärung → **„gewusst / nicht gewusst"** selbst einschätzen (fließt in Spaced Repetition & Statistik ein). Ideal für unterwegs. |
@@ -62,7 +62,7 @@ Die Datei **`isaqb-trainer.html`** per **Doppelklick** im Browser öffnen — fe
 - **Weniger Wiederholungen** – zuletzt gezeigte Fragen werden in Folgerunden gemieden.
 - **Pause / Fortsetzen** – unterbrochene Runde wird gespeichert und exakt wieder aufgenommen.
 - **Zurück zur vorherigen Frage** – mit **„← Zurück"** in der Fußleiste (ab Frage 2) frühere Fragen erneut ansehen; im **Prüfungsmodus** bleiben die Antworten dabei änderbar (wie in der echten Prüfung), die Auswertung nutzt am Ende deine finale Auswahl.
-- **Antworten durchsehen** – nach jeder Runde alle falsch/teilweise richtig beantworteten Fragen mit deiner Wahl, der Lösung und Erklärung.
+- **Antworten durchsehen** – nach jeder Runde alle falsch/teilweise richtig beantworteten Fragen mit deiner Wahl, der Lösung und demselben Feedback wie im Übungsmodus (warum richtig, warum deine Auswahl falsch, „Kurz gesagt“).
 - **Lesezeichen**, **Dark Mode** (🌓 oben rechts) und **Fortschritt zurücksetzen**.
 
 ### Lernstoff durchsuchen 📚
@@ -205,4 +205,4 @@ Die Fragen sind **eigenständig formuliert** und orientieren sich an den **öffe
 - Die App selbst kommuniziert mit **keinem Server** (keine Tracker, keine Datenübertragung). Beim **Web‑Link** wird die Seite einmalig von GitHub Pages geladen, danach läuft alles im Browser; die **lokale Datei** kommt ganz **ohne Internet** aus.
 - Fortschritt liegt ausschließlich im **localStorage** des Browsers. Browserdaten löschen (oder „Fortschritt zurücksetzen") = Neustart bei null.
 - Mehr Fragen ergänzen: neue Einträge folgen dem Datenschema im Code
-  (`{ id, chapter, lz, r, type, q, options, correct, explanation }`, bzw. für K‑Fragen `categories` + `rows`).
+  (`{ id, chapter, lz, r, type, q, options, correct, optExpl, explanation }` – `optExpl` = Begründung je Option, bzw. für K‑Fragen `categories` + `rows`).
