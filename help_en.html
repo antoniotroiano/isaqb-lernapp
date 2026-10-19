@@ -84,9 +84,9 @@
 <p class="has-line-data" data-line-start="2" data-line-end="7">Practice app (multiple choice) for preparing for the <strong>CPSA‑F</strong> certification<br>
 (Certified Professional for Software Architecture – Foundation Level).<br>
 Runs in the <strong>browser</strong> – via a <strong>web link</strong> (phone &amp; PC) or as a <strong>local file</strong> (PC/Mac),<br>
-<strong>no installation and no account</strong>. Contains <strong>236 independently written questions</strong> across all 6 chapters of the curriculum,<br>
+<strong>no installation and no account</strong>. Contains <strong>256 independently written questions</strong> across all 6 chapters of the curriculum,<br>
 plus the <strong>official iSAQB example exam</strong> as a dress rehearsal. Interface in <strong>German or English</strong> (toggle <strong>DE/EN</strong> top right).</p>
-<p class="has-line-data" data-line-start="8" data-line-end="9"><em>Version 1.11.0</em></p>
+<p class="has-line-data" data-line-start="8" data-line-end="9"><em>Version 1.12.0</em></p>
 <hr>
 <h2 class="code-line has-line-data" data-line-start="12" data-line-end="13"><a id="1_Access_start_12"></a>1. Access &amp; start</h2>
 <p class="has-line-data" data-line-start="14" data-line-end="15">Two ways — pick the one that fits your device:</p>
@@ -123,7 +123,7 @@ plus the <strong>official iSAQB example exam</strong> as a dress rehearsal. Inte
 <tr>
 <td><strong>Practice</strong></td>
 <td>Learning</td>
-<td>Instant feedback after each question: <strong>a short rationale for each answer option</strong> (why right or wrong) plus a takeaway; no timer, no points.</td>
+<td>Instant feedback after each question: <strong>why the correct answers are correct</strong>, and on mistakes also <strong>why your choice is wrong</strong> (missed correct answers are marked), plus an <strong>“In short”</strong> takeaway; the rationale for the remaining options can be expanded. No timer, no points.</td>
 </tr>
 <tr>
 <td><strong>Exam simulation</strong></td>
@@ -180,7 +180,7 @@ plus the <strong>official iSAQB example exam</strong> as a dress rehearsal. Inte
 <li class="has-line-data" data-line-start="61" data-line-end="62"><strong>Fewer repeats</strong> – recently shown questions are avoided in following rounds.</li>
 <li class="has-line-data" data-line-start="62" data-line-end="63"><strong>Pause / Resume</strong> – an interrupted round is saved and resumed exactly where you left off.</li>
 <li class="has-line-data" data-line-start="63" data-line-end="64"><strong>Back to the previous question</strong> – use <strong>„← Back&quot;</strong> in the footer bar (from question 2 on) to revisit earlier questions; in <strong>exam mode</strong> the answers stay editable (as in the real exam), and the evaluation uses your final selection at the end.</li>
-<li class="has-line-data" data-line-start="64" data-line-end="65"><strong>Review answers</strong> – after each round, all wrong / partially correct questions with your choice, the solution and the explanation.</li>
+<li class="has-line-data" data-line-start="64" data-line-end="65"><strong>Review answers</strong> – after each round, all wrong / partially correct questions with your choice, the solution and the same feedback as in practice mode (why correct, why your choice is wrong, “In short”).</li>
 <li class="has-line-data" data-line-start="65" data-line-end="66"><strong>Bookmarks</strong>, <strong>dark mode</strong> (🌓 top right) and <strong>reset progress</strong>.</li>
 <li class="has-line-data" data-line-start="66" data-line-end="68"><strong>German/English</strong> – toggle (<strong>DE/EN</strong>) at the top right; switches the whole interface, the questions and the study material.</li>
 </ul>
@@ -482,7 +482,7 @@ plus the <strong>official iSAQB example exam</strong> as a dress rehearsal. Inte
 <li class="has-line-data" data-line-start="205" data-line-end="206">The app itself communicates with <strong>no server</strong> (no trackers, no data transfer). With the <strong>web link</strong>, the page is loaded once from GitHub Pages, after which everything runs in the browser; the <strong>local file</strong> works entirely <strong>without internet</strong>.</li>
 <li class="has-line-data" data-line-start="206" data-line-end="207">Progress lives solely in the browser’s <strong>localStorage</strong>. Clearing browser data (or “reset progress”) = start over from zero.</li>
 <li class="has-line-data" data-line-start="207" data-line-end="209">Adding more questions: new entries follow the data schema in the code<br>
-(<code>{ id, chapter, lz, r, type, q, options, correct, explanation }</code>, or for K questions <code>categories</code> + <code>rows</code>).</li>
+(<code>{ id, chapter, lz, r, type, q, options, correct, optExpl, explanation }</code> – <code>optExpl</code> = rationale per option, or for K questions <code>categories</code> + <code>rows</code>).</li>
 </ul>
 
 </body>
