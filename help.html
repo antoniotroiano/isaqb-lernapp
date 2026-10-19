@@ -84,9 +84,9 @@
 <p class="has-line-data" data-line-start="2" data-line-end="7">Übungs‑App (Multiple Choice) zur Vorbereitung auf die Zertifizierung<br>
 <strong>CPSA‑F</strong> (Certified Professional for Software Architecture – Foundation Level).<br>
 Läuft im <strong>Browser</strong> – über einen <strong>Web‑Link</strong> (Handy &amp; PC) oder als <strong>lokale Datei</strong> (PC/Mac),<br>
-<strong>ohne Installation und ohne Konto</strong>. Enthält <strong>236 eigenständige Fragen</strong> über alle 6 Kapitel des Curriculums,<br>
+<strong>ohne Installation und ohne Konto</strong>. Enthält <strong>256 eigenständige Fragen</strong> über alle 6 Kapitel des Curriculums,<br>
 zusätzlich die <strong>offizielle iSAQB‑Beispielprüfung</strong> als Generalprobe. Oberfläche wahlweise <strong>Deutsch oder Englisch</strong> (Umschalter <strong>DE/EN</strong> oben rechts).</p>
-<p class="has-line-data" data-line-start="8" data-line-end="9"><em>Version 1.11.0</em></p>
+<p class="has-line-data" data-line-start="8" data-line-end="9"><em>Version 1.12.0</em></p>
 <hr>
 <h2 class="code-line has-line-data" data-line-start="12" data-line-end="13"><a id="1_Zugang_Start_12"></a>1. Zugang &amp; Start</h2>
 <p class="has-line-data" data-line-start="14" data-line-end="15">Zwei Wege — nimm den, der zu deinem Gerät passt:</p>
@@ -123,7 +123,7 @@ zusätzlich die <strong>offizielle iSAQB‑Beispielprüfung</strong> als General
 <tr>
 <td><strong>Üben</strong></td>
 <td>Lernen</td>
-<td>Sofortiges Feedback nach jeder Frage: <strong>pro Antwortoption eine kurze Begründung</strong> (warum richtig bzw. falsch) plus Merksatz; kein Timer, keine Punkte.</td>
+<td>Sofortiges Feedback nach jeder Frage: <strong>warum die richtigen Antworten richtig sind</strong>, bei Fehlern zusätzlich <strong>warum deine Auswahl falsch ist</strong> (übersehene richtige Antworten sind markiert), dazu ein <strong>„Kurz gesagt“</strong>; die Begründung zu den übrigen Optionen lässt sich aufklappen. Kein Timer, keine Punkte.</td>
 </tr>
 <tr>
 <td><strong>Prüfung simulieren</strong></td>
@@ -180,7 +180,7 @@ zusätzlich die <strong>offizielle iSAQB‑Beispielprüfung</strong> als General
 <li class="has-line-data" data-line-start="61" data-line-end="62"><strong>Weniger Wiederholungen</strong> – zuletzt gezeigte Fragen werden in Folgerunden gemieden.</li>
 <li class="has-line-data" data-line-start="62" data-line-end="63"><strong>Pause / Fortsetzen</strong> – unterbrochene Runde wird gespeichert und exakt wieder aufgenommen.</li>
 <li class="has-line-data" data-line-start="63" data-line-end="64"><strong>Zurück zur vorherigen Frage</strong> – mit <strong>„← Zurück&quot;</strong> in der Fußleiste (ab Frage 2) frühere Fragen erneut ansehen; im <strong>Prüfungsmodus</strong> bleiben die Antworten dabei änderbar (wie in der echten Prüfung), die Auswertung nutzt am Ende deine finale Auswahl.</li>
-<li class="has-line-data" data-line-start="64" data-line-end="65"><strong>Antworten durchsehen</strong> – nach jeder Runde alle falsch/teilweise richtig beantworteten Fragen mit deiner Wahl, der Lösung und Erklärung.</li>
+<li class="has-line-data" data-line-start="64" data-line-end="65"><strong>Antworten durchsehen</strong> – nach jeder Runde alle falsch/teilweise richtig beantworteten Fragen mit deiner Wahl, der Lösung und demselben Feedback wie im Übungsmodus (warum richtig, warum deine Auswahl falsch, „Kurz gesagt“).</li>
 <li class="has-line-data" data-line-start="65" data-line-end="67"><strong>Lesezeichen</strong>, <strong>Dark Mode</strong> (🌓 oben rechts) und <strong>Fortschritt zurücksetzen</strong>.</li>
 </ul>
 <h3 class="code-line has-line-data" data-line-start="67" data-line-end="68"><a id="Lernstoff_durchsuchen_67"></a>Lernstoff durchsuchen 📚</h3>
@@ -481,7 +481,7 @@ zusätzlich die <strong>offizielle iSAQB‑Beispielprüfung</strong> als General
 <li class="has-line-data" data-line-start="204" data-line-end="205">Die App selbst kommuniziert mit <strong>keinem Server</strong> (keine Tracker, keine Datenübertragung). Beim <strong>Web‑Link</strong> wird die Seite einmalig von GitHub Pages geladen, danach läuft alles im Browser; die <strong>lokale Datei</strong> kommt ganz <strong>ohne Internet</strong> aus.</li>
 <li class="has-line-data" data-line-start="205" data-line-end="206">Fortschritt liegt ausschließlich im <strong>localStorage</strong> des Browsers. Browserdaten löschen (oder „Fortschritt zurücksetzen&quot;) = Neustart bei null.</li>
 <li class="has-line-data" data-line-start="206" data-line-end="208">Mehr Fragen ergänzen: neue Einträge folgen dem Datenschema im Code<br>
-(<code>{ id, chapter, lz, r, type, q, options, correct, explanation }</code>, bzw. für K‑Fragen <code>categories</code> + <code>rows</code>).</li>
+(<code>{ id, chapter, lz, r, type, q, options, correct, optExpl, explanation }</code> – <code>optExpl</code> = Begründung je Option, bzw. für K‑Fragen <code>categories</code> + <code>rows</code>).</li>
 </ul>
 
 </body>
