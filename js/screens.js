@@ -290,9 +290,9 @@ function renderReference(filter){
   if(!f && LE(REFERENCE,"sources")){ const s=document.createElement("div"); s.className="refbody"; s.style.marginTop="18px"; s.innerHTML="<div class='refchap' style='margin-top:0'>"+T("Quellen","Sources")+"</div>"+LE(REFERENCE,"sources"); box.appendChild(s); }
 }
 let refReturn=null;
-function updateRefBackBtn(){ const b=$("#refBackBtn"); if(!b) return; if(!refReturn){ b.classList.add("hidden"); return; } b.classList.remove("hidden"); b.textContent = refReturn.kind==="cm" ? T("← Zurück zur Concept Map","← Back to concept map") : T("← Zurück zur Frage","← Back to the question"); }
+function updateRefBackBtn(){ const b=$("#refBackBtn"); if(!b) return; if(!refReturn){ b.classList.add("hidden"); return; } b.classList.remove("hidden"); b.textContent = refReturn.kind==="cm" ? T("← Zurück zur Concept Map","← Back to concept map") : refReturn.kind==="glossary" ? (glStudy ? T("← Zurück zur Karteikarte","← Back to the flashcard") : T("← Zurück zum Glossar","← Back to the glossary")) : T("← Zurück zur Frage","← Back to the question"); }
 function openReference(lz,origin){
-  refReturn = origin==="cm" ? {kind:"cm",id:lz} : (origin==="quiz" ? {kind:"quiz"} : null); updateRefBackBtn();
+  refReturn = origin==="cm" ? {kind:"cm",id:lz} : origin==="quiz" ? {kind:"quiz"} : origin==="glossary" ? {kind:"glossary",y:window.scrollY} : null; updateRefBackBtn();
   const rs=$("#refSearch"); if(rs) rs.value="";
   renderReference(""); show("reference");
   const el=document.getElementById("ref-"+lz);
@@ -310,9 +310,6 @@ function glBadgeClass(r){ return (r||"").toLowerCase(); }
 let glFilter = new Set(["R1","R2","R3"]);
 function glStat(key){ return (store.glossarySrs && store.glossarySrs[key]) || {box:0,due:0,seen:0}; }  // reiner Lesezugriff, legt nichts an
 function glGrade(key, ok){ store.glossarySrs=store.glossarySrs||{}; const s=store.glossarySrs[key]||(store.glossarySrs[key]={box:0,due:0,seen:0}); s.seen++; s.box = ok?Math.min(5,(s.box||0)+1):0; s.due=Date.now()+SRS_INT[s.box||0]; saveStore(); }
-function glAllFiltered(){ const a=[]; GLOSSARY.categories.forEach(c=>c.terms.forEach(t=>{ if(glFilter.has(t.r)) a.push(t); })); return a; }
-function glDueCount(){ const now=Date.now(); return glAllFiltered().filter(t=>{ const s=(store.glossarySrs||{})[t.t]; return !s || (s.due||0)<=now; }).length; }
-function glStudySet(){ const scored=shuffle(glAllFiltered()).map(t=>({t,due:glStat(t.t).due||0})); scored.sort((a,b)=>a.due-b.due); return scored.map(x=>x.t); }
 function glProgressStats(){
   const now=Date.now(), srs=store.glossarySrs||{};
   const a={all:{t:0,l:0,s:0,d:0}, R1:{t:0,l:0,s:0}, R2:{t:0,l:0,s:0}, R3:{t:0,l:0,s:0}};
@@ -362,51 +359,134 @@ function renderGlossary(filter){
   if(!box.children.length){ box.innerHTML="<div class='card'><p class='hint'>"+T("Kein Begriff gefunden.","No term found.")+"</p></div>"; }
 }
 
-/* --- Begriffs-Karteikarten (Flip-Durchlauf, gemischt) --- */
+/* --- Begriffs-Karteikarten: kurze Runden (5/10), fällige zuerst, beide Richtungen --- */
 let glStudy=null;
+function glPrefs(){ const p=store.glStudyPrefs||{}; return {size:p.size===10?10:5, dir:p.dir==="def"?"def":"term", r:(Array.isArray(p.r)&&p.r.length)?p.r:["R1","R2"]}; }
+function glSavePrefs(p){ store.glStudyPrefs=p; saveStore(); }
+function glTermsIn(rs){ const a=[]; GLOSSARY.categories.forEach(c=>c.terms.forEach(t=>{ if(rs.includes(t.r)) a.push(t); })); return a; }
+function glIsDue(t,now){ const s=(store.glossarySrs||{})[t.t]; return !s || (s.due||0)<=now; }
+function glDueCount(rs){ const now=Date.now(); return glTermsIn(rs||glPrefs().r).filter(t=>glIsDue(t,now)).length; }
+/* Auswahl: zuerst überfällige bereits gelernte (drohen vergessen zu werden), dann neue, dann die als Nächstes fälligen */
+function glStudySet(rs,size){
+  const now=Date.now(), srs=store.glossarySrs||{};
+  const key=t=>{ const s=srs[t.t]; if(s&&s.seen&&(s.due||0)<=now) return 0; if(!s||!s.seen) return 1; return 2; };
+  return shuffle(glTermsIn(rs)).map(t=>({t,k:key(t),due:(srs[t.t]||{}).due||0})).sort((a,b)=>a.k-b.k||a.due-b.due).slice(0,size).map(x=>x.t);
+}
+/* Im Modus „Definition → Begriff“ den gesuchten Begriff im Text verdecken */
+function glMask(text,t){
+  const name=GL(t,"t"), parts=new Set([name]);
+  const m=name.match(/^(.*?)\s*\((.*)\)\s*$/); if(m){ parts.add(m[1]); parts.add(m[2]); }
+  [...parts].forEach(p=>p.split(/\s*(?:\/|\bvs\.|↔)\s*/).forEach(x=>parts.add(x)));
+  // markante Einzelwörter des Namens ebenfalls verdecken; allgemeine Wörter bleiben lesbar
+  const GEN=/^(architektur|architecture|software|diagramm|diagram|analyse|analysis|sicht|view|prinzip|principle|entwurf|design|muster|pattern|schnittstellen?|interfaces?|kopplung|coupling|entscheidung|decision|qualität|quality|technische|technical|dokumentation|documentation|anforderungen?|requirements?|punkt|point|guter|good|eigenschaften|properties|interne|internal|externe|external|statische|static|dynamische|dynamic|implizite|implicit|funktionale|functional|rolle|role|ebenen|levels|modell|model|datenmodell|data|risiko|risk|annahme|assumption|kosten|cost|nutzen|benefit|vorgehen|record|domains?|und|and|the|der|die|das|vs)$/i;
+  [...parts].forEach(p=>p.split(/[\s\-()]+/).forEach(w=>{ if(w.length>=4 && !GEN.test(w)){ parts.add(w); const st=w.replace(/(en|er|es|e|s)$/i,""); if(st.length>=5) parts.add(st); } }));
+  let out=text;
+  [...parts].map(p=>p.trim()).filter(p=>p.length>=3).sort((a,b)=>b.length-a.length).forEach(p=>{
+    out=out.replace(new RegExp(p.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"gi"),"▢▢▢"); });
+  return out;
+}
+function glHideList(hide){ ["#glList","#glSearch","#glStudyBtn","#glFilter","#glHomeBtn","#glProgress","#glIntro"].forEach(s=>{ const e=$(s); if(e) e.classList.toggle("hidden",hide); }); }
 function startGlossaryStudy(){
-  const set=glStudySet();
-  if(!set.length){ alert(T("Kein Begriff im aktuellen R-Filter.","No term in the current R-level filter.")); return; }
-  glStudy={terms:set, idx:0, revealed:false};
-  ["#glList","#glSearch","#glStudyBtn","#glFilter","#glHomeBtn","#glProgress"].forEach(s=>{ const e=$(s); if(e) e.classList.add("hidden"); });
-  $("#glStudy").classList.remove("hidden");
+  glStudy={phase:"setup"}; glHideList(true); $("#glStudy").classList.remove("hidden"); renderGlossaryStudy();
+}
+function glBeginRound(){
+  const p=glPrefs(), set=glStudySet(p.r,p.size);
+  if(!set.length){ alert(T("Kein Begriff in den gewählten Stufen.","No term in the selected levels.")); return; }
+  glStudy={phase:"card", dir:p.dir, queue:set.map(t=>({t,rep:false,ans:null})), pos:0, revealed:false, first:{}, reps:{}};
   renderGlossaryStudy();
 }
 function endGlossaryStudy(){
   glStudy=null;
   const s=$("#glStudy"); if(s){ s.classList.add("hidden"); s.innerHTML=""; }
-  ["#glList","#glSearch","#glStudyBtn","#glFilter","#glHomeBtn","#glProgress"].forEach(x=>{ const e=$(x); if(e) e.classList.remove("hidden"); });
+  glHideList(false);
   renderGlossary($("#glSearch")?$("#glSearch").value:"");
+}
+function glAnswer(ok){
+  const g=glStudy, it=g.queue[g.pos], t=it.t;
+  it.ans=ok;
+  if(!(t.t in g.first)){ g.first[t.t]=ok; glGrade(t.t,ok); }          // nur die erste Antwort zählt für die Wiedervorlage
+  if(!ok && (g.reps[t.t]||0)<2){ g.reps[t.t]=(g.reps[t.t]||0)+1; g.queue.push({t,rep:true,ans:null}); }  // in dieser Runde nochmal zeigen
+  glNext();
+}
+function glNext(){ const g=glStudy; if(g.pos<g.queue.length-1){ g.pos++; g.revealed=g.queue[g.pos].ans!==null; } else g.phase="done"; renderGlossaryStudy(); }
+function glSetupHtml(){
+  const p=glPrefs(), due=glDueCount(p.r), total=glTermsIn(p.r).length;
+  const seg=(id,opts,cur)=>"<div class='seg' id='"+id+"'>"+opts.map(o=>"<button data-v='"+o[0]+"'"+(String(cur)===String(o[0])?" class='active'":"")+">"+o[1]+"</button>").join("")+"</div>";
+  let h="<div class='card'><h2>"+T("🃏 Begriffe lernen","🃏 Study terms")+"</h2>";
+  h+="<div class='glsetlbl'>"+T("Wie viele Karten?","How many cards?")+"</div>"+seg("glSize",[[5,T("5 · kurz","5 · short")],[10,T("10 · normal","10 · normal")]],p.size);
+  h+="<div class='glsetlbl'>"+T("Abfragerichtung","Direction")+"</div>"+seg("glDir",[["term",T("Begriff → Definition","Term → definition")],["def",T("Definition → Begriff","Definition → term")]],p.dir);
+  h+="<div class='glsetlbl'>"+T("Stufen","Levels")+"</div><div class='chips' id='glSetR'>"+["R1","R2","R3"].map(r=>"<span class='chip r"+(p.r.includes(r)?" active":"")+"' data-r='"+r+"'>"+r+"</span>").join("")+"</div>";
+  h+="<p class='hint' style='margin:10px 0 0'>"+(due
+      ? T(due+" von "+total+" Begriffen sind fällig – fällige und neue kommen zuerst.", due+" of "+total+" terms are due – due and new ones come first.")
+      : T("Gerade ist nichts fällig 🎉 – du kannst trotzdem eine Runde mit den als Nächstes fälligen Begriffen üben.","Nothing is due right now 🎉 – you can still practice a round with the terms due next."))+"</p>";
+  h+="<p class='hint' style='margin:6px 0 0'>"+T("Für die Prüfung reichen R1 und R2 – R3 wird nicht geprüft.","For the exam, R1 and R2 are enough – R3 is not examined.")+"</p></div>";
+  h+="<button class='btn' id='glGo'>"+(due?T("Runde starten","Start round"):T("Trotzdem üben","Practice anyway"))+"</button>";
+  h+="<button class='btn ghost' id='glExit' style='margin-top:8px'>"+T("Zurück zum Glossar","Back to glossary")+"</button>";
+  return h;
+}
+function glDoneHtml(){
+  const g=glStudy, ids=Object.keys(g.first), ok=ids.filter(k=>g.first[k]).length, miss=g.queue.filter((it,i)=>g.first[it.t.t]===false && g.queue.findIndex(x=>x.t.t===it.t.t)===i).map(it=>it.t);
+  const p=glPrefs(), due=glDueCount(p.r);
+  let h="<div class='card glcard'><div class='gldoneicon'>"+(ok===ids.length?"🎉":"💪")+"</div>";
+  h+="<div class='glcardterm'>"+T("Runde geschafft","Round complete")+"</div>";
+  h+="<p class='hint' style='margin:0'>"+T("Auf Anhieb gewusst: ","Known first time: ")+"<b>"+ok+" / "+ids.length+"</b></p>";
+  if(miss.length) h+="<div class='glmiss'><b>"+T("Nochmal anschauen:","Look at again:")+"</b> "+miss.map(t=>escapeHtml(GL(t,"t"))).join(" · ")+"<div class='hint' style='margin-top:4px'>"+T("Sie bleiben fällig und kommen in der nächsten Runde zuerst.","They stay due and come first in the next round.")+"</div></div>";
+  h+="<p class='hint' style='margin:10px 0 0'>"+(due?T("Noch fällig: "+due,"Still due: "+due):T("Alles Fällige erledigt ✓","All due terms done ✓"))+"</p></div>";
+  h+="<div class='glbtns2'><button class='btn ghost' id='glExit'>"+T("Fertig","Done")+"</button><button class='btn' id='glGo'>"+T("Noch eine Runde ("+p.size+")","Another round ("+p.size+")")+"</button></div>";
+  return h;
+}
+function glCardHtml(){
+  const g=glStudy, it=g.queue[g.pos], t=it.t, st=glStat(t.t), rev=g.revealed, back=it.ans!==null;
+  const termHtml="<div class='glcardterm'><span class='refbadge "+glBadgeClass(t.r)+"'>"+escapeHtml(t.r||"–")+"</span> "+escapeHtml(GL(t,"t"))+"</div>";
+  const extras=(GL(t,"ex")?"<div class='glex'><b>"+T("Beispiel","Example")+":</b> "+escapeHtml(GL(t,"ex"))+"</div>":"")+
+    "<div class='glmerke'><b>"+T("Merke","Remember")+":</b> "+escapeHtml(GL(t,"m"))+"</div>"+(t.lz?"<div class='glhintline hint'>"+lzLink("LZ "+t.lz)+"</div>":"");
+  let h="<div class='card glcard'>";
+  h+="<div class='glprog'>"+T("Karte","Card")+" "+(g.pos+1)+" / "+g.queue.length+" · Box "+(st.box||0)+"/5"+(it.rep?" · <span class='glrep'>🔁 "+T("Wiederholung","Repeat")+"</span>":"")+"</div>";
+  if(g.dir==="def"){
+    h+="<div class='glask'>"+T("Welcher Begriff ist gemeint?","Which term is meant?")+"</div>";
+    h+="<div class='gldef'>"+escapeHtml(rev?GL(t,"d"):glMask(GL(t,"d"),t))+"</div>";
+    if(rev) h+="<div class='glanswer'>"+termHtml+"</div>"+extras;
+  } else {
+    h+=termHtml;
+    if(rev) h+="<div class='gldef'>"+escapeHtml(GL(t,"d"))+"</div>"+extras;
+    else h+="<div class='glhintline hint'>"+T("Definition im Kopf durchgehen, dann aufdecken.","Recall the definition, then reveal.")+"</div>";
+  }
+  if(back) h+="<div class='glverdict "+(it.ans?"ok":"no")+"'>"+(it.ans?T("✓ Gewusst","✓ Knew it"):T("✕ Nicht gewusst","✕ Didn't know"))+"</div>";
+  h+="</div>";
+  if(back) h+="<div class='glbtns'><button class='btn' id='glFwd'>"+T("Weiter →","Next →")+"</button></div>";
+  else if(!rev) h+="<div class='glbtns'><button class='btn' id='glReveal'>"+T("Antwort zeigen","Show answer")+"</button></div>";
+  else h+="<div class='glbtns2'><button class='btn secondary' id='glBad'>"+T("Nicht gewusst","Didn't know")+"</button><button class='btn' id='glGood'>"+T("Gewusst","Knew it")+"</button></div>";
+  h+="<div class='glbtns2'><button class='btn ghost' id='glPrev'"+(g.pos===0?" disabled":"")+">"+T("← Zurück","← Back")+"</button><button class='btn ghost' id='glExit'>"+T("Beenden","Exit")+"</button></div>";
+  h+="<p class='hint glkeys'>"+T("Tasten: Leertaste = aufdecken/weiter · 1 = nicht gewusst · 2 = gewusst","Keys: space = reveal/next · 1 = didn't know · 2 = knew it")+"</p>";
+  return h;
 }
 function renderGlossaryStudy(){
   const el=$("#glStudy"); if(!el||!glStudy) return;
-  const total=glStudy.terms.length, t=glStudy.terms[glStudy.idx], st=glStat(t.t);
-  let h="<div class='card glcard'>";
-  h+="<div class='glprog'>"+(glStudy.idx+1)+" / "+total+" · "+T("Box","Box")+" "+(st.box||0)+"/5</div>";
-  h+="<div class='glcardterm'><span class='refbadge "+glBadgeClass(t.r)+"'>"+escapeHtml(t.r||"–")+"</span> "+escapeHtml(GL(t,"t"))+"</div>";
-  if(glStudy.revealed){
-    h+="<div class='gldef'>"+escapeHtml(GL(t,"d"))+"</div>";
-    if(GL(t,"ex")) h+="<div class='glex'><b>"+T("Beispiel","Example")+":</b> "+escapeHtml(GL(t,"ex"))+"</div>";
-    h+="<div class='glmerke'><b>"+T("Merke","Remember")+":</b> "+escapeHtml(GL(t,"m"))+"</div>";
-    if(t.lz) h+="<div class='glhintline hint'>"+lzLink("LZ "+t.lz)+"</div>";
-  } else {
-    h+="<div class='glhintline hint'>"+T("Definition im Kopf durchgehen, dann aufdecken.","Recall the definition, then reveal.")+"</div>";
+  const g=glStudy;
+  el.innerHTML = g.phase==="setup" ? glSetupHtml() : g.phase==="done" ? glDoneHtml() : glCardHtml();
+  const on=(id,fn)=>{ const b=$("#"+id); if(b) b.onclick=fn; };
+  on("glExit", endGlossaryStudy);
+  on("glGo", glBeginRound);
+  if(g.phase==="setup"){
+    $$("#glSize button").forEach(b=>b.onclick=()=>{ const p=glPrefs(); p.size=+b.dataset.v; glSavePrefs(p); renderGlossaryStudy(); });
+    $$("#glDir button").forEach(b=>b.onclick=()=>{ const p=glPrefs(); p.dir=b.dataset.v; glSavePrefs(p); renderGlossaryStudy(); });
+    $$("#glSetR .chip").forEach(c=>c.onclick=()=>{ const p=glPrefs(), r=c.dataset.r; if(p.r.includes(r)){ if(p.r.length>1) p.r=p.r.filter(x=>x!==r); } else p.r=p.r.concat(r).sort(); glSavePrefs(p); renderGlossaryStudy(); });
   }
-  h+="</div>";
-  if(!glStudy.revealed){
-    h+="<div class='glbtns'><button class='btn' id='glReveal'>"+T("Antwort zeigen","Show answer")+"</button></div>";
-  } else {
-    h+="<div class='glbtns2'><button class='btn secondary' id='glBad'>"+T("Nicht gewusst","Didn't know")+"</button><button class='btn' id='glGood'>"+T("Gewusst","Knew it")+"</button></div>";
+  if(g.phase==="card"){
+    on("glReveal", ()=>{ g.revealed=true; renderGlossaryStudy(); });
+    on("glGood", ()=>glAnswer(true));
+    on("glBad", ()=>glAnswer(false));
+    on("glFwd", glNext);
+    on("glPrev", ()=>{ if(g.pos>0){ g.pos--; g.revealed=true; renderGlossaryStudy(); } });
   }
-  h+="<div class='glbtns2'><button class='btn ghost' id='glPrev'"+(glStudy.idx===0?" disabled":"")+">"+T("← Zurück","← Back")+"</button><button class='btn ghost' id='glExit'>"+T("Beenden","Exit")+"</button></div>";
-  el.innerHTML=h;
-  const adv=()=>{ if(glStudy.idx<total-1){ glStudy.idx++; glStudy.revealed=false; renderGlossaryStudy(); } else { alert(T("Durchlauf abgeschlossen.","Session complete.")); endGlossaryStudy(); } };
-  const rv=$("#glReveal"); if(rv) rv.onclick=()=>{ glStudy.revealed=true; renderGlossaryStudy(); };
-  const gd=$("#glGood"); if(gd) gd.onclick=()=>{ glGrade(t.t,true); adv(); };
-  const bd=$("#glBad"); if(bd) bd.onclick=()=>{ glGrade(t.t,false); adv(); };
-  const pv=$("#glPrev"); if(pv) pv.onclick=()=>{ if(glStudy.idx>0){ glStudy.idx--; glStudy.revealed=true; renderGlossaryStudy(); } };
-  const ex=$("#glExit"); if(ex) ex.onclick=endGlossaryStudy;
 }
+document.addEventListener("keydown", e=>{
+  if(!glStudy || glStudy.phase!=="card" || $("#glossary").classList.contains("hidden")) return;
+  if(e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+  const g=glStudy, it=g.queue[g.pos];
+  if(e.key===" "||e.key==="Enter"){ e.preventDefault(); if(it.ans!==null) glNext(); else if(!g.revealed){ g.revealed=true; renderGlossaryStudy(); } }
+  else if(g.revealed && it.ans===null && (e.key==="1"||e.key==="2")){ e.preventDefault(); glAnswer(e.key==="2"); }
+});
 
 /* --- Concept Map --- */
 function cmTier(tag){ return tag.includes("R1")?"r1":(tag.includes("R2")?"r2":"r3"); }
@@ -423,7 +503,7 @@ function renderConceptMap(){
     ch.lzs.forEach(id=>{ const d=CMAP.lz[id]; if(!d) return; const t=cmTier(d.tag);
       const btn=document.createElement("button"); btn.className="cm-chip tier-"+t; btn.dataset.id=id;
       btn.dataset.pure3=cmPureR3(d.tag)?"true":"false"; btn.title=id+" – "+LE(d,"name")+" ("+d.tag+")";
-      btn.textContent=id; btn.onclick=()=>cmSelect(id); chipsEl.appendChild(btn); });
+      const sh=CMAP.short&&CMAP.short[id]; btn.innerHTML="<span class='cm-num'>"+id+"</span>"+(sh?"<span class='cm-short'>"+escapeHtml(LANG==="en"?sh[1]:sh[0])+"</span>":""); btn.onclick=()=>cmSelect(id); chipsEl.appendChild(btn); });
     grid.appendChild(card);
   });
   const tog=$("#cmR3toggle"); if(tog&&tog.checked) cmToggleR3(true);
