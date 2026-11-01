@@ -43,7 +43,7 @@
     -webkit-text-size-adjust:100%;
   }
   .app{max-width:640px;margin:0 auto;padding:0 16px 96px}
-  header.top{display:flex;align-items:center;justify-content:space-between;margin:0 -16px 12px;padding:calc(env(safe-area-inset-top,0px) + 18px) 16px 10px;gap:8px;position:sticky;top:0;z-index:6;background:var(--bg);border-bottom:1px solid transparent}
+  header.top{display:flex;align-items:center;justify-content:space-between;margin:0 -16px 12px;padding:calc(env(safe-area-inset-top,0px) + 24px) 16px 10px;gap:8px;position:sticky;top:0;z-index:6;background:var(--bg);border-bottom:1px solid transparent}
   header.top.sub{border-bottom-color:var(--border)}
   header.top.sub h1{display:none}
   #navBack{margin-right:auto;min-height:40px}
@@ -319,3 +319,6 @@ details.refdeep[open]>summary{border-bottom:1px dashed var(--border)}
 details.refdeep>:not(summary){margin-left:12px;margin-right:12px}
 details.refdeep>.refdeepnote{font-size:.8rem;color:var(--muted);font-style:italic;margin-top:8px;margin-bottom:4px}
 details.refdeep>:last-child{margin-bottom:12px}
+
+/* iPhone: Notch-/Statusleisten-Bereich komplett abdecken, damit dort kein Inhalt durchscheint */
+body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:7;pointer-events:none}
