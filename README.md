@@ -3,10 +3,10 @@
 Übungs‑App (Multiple Choice) zur Vorbereitung auf die Zertifizierung
 **CPSA‑F** (Certified Professional for Software Architecture – Foundation Level).
 Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lokale Datei** (PC/Mac),
-**ohne Installation und ohne Konto**. Enthält **256 eigenständige Fragen** über alle 6 Kapitel des Curriculums,
+**ohne Installation und ohne Konto**. Enthält **252 eigenständige Fragen** über alle 6 Kapitel des Curriculums,
 zusätzlich die **offizielle iSAQB‑Beispielprüfung** als Generalprobe. Oberfläche wahlweise **Deutsch oder Englisch** (Umschalter **DE/EN** oben rechts).
 
-*Version 1.12.0*
+*Version 1.13.0*
 
 ---
 
@@ -63,7 +63,10 @@ Die Datei **`isaqb-trainer.html`** per **Doppelklick** im Browser öffnen — fe
 - **Pause / Fortsetzen** – unterbrochene Runde wird gespeichert und exakt wieder aufgenommen.
 - **Zurück zur vorherigen Frage** – mit **„← Zurück"** in der Fußleiste (ab Frage 2) frühere Fragen erneut ansehen; im **Prüfungsmodus** bleiben die Antworten dabei änderbar (wie in der echten Prüfung), die Auswertung nutzt am Ende deine finale Auswahl.
 - **Antworten durchsehen** – nach jeder Runde alle falsch/teilweise richtig beantworteten Fragen mit deiner Wahl, der Lösung und demselben Feedback wie im Übungsmodus (warum richtig, warum deine Auswahl falsch, „Kurz gesagt“).
-- **Lesezeichen**, **Dark Mode** (🌓 oben rechts) und **Fortschritt zurücksetzen**.
+- **Lesezeichen**, **Dark Mode** (🌓 oben rechts) und **Fortschritt zurücksetzen** (unter 📊 Statistik).
+- **Zurück-Button oben** – auf allen Unterseiten (Lernstoff, Glossar, Statistik …) bleibt oben ein „Zurück" stehen, auch beim langen Scrollen.
+- **Update-Hinweis** – gibt es eine neue App-Version, erscheint beim Start ein Hinweis mit **„Jetzt aktualisieren"** (Web-Link, mit Internet). Dein Fortschritt bleibt erhalten; den Browser-Cache musst du nicht leeren.
+- **Überarbeitete Fragen** – wurden bereits beantwortete Fragen inhaltlich geändert, fragt die App, ob die Statistik **nur dieser Fragen** zurückgesetzt werden soll. Der Rest bleibt unberührt.
 
 ### Lernstoff durchsuchen 📚
 
