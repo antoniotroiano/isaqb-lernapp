@@ -290,8 +290,9 @@ input[type=checkbox]{accent-color:var(--accent)}
 .homeactions{margin-bottom:0}.homeactions .btn{margin-top:0}
 .seldet{padding:0}.seldet summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-height:48px}
 .seldet summary::-webkit-details-marker{display:none}
-.seldet summary::after{content:"▾";position:absolute;right:16px;color:var(--muted)}
-.seldet{position:relative}.seldet[open] summary::after{content:"▴"}
+.seldet summary{position:relative;padding-right:64px}
+.seldet summary::after{content:"";position:absolute;right:14px;top:50%;width:36px;height:36px;margin-top:-18px;border-radius:50%;background:var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d85a30' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 9l7 7 7-7'/%3E%3C/svg%3E") center/22px no-repeat;transition:transform .2s}
+.seldet[open] summary::after{transform:rotate(180deg)}
 .seldet .seltitle{font-weight:700;font-size:1rem}.seldet .selsum{color:var(--muted);font-size:.85rem}
 .seldet>:not(summary){margin-left:16px;margin-right:16px}.seldet>label{margin-bottom:16px}
 .selh{font-size:.9rem;margin:16px 16px 8px;color:var(--muted);font-weight:600}
