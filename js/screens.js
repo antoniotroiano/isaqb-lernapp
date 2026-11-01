@@ -187,8 +187,7 @@ function doImport(){
   let obj; try{ obj=JSON.parse(raw); }catch(e){ alert(T("Ungültiges Format (kein gültiges JSON).","Invalid format (not valid JSON).")); return; }
   if(!obj||typeof obj!=="object"||!obj.stats){ alert(T("Das sieht nicht nach einem Fortschritts-Backup aus (kein 'stats').","This doesn't look like a progress backup (no 'stats').")); return; }
   if(!confirm(T("Aktuellen Fortschritt durch den importierten ersetzen?","Replace the current progress with the imported one?"))) return;
-  store={ stats:obj.stats||{}, settings:obj.settings||{}, examHistory:obj.examHistory||[], recent:obj.recent||[] };
-  if(obj.session) store.session=obj.session;
+  store=Object.assign({ stats:{}, settings:{}, examHistory:[], recent:[] }, obj);   // alle Felder übernehmen (Glossar-SRS, Musterprüfung, Fragen-Stand …)
   saveStore(); alert(T("Fortschritt importiert.","Progress imported.")); location.reload();
 }
 
@@ -287,6 +286,7 @@ function renderReference(filter){
   });
   box.querySelectorAll(".refitem-head").forEach(h=>h.onclick=()=>{ const b=h.nextElementSibling; if(b) b.classList.toggle("hidden"); h.parentElement.classList.toggle("open"); });
   if(f) box.querySelectorAll(".refbody").forEach(b=>b.classList.remove("hidden"));
+  if(f) box.querySelectorAll("details.refdeep").forEach(d=>{ if(d.textContent.toLowerCase().includes(f)) d.open=true; });   // Treffer in der Vertiefung: aufklappen
   if(!f && LE(REFERENCE,"sources")){ const s=document.createElement("div"); s.className="refbody"; s.style.marginTop="18px"; s.innerHTML="<div class='refchap' style='margin-top:0'>"+T("Quellen","Sources")+"</div>"+LE(REFERENCE,"sources"); box.appendChild(s); }
 }
 let refReturn=null;

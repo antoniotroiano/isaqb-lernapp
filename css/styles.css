@@ -43,7 +43,10 @@
     -webkit-text-size-adjust:100%;
   }
   .app{max-width:640px;margin:0 auto;padding:16px 16px 96px}
-  header.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px}
+  header.top{display:flex;align-items:center;justify-content:space-between;margin:-16px -16px 12px;padding:10px 16px;gap:8px;position:sticky;top:env(safe-area-inset-top);z-index:6;background:var(--bg);border-bottom:1px solid transparent}
+  header.top.sub{border-bottom-color:var(--border)}
+  header.top.sub h1{display:none}
+  #navBack{margin-right:auto;min-height:40px}
   header.top h1{font-size:1.15rem;margin:0;display:flex;align-items:center;gap:8px}
   .logo{width:26px;height:26px;border-radius:7px;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700;font-size:.8rem}
   .iconbtn{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 10px;color:var(--text);font-size:1rem;cursor:pointer}
@@ -282,3 +285,37 @@
 
 input[type=range]{accent-color:var(--accent)}
 input[type=checkbox]{accent-color:var(--accent)}
+
+/* Startseite: Aktionen oben, Auswahl eingeklappt, Lern-Kacheln */
+.homeactions{margin-bottom:0}.homeactions .btn{margin-top:0}
+.seldet{padding:0}.seldet summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-height:48px}
+.seldet summary::-webkit-details-marker{display:none}
+.seldet summary::after{content:"▾";position:absolute;right:16px;color:var(--muted)}
+.seldet{position:relative}.seldet[open] summary::after{content:"▴"}
+.seldet .seltitle{font-weight:700;font-size:1rem}.seldet .selsum{color:var(--muted);font-size:.85rem}
+.seldet>:not(summary){margin-left:16px;margin-right:16px}.seldet>label{margin-bottom:16px}
+.selh{font-size:.9rem;margin:16px 16px 8px;color:var(--muted);font-weight:600}
+.seldet[open] summary{border-bottom:1px solid var(--border)}
+.homeh{margin:20px 0 10px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{display:flex;flex-direction:column;gap:4px;text-align:left;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px;cursor:pointer;font:inherit;min-height:76px}
+.tile b{font-size:.95rem}.tile small{color:var(--muted);font-size:.78rem;line-height:1.3}
+.tile.wide{width:100%;margin-top:10px}
+.tile.mock{width:100%;margin-top:16px;border-color:var(--accent);background:var(--accent-soft)}
+.tile:active{transform:scale(.98)}
+
+/* Hinweis-Dialog (Update / überarbeitete Fragen) */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:50;display:grid;place-items:center;padding:20px}
+.modalbox{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:14px;padding:20px;max-width:420px;width:100%;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.modalbox h2{margin:0 0 8px}.modalbox p{margin:0 0 12px;font-size:.92rem;color:var(--muted)}
+
+/* Lernstoff: eingeklappte Vertiefung & Beispiele */
+details.refdeep{margin:12px 0;border:1px dashed var(--border);border-radius:10px;background:transparent}
+details.refdeep>summary{cursor:pointer;list-style:none;padding:10px 12px;font-weight:600;font-size:.88rem;color:var(--muted);min-height:44px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+details.refdeep>summary::-webkit-details-marker{display:none}
+details.refdeep>summary::before{content:"▸";color:var(--muted)}
+details.refdeep[open]>summary::before{content:"▾"}
+details.refdeep[open]>summary{border-bottom:1px dashed var(--border)}
+details.refdeep>:not(summary){margin-left:12px;margin-right:12px}
+details.refdeep>.refdeepnote{font-size:.8rem;color:var(--muted);font-style:italic;margin-top:8px;margin-bottom:4px}
+details.refdeep>:last-child{margin-bottom:12px}

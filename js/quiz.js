@@ -1,7 +1,10 @@
 "use strict";
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
-function show(id){ ["home","quiz","result","stats","review","data","flash","browse","reference","conceptmap","glossary","mockexam"].forEach(s=>$("#"+s).classList.toggle("hidden", s!==id)); $("#quizBar").classList.toggle("hidden", id!=="quiz"); $("#flashBar").classList.toggle("hidden", id!=="flash"); window.scrollTo(0,0); }
+function show(id){ ["home","quiz","result","stats","review","data","flash","browse","reference","conceptmap","glossary","mockexam"].forEach(s=>$("#"+s).classList.toggle("hidden", s!==id)); $("#quizBar").classList.toggle("hidden", id!=="quiz"); $("#flashBar").classList.toggle("hidden", id!=="flash"); updateNavBack(id); window.scrollTo(0,0); }
+/* Sticky „← Zurück“ im Header: löst den Zurück-Button am Seitenende der langen Screens aus. */
+function navBackTarget(id){ const m={stats:"statsHomeBtn",data:"dataHomeBtn",browse:"browseHomeBtn",conceptmap:"cmHomeBtn",glossary:"glHomeBtn",mockexam:"mockHomeBtn",review:"reviewBackBtn",result:"homeBtn",flash:null}; if(id==="reference") return $("#refBackBtn").classList.contains("hidden")?"refHomeBtn":"refBackBtn"; return m[id]; }
+function updateNavBack(id){ const sub=id!=="home"&&id!=="quiz"; $("#navBack").classList.toggle("hidden",!sub); document.querySelector("header.top").classList.toggle("sub",sub); }
 function lzLink(lzStr){ if(!lzStr) return ""; const n=String(lzStr).replace(/^LZ\s*/,""); return "<span class='lzlink' data-lz='"+n+"' title='Zum Lernstoff'>"+escapeHtml(lzStr)+"</span>"; }
 function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(pseudoRandom()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 // deterministic-ish RNG seeded by time isn't available offline reliably; Math.random is fine here in the browser
@@ -85,6 +88,13 @@ function poolQuestions(){
   return pool;
 }
 function dueQuestions(){ const now=Date.now(); return poolQuestions().filter(q=>{ const s=store.stats[q.id]; return s && s.seen>0 && (s.due||0)<=now; }); }
+function updateSelSummary(){
+  const el=$("#selSummary"); if(!el) return;
+  const rl=["R1","R2","R3"].filter(r=>ui.rlevels.has(r)).join("+")||"–";
+  const ch=ui.chapters.size>=6?T("alle Kapitel","all chapters"):T("Kap. ","Ch. ")+[...ui.chapters].sort().join(",");
+  const n=Math.min(ui.num, poolQuestions().length);
+  el.textContent=n+T(" Fragen · "," questions · ")+rl+" · "+ch+(ui.onlyBookmarks?" · ☆":"")+(ui.onlyWrong?" · ✕":"");
+}
 function updatePool(){
   const pool = poolQuestions();
   $("#poolTotal").textContent = pool.length;
@@ -92,6 +102,7 @@ function updatePool(){
   const r = $("#numRange"); r.max = Math.max(5, pool.length);
   if(ui.num>pool.length){ ui.num = pool.length; r.value=Math.max(5,pool.length); $("#numLabel").textContent = pool.length; }
   $("#chapCount").textContent = "("+ui.chapters.size+T("/6 gewählt","/6 selected")+")";
+  updateSelSummary();
   const d=dueQuestions().length, sb=$("#srsBtn"); if(sb){ sb.textContent=T("🔁 Wiederholen (","🔁 Repeat (")+d+")"; sb.disabled=(d===0); }
 }
 

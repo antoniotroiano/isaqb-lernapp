@@ -36,7 +36,7 @@ function initHome(){
   $("#onlyWrong").onclick=e=>{ ui.onlyWrong=!ui.onlyWrong; e.target.classList.toggle("active"); updatePool(); };
   $("#spacedRep").onclick=e=>{ ui.spacedRep=!ui.spacedRep; e.target.classList.toggle("active"); };
   $("#shuffleOpts").onclick=e=>{ ui.shuffleOpts=!ui.shuffleOpts; e.target.classList.toggle("active"); };
-  $("#numRange").oninput=e=>{ ui.num=+e.target.value; $("#numLabel").textContent=e.target.value; };
+  $("#numRange").oninput=e=>{ ui.num=+e.target.value; $("#numLabel").textContent=e.target.value; updateSelSummary(); };
   $("#startBtn").onclick=()=>{
     if(poolQuestions().length===0) return;
     if(store.session && !confirm(T("Es gibt eine unterbrochene Runde. Neue Runde starten und die alte verwerfen?","There is an interrupted round. Start a new round and discard the old one?"))) return;
@@ -93,6 +93,7 @@ $("#discardBtn").onclick=()=>{ if(confirm(T("Unterbrochene Runde wirklich verwer
 $("#reviewAnswersBtn").onclick=renderReview;
 $("#reviewBackBtn").onclick=()=>show("result");
 $("#langBtn").onclick=cycleLang;
+$("#navBack").onclick=()=>{ const vis=["stats","data","browse","conceptmap","glossary","mockexam","review","result","flash","reference"].find(id=>!$("#"+id).classList.contains("hidden")); if(!vis) return; const t=navBackTarget(vis); if(t) $("#"+t).click(); else { updatePool(); show("home"); } };
 
 /* Nach Sprachwechsel: sichtbaren Screen neu rendern (statische Texte macht applyLang). */
 function rerenderCurrent(){

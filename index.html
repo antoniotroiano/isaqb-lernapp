@@ -13,7 +13,8 @@
 <body>
 <div class="app">
   <header class="top">
-    <h1><span class="logo">iSA</span> CPSA-F Trainer</h1>
+    <button class="iconbtn hidden" id="navBack" data-i18n="common.back" style="font-weight:600;font-size:.9rem">← Zurück</button>
+    <h1 id="navTitle"><span class="logo">iSA</span> CPSA-F Trainer</h1>
     <div style="display:flex;gap:8px">
       <button class="iconbtn" id="langBtn" title="Language / Sprache" style="font-weight:700;font-size:.85rem">EN</button>
       <button class="iconbtn" id="statsBtn" data-i18n-title="hdr.stats" title="Statistik">📊</button>
@@ -31,7 +32,12 @@
         <button class="btn ghost" id="discardBtn" data-i18n="home.discard" style="flex:1">Verwerfen</button>
       </div>
     </div>
-    <div class="card">
+    <div class="row homeactions">
+      <button class="btn" id="startBtn" data-i18n="home.start" style="flex:1.5">Start</button>
+      <button class="btn secondary" id="srsBtn" style="flex:1.5;padding-left:8px;padding-right:8px;white-space:nowrap">🔁 Wiederholen (0)</button>
+    </div>
+
+    <div class="card" style="margin-top:14px">
       <h2 data-i18n="home.mode">Modus</h2>
       <div class="seg" id="modeSeg">
         <button data-mode="practice" class="active" data-i18n="mode.practice">Üben</button>
@@ -40,23 +46,20 @@
       <p class="hint" id="modeHint">Üben: sofortiges Feedback mit Erklärung nach jeder Frage.</p>
     </div>
 
-    <div class="card">
-      <h2><span data-i18n="home.chapters">Kapitel</span> <span class="count-tag" id="chapCount"></span></h2>
+    <details class="card seldet" id="selDetails">
+      <summary><span class="seltitle" data-i18n="home.sel">Auswahl</span><span class="selsum" id="selSummary"></span></summary>
+      <h3 class="selh"><span data-i18n="home.chapters">Kapitel</span> <span class="count-tag" id="chapCount"></span></h3>
       <div class="chips" id="chapterChips"></div>
-    </div>
 
-    <div class="card">
-      <h2 data-i18n="home.relevance">Prüfungsrelevanz</h2>
+      <h3 class="selh" data-i18n="home.relevance">Prüfungsrelevanz</h3>
       <div class="chips" id="rChips">
         <span class="chip r active" data-r="R1" data-i18n="r1.chip">R1 · kommt sicher</span>
         <span class="chip r active" data-r="R2" data-i18n="r2.chip">R2 · kann drankommen</span>
         <span class="chip r" data-r="R3" data-i18n="r3.chip">R3 · nicht prüfungsrelevant</span>
       </div>
       <p class="hint" data-i18n="relevance.hint">Standard: R1 + R2. R3 dient nur dem Verständnis.</p>
-    </div>
 
-    <div class="card">
-      <h2 data-i18n="home.moreOptions">Weitere Optionen</h2>
+      <h3 class="selh" data-i18n="home.moreOptions">Weitere Optionen</h3>
       <div class="chips">
         <span class="chip" id="onlyBookmarks" data-i18n="opt.bookmarks">☆ Nur Lesezeichen</span>
         <span class="chip" id="onlyWrong" data-i18n="opt.wrong">✕ Nur falsch beantwortete</span>
@@ -67,27 +70,24 @@
         <span data-i18n="home.numLabel">Anzahl Fragen pro Runde:</span> <b id="numLabel">20</b> <span data-i18n="home.of">von</span> <span id="poolTotal">–</span> <span data-i18n="home.available">verfügbaren</span>
         <input type="range" id="numRange" min="5" max="60" step="5" value="20" style="width:100%;margin-top:6px">
       </label>
-    </div>
+    </details>
 
-    <button class="btn" id="startBtn" data-i18n="home.start">Start</button>
-    <div class="row" style="margin-top:10px">
-      <button class="btn secondary" id="srsBtn" style="flex:1">🔁 Wiederholen (0)</button>
-      <button class="btn secondary" id="flashBtn" data-i18n="home.flash" style="flex:1">🃏 Karteikarten</button>
+    <h2 class="homeh" data-i18n="home.learn">Lernen &amp; Nachschlagen</h2>
+    <div class="tiles">
+      <button class="tile" id="refBtn"><b data-i18n="home.ref">📚 Lernstoff</b><small data-i18n="tile.ref">Curriculum nachlesen</small></button>
+      <button class="tile" id="cmBtn"><b data-i18n="home.cm">🗺 Concept Map</b><small data-i18n="tile.cm">Zusammenhänge der Lernziele</small></button>
+      <button class="tile" id="glossaryBtn"><b data-i18n="home.glossary">📖 Glossar</b><small data-i18n="tile.gl">Begriffe nachschlagen &amp; lernen</small></button>
+      <button class="tile" id="flashBtn"><b data-i18n="home.flash">🃏 Karteikarten</b><small data-i18n="tile.fl">Aufdecken &amp; selbst einschätzen</small></button>
     </div>
-    <button class="btn secondary" id="refBtn" data-i18n="home.ref" style="margin-top:10px">📚 Lernstoff nachschlagen</button>
-    <button class="btn secondary" id="cmBtn" data-i18n="home.cm" style="margin-top:10px">🗺 Concept Map</button>
-    <button class="btn secondary" id="glossaryBtn" data-i18n="home.glossary" style="margin-top:10px">📖 Glossar (Begriffe lernen)</button>
-    <button class="btn secondary" id="browseBtn" data-i18n="home.browse" style="margin-top:10px">📖 Fragen durchblättern</button>
-    <p class="hint" data-i18n="home.toolsHint" style="margin-top:8px">🔁 <b>Wiederholen</b>: Fragen, die laut Lernplan (Spaced Repetition) heute dran sind · 🃏 <b>Karteikarten</b>: Antwort aufdecken &amp; selbst einschätzen · 📚 <b>Lernstoff</b>: Curriculum-Themen nachlesen · 🗺 <b>Concept Map</b>: Zusammenhänge der Lernziele · 📖 <b>Durchblättern</b>: alle Fragen mit Lösung nachschlagen.</p>
-    <button class="btn secondary" id="mockBtn" data-i18n="home.mock" style="margin-top:16px">🎓 Offizielle Musterprüfung</button>
-    <p class="hint" data-i18n="home.mockHint" style="margin-top:6px">🎓 <b>Musterprüfung</b>: die offizielle iSAQB-Beispielprüfung (2026.2) als Generalprobe im Prüfungsformat — separat vom eigenen Fragenkatalog.</p>
-    <button class="btn ghost" id="resetBtn" data-i18n="home.reset" style="margin-top:10px">Fortschritt zurücksetzen</button>
+    <button class="tile wide" id="browseBtn"><b data-i18n="home.browse">📖 Fragen durchblättern</b><small data-i18n="tile.br">Alle Fragen mit Lösung nachschlagen</small></button>
+
+    <button class="tile mock" id="mockBtn"><b data-i18n="home.mock">🎓 Offizielle Musterprüfung</b><small data-i18n="tile.mock">Offizielle iSAQB-Beispielprüfung (2026.2) als Generalprobe – getrennt vom eigenen Katalog</small></button>
 
     <footer class="disc">
       <span data-i18n="footer.disc">Inoffizielles Lernwerkzeug. Nicht mit dem iSAQB® verbunden. Fragen sind eigenständig
       formuliert (keine Original-Prüfungsfragen) und dienen nur zur Übung.
       Bedeutung: <b>R1</b> kommt sicher dran · <b>R2</b> kann drankommen · <b>R3</b> nicht prüfungsrelevant.</span>
-      <br>Version 1.12.0
+      <br>Version <span id="appVersion">1.13.0</span>
     </footer>
   </section>
 
@@ -151,6 +151,7 @@
     <div class="card"><h2 data-i18n="stats.weak">Schwächste Kapitel</h2><div id="statWeak"></div></div>
     <div class="card"><h2 data-i18n="stats.examHist">Prüfungshistorie</h2><div id="statExamHist"></div></div>
     <button class="btn secondary" id="dataBtn" data-i18n="stats.data">💾 Daten sichern / laden</button>
+    <button class="btn ghost" id="resetBtn" data-i18n="home.reset" style="margin-top:10px">Fortschritt zurücksetzen</button>
     <button class="btn ghost" id="statsHomeBtn" data-i18n="common.back" style="margin-top:10px">Zurück</button>
   </section>
 
@@ -296,5 +297,6 @@
 <script src="js/quiz.js"></script>
 <script src="js/screens.js"></script>
 <script src="js/app.js"></script>
+<script src="js/update.js"></script>
 </body>
 </html>
