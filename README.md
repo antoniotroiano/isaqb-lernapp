@@ -6,7 +6,7 @@ Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lok
 **ohne Installation und ohne Konto**. Enthält **252 eigenständige Fragen** über alle 6 Kapitel des Curriculums,
 zusätzlich die **offizielle iSAQB‑Beispielprüfung** als Generalprobe. Oberfläche wahlweise **Deutsch oder Englisch** (Umschalter **DE/EN** oben rechts).
 
-*Version 1.13.0*
+*Version 1.14.0*
 
 ---
 
@@ -67,6 +67,10 @@ Die Datei **`isaqb-trainer.html`** per **Doppelklick** im Browser öffnen — fe
 - **Zurück-Button oben** – auf allen Unterseiten (Lernstoff, Glossar, Statistik …) bleibt oben ein „Zurück" stehen, auch beim langen Scrollen.
 - **Update-Hinweis** – gibt es eine neue App-Version, erscheint beim Start ein Hinweis mit **„Jetzt aktualisieren"** (Web-Link, mit Internet). Dein Fortschritt bleibt erhalten; den Browser-Cache musst du nicht leeren.
 - **Überarbeitete Fragen** – wurden bereits beantwortete Fragen inhaltlich geändert, fragt die App, ob die Statistik **nur dieser Fragen** zurückgesetzt werden soll. Der Rest bleibt unberührt.
+
+### Lernstoff: „📊 Auf einen Blick“
+
+Bei einigen Lernzielen (bisher Kapitel 1: 01-01, 01-02, 01-04, 01-06, 01-07 Kapitel 2: 02-01 bis 02-05 Kapitel 3: 03-01 bis 03-10 Kapitel 4: 04-01 bis 04-03, 04-05 bis 04-08 und Kapitel 5: 05-01 bis 05-03; ohne die R3-Lernziele) steht im Lernstoff ganz oben ein **eingeklappter Block „📊 Auf einen Blick“** – eine visuelle Übersicht mit Diagrammen und einem **Selbsttest zum Aufdecken**. Antippen klappt ihn auf; darunter folgt der normale Lernstoff.
 
 ### Lernstoff durchsuchen 📚
 
