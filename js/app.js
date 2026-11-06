@@ -84,6 +84,15 @@ window.addEventListener("popstate", e=>{
   }
 });
 history.replaceState({screen:"home",depth:0},"",location.pathname+location.search);
+try{ history.scrollRestoration="manual"; }catch(e){}   // Scrollposition steuert die App selbst (z. B. Quiz nach Lernstoff)
+
+/* Desktop-Startseite: Prüfungs-Kacheln wandern in die linke Spalte (alles zum Üben der Prüfung), rechts bleibt Lernen & Nachschlagen.
+   Auf dem Smartphone bleibt die DOM-Reihenfolge unverändert. */
+{ const mq=window.matchMedia("(min-width:900px)");
+  const main=document.querySelector(".home-main"), learn=document.querySelector(".home-learn");
+  const tiles=["origMixBtn","mockBtn"].map(id=>document.getElementById(id));
+  const place=()=>{ if(!main||!learn||tiles.some(t=>!t)) return; tiles.forEach(t=>(mq.matches?main:learn).appendChild(t)); };
+  place(); if(mq.addEventListener) mq.addEventListener("change",place); else if(mq.addListener) mq.addListener(place); }
 
 /* Tastaturkürzel Quiz & Karteikarten (Desktop) */
 document.addEventListener("keydown", e=>{
@@ -95,6 +104,7 @@ document.addEventListener("keydown", e=>{
   const onBtn=e.target && e.target.tagName==="BUTTON";   // fokussierter Button löst Enter/Space selbst aus
   if(vis("quiz")){
     const pb=$("#primaryBtn");
+    if(e.key===" " && e.target && e.target.classList && e.target.classList.contains("opt")){ e.preventDefault(); e.target.click(); return; }   // Leertaste auf fokussierter Antwort = auswählen
     if(enter){ if(onBtn) return; e.preventDefault(); if(!pb.disabled) pb.click(); }
     else if(e.key==="ArrowLeft"){ const pv=$("#prevBtn"); if(pv && !pv.classList.contains("hidden")){ e.preventDefault(); pv.click(); } }
     else if(/^[1-9]$/.test(e.key)){ const o=$$("#optList .opt")[+e.key-1]; if(o && !o.classList.contains("disabled")){ e.preventDefault(); o.click(); } }
@@ -108,6 +118,10 @@ document.addEventListener("keydown", e=>{
   }
 });
 
+$("#qNavHead").onclick=()=>{ const n=$("#qNav"); const o=n.classList.toggle("open"); $("#qNavHead").setAttribute("aria-expanded",o?"true":"false"); };
+$("#qNavGrid").onclick=e=>{ const b=e.target.closest&&e.target.closest(".qn"); if(!b) return;
+  jumpTo(+b.dataset.i);
+  if(!window.matchMedia("(min-width:1200px)").matches){ $("#qNav").classList.remove("open"); $("#qNavHead").setAttribute("aria-expanded","false"); } };   // Streifen nach dem Sprung einklappen, Frage sichtbar
 $("#primaryBtn").onclick=onPrimary;
 $("#prevBtn").onclick=goPrev;
 $("#quitBtn").onclick=()=>{ stopExamTimer(); persistSession(); updateResumeBanner(); updatePool(); show("home"); };
@@ -124,7 +138,7 @@ $("#browseBtn").onclick=renderBrowse;
 $("#browseHomeBtn").onclick=()=>{ updatePool(); show("home"); };
 $("#refBtn").onclick=()=>{ refReturn=null; updateRefBackBtn(); renderReference(""); show("reference"); };
 $("#refHomeBtn").onclick=()=>show("home");
-$("#refBackBtn").onclick=()=>{ const r=refReturn; if(r&&r.kind==="cm"){ renderConceptMap(); show("conceptmap"); if(r.id) cmSelect(r.id); } else if(r&&r.kind==="quiz"){ show("quiz"); } else if(r&&r.kind==="glossary"){ show("glossary"); window.scrollTo(0, glStudy?0:(r.y||0)); } };
+$("#refBackBtn").onclick=()=>{ const r=refReturn; if(r&&r.kind==="cm"){ renderConceptMap(); show("conceptmap"); if(r.id) cmSelect(r.id); } else if(r&&r.kind==="quiz"){ show("quiz"); window.scrollTo(0, r.y||0); } else if(r&&r.kind==="glossary"){ show("glossary"); window.scrollTo(0, glStudy?0:(r.y||0)); } };
 /* „← Zurück zu …“ im Lernstoff: im Verlauf einen Schritt zurück (der popstate-Handler stellt dann Quiz/Concept Map/Glossar wieder her) */
 { const refBackRestore=$("#refBackBtn").onclick;
   $("#refBackBtn").onclick=()=>{ if(!navPop && navState().screen==="reference" && navState().depth>0) history.back(); else refBackRestore(); }; }

@@ -7,7 +7,9 @@ const $$ = s => Array.from(document.querySelectorAll(s));
 function show(id){ ["home","quiz","result","stats","review","data","flash","browse","reference","conceptmap","glossary","mockexam"].forEach(s=>$("#"+s).classList.toggle("hidden", s!==id)); $("#quizBar").classList.toggle("hidden", id!=="quiz"); $("#flashBar").classList.toggle("hidden", id!=="flash"); updateNavBack(id); window.scrollTo(0,0); if(typeof navSync==="function") navSync(id); }
 /* Sticky „← Zurück“ im Header: löst den Zurück-Button am Seitenende der langen Screens aus. */
 function navBackTarget(id){ const m={stats:"statsHomeBtn",data:"dataHomeBtn",browse:"browseHomeBtn",conceptmap:"cmHomeBtn",glossary:"glHomeBtn",mockexam:"mockHomeBtn",review:"reviewBackBtn",result:"homeBtn",flash:null}; if(id==="reference") return $("#refBackBtn").classList.contains("hidden")?"refHomeBtn":"refBackBtn"; return m[id]; }
-function updateNavBack(id){ const sub=id!=="home"&&id!=="quiz"; $("#navBack").classList.toggle("hidden",!sub); document.querySelector("header.top").classList.toggle("sub",sub); }
+function updateNavBack(id){ const sub=id!=="home"&&id!=="quiz"; $("#navBack").classList.toggle("hidden",!sub);
+  /* Im Lernstoff (aus Quiz/Concept Map/Glossar geöffnet) sagt der Header-Button, wohin es zurückgeht */
+  $("#navBack").textContent = (id==="reference" && typeof refReturn!=="undefined" && refReturn) ? $("#refBackBtn").textContent : t("common.back"); document.querySelector("header.top").classList.toggle("sub",sub); }
 function lzLink(lzStr){ if(!lzStr) return ""; const n=String(lzStr).replace(/^LZ\s*/,""); return "<span class='lzlink' data-lz='"+n+"' title='Zum Lernstoff'>"+escapeHtml(lzStr)+"</span>"; }
 function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(pseudoRandom()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 // deterministic-ish RNG seeded by time isn't available offline reliably; Math.random is fine here in the browser
@@ -242,13 +244,18 @@ function renderQuestion(){
   bm.textContent = isBm?"★":"☆"; bm.classList.toggle("on", isBm);
   bm.onclick=()=>{ const s=qStat(q.id); s.bm=!s.bm; saveStore(); renderQuestion(); };
 
-  const list=$("#optList"); list.innerHTML="";
+  const list=$("#optList");
+  const focusIdx=$$("#optList .opt").indexOf(document.activeElement);   // Tastaturfokus über das Neu-Rendern retten
+  list.innerHTML=""; list.setAttribute("role","group");
   if(q.type==="k"){ renderKRows(it, list); }
   else it.order.forEach((optIdx,pos)=>{
     const reveal = it.submitted && session.mode!=="exam";   // Prüfungsmodus deckt erst am Ende auf
     const el=document.createElement("div");
     el.className="opt";
     const isSel=it.selected.includes(optIdx);
+    el.setAttribute("role","checkbox"); el.setAttribute("aria-checked",isSel?"true":"false");
+    el.tabIndex = (it.submitted && session.mode!=="exam") ? -1 : 0;
+    if(it.submitted && session.mode!=="exam") el.setAttribute("aria-disabled","true");
     if(isSel) el.classList.add("selected");
     if(reveal){
       el.classList.add("disabled");
@@ -271,6 +278,7 @@ function renderQuestion(){
     }
     list.appendChild(el);
   });
+  if(focusIdx>=0){ const f=$$("#optList .opt")[focusIdx]; if(f && f.tabIndex===0) f.focus(); }
 
   const ex=$("#explainBox"); ex.innerHTML="";
   if(it.submitted && session.mode==="practice"){
@@ -295,7 +303,46 @@ function renderQuestion(){
   }
   const prev=$("#prevBtn");
   if(prev){ prev.classList.toggle("hidden", session.idx===0); prev.textContent=T("← Zurück","← Back"); }
+  renderQNav();
   persistSession();
+}
+/* ---- Fragenübersicht: Nummern mit Status, Klick springt zur Frage ---- */
+function qnState(it){
+  if(session.mode==="exam") return hasSelection(it) ? "done" : "";
+  if(it.submitted) return it.correct ? "ok" : "bad";
+  return hasSelection(it) ? "sel" : "";
+}
+function renderQNav(){
+  const grid=$("#qNavGrid"); if(!grid||!session) return;
+  const hadFocus = $("#qNav").contains(document.activeElement) && document.activeElement.classList.contains("qn");
+  const exam=session.mode==="exam", total=session.items.length;
+  let answered=0; grid.innerHTML="";
+  session.items.forEach((it,i)=>{
+    const st=qnState(it); if(st==="done"||st==="ok"||st==="bad") answered++;
+    const bm=qStat(it.q.id).bm;
+    const b=document.createElement("button"); b.type="button"; b.dataset.i=i; b.textContent=i+1;
+    b.className="qn"+(st?" "+st:"")+(bm?" bm":"")+(i===session.idx?" cur":"");
+    const stTxt = st==="ok"?T("richtig","correct") : st==="bad"?T("falsch","wrong") : st==="done"?T("beantwortet","answered") : st==="sel"?T("Auswahl noch nicht geprüft","selected, not checked") : T("offen","open");
+    b.setAttribute("aria-label", T("Frage ","Question ")+(i+1)+", "+stTxt+(bm?", "+T("markiert","bookmarked"):""));
+    if(i===session.idx) b.setAttribute("aria-current","step");
+    grid.appendChild(b);
+  });
+  $("#qNavTitle").textContent=T("Fragenübersicht","Questions");
+  $("#qNavSum").textContent=answered+"/"+total+" "+T("beantwortet","answered");
+  $("#qNavLegend").textContent = exam ? T("Gefüllt = beantwortet · ★ markiert","Filled = answered · ★ bookmarked") : T("Grün = richtig · Rot = falsch · ★ markiert","Green = correct · Red = wrong · ★ bookmarked");
+  if(hadFocus){ const c=grid.querySelector(".qn.cur"); if(c) c.focus(); }
+}
+function jumpTo(i){
+  if(!session || i<0 || i>=session.items.length || i===session.idx) return;
+  session.idx=i; renderQuestion(); window.scrollTo(0,0);
+}
+/* Auswerten – bei offenen Fragen vorher nachfragen (übersprungene Fragen zählen als nicht richtig) */
+function tryFinish(){
+  const open=[]; session.items.forEach((it,i)=>{ if(session.mode==="exam" ? !hasSelection(it) : !it.submitted) open.push(i); });
+  if(open.length && !confirm(T("Noch offen: "+open.length+" von "+session.items.length+" Fragen. Sie zählen als nicht richtig. Trotzdem auswerten?","Still open: "+open.length+" of "+session.items.length+" questions. They count as not correct. Evaluate anyway?"))){
+    session.idx=open[0]; renderQuestion(); window.scrollTo(0,0); return;
+  }
+  finishQuiz();
 }
 
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
@@ -390,7 +437,7 @@ function onPrimary(){
     it.submitted=true;
     it.correct = isCorrect(it.q, it.selected);
     if(session.idx<total-1){ session.idx++; renderQuestion(); }
-    else finishQuiz();
+    else tryFinish();
     return;
   }
   // practice mode
@@ -402,7 +449,7 @@ function onPrimary(){
     renderQuestion();
   } else {
     if(session.idx<total-1){ session.idx++; renderQuestion(); }
-    else finishQuiz();
+    else tryFinish();
   }
 }
 /* ---- Spaced Repetition (Leitner) ---- */

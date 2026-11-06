@@ -83,10 +83,10 @@
 <h1 class="code-line has-line-data" data-line-start="0" data-line-end="1"><a id="iSAQB_CPSAF_Trainer_Guide_0"></a>iSAQB CPSA‑F Trainer — Guide</h1>
 <p class="has-line-data" data-line-start="2" data-line-end="7">Practice app (multiple choice) for preparing for the <strong>CPSA‑F</strong> certification<br>
 (Certified Professional for Software Architecture – Foundation Level).<br>
-Runs in the <strong>browser</strong> – via a <strong>web link</strong> (phone &amp; PC) or as a <strong>local file</strong> (PC/Mac),<br>
+Runs in the <strong>browser</strong> – via a <strong>web link</strong> (phone &amp; PC) or as a <strong>local copy</strong> (PC/Mac),<br>
 <strong>no installation and no account</strong>. Contains <strong>312 independently written questions</strong> across all 6 chapters of the curriculum (<strong>269 exam-relevant</strong> (R1/R2); <strong>43</strong> are R3, not exam-relevant, for deepening only),<br>
 plus the <strong>official iSAQB example exam</strong> as a dress rehearsal. Interface in <strong>German or English</strong> (toggle <strong>DE/EN</strong> top right).</p>
-<p class="has-line-data" data-line-start="8" data-line-end="9"><em>Version 1.16.0</em></p>
+<p class="has-line-data" data-line-start="8" data-line-end="9"><em>Version 1.17.0</em></p>
 <hr>
 <h2 class="code-line has-line-data" data-line-start="12" data-line-end="13"><a id="1_Access_start_12"></a>1. Access &amp; start</h2>
 <p class="has-line-data" data-line-start="14" data-line-end="15">Two ways — pick the one that fits your device:</p>
@@ -103,12 +103,12 @@ plus the <strong>official iSAQB example exam</strong> as a dress rehearsal. Inte
 <blockquote>
 <p class="has-line-data" data-line-start="25" data-line-end="26">An internet connection is needed the first time; after that the app runs in the browser.</p>
 </blockquote>
-<h3 class="code-line has-line-data" data-line-start="27" data-line-end="28"><a id="B_Local_file_PCMac_only_27"></a>B) Local file (PC/Mac only)</h3>
-<p class="has-line-data" data-line-start="29" data-line-end="30"><strong>Double‑click</strong> the file <strong><code>isaqb-trainer.html</code></strong> to open it in your browser — done, fully offline.</p>
+<h3 class="code-line has-line-data" data-line-start="27" data-line-end="28"><a id="B_Local_file_PCMac_only_27"></a>B) Local (PC/Mac only)</h3>
+<p class="has-line-data" data-line-start="29" data-line-end="30">Download the repository from GitHub (<strong>Code → Download ZIP</strong>, then unzip) or check it out with <code>git clone</code>, then <strong>double‑click</strong> the file <strong><code>index.html</code></strong> to open it in your browser. The <code>css/</code> and <code>js/</code> folders must stay next to <code>index.html</code>. Runs fully offline.</p>
 <blockquote>
 <p class="has-line-data" data-line-start="31" data-line-end="32">⚠️ <strong>iPhone/iOS:</strong> A local HTML file (e.g. from iCloud/Files) <strong>cannot</strong> be launched in Safari. On the iPhone, use the <strong>web link (A)</strong> instead. (Whether Android allows opening a local file directly is device‑dependent — here too the web link is the safe route.)</p>
 </blockquote>
-<p class="has-line-data" data-line-start="33" data-line-end="34"><strong>Learning progress</strong> is stored <strong>locally in the browser</strong> (localStorage) and never leaves the device. It applies per device/browser and is <strong>not</strong> synchronized between the web link and the local file.</p>
+<p class="has-line-data" data-line-start="33" data-line-end="34"><strong>Learning progress</strong> is stored <strong>locally in the browser</strong> (localStorage) and never leaves the device. It applies per device/browser and is <strong>not</strong> synchronized between the web link and the local copy.</p>
 <hr>
 <h2 class="code-line has-line-data" data-line-start="37" data-line-end="38"><a id="2_Modes_learning_paths_37"></a>2. Modes &amp; learning paths</h2>
 <table class="table table-striped table-bordered">
@@ -191,6 +191,9 @@ plus the <strong>official iSAQB example exam</strong> as a dress rehearsal. Inte
 <li class="has-line-data"><strong>Desktop layout</strong> – on large screens the start page and statistics use two columns; quiz, flashcards and study material stay narrow and centered for easier reading. Nothing changes on smartphones.</li>
 <li class="has-line-data"><strong>Keyboard shortcuts (desktop)</strong> – in the quiz, <strong>1–9</strong> select an answer, <strong>Enter</strong> (or Space) triggers “Check”/“Next”, <strong>←</strong> goes to the previous question. In flashcards, <strong>Enter</strong> reveals, then <strong>1</strong> means “Didn’t know” and <strong>2</strong> (or Enter) means “Knew it”.</li>
 <li class="has-line-data"><strong>Browser back/forward</strong> – every area (statistics, glossary, study material …) has its own history entry; the browser back button, the two-finger swipe on Mac and the Android back key all work. Going back in the middle of a round <strong>pauses</strong> it (like “Pause”) and returns to the start page.</li>
+<li class="has-line-data"><strong>Question overview</strong> – in the quiz an overview shows all question numbers with their status (exam: answered · practice: correct/wrong · ★ bookmarked); a click jumps straight to that question. A sidebar on desktop, a collapsible strip on smartphones. Before evaluating, the app asks if questions are still open (they count as not correct).</li>
+<li class="has-line-data"><strong>Keyboard operation</strong> – answer rows can be reached with <strong>Tab</strong>, <strong>Space</strong> selects; a visible outline shows the focus.</li>
+<li class="has-line-data"><strong>Back from the study material</strong> – if you open a learning goal from quiz feedback, the concept map or the glossary, the button at the top (“← Back to the question” etc.) takes you back exactly there, for a quiz question to the same position.</li>
 <li class="has-line-data" data-line-start="67" data-line-end="68"><strong>Update notice</strong> – if a new app version exists, a notice with <strong>“Update now”</strong> appears at start (web link, online). Your progress is kept; no need to clear the browser cache.</li>
 <li class="has-line-data" data-line-start="68" data-line-end="69"><strong>Revised questions</strong> – if questions you already answered were changed in content, the app asks whether to reset the statistics of <strong>only those questions</strong>. Everything else stays untouched.</li>
 <li class="has-line-data" data-line-start="69" data-line-end="71"><strong>German/English</strong> – toggle (<strong>DE/EN</strong>) at the top right; switches the whole interface, the questions and the study material.</li>
@@ -490,7 +493,7 @@ plus the <strong>official iSAQB example exam</strong> as a dress rehearsal. Inte
 <h2 class="code-line has-line-data" data-line-start="205" data-line-end="206"><a id="9_Technology_privacy_in_brief_205"></a>9. Technology &amp; privacy (in brief)</h2>
 <ul>
 <li class="has-line-data" data-line-start="207" data-line-end="208">A <strong>self‑contained</strong> HTML file (HTML + CSS + JavaScript), <strong>no external dependencies</strong>, questions stored as data directly in the code.</li>
-<li class="has-line-data" data-line-start="208" data-line-end="209">The app itself communicates with <strong>no server</strong> (no trackers, no data transfer). With the <strong>web link</strong>, the page is loaded once from GitHub Pages, after which everything runs in the browser; the <strong>local file</strong> works entirely <strong>without internet</strong>.</li>
+<li class="has-line-data" data-line-start="208" data-line-end="209">The app itself communicates with <strong>no server</strong> (no trackers, no data transfer). With the <strong>web link</strong>, the page is loaded once from GitHub Pages, after which everything runs in the browser; the <strong>local copy</strong> works entirely <strong>without internet</strong>.</li>
 <li class="has-line-data" data-line-start="209" data-line-end="210">Progress lives solely in the browser’s <strong>localStorage</strong>. Clearing browser data (or “reset progress”) = start over from zero.</li>
 <li class="has-line-data" data-line-start="210" data-line-end="212">Adding more questions: new entries follow the data schema in the code<br>
 (<code>{ id, chapter, lz, r, type, q, options, correct, optExpl, explanation }</code> – <code>optExpl</code> = rationale per option, or for K questions <code>categories</code> + <code>rows</code>).</li>

@@ -292,7 +292,7 @@ function renderReference(filter){
 let refReturn=null;
 function updateRefBackBtn(){ const b=$("#refBackBtn"); if(!b) return; if(!refReturn){ b.classList.add("hidden"); return; } b.classList.remove("hidden"); b.textContent = refReturn.kind==="cm" ? T("← Zurück zur Concept Map","← Back to concept map") : refReturn.kind==="glossary" ? (glStudy ? T("← Zurück zur Karteikarte","← Back to the flashcard") : T("← Zurück zum Glossar","← Back to the glossary")) : T("← Zurück zur Frage","← Back to the question"); }
 function openReference(lz,origin){
-  refReturn = origin==="cm" ? {kind:"cm",id:lz} : origin==="quiz" ? {kind:"quiz"} : origin==="glossary" ? {kind:"glossary",y:window.scrollY} : null; updateRefBackBtn();
+  refReturn = origin==="cm" ? {kind:"cm",id:lz} : origin==="quiz" ? {kind:"quiz",y:window.scrollY} : origin==="glossary" ? {kind:"glossary",y:window.scrollY} : null; updateRefBackBtn();
   const rs=$("#refSearch"); if(rs) rs.value="";
   renderReference(""); show("reference");
   const el=document.getElementById("ref-"+lz);

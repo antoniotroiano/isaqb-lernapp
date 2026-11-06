@@ -2,11 +2,11 @@
 
 Übungs‑App (Multiple Choice) zur Vorbereitung auf die Zertifizierung
 **CPSA‑F** (Certified Professional for Software Architecture – Foundation Level).
-Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lokale Datei** (PC/Mac),
+Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lokale Version** (PC/Mac),
 **ohne Installation und ohne Konto**. Enthält **312 eigenständige Fragen** über alle 6 Kapitel des Curriculums (davon **269 prüfungsrelevant** (R1/R2), **43** als R3 nicht prüfungsrelevant und nur zur Vertiefung),
 zusätzlich die **offizielle iSAQB‑Beispielprüfung** als Generalprobe. Oberfläche wahlweise **Deutsch oder Englisch** (Umschalter **DE/EN** oben rechts).
 
-*Version 1.16.0*
+*Version 1.17.0*
 
 ---
 
@@ -25,13 +25,13 @@ Den App‑Link im Browser öffnen. Für App‑ähnlichen Schnellzugriff auf dem 
 
 > Beim ersten Aufruf ist eine Internetverbindung nötig; danach läuft die App im Browser.
 
-### B) Lokale Datei (nur PC/Mac)
+### B) Lokal (nur PC/Mac)
 
-Die Datei **`isaqb-trainer.html`** per **Doppelklick** im Browser öffnen — fertig, komplett offline.
+Das Repository von GitHub herunterladen (**Code → Download ZIP**, entpacken) oder per `git clone` auschecken und die Datei **`index.html`** per **Doppelklick** im Browser öffnen. Die Ordner `css/` und `js/` müssen dabei neben der `index.html` liegen. Läuft komplett offline.
 
 > ⚠️ **iPhone/iOS:** Eine lokale HTML‑Datei (z. B. aus iCloud/Dateien) lässt sich in Safari **nicht** starten. Auf dem iPhone deshalb den **Web‑Link (A)** verwenden. (Ob Android das direkte Öffnen einer lokalen Datei erlaubt, ist geräteabhängig — auch hier ist der Web‑Link der sichere Weg.)
 
-**Lernfortschritt:** wird **lokal im Browser** gespeichert (localStorage) und verlässt das Gerät nicht. Er gilt pro Gerät/Browser und wird zwischen Web‑Link und lokaler Datei **nicht** synchronisiert.
+**Lernfortschritt:** wird **lokal im Browser** gespeichert (localStorage) und verlässt das Gerät nicht. Er gilt pro Gerät/Browser und wird zwischen Web‑Link und lokaler Version **nicht** synchronisiert.
 
 ---
 
@@ -69,6 +69,9 @@ Die Datei **`isaqb-trainer.html`** per **Doppelklick** im Browser öffnen — fe
 - **Desktop-Layout** – auf großen Bildschirmen zweispaltige Startseite und Statistik; Quiz, Karteikarten und Lernstoff bleiben zum besseren Lesen schmal und zentriert. Auf dem Smartphone ändert sich nichts.
 - **Tastaturkürzel (Desktop)** – im Quiz wählen **1–9** die Antwort, **Enter** (oder Leertaste) löst „Prüfen“/„Weiter“ aus, **←** geht zur vorherigen Frage. Bei Karteikarten deckt **Enter** auf, danach steht **1** für „Nicht gewusst“ und **2** (oder Enter) für „Gewusst“.
 - **Browser-Zurück/Vor** – jeder Bereich (Statistik, Glossar, Lernstoff …) hat einen eigenen Verlaufseintrag; die Zurück-Taste des Browsers, die Zwei-Finger-Geste am Mac und die Android-Zurücktaste funktionieren. Zurück mitten in einer Runde **pausiert** sie (wie „Pause“) und führt zur Startseite.
+- **Fragenübersicht** – im Quiz zeigt eine Übersicht alle Fragennummern mit Status (Prüfung: beantwortet · Üben: richtig/falsch · ★ markiert); ein Klick springt direkt zur Frage. Am Desktop als Seitenleiste, am Smartphone als aufklappbarer Streifen. Vor der Auswertung fragt die App nach, wenn noch Fragen offen sind (sie zählen als nicht richtig).
+- **Bedienung per Tastatur** – die Antwortzeilen sind per **Tab** erreichbar, die **Leertaste** wählt aus; ein sichtbarer Rahmen zeigt den Fokus.
+- **Zurück aus dem Lernstoff** – öffnest du ein Lernziel aus dem Quiz-Feedback, der Concept Map oder dem Glossar, führt der Button oben („← Zurück zur Frage“ usw.) genau dorthin zurück, bei der Quizfrage an dieselbe Stelle.
 - **Update-Hinweis** – gibt es eine neue App-Version, erscheint beim Start ein Hinweis mit **„Jetzt aktualisieren"** (Web-Link, mit Internet). Dein Fortschritt bleibt erhalten; den Browser-Cache musst du nicht leeren.
 - **Überarbeitete Fragen** – wurden bereits beantwortete Fragen inhaltlich geändert, fragt die App, ob die Statistik **nur dieser Fragen** zurückgesetzt werden soll. Der Rest bleibt unberührt.
 
@@ -213,7 +216,7 @@ Die Fragen sind **eigenständig formuliert** und orientieren sich an den **öffe
 ## 9. Technik & Datenschutz (kurz)
 
 - Eine **self‑contained** HTML‑Datei (HTML + CSS + JavaScript), **keine externen Abhängigkeiten**, Fragen als Daten direkt im Code.
-- Die App selbst kommuniziert mit **keinem Server** (keine Tracker, keine Datenübertragung). Beim **Web‑Link** wird die Seite einmalig von GitHub Pages geladen, danach läuft alles im Browser; die **lokale Datei** kommt ganz **ohne Internet** aus.
+- Die App selbst kommuniziert mit **keinem Server** (keine Tracker, keine Datenübertragung). Beim **Web‑Link** wird die Seite einmalig von GitHub Pages geladen, danach läuft alles im Browser; die **lokale Version** kommt ganz **ohne Internet** aus.
 - Fortschritt liegt ausschließlich im **localStorage** des Browsers. Browserdaten löschen (oder „Fortschritt zurücksetzen") = Neustart bei null.
 - Mehr Fragen ergänzen: neue Einträge folgen dem Datenschema im Code
   (`{ id, chapter, lz, r, type, q, options, correct, optExpl, explanation }` – `optExpl` = Begründung je Option, bzw. für K‑Fragen `categories` + `rows`).

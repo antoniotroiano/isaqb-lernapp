@@ -96,7 +96,7 @@
       <span data-i18n="footer.disc">Inoffizielles Lernwerkzeug. Nicht mit dem iSAQB® verbunden. Fragen sind eigenständig
       formuliert (keine Original-Prüfungsfragen) und dienen nur zur Übung.
       Bedeutung: <b>R1</b> kommt sicher dran · <b>R2</b> kann drankommen · <b>R3</b> nicht prüfungsrelevant.</span>
-      <br>Version <span id="appVersion">1.16.0</span>
+      <br>Version <span id="appVersion">1.17.0</span>
     </footer>
   </section>
 
@@ -107,6 +107,12 @@
       <span id="qScore"></span>
     </div>
     <div class="progress"><i id="progBar" style="width:0%"></i></div>
+    <nav class="qnav" id="qNav" aria-label="Fragenübersicht">
+      <div class="qnav-in">
+        <button class="qnav-head" id="qNavHead" type="button" aria-expanded="false"><span id="qNavTitle">Fragenübersicht</span><span class="qnav-sum" id="qNavSum"></span><span class="qnav-chev" aria-hidden="true">▾</span></button>
+        <div class="qnav-body" id="qNavBody"><div class="qnav-grid" id="qNavGrid"></div><p class="qnav-legend" id="qNavLegend"></p></div>
+      </div>
+    </nav>
     <div class="card">
       <div class="qmeta" style="margin-bottom:6px">
         <span><span class="badge" id="qBadge">R1</span> <span class="pts" id="qPts" style="display:none"></span> <span class="lz" id="qChapter" style="margin:0"></span></span>
