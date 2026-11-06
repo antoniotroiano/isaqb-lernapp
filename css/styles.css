@@ -42,7 +42,7 @@
     padding:0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     -webkit-text-size-adjust:100%;
   }
-  .app{max-width:640px;margin:0 auto;padding:0 16px 96px}
+  .app{max-width:640px;margin:0 auto;padding:0 16px calc(112px + env(safe-area-inset-bottom,0px))}
   header.top{display:flex;align-items:center;justify-content:space-between;margin:0 -16px 12px;padding:calc(env(safe-area-inset-top,0px) + 24px) 16px 10px;gap:8px;position:sticky;top:0;z-index:6;background:var(--bg);border-bottom:1px solid transparent}
   header.top.sub{border-bottom-color:var(--border)}
   header.top.sub h1{display:none}
@@ -390,3 +390,42 @@ details.gl-q>div{padding:0 12px 10px;color:var(--muted);font-size:.86rem}
 .gl-arrow{text-align:center;color:var(--muted);line-height:1.1;margin:2px 0;font-weight:700}
 .gl-hub{margin-top:8px;border:2px solid var(--gl-blue-s);background:var(--gl-blue);border-radius:12px;padding:9px 12px;text-align:center}
 .gl-hub b{display:block}.gl-hub span{font-size:.82rem;color:var(--muted)}
+
+/* --- Desktop-Layout (Smartphone bleibt unverändert) --- */
+@media (min-width:900px){
+  .app{max-width:1080px;padding-bottom:120px}
+  header.top{margin:0 -16px 20px}
+  /* Lese-/Fokus-Screens bleiben schmal und zentriert */
+  #quiz,#result,#flash,#browse,#reference,#glossary,#review,#data,#mockexam{max-width:720px;margin-left:auto;margin-right:auto}
+  .fixedbar .inner{max-width:720px}
+  /* Startseite: zwei Spalten (Start & Optionen | Lernen & Nachschlagen) */
+  .home-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+  .home-learn .homeh{margin-top:0}
+  .home-learn .tiles{grid-template-columns:1fr 1fr}
+  .tile{min-height:92px;transition:border-color .12s,box-shadow .12s,transform .12s}
+  .tile:hover{border-color:var(--accent);box-shadow:0 3px 10px rgba(0,0,0,.08);transform:translateY(-1px)}
+  .btn:not(:disabled):hover{filter:brightness(1.08)}
+  .chip:hover{border-color:var(--accent)}
+  .row .btn{width:auto}
+  /* Statistik: Karten in zwei Spalten */
+  #stats{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 20px;align-items:start}
+  #stats>.btn{grid-column:1/-1;max-width:420px;margin-left:auto;margin-right:auto;width:100%}
+  #stats>.card:first-child{grid-column:1/-1}
+  .stat-grid{grid-template-columns:repeat(4,1fr)}
+  /* Concept Map nutzt volle Breite */
+  #conceptmap{max-width:none}
+}
+@media (min-width:1200px){
+  .app{max-width:1180px}
+}
+
+/* Tastaturhinweise & schwebende Aktionsleiste (nur Desktop) */
+.kbdhint{display:none}
+@media (min-width:900px) and (hover:hover){
+  .kbdhint{display:block;color:var(--muted);font-size:.78rem;text-align:center;margin:10px 0 0}
+  kbd{font:inherit;font-size:.72rem;font-weight:600;border:1px solid var(--border);border-bottom-width:2px;border-radius:5px;padding:1px 6px;background:var(--card)}
+}
+@media (min-width:900px){
+  .fixedbar{left:50%;right:auto;transform:translateX(-50%);width:720px;max-width:calc(100% - 32px);bottom:16px;border:1px solid var(--border);border-radius:16px;padding:10px 12px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+  .fixedbar .inner{max-width:none}
+}

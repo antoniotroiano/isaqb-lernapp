@@ -32,6 +32,8 @@
         <button class="btn ghost" id="discardBtn" data-i18n="home.discard" style="flex:1">Verwerfen</button>
       </div>
     </div>
+    <div class="home-grid">
+    <div class="home-main">
     <div class="row homeactions">
       <button class="btn" id="startBtn" data-i18n="home.start" style="flex:1.5">Start</button>
       <button class="btn secondary" id="srsBtn" style="flex:1.5;padding-left:8px;padding-right:8px;white-space:nowrap">🔁 Wiederholen (0)</button>
@@ -72,6 +74,8 @@
       </label>
     </details>
 
+    </div>
+    <div class="home-learn">
     <h2 class="homeh" data-i18n="home.learn">Lernen &amp; Nachschlagen</h2>
     <div class="tiles">
       <button class="tile" id="refBtn"><b data-i18n="home.ref">📚 Lernstoff</b><small data-i18n="tile.ref">Curriculum nachlesen</small></button>
@@ -85,11 +89,14 @@
 
     <button class="tile mock" id="mockBtn"><b data-i18n="home.mock">🎓 Offizielle Musterprüfung</b><small data-i18n="tile.mock">Offizielle iSAQB-Beispielprüfung (2026.2) als Generalprobe – getrennt vom eigenen Katalog</small></button>
 
+    </div>
+    </div>
+
     <footer class="disc">
       <span data-i18n="footer.disc">Inoffizielles Lernwerkzeug. Nicht mit dem iSAQB® verbunden. Fragen sind eigenständig
       formuliert (keine Original-Prüfungsfragen) und dienen nur zur Übung.
       Bedeutung: <b>R1</b> kommt sicher dran · <b>R2</b> kann drankommen · <b>R3</b> nicht prüfungsrelevant.</span>
-      <br>Version <span id="appVersion">1.15.0</span>
+      <br>Version <span id="appVersion">1.16.0</span>
     </footer>
   </section>
 
@@ -108,6 +115,7 @@
       <div class="qtext" id="qText"></div>
       <div class="qtype" id="qType"></div>
       <div id="optList"></div>
+      <p class="kbdhint" data-i18n="kbd.quiz">Tastatur: <kbd>1</kbd>–<kbd>5</kbd> Antwort wählen · <kbd>Enter</kbd> Weiter · <kbd>←</kbd> Zurück</p>
       <div id="explainBox"></div>
     </div>
   </section>
@@ -185,6 +193,7 @@
       <div class="qmeta" style="margin-bottom:6px"><span><span class="badge" id="flashBadge">R1</span> <span class="lz" id="flashChapter" style="margin:0"></span></span></div>
       <div class="qtext" id="flashQ"></div>
       <div id="flashBody"></div>
+      <p class="kbdhint" data-i18n="kbd.flash">Tastatur: <kbd>Enter</kbd> Aufdecken · <kbd>1</kbd> Nicht gewusst · <kbd>2</kbd> Gewusst</p>
     </div>
   </section>
 

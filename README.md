@@ -6,7 +6,7 @@ Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lok
 **ohne Installation und ohne Konto**. Enthält **312 eigenständige Fragen** über alle 6 Kapitel des Curriculums (davon **269 prüfungsrelevant** (R1/R2), **43** als R3 nicht prüfungsrelevant und nur zur Vertiefung),
 zusätzlich die **offizielle iSAQB‑Beispielprüfung** als Generalprobe. Oberfläche wahlweise **Deutsch oder Englisch** (Umschalter **DE/EN** oben rechts).
 
-*Version 1.15.0*
+*Version 1.16.0*
 
 ---
 
@@ -66,6 +66,9 @@ Die Datei **`isaqb-trainer.html`** per **Doppelklick** im Browser öffnen — fe
 - **Antworten durchsehen** – nach jeder Runde alle falsch/teilweise richtig beantworteten Fragen mit deiner Wahl, der Lösung und demselben Feedback wie im Übungsmodus (warum richtig, warum deine Auswahl falsch, „Kurz gesagt“).
 - **Lesezeichen**, **Dark Mode** (🌓 oben rechts) und **Fortschritt zurücksetzen** (unter 📊 Statistik).
 - **Zurück-Button oben** – auf allen Unterseiten (Lernstoff, Glossar, Statistik …) bleibt oben ein „Zurück" stehen, auch beim langen Scrollen.
+- **Desktop-Layout** – auf großen Bildschirmen zweispaltige Startseite und Statistik; Quiz, Karteikarten und Lernstoff bleiben zum besseren Lesen schmal und zentriert. Auf dem Smartphone ändert sich nichts.
+- **Tastaturkürzel (Desktop)** – im Quiz wählen **1–9** die Antwort, **Enter** (oder Leertaste) löst „Prüfen“/„Weiter“ aus, **←** geht zur vorherigen Frage. Bei Karteikarten deckt **Enter** auf, danach steht **1** für „Nicht gewusst“ und **2** (oder Enter) für „Gewusst“.
+- **Browser-Zurück/Vor** – jeder Bereich (Statistik, Glossar, Lernstoff …) hat einen eigenen Verlaufseintrag; die Zurück-Taste des Browsers, die Zwei-Finger-Geste am Mac und die Android-Zurücktaste funktionieren. Zurück mitten in einer Runde **pausiert** sie (wie „Pause“) und führt zur Startseite.
 - **Update-Hinweis** – gibt es eine neue App-Version, erscheint beim Start ein Hinweis mit **„Jetzt aktualisieren"** (Web-Link, mit Internet). Dein Fortschritt bleibt erhalten; den Browser-Cache musst du nicht leeren.
 - **Überarbeitete Fragen** – wurden bereits beantwortete Fragen inhaltlich geändert, fragt die App, ob die Statistik **nur dieser Fragen** zurückgesetzt werden soll. Der Rest bleibt unberührt.
 

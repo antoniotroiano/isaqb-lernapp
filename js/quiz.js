@@ -4,7 +4,7 @@ const EXAM_BASE_N = (typeof MOCKEXAM!=="undefined" && MOCKEXAM.questions && MOCK
 const EXAM_BASE_MIN = (typeof MOCKEXAM!=="undefined" && MOCKEXAM.durationMin) || 75;
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
-function show(id){ ["home","quiz","result","stats","review","data","flash","browse","reference","conceptmap","glossary","mockexam"].forEach(s=>$("#"+s).classList.toggle("hidden", s!==id)); $("#quizBar").classList.toggle("hidden", id!=="quiz"); $("#flashBar").classList.toggle("hidden", id!=="flash"); updateNavBack(id); window.scrollTo(0,0); }
+function show(id){ ["home","quiz","result","stats","review","data","flash","browse","reference","conceptmap","glossary","mockexam"].forEach(s=>$("#"+s).classList.toggle("hidden", s!==id)); $("#quizBar").classList.toggle("hidden", id!=="quiz"); $("#flashBar").classList.toggle("hidden", id!=="flash"); updateNavBack(id); window.scrollTo(0,0); if(typeof navSync==="function") navSync(id); }
 /* Sticky „← Zurück“ im Header: löst den Zurück-Button am Seitenende der langen Screens aus. */
 function navBackTarget(id){ const m={stats:"statsHomeBtn",data:"dataHomeBtn",browse:"browseHomeBtn",conceptmap:"cmHomeBtn",glossary:"glHomeBtn",mockexam:"mockHomeBtn",review:"reviewBackBtn",result:"homeBtn",flash:null}; if(id==="reference") return $("#refBackBtn").classList.contains("hidden")?"refHomeBtn":"refBackBtn"; return m[id]; }
 function updateNavBack(id){ const sub=id!=="home"&&id!=="quiz"; $("#navBack").classList.toggle("hidden",!sub); document.querySelector("header.top").classList.toggle("sub",sub); }

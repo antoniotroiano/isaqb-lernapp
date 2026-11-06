@@ -47,6 +47,67 @@ function initHome(){
   updateResumeBanner();
 }
 
+/* Browser-Verlauf (History API): Zurück/Vor im Browser, Android-Zurücktaste, Wischgeste.
+   Jeder Bereichswechsel erzeugt einen Verlaufseintrag (#stats, #quiz, …). Zustand liegt nur im Speicher
+   (laufende Runde, Ergebnis …) – diese Bereiche werden beim Zurück/Vor nicht wiederhergestellt: eine laufende
+   Runde wird pausiert (wie „Pause“) und man landet auf der Startseite. */
+let navPop=false;
+const NAV_OPEN={stats:"statsBtn",data:"dataBtn",browse:"browseBtn",conceptmap:"cmBtn",glossary:"glossaryBtn",mockexam:"mockBtn",reference:"refBtn"};
+const NAV_IDS=["home","quiz","result","stats","review","data","flash","browse","reference","conceptmap","glossary","mockexam"];
+function navState(){ return history.state && history.state.screen ? history.state : {screen:"home",depth:0}; }
+function navSync(id){
+  if(navPop) return;
+  const st=navState();
+  if(st.screen===id) return;
+  if(id==="home"){ if(st.depth>0) history.go(-st.depth); return; }   // zurück zur Startseite = Verlauf bis zur Basis abbauen
+  history.pushState({screen:id,depth:st.depth+1},"","#"+id);
+}
+window.addEventListener("popstate", e=>{
+  const fresh=!(e.state&&e.state.screen);   // z. B. Enter in der Adresszeile bei gleicher #-URL (kein Reload, aber Anker-Navigation)
+  const st=(e.state&&e.state.screen)?e.state:{screen:"home",depth:0};
+  let cur=NAV_IDS.find(id=>!$("#"+id).classList.contains("hidden"));
+  if($("#modal")) return;
+  navPop=true;
+  try{
+    if(cur==="reference" && refReturn && st.screen!=="reference"){ $("#refBackBtn").click(); return; }   // Lernstoff wurde aus Quiz/Concept Map/Glossar geöffnet: dorthin zurück
+    if(cur==="quiz"){ $("#quitBtn").click(); cur="home"; }                  // pausiert & zeigt Startseite
+    if(cur===st.screen) return;
+    if(st.screen==="home"&&cur==="home") return;
+    if(NAV_OPEN[st.screen]) $("#"+NAV_OPEN[st.screen]).click();
+    else if(cur!=="home"){ updatePool(); show("home"); }
+    if(st.screen!=="home" && !NAV_OPEN[st.screen] && !fresh){   // nicht wiederherstellbarer Eintrag (Quiz/Ergebnis/…): bis zur Startseite durchreichen
+      if(st.depth>0) history.go(-st.depth); else history.replaceState({screen:"home",depth:0},"",location.pathname+location.search);
+    }
+  } finally {
+    if(fresh) history.replaceState({screen:"home",depth:0},"",location.pathname+location.search);   // Adresse bereinigen
+    navPop=false;
+  }
+});
+history.replaceState({screen:"home",depth:0},"",location.pathname+location.search);
+
+/* Tastaturkürzel Quiz & Karteikarten (Desktop) */
+document.addEventListener("keydown", e=>{
+  if(e.ctrlKey||e.metaKey||e.altKey||e.defaultPrevented) return;
+  if(e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+  if($("#modal")) return;
+  const vis=id=>!$("#"+id).classList.contains("hidden");
+  const enter=e.key==="Enter"||e.key===" ";
+  const onBtn=e.target && e.target.tagName==="BUTTON";   // fokussierter Button löst Enter/Space selbst aus
+  if(vis("quiz")){
+    const pb=$("#primaryBtn");
+    if(enter){ if(onBtn) return; e.preventDefault(); if(!pb.disabled) pb.click(); }
+    else if(e.key==="ArrowLeft"){ const pv=$("#prevBtn"); if(pv && !pv.classList.contains("hidden")){ e.preventDefault(); pv.click(); } }
+    else if(/^[1-9]$/.test(e.key)){ const o=$$("#optList .opt")[+e.key-1]; if(o && !o.classList.contains("disabled")){ e.preventDefault(); o.click(); } }
+  } else if(vis("flash")){
+    const btns=$$("#flashActions .btn");
+    if(btns.length===2 && !flash.revealed){ if(enter && !onBtn){ e.preventDefault(); btns[1].click(); } }
+    else if(flash.revealed && btns.length===2){
+      if(e.key==="1"){ e.preventDefault(); btns[0].click(); }
+      else if(e.key==="2"||(enter&&!onBtn)){ e.preventDefault(); btns[1].click(); }
+    }
+  }
+});
+
 $("#primaryBtn").onclick=onPrimary;
 $("#prevBtn").onclick=goPrev;
 $("#quitBtn").onclick=()=>{ stopExamTimer(); persistSession(); updateResumeBanner(); updatePool(); show("home"); };
@@ -64,6 +125,9 @@ $("#browseHomeBtn").onclick=()=>{ updatePool(); show("home"); };
 $("#refBtn").onclick=()=>{ refReturn=null; updateRefBackBtn(); renderReference(""); show("reference"); };
 $("#refHomeBtn").onclick=()=>show("home");
 $("#refBackBtn").onclick=()=>{ const r=refReturn; if(r&&r.kind==="cm"){ renderConceptMap(); show("conceptmap"); if(r.id) cmSelect(r.id); } else if(r&&r.kind==="quiz"){ show("quiz"); } else if(r&&r.kind==="glossary"){ show("glossary"); window.scrollTo(0, glStudy?0:(r.y||0)); } };
+/* „← Zurück zu …“ im Lernstoff: im Verlauf einen Schritt zurück (der popstate-Handler stellt dann Quiz/Concept Map/Glossar wieder her) */
+{ const refBackRestore=$("#refBackBtn").onclick;
+  $("#refBackBtn").onclick=()=>{ if(!navPop && navState().screen==="reference" && navState().depth>0) history.back(); else refBackRestore(); }; }
 $("#cmBtn").onclick=()=>{ renderConceptMap(); show("conceptmap"); };
 $("#cmHomeBtn").onclick=()=>show("home");
 $("#glossaryBtn").onclick=()=>{ endGlossaryStudy(); renderGlossary(""); show("glossary"); };
