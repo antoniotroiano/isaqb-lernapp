@@ -1,0 +1,34 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Sicherungen aus den Überarbeitungsschritten (lokal, nicht veröffentlichen)
+.backup/
+
+# Lokale Claude-Code-Konfiguration und temporäre Vorschau
+.claude/
+
+# Schulungsfolien (urheberrechtlich geschützt, nur lokal als Quelle)
+FolienSchulung/
+
+# Lokaler Arbeitsordner
+md/
+
+# Build-Skript für die Offline-Einzeldatei (lokal, nicht veröffentlichen)
+build.py
+
+# Editor und Python
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+
+# Optional: interne Review-Dokumente nicht veröffentlichen (Zeilen einkommentieren)
+# GESAMT_REVIEW.md
+# REVIEW.md
+# LERNSTOFF_REVIEW.md
+# LERNSTOFF_UMSETZUNG.md
+# FRAGEN_UMSETZUNG.md
+
+# Optional: erzeugtes Offline-Bündel, falls es nicht im Repo liegen soll
+# isaqb-trainer.html

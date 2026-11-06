@@ -1,6 +1,6 @@
 const MOCKEXAM = {
  "documentVersion": "2026.2",
- "date": "2026-03-27",
+ "date": "2026-09-27",
  "curriculum": "2025.1-rev2",
  "source": "iSAQB® e. V. — CPSA-F® Beispielprüfung",
  "url": "https://public.isaqb.org/foundation-exam-questions/mock-de.pdf",

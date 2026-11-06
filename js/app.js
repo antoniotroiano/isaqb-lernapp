@@ -22,8 +22,8 @@ function initHome(){
     b.classList.add("active"); ui.mode=b.dataset.mode;
     $("#modeHint").textContent = ui.mode==="practice"
       ? T("Üben: sofortiges Feedback mit Erklärung nach jeder Frage.","Practice: instant feedback with an explanation after each question.")
-      : T("Prüfung: 40 Fragen · 75 Min · 60 % zum Bestehen · Punkte & offizielle iSAQB-Bewertung.","Exam: 40 questions · 75 min · 60 % to pass · points & official iSAQB scoring.");
-    if(ui.mode==="exam"){ const p=poolQuestions().length; ui.num=Math.min(40, p||5); const r=$("#numRange"); r.value=ui.num; $("#numLabel").textContent=ui.num; }
+      : T("Prüfung: "+EXAM_BASE_N+" Fragen · "+EXAM_BASE_MIN+" Min · 60 % zum Bestehen · Punkte & offizielle iSAQB-Bewertung.","Exam: "+EXAM_BASE_N+" questions · "+EXAM_BASE_MIN+" min · 60 % to pass · points & official iSAQB scoring.");
+    if(ui.mode==="exam"){ const p=poolQuestions().length; ui.num=Math.min(EXAM_BASE_N, p||5); const r=$("#numRange"); r.value=ui.num; $("#numLabel").textContent=ui.num; }
   });
   // R chips
   $$("#rChips .chip").forEach(c=>c.onclick=()=>{
@@ -72,6 +72,7 @@ $("#glStudyBtn").onclick=()=>startGlossaryStudy();
 (function(){ const gs=$("#glSearch"); if(gs) gs.oninput=()=>renderGlossary(gs.value); })();
 (function(){ $$("#glFilter .chip.r").forEach(ch=>{ ch.onclick=()=>{ const r=ch.getAttribute("data-r"); if(glFilter.has(r)&&glFilter.size>1) glFilter.delete(r); else glFilter.add(r); renderGlossary($("#glSearch")?$("#glSearch").value:""); }; }); })();
 $("#mockBtn").onclick=()=>{ renderMockExam(); show("mockexam"); };
+$("#origMixBtn").onclick=()=>{ if(store.session && !confirm(T("Es gibt eine unterbrochene Runde. Prüfung starten und die alte verwerfen?","There is an interrupted round. Start the exam and discard the old one?"))) return; clearSession(); startOriginalMix(); };
 $("#mockHomeBtn").onclick=()=>{ updateResumeBanner(); show("home"); };
 $("#mockStartBtn").onclick=()=>{ if(store.session && !confirm(T("Es gibt eine unterbrochene Runde. Musterprüfung starten und die alte verwerfen?","There is an interrupted round. Start the mock exam and discard the old one?"))) return; clearSession(); startMockExam(); };
 (function(){ const rs=$("#refSearch"); if(rs) rs.oninput=()=>renderReference(rs.value); })();
@@ -100,7 +101,7 @@ function rerenderCurrent(){
   buildChapterChips(); updatePool(); updateResumeBanner();
   $("#modeHint").textContent = ui.mode==="practice"
     ? T("Üben: sofortiges Feedback mit Erklärung nach jeder Frage.","Practice: instant feedback with an explanation after each question.")
-    : T("Prüfung: 40 Fragen · 75 Min · 60 % zum Bestehen · Punkte & offizielle iSAQB-Bewertung.","Exam: 40 questions · 75 min · 60 % to pass · points & official iSAQB scoring.");
+    : T("Prüfung: "+EXAM_BASE_N+" Fragen · "+EXAM_BASE_MIN+" Min · 60 % zum Bestehen · Punkte & offizielle iSAQB-Bewertung.","Exam: "+EXAM_BASE_N+" questions · "+EXAM_BASE_MIN+" min · 60 % to pass · points & official iSAQB scoring.");
   const vis = id => !$("#"+id).classList.contains("hidden");
   if(vis("quiz") && session) renderQuestion();
   else if(vis("review")) renderReview();

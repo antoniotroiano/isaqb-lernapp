@@ -1,4 +1,7 @@
 "use strict";
+/* Referenz der Prüfungssimulation: Länge und Dauer der offiziellen Beispielprüfung (nicht fest verdrahtet). */
+const EXAM_BASE_N = (typeof MOCKEXAM!=="undefined" && MOCKEXAM.questions && MOCKEXAM.questions.length) || 38;
+const EXAM_BASE_MIN = (typeof MOCKEXAM!=="undefined" && MOCKEXAM.durationMin) || 75;
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 function show(id){ ["home","quiz","result","stats","review","data","flash","browse","reference","conceptmap","glossary","mockexam"].forEach(s=>$("#"+s).classList.toggle("hidden", s!==id)); $("#quizBar").classList.toggle("hidden", id!=="quiz"); $("#flashBar").classList.toggle("hidden", id!=="flash"); updateNavBack(id); window.scrollTo(0,0); }
@@ -37,7 +40,7 @@ function hasSelection(it){ return it.q.type==="k" ? it.selected.some(x=>x!=null)
 /* ---- Unterbrochene Runde speichern / fortsetzen ---- */
 function persistSession(){
   if(!session) return;
-  store.session={ mode:session.mode, mock:!!session.mock, idx:session.idx,
+  store.session={ mode:session.mode, mock:!!session.mock, orig:!!session.orig, idx:session.idx,
     items:session.items.map(it=>({id:it.q.id, order:it.order, selected:it.selected, submitted:it.submitted, correct:it.correct})) };
   if(session.mode==="exam" && session.endsAt){ store.session.durationMs=session.durationMs; store.session.remainingMs=Math.max(0, session.endsAt-Date.now()); }
   saveStore();
@@ -54,8 +57,8 @@ function restoreSession(){
       selected:it.selected||(q.type==="k"?new Array(q.rows.length).fill(null):[]), submitted:!!it.submitted, correct:(it.correct===undefined?null:it.correct) });
   }
   if(!items.length){ clearSession(); return false; }
-  session={ mode:s.mode||"practice", mock:!!s.mock, items, idx:Math.min(s.idx||0, items.length-1) };
-  if(session.mode==="exam"){ session.durationMs=s.durationMs||Math.max(3,Math.round(items.length*75/40))*60000; session.endsAt=Date.now()+(s.remainingMs!=null?s.remainingMs:session.durationMs); }
+  session={ mode:s.mode||"practice", mock:!!s.mock, orig:!!s.orig, items, idx:Math.min(s.idx||0, items.length-1) };
+  if(session.mode==="exam"){ session.durationMs=s.durationMs||Math.max(3,Math.round(items.length*EXAM_BASE_MIN/EXAM_BASE_N))*60000; session.endsAt=Date.now()+(s.remainingMs!=null?s.remainingMs:session.durationMs); }
   return true;
 }
 function updateResumeBanner(){
@@ -64,7 +67,7 @@ function updateResumeBanner(){
   if(s&&s.items&&s.items.length){
     const done=s.items.filter(x=>x.submitted).length;
     card.style.display="";
-    $("#resumeInfo").textContent=(s.mock?T("Musterprüfung","Mock exam"):(s.mode==="exam"?T("Prüfung","Exam"):T("Übung","Practice")))+T(" · bei Frage "," · at question ")+((s.idx||0)+1)+T(" von "," of ")+s.items.length+" ("+done+T(" beantwortet)"," answered)");
+    $("#resumeInfo").textContent=(s.mock?T("Musterprüfung","Mock exam"):(s.orig?T("Prüfung (Original-Verteilung)","Exam (original mix)"):(s.mode==="exam"?T("Prüfung","Exam"):T("Übung","Practice"))))+T(" · bei Frage "," · at question ")+((s.idx||0)+1)+T(" von "," of ")+s.items.length+" ("+done+T(" beantwortet)"," answered)");
   } else { card.style.display="none"; }
 }
 
@@ -142,7 +145,7 @@ function buildSession(subset){
     idx:0
   };
   if(!subset) recordRecent(session.items.map(it=>it.q.id));
-  if(session.mode==="exam"){ session.durationMs=Math.max(3, Math.round(session.items.length*75/40))*60000; session.endsAt=Date.now()+session.durationMs; }
+  if(session.mode==="exam"){ session.durationMs=Math.max(3, Math.round(session.items.length*EXAM_BASE_MIN/EXAM_BASE_N))*60000; session.endsAt=Date.now()+session.durationMs; }
   show("quiz");
   renderQuestion();
   startExamTimer();
@@ -169,6 +172,49 @@ function startMockExam(){
   startExamTimer();
 }
 
+/* ---- Prüfung "wie im Original": Katalogfragen im Mix der offiziellen Beispielprüfung ----
+   Kapitelverteilung und Anteil der Zuordnungsfragen (K) werden aus MOCKEXAM abgeleitet, nicht fest verdrahtet.
+   Es werden nur prüfungsrelevante Fragen (R1/R2) gezogen; zuletzt gezeigte Fragen werden bevorzugt gemieden. */
+function drawOriginalMix(){
+  const quota={};
+  MOCKEXAM.questions.forEach(m=>{ const key=m.chapter+(m.type==="k"?"k":"o"); quota[key]=(quota[key]||0)+1; });
+  const want=MOCKEXAM.questions.length;
+  const recent=new Set(store.recent||[]);
+  const pool=QUESTIONS.filter(q=>q.r!=="R3");
+  const picked=[], used=new Set();
+  const take=(arr,n)=>{
+    const c=shuffle(arr.filter(q=>!used.has(q.id)));
+    c.sort((a,b)=>(recent.has(a.id)?1:0)-(recent.has(b.id)?1:0));
+    c.slice(0,n).forEach(q=>{ used.add(q.id); picked.push(q); });
+  };
+  Object.keys(quota).forEach(key=>{
+    const ch=+key.slice(0,-1), isK=key.slice(-1)==="k";
+    take(pool.filter(q=>q.chapter===ch && (q.type==="k")===isK), quota[key]);
+  });
+  if(picked.length<want) take(pool, want-picked.length);   // Reserve, falls ein Kapitel zu wenige Fragen hat
+  return shuffle(picked);
+}
+function startOriginalMix(){
+  if(typeof MOCKEXAM==="undefined" || !MOCKEXAM.questions.length){ alert(T("Musterprüfung nicht verfügbar.","Mock exam not available.")); return; }
+  const qs=drawOriginalMix();
+  session={
+    mode:"exam", orig:true,
+    items: qs.map(q=>{
+      let order = q.options ? q.options.map((_,i)=>i) : [];
+      if(ui.shuffleOpts && q.options) order=shuffle(order);
+      return {q, order, selected: q.type==="k" ? new Array(q.rows.length).fill(null) : [], submitted:false, correct:null};
+    }),
+    idx:0
+  };
+  session.durationMs=(MOCKEXAM.durationMin||75)*60000;
+  session.endsAt=Date.now()+session.durationMs;
+  recordRecent(session.items.map(it=>it.q.id));
+  persistSession();
+  show("quiz");
+  renderQuestion();
+  startExamTimer();
+}
+
 /* ============================================================
    Quiz rendering
    ============================================================ */
@@ -184,7 +230,7 @@ function renderQuestion(){
   else { $("#qScore").textContent = answered>0 ? ("✓ "+correctSoFar+"/"+answered) : ""; }
 
   const badge=$("#qBadge"); if(q.r){ badge.style.display=""; badge.textContent=q.r; badge.className="badge "+q.r.toLowerCase(); } else { badge.style.display="none"; }
-  $("#qChapter").textContent = session.mock ? "" : ((q.chapter?(T("Kap. ","Ch. ")+q.chapter+" · "+chapName(q.chapter)):"")+(q.lz?(" · "+q.lz):""));
+  $("#qChapter").textContent = (session.mock||session.orig) ? "" : ((q.chapter?(T("Kap. ","Ch. ")+q.chapter+" · "+chapName(q.chapter)):"")+(q.lz?(" · "+q.lz):""));
   $("#qText").textContent = Lq(q);
   const qPts=$("#qPts");
   if(session.mode==="exam"){ qPts.style.display=""; qPts.textContent=questionPoints(q)+T(" P."," pts"); }

@@ -41,7 +41,7 @@ for f in files:
     for k in ['options','options_en','correct','categories','categories_en','rows','explanation','explanation_en']:
         if k in q: ordered[k]=q[k]
     out.append(ordered)
-data={"documentVersion":"2026.2","date":"2026-03-27","curriculum":"2025.1-rev2",
+data={"documentVersion":"2026.2","date":"2026-09-27","curriculum":"2025.1-rev2",
   "source":"iSAQB® e. V. — CPSA-F® Beispielprüfung","url":"https://public.isaqb.org/foundation-exam-questions/mock-de.pdf",
   "durationMin":75,"passPct":60,"maxPoints":sum(q['points'] for q in out),"questions":out}
 open('js/mockexam.js','w',encoding='utf-8').write("const MOCKEXAM = "+json.dumps(data,ensure_ascii=False,indent=1)+";\n")

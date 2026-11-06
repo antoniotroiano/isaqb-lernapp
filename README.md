@@ -3,10 +3,10 @@
 Übungs‑App (Multiple Choice) zur Vorbereitung auf die Zertifizierung
 **CPSA‑F** (Certified Professional for Software Architecture – Foundation Level).
 Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lokale Datei** (PC/Mac),
-**ohne Installation und ohne Konto**. Enthält **252 eigenständige Fragen** über alle 6 Kapitel des Curriculums,
+**ohne Installation und ohne Konto**. Enthält **312 eigenständige Fragen** über alle 6 Kapitel des Curriculums (davon **269 prüfungsrelevant** (R1/R2), **43** als R3 nicht prüfungsrelevant und nur zur Vertiefung),
 zusätzlich die **offizielle iSAQB‑Beispielprüfung** als Generalprobe. Oberfläche wahlweise **Deutsch oder Englisch** (Umschalter **DE/EN** oben rechts).
 
-*Version 1.14.0*
+*Version 1.15.0*
 
 ---
 
@@ -40,7 +40,8 @@ Die Datei **`isaqb-trainer.html`** per **Doppelklick** im Browser öffnen — fe
 | Modus | Zweck | Verhalten |
 |---|---|---|
 | **Üben** | Lernen | Sofortiges Feedback nach jeder Frage: **warum die richtigen Antworten richtig sind**, bei Fehlern zusätzlich **warum deine Auswahl falsch ist** (übersehene richtige Antworten sind markiert), dazu ein **„Kurz gesagt“**; die Begründung zu den übrigen Optionen lässt sich aufklappen. Kein Timer, keine Punkte. |
-| **Prüfung simulieren** | Ernstfall proben | Wie die echte Prüfung: **40 Fragen · 75 Min Countdown**, Auswertung **erst am Ende**, Punkte nach offizieller iSAQB‑Bewertung, **60 % zum Bestehen**. |
+| **Prüfung simulieren** | Ernstfall proben | Wie die echte Prüfung: **38 Fragen · 75 Min Countdown**, Auswertung **erst am Ende**, Punkte nach offizieller iSAQB‑Bewertung, **60 % zum Bestehen**. |
+| **🎯 Prüfung wie im Original** | Realistische Probe aus dem eigenen Katalog | Zieht **38 prüfungsrelevante Katalogfragen (R1/R2)** im **Mix der offiziellen Beispielprüfung** (Kapitelverteilung und Anteil der Zuordnungsfragen aus der Beispielprüfung abgeleitet), **75 Min Countdown**, Auswertung **erst am Ende**, **60 % zum Bestehen**. Kapitel und Lernziel werden während der Prüfung nicht angezeigt. Die Punktesumme kann von den 52 Punkten der Beispielprüfung abweichen; maßgeblich ist der Prozentwert. |
 | **🔁 Wiederholen** | Langfristig behalten | **Spaced Repetition** (Leitner): übt genau die Fragen, die laut Lernplan heute **fällig** sind. Richtig → längeres Intervall (1 → 3 → 7 → 16 → 35 Tage), falsch → bald wieder. Die Zahl am Button = Anzahl fälliger Fragen. |
 | **🃏 Karteikarten** | Schnell wiederholen | Frage ansehen → **Antwort aufdecken** → Lösung + Erklärung → **„gewusst / nicht gewusst"** selbst einschätzen (fließt in Spaced Repetition & Statistik ein). Ideal für unterwegs. |
 | **📖 Durchblättern** | Nachschlagen | Alle Fragen (nach Kapitel gruppiert, gefiltert) durchsehen; Antippen blendet Lösung + Erklärung ein. Kein Quiz. |
