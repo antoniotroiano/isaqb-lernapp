@@ -107,6 +107,19 @@ document.addEventListener("keydown", e=>{
     if(e.key===" " && e.target && e.target.classList && e.target.classList.contains("opt")){ e.preventDefault(); e.target.click(); return; }   // Leertaste auf fokussierter Antwort = auswählen
     if(enter){ if(onBtn) return; e.preventDefault(); if(!pb.disabled) pb.click(); }
     else if(e.key==="ArrowLeft"){ const pv=$("#prevBtn"); if(pv && !pv.classList.contains("hidden")){ e.preventDefault(); pv.click(); } }
+    else if(session && session.items[session.idx].q.type==="k"){
+      // K-Fragen: ↑/↓ wechselt die markierte Zeile, 1/2 wählt die Kategorie und springt zur nächsten Zeile
+      const it=session.items[session.idx], rows=$$("#optList .krow");
+      if(e.key==="ArrowUp"||e.key==="ArrowDown"){
+        const n=rows.length; if(!n || !rows.some(r=>r.classList.contains("kactive"))) return;
+        e.preventDefault(); it.ka=(it.ka+(e.key==="ArrowDown"?1:n-1))%n;
+        rows.forEach((r,i)=>r.classList.toggle("kactive",i===it.ka)); rows[it.ka].scrollIntoView({block:"nearest"});
+      } else if(/^[1-9]$/.test(e.key) && rows[it.ka]){
+        const b=rows[it.ka].querySelectorAll(".kcat")[+e.key-1];
+        if(b && !b.disabled){ e.preventDefault(); const wasSel=b.classList.contains("sel"); b.click();
+          if(!wasSel && it.ka<rows.length-1){ it.ka++; renderQuestion(); } }   // beim Abwählen in der Zeile bleiben
+      }
+    }
     else if(/^[1-9]$/.test(e.key)){ const o=$$("#optList .opt")[+e.key-1]; if(o && !o.classList.contains("disabled")){ e.preventDefault(); o.click(); } }
   } else if(vis("flash")){
     const btns=$$("#flashActions .btn");

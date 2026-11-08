@@ -20,6 +20,7 @@ function Lopts(q){ return (LANG==="en" && q.options_en) ? q.options_en : (q.opti
 function Lexpl(q){ return (LANG==="en" && q.explanation_en) ? q.explanation_en : (q.explanation||""); }
 function Lcats(q){ return (LANG==="en" && q.categories_en) ? q.categories_en : (q.categories||[]); }
 function Lrow(r){ return (LANG==="en" && r.text_en) ? r.text_en : r.text; }
+function LrowExpl(q,i){ const a=(LANG==="en" && q.rowExpl_en) ? q.rowExpl_en : q.rowExpl; return (a && a[i]) || ""; }
 function LoptExpl(q){ return (LANG==="en" && q.optExpl_en) ? q.optExpl_en : (q.optExpl||null); }
 /* Generischer EN-Feld-Zugriff mit DE-Fallback (Lernstoff/Concept Map). */
 function LE(o,f){ return (o && LANG==="en" && o[f+"_en"]!=null) ? o[f+"_en"] : (o?o[f]:undefined); }
@@ -35,6 +36,7 @@ function mergeEN(){
     if(e.optExpl) q.optExpl_en=e.optExpl;
     if(e.explanation) q.explanation_en=e.explanation;
     if(e.categories) q.categories_en=e.categories;
+    if(e.rowExpl) q.rowExpl_en=e.rowExpl;
     if(e.rows && q.rows) e.rows.forEach((txt,i)=>{ if(q.rows[i]) q.rows[i].text_en=txt; });
   });
   // Lernstoff / Reference

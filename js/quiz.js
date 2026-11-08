@@ -280,6 +280,15 @@ function renderQuestion(){
   });
   if(focusIdx>=0){ const f=$$("#optList .opt")[focusIdx]; if(f && f.tabIndex===0) f.focus(); }
 
+  // Tastaturhinweis passend zum Fragetyp (K: zwei Kategorien pro Zeile; sonst Anzahl der Optionen)
+  const kh=$("#kbdQuiz");
+  if(kh){
+    const tail=T(" · <kbd>Enter</kbd> Weiter · <kbd>←</kbd> Zurück"," · <kbd>Enter</kbd> Next · <kbd>←</kbd> Back");
+    kh.innerHTML = T("Tastatur: ","Keyboard: ") + (q.type==="k"
+      ? Lcats(q).map((c,i)=>"<kbd>"+(i+1)+"</kbd> "+c).join(" · ")+T(" für markierte Zeile · <kbd>↑</kbd> <kbd>↓</kbd> Zeile wechseln"," for highlighted row · <kbd>↑</kbd> <kbd>↓</kbd> change row")
+      : (q.options.length>1?"<kbd>1</kbd>–<kbd>"+q.options.length+"</kbd>":"<kbd>1</kbd>")+T(" Antwort wählen"," select answer")) + tail;
+  }
+
   const ex=$("#explainBox"); ex.innerHTML="";
   if(it.submitted && session.mode==="practice"){
     const d=document.createElement("div");
@@ -356,11 +365,19 @@ function feedbackHtml(q, selected, order, isRight, rowsShown){   // rowsShown: K
   const head="<div class='fbhead "+(isRight?"ok":"no")+"'>"+(isRight?T("Richtig ✓","Correct ✓"):T("Nicht ganz ✕","Not quite ✕"))+"</div>";
   const short=sec(T("Kurz gesagt","In short"),"sum","<p>"+escapeHtml(Lexpl(q))+"</p>");
   if(q.type==="k"){
-    const wrongRows=q.rows.map((r,ri)=>({r,sel:selected[ri]})).filter(x=>x.sel!==x.r.cat);
+    const rowsInfo=q.rows.map((r,ri)=>({r,ri,sel:selected[ri]}));
+    const wrongRows=rowsInfo.filter(x=>x.sel!==x.r.cat), okRows=rowsInfo.filter(x=>x.sel===x.r.cat);
+    const why=x=>{ const t=LrowExpl(q,x.ri); return t?"<br>"+escapeHtml(t):""; };
     let body="";
     if(wrongRows.length && !rowsShown){
       body=sec(T("Falsch zugeordnet","Assigned incorrectly"),"no",
-        wrongRows.map(x=>"<p>„"+escapeHtml(Lrow(x.r))+"“<br><span class='fbmeta'>"+T("Deine Zuordnung: ","Your assignment: ")+(x.sel==null?"—":escapeHtml(Lcats(q)[x.sel]))+" · "+T("Korrekt wäre: ","Correct would be: ")+"<b>"+escapeHtml(Lcats(q)[x.r.cat])+"</b>"+"</span></p>").join(""));
+        wrongRows.map(x=>"<p>„"+escapeHtml(Lrow(x.r))+"“<br><span class='fbmeta'>"+T("Deine Zuordnung: ","Your assignment: ")+(x.sel==null?"—":escapeHtml(Lcats(q)[x.sel]))+" · "+T("Korrekt wäre: ","Correct would be: ")+"<b>"+escapeHtml(Lcats(q)[x.r.cat])+"</b>"+"</span>"+why(x)+"</p>").join(""));
+    }
+    // Begründungen der übrigen Zeilen eingeklappt (bei Durchsicht stehen alle Zeilen schon oben, daher dann alle)
+    const more = rowsShown ? rowsInfo : okRows;
+    if(more.length && more.some(x=>LrowExpl(q,x.ri))){
+      body+="<details class='fbmore'><summary>"+(rowsShown?T("Begründung je Zeile","Reasoning per row"):T("Warum die übrigen Zeilen stimmen","Why the other rows are right"))+" ("+more.length+")</summary>"+
+        more.map(x=>"<p>„"+escapeHtml(Lrow(x.r))+"“<br><span class='fbmeta'>→ <b>"+escapeHtml(Lcats(q)[x.r.cat])+"</b></span>"+why(x)+"</p>").join("")+"</details>";
     }
     return "<div class='feedback'>"+head+body+short+"</div>";
   }
@@ -386,8 +403,10 @@ function feedbackHtml(q, selected, order, isRight, rowsShown){   // rowsShown: K
 function renderKRows(it, list){
   const q=it.q;
   const reveal = it.submitted && session.mode!=="exam";   // Prüfungsmodus deckt erst am Ende auf
+  // Markierte Zeile für die Tastatur (nur Laufzeit, nicht gespeichert): zunächst die erste unbeantwortete
+  if(it.ka==null || it.ka>=q.rows.length){ const f=q.rows.findIndex((_,i)=>it.selected[i]==null); it.ka=f>=0?f:0; }
   q.rows.forEach((row,ri)=>{
-    const wrap=document.createElement("div"); wrap.className="krow";
+    const wrap=document.createElement("div"); wrap.className="krow"+(ri===it.ka&&!reveal?" kactive":"");
     const st=document.createElement("div"); st.className="kstmt"; st.textContent=Lrow(row);
     const cats=document.createElement("div"); cats.className="kcats";
     Lcats(q).forEach((label,ci)=>{
@@ -395,7 +414,7 @@ function renderKRows(it, list){
       const sel=it.selected[ri];
       if(!reveal){
         if(sel===ci) b.classList.add("sel");
-        b.onclick=()=>{ it.selected[ri]=(it.selected[ri]===ci?null:ci); renderQuestion(); };
+        b.onclick=()=>{ it.selected[ri]=(it.selected[ri]===ci?null:ci); it.ka=ri; renderQuestion(); };
       } else {
         b.disabled=true;
         if(ci===row.cat) b.classList.add(sel===ci?"correct":"miss");
