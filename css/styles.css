@@ -423,6 +423,7 @@ details.gl-q>div{padding:0 12px 10px;color:var(--muted);font-size:.86rem}
 .kbdhint{display:none}
 @media (min-width:900px) and (hover:hover){
   .kbdhint{display:block;color:var(--muted);font-size:.78rem;text-align:center;margin:10px 0 0}
+  .krow.kactive{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
   kbd{font:inherit;font-size:.72rem;font-weight:600;border:1px solid var(--border);border-bottom-width:2px;border-radius:5px;padding:1px 6px;background:var(--card)}
 }
 @media (min-width:900px){
