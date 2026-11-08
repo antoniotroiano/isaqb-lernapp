@@ -6,7 +6,7 @@ Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lok
 **ohne Installation und ohne Konto**. Enthält **312 eigenständige Fragen** über alle 6 Kapitel des Curriculums (davon **269 prüfungsrelevant** (R1/R2), **43** als R3 nicht prüfungsrelevant und nur zur Vertiefung),
 zusätzlich die **offizielle iSAQB‑Beispielprüfung** als Generalprobe. Oberfläche wahlweise **Deutsch oder Englisch** (Umschalter **DE/EN** oben rechts).
 
-*Version 1.17.0*
+*Version 1.18.0*
 
 ---
 
