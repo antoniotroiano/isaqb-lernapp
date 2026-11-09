@@ -1,417 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Untitled Document.md</title>
-  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
-  <link rel="icon" href="icons/favicon.ico" sizes="48x48">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <style>
-  @import url("https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha2/katex.min.css");
-
-  body {
-    font-family: Georgia, Cambria, serif;
-    font-size: 14px;
-    line-height: 1.7;
-    color: #373D49;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 600;
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-  }
-  h1 { font-size: 2em; }
-  h2 { font-size: 1.5em; }
-  h3 { font-size: 1.25em; }
-  a { color: #35D7BB; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  code {
-    font-family: "Ubuntu Mono", Monaco, monospace;
-    background: #F5F7FA;
-    padding: 0.2em 0.4em;
-    border-radius: 3px;
-  }
-  pre {
-    background: #F5F7FA;
-    padding: 1em;
-    border-radius: 3px;
-    overflow-x: auto;
-  }
-  .hljs {
-    display: block;
-    overflow-x: auto;
-    padding: 0;
-    color: #333;
-  }
-  pre code { background: none; padding: 0; }
-  blockquote {
-    border-left: 3px solid #A0AABF;
-    padding-left: 1em;
-    margin-left: 0;
-    font-style: italic;
-    color: #666;
-  }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  th, td {
-    border: 1px solid #E8E8E8;
-    padding: 0.5em;
-    text-align: left;
-  }
-  th {
-    background: #F5F7FA;
-    font-weight: 600;
-  }
-  #preview .table {
-    width: auto;
-  }
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-  .katex-display {
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>iSAQB CPSA-F Trainer – Anleitung</title>
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+:root{--bg:#fafaf7;--card:#fff;--text:#1c1b18;--muted:#6b6a63;--border:#e3e1d7;--accent:#d85a30;--accent-soft:#fbe7dd}
+@media (prefers-color-scheme:dark){:root{--bg:#161613;--card:#201f1b;--text:#edebe2;--muted:#a8a69b;--border:#38362e;--accent:#cf7f60;--accent-soft:#33231a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 56px}
+h1{font-size:1.6rem;line-height:1.25;margin:.2em 0 .6em}
+h2{font-size:1.2rem;margin:1.8em 0 .5em;padding-bottom:.25em;border-bottom:2px solid var(--accent-soft)}
+a{color:var(--accent)} code{background:var(--accent-soft);padding:1px 5px;border-radius:5px;font-size:.9em}
+ul{padding-left:1.3em} li{margin:.3em 0}
+table{border-collapse:collapse;width:100%;margin:.8em 0;font-size:.94rem;display:block;overflow-x:auto}
+th,td{border:1px solid var(--border);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--card)} tbody tr:nth-child(even){background:var(--card)}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 8px 8px 0}
+blockquote p{margin:.3em 0}
 </style>
 </head>
-<body id="preview">
-<h1 class="code-line has-line-data" data-line-start="0" data-line-end="1"><a id="iSAQB_CPSAF_Trainer_Anleitung_0"></a>iSAQB CPSA‑F Trainer — Anleitung</h1>
-<p class="has-line-data" data-line-start="2" data-line-end="7">Übungs‑App (Multiple Choice) zur Vorbereitung auf die Zertifizierung<br>
-<strong>CPSA‑F</strong> (Certified Professional for Software Architecture – Foundation Level).<br>
-Läuft im <strong>Browser</strong> – über einen <strong>Web‑Link</strong> (Handy &amp; PC) oder als <strong>lokale Version</strong> (PC/Mac),<br>
-<strong>ohne Installation und ohne Konto</strong>. Enthält <strong>312 eigenständige Fragen</strong> über alle 6 Kapitel des Curriculums (davon <strong>269 prüfungsrelevant</strong> (R1/R2), <strong>43</strong> als R3 nicht prüfungsrelevant und nur zur Vertiefung),<br>
-zusätzlich die <strong>offizielle iSAQB‑Beispielprüfung</strong> als Generalprobe. Oberfläche wahlweise <strong>Deutsch oder Englisch</strong> (Umschalter <strong>DE/EN</strong> oben rechts).</p>
-<p class="has-line-data" data-line-start="8" data-line-end="9"><em>Version 1.18.0</em></p>
-<hr>
-<h2 class="code-line has-line-data" data-line-start="12" data-line-end="13"><a id="1_Zugang_Start_12"></a>1. Zugang &amp; Start</h2>
-<p class="has-line-data" data-line-start="14" data-line-end="15">Zwei Wege — nimm den, der zu deinem Gerät passt:</p>
-<h3 class="code-line has-line-data" data-line-start="16" data-line-end="17"><a id="A_ber_den_WebLink_empfohlen_funktioniert_berall_iPhone_Android_PCMac_16"></a>A) Über den Web‑Link (empfohlen · funktioniert überall: iPhone, Android, PC/Mac)</h3>
+<body>
+<main>
+<h1>iSAQB CPSA-F Trainer — Anleitung</h1>
+<p>Übungs-App zur Vorbereitung auf die Zertifizierung <strong>CPSA-F</strong> (Certified Professional for Software Architecture – Foundation Level). Sie läuft im <strong>Browser</strong>, <strong>ohne Installation und ohne Konto</strong>, und enthält <strong>312 eigene Fragen</strong> zu allen 6 Kapiteln des Curriculums (<strong>269 prüfungsrelevant</strong> R1/R2, <strong>43</strong> nur zur Vertiefung R3) sowie die <strong>offizielle iSAQB-Beispielprüfung</strong>. Oberfläche und Inhalte gibt es auf <strong>Deutsch und Englisch</strong> (Umschalter <strong>DE/EN</strong> oben rechts).</p>
+<p><em>Version 1.19.0</em> · <a href="help_en.html">English version</a> · <a href="help_details.html">Details: Bewertungsbeispiele, Suche, Tastatur</a></p>
+<h2>1. Start</h2>
 <ul>
-<li class="has-line-data" data-line-start="18" data-line-end="19"><strong>App:</strong> <a href="https://antoniotroiano.github.io/isaqb-lernapp/">https://antoniotroiano.github.io/isaqb-lernapp/</a></li>
-<li class="has-line-data" data-line-start="19" data-line-end="21"><strong>Diese Anleitung online:</strong> <a href="https://antoniotroiano.github.io/isaqb-lernapp/help.html">https://antoniotroiano.github.io/isaqb-lernapp/help.html</a></li>
+<li><strong>Web-Link (empfohlen, funktioniert überall):</strong> <a href="https://antoniotroiano.github.io/isaqb-lernapp/">https://antoniotroiano.github.io/isaqb-lernapp/</a></li>
+<li><strong>Auf den Home-Bildschirm:</strong> iPhone (Safari) Teilen → „Zum Home-Bildschirm“ · Android (Chrome) Menü ⋮ → „Zum Startbildschirm hinzufügen“.</li>
+<li><strong>Lokal (nur PC/Mac):</strong> Repository herunterladen oder klonen und <code>index.html</code> per Doppelklick öffnen (die Ordner <code>css/</code> und <code>js/</code> müssen daneben liegen). Läuft komplett offline. Auf dem iPhone geht das nicht, dort den Web-Link nutzen.</li>
+<li><strong>Lernfortschritt</strong> liegt <strong>lokal im Browser</strong> und verlässt dein Gerät nicht. Er gilt pro Gerät und Browser; zwischen Geräten überträgst du ihn per <strong>Export/Import</strong> (unter 📊 Statistik).</li>
 </ul>
-<p class="has-line-data" data-line-start="21" data-line-end="22">Den App‑Link im Browser öffnen. Für App‑ähnlichen Schnellzugriff auf dem Home‑Bildschirm:</p>
-<ul>
-<li class="has-line-data" data-line-start="22" data-line-end="23"><strong>iPhone (Safari):</strong> Teilen‑Symbol → <strong>„Zum Home‑Bildschirm&quot;</strong></li>
-<li class="has-line-data" data-line-start="23" data-line-end="25"><strong>Android (Chrome):</strong> Menü ⋮ → <strong>„Zum Startbildschirm hinzufügen&quot;</strong></li>
-</ul>
-<blockquote>
-<p class="has-line-data" data-line-start="25" data-line-end="26">Beim ersten Aufruf ist eine Internetverbindung nötig; danach läuft die App im Browser.</p>
-</blockquote>
-<h3 class="code-line has-line-data" data-line-start="27" data-line-end="28"><a id="B_Lokale_Datei_nur_PCMac_27"></a>B) Lokal (nur PC/Mac)</h3>
-<p class="has-line-data" data-line-start="29" data-line-end="30">Das Repository von GitHub herunterladen (<strong>Code → Download ZIP</strong>, entpacken) oder per <code>git clone</code> auschecken und die Datei <strong><code>index.html</code></strong> per <strong>Doppelklick</strong> im Browser öffnen. Die Ordner <code>css/</code> und <code>js/</code> müssen dabei neben der <code>index.html</code> liegen. Läuft komplett offline.</p>
-<blockquote>
-<p class="has-line-data" data-line-start="31" data-line-end="32">⚠️ <strong>iPhone/iOS:</strong> Eine lokale HTML‑Datei (z. B. aus iCloud/Dateien) lässt sich in Safari <strong>nicht</strong> starten. Auf dem iPhone deshalb den <strong>Web‑Link (A)</strong> verwenden. (Ob Android das direkte Öffnen einer lokalen Datei erlaubt, ist geräteabhängig — auch hier ist der Web‑Link der sichere Weg.)</p>
-</blockquote>
-<p class="has-line-data" data-line-start="33" data-line-end="34"><strong>Lernfortschritt:</strong> wird <strong>lokal im Browser</strong> gespeichert (localStorage) und verlässt das Gerät nicht. Er gilt pro Gerät/Browser und wird zwischen Web‑Link und lokaler Version <strong>nicht</strong> synchronisiert.</p>
-<hr>
-<h2 class="code-line has-line-data" data-line-start="37" data-line-end="38"><a id="2_Modi_Lernwege_37"></a>2. Modi &amp; Lernwege</h2>
-<table class="table table-striped table-bordered">
+<h2>2. Modi</h2>
+<table>
 <thead>
 <tr>
 <th>Modus</th>
-<th>Zweck</th>
-<th>Verhalten</th>
+<th>Wofür</th>
+<th>Kurz erklärt</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>Üben</strong></td>
 <td>Lernen</td>
-<td>Sofortiges Feedback nach jeder Frage: <strong>warum die richtigen Antworten richtig sind</strong>, bei Fehlern zusätzlich <strong>warum deine Auswahl falsch ist</strong> (übersehene richtige Antworten sind markiert), dazu ein <strong>„Kurz gesagt“</strong>; die Begründung zu den übrigen Optionen lässt sich aufklappen. Kein Timer, keine Punkte.</td>
+<td>Nach jeder Frage sofort Feedback mit Begründung je Antwort und „Kurz gesagt“. Kein Timer, keine Punkte.</td>
 </tr>
 <tr>
 <td><strong>Prüfung simulieren</strong></td>
 <td>Ernstfall proben</td>
-<td>Wie die echte Prüfung: <strong>38 Fragen · 75 Min Countdown</strong>, Auswertung <strong>erst am Ende</strong>, Punkte nach offizieller iSAQB‑Bewertung, <strong>60 % zum Bestehen</strong>.</td>
+<td>38 Fragen, 75 Min, Auswertung erst am Ende, Punkte nach iSAQB-Regeln, 60 % zum Bestehen.</td>
 </tr>
 <tr>
 <td><strong>🎯 Prüfung wie im Original</strong></td>
-<td>Realistische Probe aus dem eigenen Katalog</td>
-<td>Zieht <strong>38 prüfungsrelevante Katalogfragen (R1/R2)</strong> im <strong>Mix der offiziellen Beispielprüfung</strong> (Kapitelverteilung und Anteil der Zuordnungsfragen aus der Beispielprüfung abgeleitet), <strong>75 Min Countdown</strong>, Auswertung <strong>erst am Ende</strong>, <strong>60 % zum Bestehen</strong>. Kapitel und Lernziel werden während der Prüfung nicht angezeigt. Die Punktesumme kann von den 52 Punkten der Beispielprüfung abweichen; maßgeblich ist der Prozentwert.</td>
+<td>Realistische Probe</td>
+<td>38 prüfungsrelevante Katalogfragen im Mix der offiziellen Beispielprüfung, sonst wie „Prüfung simulieren“.</td>
+</tr>
+<tr>
+<td><strong>🎓 Musterprüfung</strong></td>
+<td>Generalprobe</td>
+<td>Die <strong>offizielle iSAQB-Beispielprüfung</strong> (38 Fragen · 52 Punkte · 75 Min). Getrennt vom Katalog, fließt nicht in die Statistik ein.</td>
 </tr>
 <tr>
 <td><strong>🔁 Wiederholen</strong></td>
 <td>Langfristig behalten</td>
-<td><strong>Spaced Repetition</strong> (Leitner): übt genau die Fragen, die laut Lernplan heute <strong>fällig</strong> sind. Richtig → längeres Intervall (1 → 3 → 7 → 16 → 35 Tage), falsch → bald wieder. Die Zahl am Button = Anzahl fälliger Fragen.</td>
+<td>Übt die Fragen, deren <strong>Wiederholungstermin erreicht ist</strong> (Spaced Repetition). Richtig → später wieder (1 → 3 → 7 → 16 → 35 Tage), falsch → bald wieder.</td>
 </tr>
 <tr>
 <td><strong>🃏 Karteikarten</strong></td>
 <td>Schnell wiederholen</td>
-<td>Frage ansehen → <strong>Antwort aufdecken</strong> → Lösung + Erklärung → <strong>„gewusst / nicht gewusst&quot;</strong> selbst einschätzen (fließt in Spaced Repetition &amp; Statistik ein). Ideal für unterwegs.</td>
+<td>Antwort aufdecken, dann „gewusst / nicht gewusst“ selbst einschätzen.</td>
 </tr>
 <tr>
 <td><strong>📖 Durchblättern</strong></td>
 <td>Nachschlagen</td>
-<td>Alle Fragen (nach Kapitel gruppiert, gefiltert) durchsehen; Antippen blendet Lösung + Erklärung ein. Kein Quiz.</td>
+<td>Alle Fragen mit Lösung und Erklärung ansehen, kein Quiz.</td>
 </tr>
 <tr>
 <td><strong>📚 Lernstoff</strong></td>
-<td>Verstehen statt nur MC</td>
-<td>Curriculum-Themen je <strong>Lernziel</strong> nachlesen (nach Kapitel gegliedert, mit Suche). Tipp: Aus einer beantworteten Frage auf die <strong>LZ-Nummer</strong> tippen → springt direkt zum passenden Abschnitt.</td>
+<td>Verstehen</td>
+<td>Curriculum-Themen je Lernziel nachlesen, mit Suche. Aus dem Feedback springt ein Tipp auf die <strong>LZ-Nummer</strong> direkt dorthin.</td>
 </tr>
 <tr>
 <td><strong>🗺 Concept Map</strong></td>
-<td>Zusammenhänge sehen</td>
-<td>Alle 38 Lernziele nach Kapitel; ein Lernziel antippen zeigt Kurzbeschreibung, <strong>verwandte Lernziele</strong> (mit Begründung) und „Im Lernstoff öffnen“. Der Schalter „Nur R1/R2“ blendet R3 aus.</td>
+<td>Zusammenhänge</td>
+<td>Alle 38 Lernziele mit verwandten Lernzielen.</td>
 </tr>
 <tr>
 <td><strong>📖 Glossar</strong></td>
-<td>Begriffe pauken</td>
-<td><strong>129 Fachbegriffe</strong> (nach Kategorie, je mit Kurzdefinition, <strong>Beispiel</strong> und <strong>Merksatz</strong>), durchsuchbar und nach <strong>R1/R2/R3 filterbar</strong>. <strong>„🃏 Begriffe lernen“</strong> übt sie in kurzen Runden à <strong>5 oder 10 Karten</strong> (wahlweise Begriff → Definition oder Definition → Begriff, Standard R1+R2; fällige und neue zuerst, nicht gewusste kommen in derselben Runde nochmal) mit eigener Wiedervorlage (Leitner-Boxen) — <strong>getrennt</strong> von der Fragen-Statistik.</td>
-</tr>
-<tr>
-<td><strong>🎓 Musterprüfung</strong></td>
-<td>Generalprobe vor der Prüfung</td>
-<td>Die <strong>offizielle iSAQB‑Beispielprüfung</strong> (Version 2026.2 · 38 Fragen · 52 Punkte · 75 Min · 60 % zum Bestehen) im echten Prüfungsformat. <strong>Separat</strong> vom eigenen Fragenkatalog; die Ergebnisse fließen <strong>nicht</strong> in die normale Statistik.</td>
+<td>Begriffe</td>
+<td>129 Fachbegriffe mit Definition, Beispiel und Merksatz, plus Lernrunden mit Karten.</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p class="has-line-data" data-line-start="51" data-line-end="52"><strong>🌐 Sprache:</strong> Der Umschalter <strong>DE/EN</strong> oben rechts stellt die gesamte App auf Deutsch oder Englisch um — Oberfläche, alle Fragen, Lernstoff, Concept Map, Glossar und die offizielle Musterprüfung. Die Wahl wird gespeichert.</p>
-</blockquote>
-<hr>
-<h2 class="code-line has-line-data" data-line-start="55" data-line-end="56"><a id="3_Funktionen_im_berblick_55"></a>3. Funktionen im Überblick</h2>
+<h2>3. Das Wichtigste beim Üben</h2>
 <ul>
-<li class="has-line-data" data-line-start="57" data-line-end="58"><strong>Filter</strong> nach <strong>Kapitel</strong> (1–6) und <strong>Prüfungsrelevanz</strong> (R1/R2/R3); Regler für die <strong>Anzahl Fragen pro Runde</strong> (zeigt auch, wie viele im aktuellen Filter verfügbar sind).</li>
-<li class="has-line-data" data-line-start="58" data-line-end="59"><strong>Nur falsch beantwortete</strong> – wiederholt gezielt deine Fehler (schrumpft beim Lernen).</li>
-<li class="has-line-data" data-line-start="59" data-line-end="60"><strong>Nur Lesezeichen</strong> – übt nur markierte Fragen (Stern oben rechts an der Frage).</li>
-<li class="has-line-data" data-line-start="60" data-line-end="61"><strong>Fehler bevorzugen</strong> &amp; <strong>Antworten mischen</strong> – schwache Fragen häufiger bzw. gemischte Antwort‑Reihenfolge.</li>
-<li class="has-line-data" data-line-start="61" data-line-end="62"><strong>Weniger Wiederholungen</strong> – zuletzt gezeigte Fragen werden in Folgerunden gemieden.</li>
-<li class="has-line-data" data-line-start="62" data-line-end="63"><strong>Pause / Fortsetzen</strong> – unterbrochene Runde wird gespeichert und exakt wieder aufgenommen.</li>
-<li class="has-line-data" data-line-start="63" data-line-end="64"><strong>Zurück zur vorherigen Frage</strong> – mit <strong>„← Zurück&quot;</strong> in der Fußleiste (ab Frage 2) frühere Fragen erneut ansehen; im <strong>Prüfungsmodus</strong> bleiben die Antworten dabei änderbar (wie in der echten Prüfung), die Auswertung nutzt am Ende deine finale Auswahl.</li>
-<li class="has-line-data" data-line-start="64" data-line-end="65"><strong>Antworten durchsehen</strong> – nach jeder Runde alle falsch/teilweise richtig beantworteten Fragen mit deiner Wahl, der Lösung und demselben Feedback wie im Übungsmodus (warum richtig, warum deine Auswahl falsch, „Kurz gesagt“).</li>
-<li class="has-line-data" data-line-start="65" data-line-end="66"><strong>Lesezeichen</strong>, <strong>Dark Mode</strong> (🌓 oben rechts) und <strong>Fortschritt zurücksetzen</strong> (unter 📊 Statistik).</li>
-<li class="has-line-data" data-line-start="66" data-line-end="67"><strong>Zurück-Button oben</strong> – auf allen Unterseiten (Lernstoff, Glossar, Statistik …) bleibt oben ein „Zurück&quot; stehen, auch beim langen Scrollen.</li>
-<li class="has-line-data"><strong>Desktop-Layout</strong> – auf großen Bildschirmen zweispaltige Startseite und Statistik; Quiz, Karteikarten und Lernstoff bleiben zum besseren Lesen schmal und zentriert. Auf dem Smartphone ändert sich nichts.</li>
-<li class="has-line-data"><strong>Tastaturkürzel (Desktop)</strong> – im Quiz wählen <strong>1–9</strong> die Antwort, <strong>Enter</strong> (oder Leertaste) löst „Prüfen“/„Weiter“ aus, <strong>←</strong> geht zur vorherigen Frage. Bei Karteikarten deckt <strong>Enter</strong> auf, danach steht <strong>1</strong> für „Nicht gewusst“ und <strong>2</strong> (oder Enter) für „Gewusst“.</li>
-<li class="has-line-data"><strong>Browser-Zurück/Vor</strong> – jeder Bereich (Statistik, Glossar, Lernstoff …) hat einen eigenen Verlaufseintrag; die Zurück-Taste des Browsers, die Zwei-Finger-Geste am Mac und die Android-Zurücktaste funktionieren. Zurück mitten in einer Runde <strong>pausiert</strong> sie (wie „Pause“) und führt zur Startseite.</li>
-<li class="has-line-data"><strong>Fragenübersicht</strong> – im Quiz zeigt eine Übersicht alle Fragennummern mit Status (Prüfung: beantwortet · Üben: richtig/falsch · ★ markiert); ein Klick springt direkt zur Frage. Am Desktop als Seitenleiste, am Smartphone als aufklappbarer Streifen. Vor der Auswertung fragt die App nach, wenn noch Fragen offen sind (sie zählen als nicht richtig).</li>
-<li class="has-line-data"><strong>Bedienung per Tastatur</strong> – die Antwortzeilen sind per <strong>Tab</strong> erreichbar, die <strong>Leertaste</strong> wählt aus; ein sichtbarer Rahmen zeigt den Fokus.</li>
-<li class="has-line-data"><strong>Zurück aus dem Lernstoff</strong> – öffnest du ein Lernziel aus dem Quiz-Feedback, der Concept Map oder dem Glossar, führt der Button oben („← Zurück zur Frage“ usw.) genau dorthin zurück, bei der Quizfrage an dieselbe Stelle.</li>
-<li class="has-line-data" data-line-start="67" data-line-end="68"><strong>Update-Hinweis</strong> – gibt es eine neue App-Version, erscheint beim Start ein Hinweis mit <strong>„Jetzt aktualisieren&quot;</strong> (Web-Link, mit Internet). Dein Fortschritt bleibt erhalten; den Browser-Cache musst du nicht leeren.</li>
-<li class="has-line-data" data-line-start="68" data-line-end="70"><strong>Überarbeitete Fragen</strong> – wurden bereits beantwortete Fragen inhaltlich geändert, fragt die App, ob die Statistik <strong>nur dieser Fragen</strong> zurückgesetzt werden soll. Der Rest bleibt unberührt.</li>
+<li><strong>Filter:</strong> Kapitel (1–6), Prüfungsrelevanz (R1/R2/R3) und Anzahl Fragen pro Runde.</li>
+<li><strong>Auswahl:</strong> <em>Nur falsch beantwortete</em>, <em>Nur Lesezeichen</em> (Stern an der Frage), <em>Fehler bevorzugen</em>, <em>Antworten mischen</em>.</li>
+<li><strong>🎲 Geraten / auswendig</strong> (Taste <strong>G</strong>): Markiere eine richtig beantwortete Frage so, wenn du geraten hast oder die Antwort nur auswendig weißt. Sie zählt als richtig, steigt aber <strong>nicht</strong> in der Box auf und kommt früher wieder. Geht auch nach dem Prüfen.</li>
+<li><strong>Pause / Fortsetzen:</strong> Eine unterbrochene Runde wird gespeichert.</li>
+<li><strong>Antworten durchsehen:</strong> Nach jeder Runde siehst du die falschen Fragen mit Lösung und Begründung.</li>
+<li><strong>Statistik 📊:</strong> Prüfungsreife-Schätzung, Trefferquote nach Kapitel, Typ und Relevanz, schwächste Kapitel, Export/Import.</li>
+<li><strong>Dark Mode</strong> 🌓 und <strong>Sprache</strong> DE/EN oben rechts. Bei neuen App-Versionen erscheint ein <strong>Update-Hinweis</strong>, dein Fortschritt bleibt erhalten.</li>
 </ul>
-<h3 class="code-line has-line-data" data-line-start="70" data-line-end="71"><a id="Lernstoff_Auf_einen_Blick_70"></a>Lernstoff: „📊 Auf einen Blick“</h3>
-<p class="has-line-data" data-line-start="72" data-line-end="73">Bei einigen Lernzielen (bisher Kapitel 1: 01-01, 01-02, 01-04, 01-06, 01-07 Kapitel 2: 02-01 bis 02-05 Kapitel 3: 03-01 bis 03-10 Kapitel 4: 04-01 bis 04-03, 04-05 bis 04-08 und Kapitel 5: 05-01 bis 05-03; ohne die R3-Lernziele) steht im Lernstoff ganz oben ein <strong>eingeklappter Block „📊 Auf einen Blick“</strong> – eine visuelle Übersicht mit Diagrammen und einem <strong>Selbsttest zum Aufdecken</strong>. Antippen klappt ihn auf; darunter folgt der normale Lernstoff.</p>
-<h3 class="code-line has-line-data" data-line-start="74" data-line-end="75"><a id="Lernstoff_durchsuchen_74"></a>Lernstoff durchsuchen 📚</h3>
-<p class="has-line-data" data-line-start="76" data-line-end="77">Im Reiter <strong>📚 Lernstoff</strong> kannst du das Suchfeld oben flexibel nutzen — es filtert <strong>live beim Tippen</strong> und ignoriert Groß-/Kleinschreibung:</p>
-<ul>
-<li class="has-line-data" data-line-start="78" data-line-end="79"><strong>Nach Lernziel‑Nummer:</strong> <code>LZ 03-08</code>, <code>lz 03-08</code> oder einfach <code>03-08</code>.</li>
-<li class="has-line-data" data-line-start="79" data-line-end="80"><strong>Nach Stichwort/Thema:</strong> durchsucht <strong>Titel und Erklärtext</strong>, z. B. <code>Kopplung</code>, <code>ATAM</code>, <code>Microservices</code>, <code>Schnittstelle</code>.</li>
-<li class="has-line-data" data-line-start="80" data-line-end="81"><strong>Nach Kapitel:</strong> <code>Kapitel 3</code> oder ein Wort aus dem Kapiteltitel (z. B. <code>Entwurf</code>) zeigt das ganze Kapitel.</li>
-<li class="has-line-data" data-line-start="81" data-line-end="83"><strong>Querverweise inklusive:</strong> Suchst du eine LZ‑Nummer, erscheinen auch Lernziele, die <strong>darauf verweisen</strong> (z. B. <code>LZ 03-08</code> zeigt zusätzlich 03‑06 mit „siehe LZ 03‑08&quot;).</li>
-</ul>
-<p class="has-line-data" data-line-start="83" data-line-end="84">Treffer werden automatisch <strong>aufgeklappt</strong>. Suchfeld leeren → wieder die vollständige, nach Kapitel gegliederte Übersicht (Lernziel antippen klappt den Text auf/zu).</p>
-<blockquote>
-<p class="has-line-data" data-line-start="85" data-line-end="86"><strong>Tipp:</strong> Nach einer beantworteten Frage kannst du im Feedback direkt auf die <strong>LZ‑Nummer</strong> tippen (z. B. <code>LZ 03-08</code>) — das springt automatisch zum passenden Lernstoff‑Abschnitt, ganz ohne Suche.</p>
-</blockquote>
-<h3 class="code-line has-line-data" data-line-start="87" data-line-end="88"><a id="Statistik_87"></a>Statistik 📊</h3>
-<ul>
-<li class="has-line-data" data-line-start="88" data-line-end="89"><strong>Prüfungsreife‑Schätzung</strong> (Trefferquote auf R1/R2 im Verhältnis zur 60‑%‑Marke).</li>
-<li class="has-line-data" data-line-start="89" data-line-end="90"><strong>Abdeckung</strong> (gesehen / sicher – bezogen auf alle Fragen).</li>
-<li class="has-line-data" data-line-start="90" data-line-end="91"><strong>Trefferquote</strong> nach <strong>Prüfungsrelevanz</strong> (R1/R2/R3), <strong>Fragetyp</strong> (A/P/K) und <strong>Kapitel</strong> – mit farbigen Balken.</li>
-<li class="has-line-data" data-line-start="91" data-line-end="92"><strong>Schwächste Kapitel</strong> mit direktem „üben&quot;‑Button.</li>
-<li class="has-line-data" data-line-start="92" data-line-end="94"><strong>Prüfungshistorie</strong> – vergangene Simulationen (Datum, Prozent, bestanden/nicht).</li>
-</ul>
-<h3 class="code-line has-line-data" data-line-start="94" data-line-end="95"><a id="Daten_sichern_94"></a>Daten sichern 💾</h3>
-<ul>
-<li class="has-line-data" data-line-start="95" data-line-end="97"><strong>Export/Import</strong> (Button in der Statistik): Fortschritt als Text oder <code>.json</code>‑Datei sichern und auf einem anderen Gerät/Browser wieder einspielen. Praktisch, weil der Fortschritt lokal im Browser liegt und <strong>nicht</strong> automatisch zwischen Geräten synchronisiert wird.</li>
-</ul>
-<hr>
-<h2 class="code-line has-line-data" data-line-start="99" data-line-end="100"><a id="4_Fragetypen_Bewertung_im_Prfungsmodus_99"></a>4. Fragetypen &amp; Bewertung (im Prüfungsmodus)</h2>
-<p class="has-line-data" data-line-start="101" data-line-end="102">Jede Frage nutzt <strong>Checkboxen</strong> und nennt im Kopf, <strong>wie viele Antworten</strong> zu wählen sind und <strong>wie viele Punkte</strong> sie zählt (1–2). Die Bewertung entspricht der offiziellen iSAQB‑Prüfungsordnung:</p>
-<table class="table table-striped table-bordered">
+<p>Mehr zu Tastatur, Lernstoff-Suche und Statistik: <a href="help_details.html">Details</a>.</p>
+<h2>4. Fragetypen &amp; Bewertung</h2>
+<p>Jede Frage nennt im Kopf, wie viele Antworten zu wählen sind und wie viele Punkte sie zählt (1–2).</p>
+<table>
 <thead>
 <tr>
 <th>Typ</th>
 <th>Bedeutung</th>
-<th>Bewertung</th>
+<th>Bewertung (Prüfungsmodus)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>A</strong></td>
-<td>„Single Correct Answer&quot; – <strong>eine</strong> richtige Antwort</td>
-<td>Richtig = volle Punkte. Nichts / falsch / zu viele angekreuzt = <strong>0</strong>.</td>
+<td>Eine richtige Antwort</td>
+<td>Richtig = volle Punkte, sonst 0.</td>
 </tr>
 <tr>
 <td><strong>P</strong></td>
-<td>„Pick‑from‑many&quot; – <strong>N</strong> richtige („Wählen Sie N Antworten&quot;)</td>
-<td>Je richtiges Kreuz <strong>+Punkte/N</strong>, je falsches <strong>−Punkte/N</strong>; nie unter 0; <strong>mehr als N angekreuzt = 0</strong>.</td>
+<td>„Wähle N“ aus mehreren</td>
+<td>Je richtiges Kreuz <strong>+Punkte/N</strong>, je falsches <strong>−Punkte/N</strong>, nie unter 0. <strong>Mehr als N</strong> angekreuzt = 0.</td>
 </tr>
 <tr>
 <td><strong>K</strong></td>
-<td>„Choose Category&quot; – Zuordnung, je Zeile eine von 2 Kategorien</td>
-<td>Je richtige Zeile <strong>+Punkte/m</strong>, je falsche <strong>−Punkte/m</strong> (m = Zeilen); nie unter 0.</td>
+<td>Zuordnung, je Zeile eine von 2 Kategorien</td>
+<td>Je richtige Zeile <strong>+Punkte/m</strong>, je falsche <strong>−Punkte/m</strong>, nie unter 0.</td>
 </tr>
 </tbody>
 </table>
-<p class="has-line-data" data-line-start="109" data-line-end="111"><strong>Bestehen:</strong> mindestens <strong>60 %</strong> der insgesamt erreichbaren Punkte.<br>
-<em>(Zeit: 75 Min für Muttersprachler, in der echten Prüfung 90 Min für Nicht‑Muttersprachler.)</em></p>
-<hr>
-<h2 class="code-line has-line-data" data-line-start="114" data-line-end="115"><a id="5_Bewertungsbeispiele_Punktevergabe_114"></a>5. Bewertungsbeispiele (Punktevergabe)</h2>
-<p class="has-line-data" data-line-start="116" data-line-end="117"><strong>Grundprinzip:</strong> Richtige Kreuze geben anteilig Punkte, falsche Kreuze ziehen anteilig ab – <strong>nie unter 0 pro Frage</strong>. Punkte pro Frage: <strong>1–2</strong> (im Fragenkopf angezeigt). „Ausgelassen&quot; (leer) zieht <strong>nichts</strong> ab; nur <strong>falsche</strong> Kreuze kosten.</p>
-<p class="has-line-data" data-line-start="118" data-line-end="119"><strong>A‑Frage</strong> — Beispiel: <strong>2 Punkte</strong>, genau <strong>1</strong> richtig</p>
-<table class="table table-striped table-bordered">
-<thead>
-<tr>
-<th>Antwort</th>
-<th>Punkte</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>keine Auswahl</td>
-<td>0</td>
-</tr>
-<tr>
-<td>die richtige angekreuzt</td>
-<td><strong>2</strong></td>
-</tr>
-<tr>
-<td>eine falsche angekreuzt</td>
-<td>0</td>
-</tr>
-<tr>
-<td>mehrere angekreuzt</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p class="has-line-data" data-line-start="127" data-line-end="128"><strong>P‑Frage</strong> — Beispiel: <strong>2 Punkte</strong>, <strong>2 von 4</strong> richtig (→ je richtige = 1 Punkt)</p>
-<table class="table table-striped table-bordered">
-<thead>
-<tr>
-<th>Antwort</th>
-<th>Rechnung</th>
-<th>Punkte</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>keine Auswahl</td>
-<td>–</td>
-<td>0</td>
-</tr>
-<tr>
-<td>beide richtigen</td>
-<td>1 + 1</td>
-<td><strong>2</strong></td>
-</tr>
-<tr>
-<td>1 richtige + 1 falsche</td>
-<td>1 − 1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>nur 1 richtige (1 ausgelassen)</td>
-<td>1</td>
-<td><strong>1</strong></td>
-</tr>
-<tr>
-<td>beide falschen</td>
-<td>−1 − 1 → min 0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>mehr als 2 angekreuzt</td>
-<td>–</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p class="has-line-data" data-line-start="138" data-line-end="139"><strong>P‑Frage</strong> — Beispiel: <strong>1 Punkt</strong>, <strong>4</strong> richtig (→ je richtige = 0,25)</p>
-<table class="table table-striped table-bordered">
-<thead>
-<tr>
-<th>Antwort</th>
-<th>Rechnung</th>
-<th>Punkte</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>4 richtige</td>
-<td>4 × 0,25</td>
-<td><strong>1</strong></td>
-</tr>
-<tr>
-<td>3 richtige + 1 falsche</td>
-<td>3×0,25 − 0,25</td>
-<td><strong>0,5</strong></td>
-</tr>
-<tr>
-<td>2 richtige + 2 falsche</td>
-<td>0,5 − 0,5</td>
-<td>0</td>
-</tr>
-<tr>
-<td>1 richtige + 3 falsche</td>
-<td>0,25 − 0,75 → min 0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>2 richtige, 2 ausgelassen</td>
-<td>2 × 0,25</td>
-<td><strong>0,5</strong></td>
-</tr>
-</tbody>
-</table>
-<p class="has-line-data" data-line-start="148" data-line-end="149"><strong>K‑Frage (Zuordnung)</strong> — Beispiel: <strong>1 Punkt</strong>, <strong>3 Zeilen</strong> (→ je richtige Zeile = 1/3)</p>
-<table class="table table-striped table-bordered">
-<thead>
-<tr>
-<th>Zuordnung</th>
-<th>Rechnung</th>
-<th>Punkte</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>alle 3 richtig</td>
-<td>3 × 1/3</td>
-<td><strong>1</strong></td>
-</tr>
-<tr>
-<td>keine Zuordnung</td>
-<td>–</td>
-<td>0</td>
-</tr>
-<tr>
-<td>2 richtig + 1 falsch</td>
-<td>2/3 − 1/3</td>
-<td><strong>1/3</strong></td>
-</tr>
-<tr>
-<td>1 richtig + 2 falsch</td>
-<td>1/3 − 2/3 → min 0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>2 richtig, 1 Zeile leer</td>
-<td>2 × 1/3</td>
-<td><strong>2/3</strong></td>
-</tr>
-</tbody>
-</table>
-<p class="has-line-data" data-line-start="158" data-line-end="159"><strong>Merksätze</strong></p>
-<ul>
-<li class="has-line-data" data-line-start="159" data-line-end="160"><strong>Mehr</strong> ankreuzen als gefordert (A: mehr als 1 · P: mehr als N) = <strong>0 Punkte</strong> für die ganze Frage.</li>
-<li class="has-line-data" data-line-start="160" data-line-end="161">Eine Frage kann <strong>nie negativ</strong> werden (Minimum 0) – Fehler in einer Frage ziehen keine Punkte anderer Fragen ab.</li>
-<li class="has-line-data" data-line-start="161" data-line-end="163"><strong>Bestehen:</strong> ≥ <strong>60 %</strong> der Summe aller erreichbaren Punkte.</li>
-</ul>
-<hr>
-<h2 class="code-line has-line-data" data-line-start="165" data-line-end="166"><a id="6_Abkrzungen_Begriffe_165"></a>6. Abkürzungen &amp; Begriffe</h2>
-<table class="table table-striped table-bordered">
+<p><strong>Bestehen:</strong> mindestens <strong>60 %</strong> der erreichbaren Punkte. Leere Antworten kosten nichts, nur falsche Kreuze.</p>
+<blockquote>
+<p><strong>Wichtig:</strong> Das Ergebnis im <strong>Übungsmodus</strong> ist eine Quote (komplett richtige Fragen geteilt durch alle Fragen) und kennt <strong>keine Teilpunkte</strong>. Die echte Punktewertung gibt es nur in den Prüfungsmodi. Konkrete Rechenbeispiele stehen in den <a href="help_details.html">Details</a>.</p>
+</blockquote>
+<h2>5. Abkürzungen</h2>
+<table>
 <thead>
 <tr>
 <th>Kürzel</th>
@@ -421,87 +153,51 @@ zusätzlich die <strong>offizielle iSAQB‑Beispielprüfung</strong> als General
 <tbody>
 <tr>
 <td><strong>iSAQB</strong></td>
-<td>International Software Architecture Qualification Board (Herausgeber der Zertifizierung)</td>
+<td>International Software Architecture Qualification Board</td>
 </tr>
 <tr>
-<td><strong>CPSA‑F</strong></td>
-<td>Certified Professional for Software Architecture – <strong>F</strong>oundation Level</td>
+<td><strong>CPSA-F</strong></td>
+<td>Certified Professional for Software Architecture – Foundation Level</td>
 </tr>
 <tr>
 <td><strong>R1 / R2 / R3</strong></td>
-<td>Prüfungsrelevanz je Lernziel: <strong>R1</strong> = kommt sicher dran · <strong>R2</strong> = kann drankommen · <strong>R3</strong> = nicht prüfungsrelevant</td>
+<td>Prüfungsrelevanz: <strong>R1</strong> kommt sicher dran · <strong>R2</strong> kann drankommen · <strong>R3</strong> nicht prüfungsrelevant</td>
 </tr>
 <tr>
 <td><strong>A / P / K</strong></td>
-<td>Fragetypen (siehe Abschnitt 4)</td>
+<td>Fragetypen (siehe oben)</td>
 </tr>
 <tr>
 <td><strong>LZ</strong></td>
-<td>Lernziel (Nummerierung nach Curriculum 2025.1, z. B. „LZ 03‑08&quot;) – Verweis ins Curriculum</td>
+<td>Lernziel im Curriculum, z. B. „LZ 03-08“</td>
 </tr>
 <tr>
-<td><strong>arc42</strong></td>
-<td>Bewährte Vorlage/Gliederung für Architekturdokumentation</td>
-</tr>
-<tr>
-<td><strong>ADR</strong></td>
-<td>Architecture Decision Record – dokumentierte Architekturentscheidung</td>
-</tr>
-<tr>
-<td><strong>ATAM</strong></td>
-<td>Architecture Tradeoff Analysis Method – szenariobasierte Bewertungsmethode</td>
-</tr>
-<tr>
-<td><strong>ISO 25010</strong></td>
-<td>Normiertes Qualitätsmodell (Wartbarkeit, Sicherheit, Performanz …)</td>
-</tr>
-<tr>
-<td><strong>UML</strong></td>
-<td>Unified Modeling Language (Diagramme: Klassen, Sequenz, Verteilung …)</td>
-</tr>
-<tr>
-<td><strong>SOLID</strong></td>
-<td>5 Entwurfsprinzipien: SRP, OCP, LSP, ISP, DIP</td>
-</tr>
-<tr>
-<td><strong>DRY / KISS / YAGNI</strong></td>
-<td>Don’t Repeat Yourself · Keep It Simple · You Aren’t Gonna Need It</td>
-</tr>
-<tr>
-<td><strong>SoC</strong></td>
-<td>Separation of Concerns (Trennung der Zuständigkeiten)</td>
+<td><strong>ADR · ATAM · arc42</strong></td>
+<td>Architekturentscheidung · szenariobasierte Bewertung · Dokumentationsvorlage</td>
 </tr>
 </tbody>
 </table>
-<hr>
-<h2 class="code-line has-line-data" data-line-start="185" data-line-end="186"><a id="7_Grundlage_Referenzen_185"></a>7. Grundlage &amp; Referenzen</h2>
-<p class="has-line-data" data-line-start="187" data-line-end="188">Die Fragen sind <strong>eigenständig formuliert</strong> und orientieren sich an den <strong>öffentlichen Lernzielen</strong> des iSAQB‑Curriculums (6 Kapitel, 38 Lernziele, R1/R2/R3‑Markierung). Die Bewertung folgt der <strong>offiziellen Prüfungsordnung</strong> (Version 2020.2).</p>
+<p>Weitere Begriffe erklärt das <strong>📖 Glossar</strong> in der App.</p>
+<h2>6. Grundlage &amp; Referenzen</h2>
+<p>Die Fragen sind <strong>eigenständig formuliert</strong> und orientieren sich an den <strong>öffentlichen Lernzielen</strong> des iSAQB-Curriculums. Die Bewertung folgt der <strong>offiziellen Prüfungsordnung</strong> (Version 2020.2).</p>
 <ul>
-<li class="has-line-data" data-line-start="189" data-line-end="190">Curriculum (HTML/PDF): <a href="https://public.isaqb.org/curriculum-foundation/">https://public.isaqb.org/curriculum-foundation/</a></li>
-<li class="has-line-data" data-line-start="190" data-line-end="191">Curriculum als PDF (DE): <a href="https://public.isaqb.org/curriculum-foundation/curriculum-foundation-de.pdf">https://public.isaqb.org/curriculum-foundation/curriculum-foundation-de.pdf</a></li>
-<li class="has-line-data" data-line-start="191" data-line-end="192">Prüfungsordnung / Bewertung (EN): <a href="https://public.isaqb.org/examination-foundation/examination_rules/examination-rules-en.pdf">https://public.isaqb.org/examination-foundation/examination_rules/examination-rules-en.pdf</a></li>
-<li class="has-line-data" data-line-start="192" data-line-end="193">Prüfungsformat &amp; Ablauf: <a href="https://www.isaqb.org/certifications/cpsa-exams/foundation-level-exam/">https://www.isaqb.org/certifications/cpsa-exams/foundation-level-exam/</a></li>
-<li class="has-line-data" data-line-start="193" data-line-end="195">Curriculum‑Repository: <a href="https://github.com/isaqb-org/curriculum-foundation">https://github.com/isaqb-org/curriculum-foundation</a></li>
+<li>Curriculum: <a href="https://public.isaqb.org/curriculum-foundation/">https://public.isaqb.org/curriculum-foundation/</a></li>
+<li>Prüfungsordnung (EN): <a href="https://public.isaqb.org/examination-foundation/examination_rules/examination-rules-en.pdf">https://public.isaqb.org/examination-foundation/examination_rules/examination-rules-en.pdf</a></li>
+<li>Prüfungsformat: <a href="https://www.isaqb.org/certifications/cpsa-exams/foundation-level-exam/">https://www.isaqb.org/certifications/cpsa-exams/foundation-level-exam/</a></li>
 </ul>
-<hr>
-<h2 class="code-line has-line-data" data-line-start="197" data-line-end="198"><a id="8_Wichtiger_Hinweis_Disclaimer_197"></a>8. Wichtiger Hinweis (Disclaimer)</h2>
+<h2>7. Wichtiger Hinweis</h2>
 <ul>
-<li class="has-line-data" data-line-start="199" data-line-end="200"><strong>Inoffiziell</strong> – nicht mit dem iSAQB® verbunden.</li>
-<li class="has-line-data" data-line-start="200" data-line-end="201">Die <strong>Übungsfragen im Katalog</strong> sind <strong>keine Original‑Prüfungsfragen</strong>, sondern eigene Formulierungen zum Üben.</li>
-<li class="has-line-data" data-line-start="201" data-line-end="202">Fragen wurden <strong>KI‑gestützt erstellt und geprüft</strong>. Sie eignen sich sehr gut zum Trainieren; im Zweifel bitte mit dem Curriculum abgleichen. Auch die <strong>englischen Übersetzungen</strong> sind KI‑gestützt.</li>
-<li class="has-line-data" data-line-start="202" data-line-end="203">Die <strong>🎓 Musterprüfung</strong> enthält die <strong>offizielle iSAQB‑Beispielprüfung</strong> (© iSAQB e. V.), genutzt zur <strong>Prüfungsvorbereitung</strong> gemäß deren Nutzungsbedingungen (Quelle &amp; Copyright werden in der App genannt).</li>
-<li class="has-line-data" data-line-start="203" data-line-end="204">Das iSAQB‑Curriculum ist urheberrechtlich geschützt (© iSAQB e. V.); für den Fragenkatalog dienen nur die <strong>öffentlichen Lernziele</strong> als inhaltliche Orientierung.</li>
-<li class="has-line-data" data-line-start="204" data-line-end="206">Empfehlung: Die <strong>🎓 Musterprüfung</strong> am besten erst <strong>nach</strong> dem Lernen als Generalprobe durchspielen.</li>
+<li><strong>Inoffiziell</strong>, nicht mit dem iSAQB® verbunden. Die Katalogfragen sind <strong>keine Original-Prüfungsfragen</strong>.</li>
+<li>Fragen und englische Übersetzungen wurden <strong>KI-gestützt erstellt und geprüft</strong>. Im Zweifel bitte mit dem Curriculum abgleichen.</li>
+<li>Die 🎓 Musterprüfung enthält die offizielle Beispielprüfung (© iSAQB e. V.), genutzt zur Prüfungsvorbereitung gemäß deren Nutzungsbedingungen. Das Curriculum ist urheberrechtlich geschützt (© iSAQB e. V.).</li>
+<li>Tipp: Die Musterprüfung am besten <strong>nach</strong> dem Lernen als Generalprobe durchspielen.</li>
 </ul>
-<hr>
-<h2 class="code-line has-line-data" data-line-start="208" data-line-end="209"><a id="9_Technik_Datenschutz_kurz_208"></a>9. Technik &amp; Datenschutz (kurz)</h2>
+<h2>8. Technik &amp; Datenschutz</h2>
 <ul>
-<li class="has-line-data" data-line-start="210" data-line-end="211">Eine <strong>self‑contained</strong> HTML‑Datei (HTML + CSS + JavaScript), <strong>keine externen Abhängigkeiten</strong>, Fragen als Daten direkt im Code.</li>
-<li class="has-line-data" data-line-start="211" data-line-end="212">Die App selbst kommuniziert mit <strong>keinem Server</strong> (keine Tracker, keine Datenübertragung). Beim <strong>Web‑Link</strong> wird die Seite einmalig von GitHub Pages geladen, danach läuft alles im Browser; die <strong>lokale Version</strong> kommt ganz <strong>ohne Internet</strong> aus.</li>
-<li class="has-line-data" data-line-start="212" data-line-end="213">Fortschritt liegt ausschließlich im <strong>localStorage</strong> des Browsers. Browserdaten löschen (oder „Fortschritt zurücksetzen&quot;) = Neustart bei null.</li>
-<li class="has-line-data" data-line-start="213" data-line-end="215">Mehr Fragen ergänzen: neue Einträge folgen dem Datenschema im Code<br>
-(<code>{ id, chapter, lz, r, type, q, options, correct, optExpl, explanation }</code> – <code>optExpl</code> = Begründung je Option, bzw. für K‑Fragen <code>categories</code> + <code>rows</code>).</li>
+<li>Reines HTML, CSS und JavaScript ohne externe Abhängigkeiten, Fragen als Daten im Code.</li>
+<li>Die App sendet <strong>keine Daten</strong> an einen Server und nutzt <strong>keine Tracker</strong>. Beim Web-Link wird die Seite einmalig von GitHub Pages geladen.</li>
+<li>Der Fortschritt liegt im <strong>localStorage</strong> deines Browsers. Browserdaten löschen oder „Fortschritt zurücksetzen“ bedeutet Neustart bei null.</li>
 </ul>
-
+</main>
 </body>
 </html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>iSAQB CPSA-F Trainer – Details</title>
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+:root{--bg:#fafaf7;--card:#fff;--text:#1c1b18;--muted:#6b6a63;--border:#e3e1d7;--accent:#d85a30;--accent-soft:#fbe7dd}
+@media (prefers-color-scheme:dark){:root{--bg:#161613;--card:#201f1b;--text:#edebe2;--muted:#a8a69b;--border:#38362e;--accent:#cf7f60;--accent-soft:#33231a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 56px}
+h1{font-size:1.6rem;line-height:1.25;margin:.2em 0 .6em}
+h2{font-size:1.2rem;margin:1.8em 0 .5em;padding-bottom:.25em;border-bottom:2px solid var(--accent-soft)}
+a{color:var(--accent)} code{background:var(--accent-soft);padding:1px 5px;border-radius:5px;font-size:.9em}
+ul{padding-left:1.3em} li{margin:.3em 0}
+table{border-collapse:collapse;width:100%;margin:.8em 0;font-size:.94rem;display:block;overflow-x:auto}
+th,td{border:1px solid var(--border);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--card)} tbody tr:nth-child(even){background:var(--card)}
+blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 8px 8px 0}
+blockquote p{margin:.3em 0}
+</style>
+</head>
+<body>
+<main>
+<h1>iSAQB CPSA-F Trainer — Details</h1>
+<p><a href="help.html">← Zur Anleitung</a> · <a href="help_details_en.html">English version</a></p>
+<h2>Bewertungsbeispiele (Prüfungsmodus)</h2>
+<p><strong>Grundprinzip:</strong> Richtige Kreuze geben anteilig Punkte, falsche ziehen anteilig ab, <strong>nie unter 0 pro Frage</strong>. Punkte pro Frage: <strong>1–2</strong> (steht im Fragenkopf). Ausgelassen zieht <strong>nichts</strong> ab, nur <strong>falsche</strong> Kreuze kosten.</p>
+<p><strong>A-Frage</strong>, 2 Punkte, genau 1 richtig</p>
+<table>
+<thead>
+<tr>
+<th>Antwort</th>
+<th>Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keine Auswahl</td>
+<td>0</td>
+</tr>
+<tr>
+<td>die richtige angekreuzt</td>
+<td><strong>2</strong></td>
+</tr>
+<tr>
+<td>eine falsche angekreuzt</td>
+<td>0</td>
+</tr>
+<tr>
+<td>mehrere angekreuzt</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>P-Frage</strong>, 2 Punkte, 2 von 4 richtig (je richtige = 1 Punkt)</p>
+<table>
+<thead>
+<tr>
+<th>Antwort</th>
+<th>Rechnung</th>
+<th>Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keine Auswahl</td>
+<td>–</td>
+<td>0</td>
+</tr>
+<tr>
+<td>beide richtigen</td>
+<td>1 + 1</td>
+<td><strong>2</strong></td>
+</tr>
+<tr>
+<td>1 richtige + 1 falsche</td>
+<td>1 − 1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>nur 1 richtige (1 ausgelassen)</td>
+<td>1</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>beide falschen</td>
+<td>−1 − 1 → min 0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>mehr als 2 angekreuzt</td>
+<td>–</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>P-Frage</strong>, 1 Punkt, 4 richtig (je richtige = 0,25)</p>
+<table>
+<thead>
+<tr>
+<th>Antwort</th>
+<th>Rechnung</th>
+<th>Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4 richtige</td>
+<td>4 × 0,25</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>3 richtige + 1 falsche</td>
+<td>3 × 0,25 − 0,25</td>
+<td><strong>0,5</strong></td>
+</tr>
+<tr>
+<td>2 richtige + 2 falsche</td>
+<td>0,5 − 0,5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1 richtige + 3 falsche</td>
+<td>0,25 − 0,75 → min 0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2 richtige, 2 ausgelassen</td>
+<td>2 × 0,25</td>
+<td><strong>0,5</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>K-Frage (Zuordnung)</strong>, 1 Punkt, 3 Zeilen (je richtige Zeile = 1/3)</p>
+<table>
+<thead>
+<tr>
+<th>Zuordnung</th>
+<th>Rechnung</th>
+<th>Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alle 3 richtig</td>
+<td>3 × 1/3</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>keine Zuordnung</td>
+<td>–</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2 richtig + 1 falsch</td>
+<td>2/3 − 1/3</td>
+<td><strong>1/3</strong></td>
+</tr>
+<tr>
+<td>1 richtig + 2 falsch</td>
+<td>1/3 − 2/3 → min 0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2 richtig, 1 Zeile leer</td>
+<td>2 × 1/3</td>
+<td><strong>2/3</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Merksätze</strong></p>
+<ul>
+<li><strong>Mehr</strong> ankreuzen als gefordert (A: mehr als 1 · P: mehr als N) = <strong>0 Punkte</strong> für die ganze Frage.</li>
+<li>Eine Frage wird <strong>nie negativ</strong>. Fehler in einer Frage ziehen keine Punkte anderer Fragen ab.</li>
+<li><strong>Bestehen:</strong> mindestens <strong>60 %</strong> der Summe aller erreichbaren Punkte.</li>
+<li>Im <strong>Übungsmodus</strong> gibt es keine Punkte: Eine Frage zählt nur, wenn sie <strong>komplett richtig</strong> ist.</li>
+</ul>
+<h2>Lernstoff</h2>
+<ul>
+<li><strong>„📊 Auf einen Blick“:</strong> Bei vielen Lernzielen steht oben ein eingeklappter Block mit einer visuellen Übersicht und einem <strong>Selbsttest zum Aufdecken</strong>. Antippen klappt ihn auf.</li>
+<li><strong>Suche:</strong> Das Suchfeld filtert <strong>live beim Tippen</strong> und ignoriert Groß-/Kleinschreibung. Du kannst nach <strong>Lernziel-Nummer</strong> (<code>LZ 03-08</code> oder <code>03-08</code>), <strong>Stichwort</strong> (<code>Kopplung</code>, <code>ATAM</code>) oder <strong>Kapitel</strong> (<code>Kapitel 3</code>) suchen. Bei einer LZ-Nummer erscheinen auch Lernziele, die darauf verweisen. Treffer werden automatisch aufgeklappt.</li>
+<li><strong>Direkt springen:</strong> Im Feedback nach einer Frage führt ein Tipp auf die LZ-Nummer zum passenden Abschnitt. Der Button oben („← Zurück zur Frage“) bringt dich an dieselbe Stelle zurück.</li>
+</ul>
+<h2>Statistik &amp; Daten sichern</h2>
+<ul>
+<li><strong>Statistik:</strong> Prüfungsreife-Schätzung (Trefferquote R1/R2 gegen die 60-%-Marke), Abdeckung (gesehen / sicher), Trefferquote nach Relevanz, Fragetyp und Kapitel, schwächste Kapitel mit „üben“-Button und die Prüfungshistorie.</li>
+<li><strong>Export/Import:</strong> In der Statistik sicherst du den Fortschritt als Text oder <code>.json</code>-Datei und spielst ihn auf einem anderen Gerät oder Browser wieder ein. Das ist nötig, weil der Fortschritt nur lokal im Browser liegt.</li>
+<li><strong>Überarbeitete Fragen:</strong> Wurde eine bereits beantwortete Frage inhaltlich geändert, fragt die App, ob die Statistik <strong>nur dieser Fragen</strong> zurückgesetzt werden soll. Der Rest bleibt erhalten.</li>
+</ul>
+<h2>Bedienung</h2>
+<ul>
+<li><strong>Tastatur (Desktop):</strong> Im Quiz wählen <strong>1–9</strong> die Antwort, <strong>Enter</strong> oder Leertaste löst „Prüfen“/„Weiter“ aus, <strong>←</strong> geht zurück, <strong>G</strong> markiert „Geraten / auswendig“. Bei <strong>K-Fragen</strong> wählen <strong>1</strong> und <strong>2</strong> die Kategorie der markierten Zeile und springen zur nächsten, <strong>↑ ↓</strong> wechseln die Zeile. Bei Karteikarten deckt <strong>Enter</strong> auf, <strong>1</strong> = nicht gewusst, <strong>2</strong> oder Enter = gewusst. Die Antwortzeilen sind auch per <strong>Tab</strong> erreichbar.</li>
+<li><strong>Fragenübersicht:</strong> Zeigt alle Fragennummern mit Status (Prüfung: beantwortet · Üben: richtig/falsch · ★ markiert). Ein Klick springt zur Frage. Vor der Auswertung fragt die App nach, wenn noch Fragen offen sind.</li>
+<li><strong>Zurück:</strong> Mit „← Zurück“ in der Fußleiste siehst du frühere Fragen erneut. Im Prüfungsmodus bleiben die Antworten änderbar, ausgewertet wird die finale Auswahl. Der Browser-Zurück-Button pausiert eine laufende Runde.</li>
+</ul>
+</main>
+</body>
+</html>

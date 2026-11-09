@@ -1,222 +1,62 @@
-# iSAQB CPSA‑F Trainer — Anleitung
+# iSAQB CPSA-F Trainer
 
-Übungs‑App (Multiple Choice) zur Vorbereitung auf die Zertifizierung
-**CPSA‑F** (Certified Professional for Software Architecture – Foundation Level).
-Läuft im **Browser** – über einen **Web‑Link** (Handy & PC) oder als **lokale Version** (PC/Mac),
-**ohne Installation und ohne Konto**. Enthält **312 eigenständige Fragen** über alle 6 Kapitel des Curriculums (davon **269 prüfungsrelevant** (R1/R2), **43** als R3 nicht prüfungsrelevant und nur zur Vertiefung),
-zusätzlich die **offizielle iSAQB‑Beispielprüfung** als Generalprobe. Oberfläche wahlweise **Deutsch oder Englisch** (Umschalter **DE/EN** oben rechts).
+**Deutsch** · [English below](#english)
 
-*Version 1.18.0*
+Übungs-App zur Vorbereitung auf die Zertifizierung **CPSA-F** (Certified Professional for Software Architecture – Foundation Level). Sie läuft im **Browser**, **ohne Installation und ohne Konto**.
 
----
+**App öffnen:** <https://antoniotroiano.github.io/isaqb-lernapp/>
 
-## 1. Zugang & Start
+*Version 1.19.0*
 
-Zwei Wege — nimm den, der zu deinem Gerät passt:
+## Das steckt drin
 
-### A) Über den Web‑Link (empfohlen · funktioniert überall: iPhone, Android, PC/Mac)
+- **312 eigene Fragen** zu allen 6 Kapiteln des Curriculums, mit Begründung zu jeder Antwort (269 prüfungsrelevant R1/R2, 43 zur Vertiefung R3)
+- **Prüfungssimulation** nach den iSAQB-Regeln (38 Fragen, 75 Min, 60 % zum Bestehen) und die **offizielle iSAQB-Beispielprüfung**
+- **Lernhilfen:** Wiederholen nach Lernplan (Spaced Repetition), Karteikarten, Lernstoff je Lernziel, Concept Map, Glossar
+- **Statistik** mit Prüfungsreife-Schätzung, Export und Import des Fortschritts
+- **Deutsch und Englisch**, Dark Mode, Handy und Desktop
 
-- **App:** <https://antoniotroiano.github.io/isaqb-lernapp/>
-- **Diese Anleitung online:** <https://antoniotroiano.github.io/isaqb-lernapp/help.html>
+## Start
 
-Den App‑Link im Browser öffnen. Für App‑ähnlichen Schnellzugriff auf dem Home‑Bildschirm:
-- **iPhone (Safari):** Teilen‑Symbol → **„Zum Home‑Bildschirm"**
-- **Android (Chrome):** Menü ⋮ → **„Zum Startbildschirm hinzufügen"**
+- **Im Browser:** den Link oben öffnen. Auf dem Handy lässt sich die App zum Home-Bildschirm hinzufügen.
+- **Lokal (PC/Mac):** Repository herunterladen und `index.html` im Browser öffnen, läuft komplett offline.
+- Der Lernfortschritt bleibt **lokal in deinem Browser**. Es gibt **keine Konten, keine Tracker und keine Datenübertragung**.
 
-> Beim ersten Aufruf ist eine Internetverbindung nötig; danach läuft die App im Browser.
+## Anleitung
 
-### B) Lokal (nur PC/Mac)
+- [Anleitung (Deutsch)](https://antoniotroiano.github.io/isaqb-lernapp/help.html) · [Details und Bewertungsbeispiele](https://antoniotroiano.github.io/isaqb-lernapp/help_details.html)
+- [Guide (English)](https://antoniotroiano.github.io/isaqb-lernapp/help_en.html) · [Details and scoring examples](https://antoniotroiano.github.io/isaqb-lernapp/help_details_en.html)
 
-Das Repository von GitHub herunterladen (**Code → Download ZIP**, entpacken) oder per `git clone` auschecken und die Datei **`index.html`** per **Doppelklick** im Browser öffnen. Die Ordner `css/` und `js/` müssen dabei neben der `index.html` liegen. Läuft komplett offline.
+## Hinweis
 
-> ⚠️ **iPhone/iOS:** Eine lokale HTML‑Datei (z. B. aus iCloud/Dateien) lässt sich in Safari **nicht** starten. Auf dem iPhone deshalb den **Web‑Link (A)** verwenden. (Ob Android das direkte Öffnen einer lokalen Datei erlaubt, ist geräteabhängig — auch hier ist der Web‑Link der sichere Weg.)
-
-**Lernfortschritt:** wird **lokal im Browser** gespeichert (localStorage) und verlässt das Gerät nicht. Er gilt pro Gerät/Browser und wird zwischen Web‑Link und lokaler Version **nicht** synchronisiert.
+**Inoffiziell**, nicht mit dem iSAQB® verbunden. Die Katalogfragen sind eigene Formulierungen und **keine Original-Prüfungsfragen**; sie wurden KI-gestützt erstellt und geprüft, im Zweifel bitte mit dem [Curriculum](https://public.isaqb.org/curriculum-foundation/) abgleichen. Die Musterprüfung enthält die offizielle Beispielprüfung (© iSAQB e. V.), genutzt zur Prüfungsvorbereitung.
 
 ---
 
-## 2. Modi & Lernwege
+## English
 
-| Modus | Zweck | Verhalten |
-|---|---|---|
-| **Üben** | Lernen | Sofortiges Feedback nach jeder Frage: **warum die richtigen Antworten richtig sind**, bei Fehlern zusätzlich **warum deine Auswahl falsch ist** (übersehene richtige Antworten sind markiert), dazu ein **„Kurz gesagt“**; die Begründung zu den übrigen Optionen lässt sich aufklappen. Kein Timer, keine Punkte. |
-| **Prüfung simulieren** | Ernstfall proben | Wie die echte Prüfung: **38 Fragen · 75 Min Countdown**, Auswertung **erst am Ende**, Punkte nach offizieller iSAQB‑Bewertung, **60 % zum Bestehen**. |
-| **🎯 Prüfung wie im Original** | Realistische Probe aus dem eigenen Katalog | Zieht **38 prüfungsrelevante Katalogfragen (R1/R2)** im **Mix der offiziellen Beispielprüfung** (Kapitelverteilung und Anteil der Zuordnungsfragen aus der Beispielprüfung abgeleitet), **75 Min Countdown**, Auswertung **erst am Ende**, **60 % zum Bestehen**. Kapitel und Lernziel werden während der Prüfung nicht angezeigt. Die Punktesumme kann von den 52 Punkten der Beispielprüfung abweichen; maßgeblich ist der Prozentwert. |
-| **🔁 Wiederholen** | Langfristig behalten | **Spaced Repetition** (Leitner): übt genau die Fragen, die laut Lernplan heute **fällig** sind. Richtig → längeres Intervall (1 → 3 → 7 → 16 → 35 Tage), falsch → bald wieder. Die Zahl am Button = Anzahl fälliger Fragen. |
-| **🃏 Karteikarten** | Schnell wiederholen | Frage ansehen → **Antwort aufdecken** → Lösung + Erklärung → **„gewusst / nicht gewusst"** selbst einschätzen (fließt in Spaced Repetition & Statistik ein). Ideal für unterwegs. |
-| **📖 Durchblättern** | Nachschlagen | Alle Fragen (nach Kapitel gruppiert, gefiltert) durchsehen; Antippen blendet Lösung + Erklärung ein. Kein Quiz. |
-| **📚 Lernstoff** | Verstehen statt nur MC | Curriculum-Themen je **Lernziel** nachlesen (nach Kapitel gegliedert, mit Suche). Tipp: Aus einer beantworteten Frage auf die **LZ-Nummer** tippen → springt direkt zum passenden Abschnitt. |
-| **🗺 Concept Map** | Zusammenhänge sehen | Alle 38 Lernziele nach Kapitel; ein Lernziel antippen zeigt Kurzbeschreibung, **verwandte Lernziele** (mit Begründung) und „Im Lernstoff öffnen“. Der Schalter „Nur R1/R2“ blendet R3 aus. |
-| **📖 Glossar** | Begriffe pauken | **129 Fachbegriffe** (nach Kategorie, je mit Kurzdefinition, **Beispiel** und **Merksatz**), durchsuchbar und nach **R1/R2/R3 filterbar**. **„🃏 Begriffe lernen“** übt sie in kurzen Runden à **5 oder 10 Karten** (wahlweise Begriff → Definition oder Definition → Begriff, Standard R1+R2; fällige und neue zuerst, nicht gewusste kommen in derselben Runde nochmal) mit eigener Wiedervorlage (Leitner-Boxen) — **getrennt** von der Fragen-Statistik. |
-| **🎓 Musterprüfung** | Generalprobe vor der Prüfung | Die **offizielle iSAQB‑Beispielprüfung** (Version 2026.2 · 38 Fragen · 52 Punkte · 75 Min · 60 % zum Bestehen) im echten Prüfungsformat. **Separat** vom eigenen Fragenkatalog; die Ergebnisse fließen **nicht** in die normale Statistik. |
+Practice app for preparing for the **CPSA-F** certification (Certified Professional for Software Architecture – Foundation Level). It runs in the **browser**, **without installation and without an account**.
 
-> **🌐 Sprache:** Der Umschalter **DE/EN** oben rechts stellt die gesamte App auf Deutsch oder Englisch um — Oberfläche, alle Fragen, Lernstoff, Concept Map, Glossar und die offizielle Musterprüfung. Die Wahl wird gespeichert.
+**Open the app:** <https://antoniotroiano.github.io/isaqb-lernapp/>
 
----
+### What is inside
 
-## 3. Funktionen im Überblick
+- **312 original questions** on all 6 chapters of the curriculum, with a reason for every answer (269 exam-relevant R1/R2, 43 for deeper study R3)
+- **Exam simulation** following the iSAQB rules (38 questions, 75 min, 60 % to pass) and the **official iSAQB example exam**
+- **Learning aids:** spaced repetition, flashcards, study material per learning goal, concept map, glossary
+- **Statistics** with an exam readiness estimate, export and import of your progress
+- **German and English**, dark mode, phone and desktop
 
-- **Filter** nach **Kapitel** (1–6) und **Prüfungsrelevanz** (R1/R2/R3); Regler für die **Anzahl Fragen pro Runde** (zeigt auch, wie viele im aktuellen Filter verfügbar sind).
-- **Nur falsch beantwortete** – wiederholt gezielt deine Fehler (schrumpft beim Lernen).
-- **Nur Lesezeichen** – übt nur markierte Fragen (Stern oben rechts an der Frage).
-- **Fehler bevorzugen** & **Antworten mischen** – schwache Fragen häufiger bzw. gemischte Antwort‑Reihenfolge.
-- **Weniger Wiederholungen** – zuletzt gezeigte Fragen werden in Folgerunden gemieden.
-- **Pause / Fortsetzen** – unterbrochene Runde wird gespeichert und exakt wieder aufgenommen.
-- **Zurück zur vorherigen Frage** – mit **„← Zurück"** in der Fußleiste (ab Frage 2) frühere Fragen erneut ansehen; im **Prüfungsmodus** bleiben die Antworten dabei änderbar (wie in der echten Prüfung), die Auswertung nutzt am Ende deine finale Auswahl.
-- **Antworten durchsehen** – nach jeder Runde alle falsch/teilweise richtig beantworteten Fragen mit deiner Wahl, der Lösung und demselben Feedback wie im Übungsmodus (warum richtig, warum deine Auswahl falsch, „Kurz gesagt“).
-- **Lesezeichen**, **Dark Mode** (🌓 oben rechts) und **Fortschritt zurücksetzen** (unter 📊 Statistik).
-- **Zurück-Button oben** – auf allen Unterseiten (Lernstoff, Glossar, Statistik …) bleibt oben ein „Zurück" stehen, auch beim langen Scrollen.
-- **Desktop-Layout** – auf großen Bildschirmen zweispaltige Startseite und Statistik; Quiz, Karteikarten und Lernstoff bleiben zum besseren Lesen schmal und zentriert. Auf dem Smartphone ändert sich nichts.
-- **Tastaturkürzel (Desktop)** – im Quiz wählen **1–9** die Antwort, **Enter** (oder Leertaste) löst „Prüfen“/„Weiter“ aus, **←** geht zur vorherigen Frage. Bei Karteikarten deckt **Enter** auf, danach steht **1** für „Nicht gewusst“ und **2** (oder Enter) für „Gewusst“.
-- **Browser-Zurück/Vor** – jeder Bereich (Statistik, Glossar, Lernstoff …) hat einen eigenen Verlaufseintrag; die Zurück-Taste des Browsers, die Zwei-Finger-Geste am Mac und die Android-Zurücktaste funktionieren. Zurück mitten in einer Runde **pausiert** sie (wie „Pause“) und führt zur Startseite.
-- **Fragenübersicht** – im Quiz zeigt eine Übersicht alle Fragennummern mit Status (Prüfung: beantwortet · Üben: richtig/falsch · ★ markiert); ein Klick springt direkt zur Frage. Am Desktop als Seitenleiste, am Smartphone als aufklappbarer Streifen. Vor der Auswertung fragt die App nach, wenn noch Fragen offen sind (sie zählen als nicht richtig).
-- **Bedienung per Tastatur** – die Antwortzeilen sind per **Tab** erreichbar, die **Leertaste** wählt aus; ein sichtbarer Rahmen zeigt den Fokus.
-- **Zurück aus dem Lernstoff** – öffnest du ein Lernziel aus dem Quiz-Feedback, der Concept Map oder dem Glossar, führt der Button oben („← Zurück zur Frage“ usw.) genau dorthin zurück, bei der Quizfrage an dieselbe Stelle.
-- **Update-Hinweis** – gibt es eine neue App-Version, erscheint beim Start ein Hinweis mit **„Jetzt aktualisieren"** (Web-Link, mit Internet). Dein Fortschritt bleibt erhalten; den Browser-Cache musst du nicht leeren.
-- **Überarbeitete Fragen** – wurden bereits beantwortete Fragen inhaltlich geändert, fragt die App, ob die Statistik **nur dieser Fragen** zurückgesetzt werden soll. Der Rest bleibt unberührt.
+### Getting started
 
-### Lernstoff: „📊 Auf einen Blick“
+- **In the browser:** open the link above. On a phone you can add the app to the home screen.
+- **Locally (PC/Mac):** download the repository and open `index.html` in the browser, fully offline.
+- Your progress stays **locally in your browser**. There are **no accounts, no trackers and no data transfer**.
 
-Bei einigen Lernzielen (bisher Kapitel 1: 01-01, 01-02, 01-04, 01-06, 01-07 Kapitel 2: 02-01 bis 02-05 Kapitel 3: 03-01 bis 03-10 Kapitel 4: 04-01 bis 04-03, 04-05 bis 04-08 und Kapitel 5: 05-01 bis 05-03; ohne die R3-Lernziele) steht im Lernstoff ganz oben ein **eingeklappter Block „📊 Auf einen Blick“** – eine visuelle Übersicht mit Diagrammen und einem **Selbsttest zum Aufdecken**. Antippen klappt ihn auf; darunter folgt der normale Lernstoff.
+### Guide
 
-### Lernstoff durchsuchen 📚
+See the [Guide](https://antoniotroiano.github.io/isaqb-lernapp/help_en.html) and the [details and scoring examples](https://antoniotroiano.github.io/isaqb-lernapp/help_details_en.html).
 
-Im Reiter **📚 Lernstoff** kannst du das Suchfeld oben flexibel nutzen — es filtert **live beim Tippen** und ignoriert Groß-/Kleinschreibung:
+### Note
 
-- **Nach Lernziel‑Nummer:** `LZ 03-08`, `lz 03-08` oder einfach `03-08`.
-- **Nach Stichwort/Thema:** durchsucht **Titel und Erklärtext**, z. B. `Kopplung`, `ATAM`, `Microservices`, `Schnittstelle`.
-- **Nach Kapitel:** `Kapitel 3` oder ein Wort aus dem Kapiteltitel (z. B. `Entwurf`) zeigt das ganze Kapitel.
-- **Querverweise inklusive:** Suchst du eine LZ‑Nummer, erscheinen auch Lernziele, die **darauf verweisen** (z. B. `LZ 03-08` zeigt zusätzlich 03‑06 mit „siehe LZ 03‑08").
-
-Treffer werden automatisch **aufgeklappt**. Suchfeld leeren → wieder die vollständige, nach Kapitel gegliederte Übersicht (Lernziel antippen klappt den Text auf/zu).
-
-> **Tipp:** Nach einer beantworteten Frage kannst du im Feedback direkt auf die **LZ‑Nummer** tippen (z. B. `LZ 03-08`) — das springt automatisch zum passenden Lernstoff‑Abschnitt, ganz ohne Suche.
-
-### Statistik 📊
-- **Prüfungsreife‑Schätzung** (Trefferquote auf R1/R2 im Verhältnis zur 60‑%‑Marke).
-- **Abdeckung** (gesehen / sicher – bezogen auf alle Fragen).
-- **Trefferquote** nach **Prüfungsrelevanz** (R1/R2/R3), **Fragetyp** (A/P/K) und **Kapitel** – mit farbigen Balken.
-- **Schwächste Kapitel** mit direktem „üben"‑Button.
-- **Prüfungshistorie** – vergangene Simulationen (Datum, Prozent, bestanden/nicht).
-
-### Daten sichern 💾
-- **Export/Import** (Button in der Statistik): Fortschritt als Text oder `.json`‑Datei sichern und auf einem anderen Gerät/Browser wieder einspielen. Praktisch, weil der Fortschritt lokal im Browser liegt und **nicht** automatisch zwischen Geräten synchronisiert wird.
-
----
-
-## 4. Fragetypen & Bewertung (im Prüfungsmodus)
-
-Jede Frage nutzt **Checkboxen** und nennt im Kopf, **wie viele Antworten** zu wählen sind und **wie viele Punkte** sie zählt (1–2). Die Bewertung entspricht der offiziellen iSAQB‑Prüfungsordnung:
-
-| Typ | Bedeutung | Bewertung |
-|---|---|---|
-| **A** | „Single Correct Answer" – **eine** richtige Antwort | Richtig = volle Punkte. Nichts / falsch / zu viele angekreuzt = **0**. |
-| **P** | „Pick‑from‑many" – **N** richtige („Wählen Sie N Antworten") | Je richtiges Kreuz **+Punkte/N**, je falsches **−Punkte/N**; nie unter 0; **mehr als N angekreuzt = 0**. |
-| **K** | „Choose Category" – Zuordnung, je Zeile eine von 2 Kategorien | Je richtige Zeile **+Punkte/m**, je falsche **−Punkte/m** (m = Zeilen); nie unter 0. |
-
-**Bestehen:** mindestens **60 %** der insgesamt erreichbaren Punkte.
-*(Zeit: 75 Min für Muttersprachler, in der echten Prüfung 90 Min für Nicht‑Muttersprachler.)*
-
----
-
-## 5. Bewertungsbeispiele (Punktevergabe)
-
-**Grundprinzip:** Richtige Kreuze geben anteilig Punkte, falsche Kreuze ziehen anteilig ab – **nie unter 0 pro Frage**. Punkte pro Frage: **1–2** (im Fragenkopf angezeigt). „Ausgelassen" (leer) zieht **nichts** ab; nur **falsche** Kreuze kosten.
-
-**A‑Frage** — Beispiel: **2 Punkte**, genau **1** richtig
-
-| Antwort | Punkte |
-|---|---|
-| keine Auswahl | 0 |
-| die richtige angekreuzt | **2** |
-| eine falsche angekreuzt | 0 |
-| mehrere angekreuzt | 0 |
-
-**P‑Frage** — Beispiel: **2 Punkte**, **2 von 4** richtig (→ je richtige = 1 Punkt)
-
-| Antwort | Rechnung | Punkte |
-|---|---|---|
-| keine Auswahl | – | 0 |
-| beide richtigen | 1 + 1 | **2** |
-| 1 richtige + 1 falsche | 1 − 1 | 0 |
-| nur 1 richtige (1 ausgelassen) | 1 | **1** |
-| beide falschen | −1 − 1 → min 0 | 0 |
-| mehr als 2 angekreuzt | – | 0 |
-
-**P‑Frage** — Beispiel: **1 Punkt**, **4** richtig (→ je richtige = 0,25)
-
-| Antwort | Rechnung | Punkte |
-|---|---|---|
-| 4 richtige | 4 × 0,25 | **1** |
-| 3 richtige + 1 falsche | 3×0,25 − 0,25 | **0,5** |
-| 2 richtige + 2 falsche | 0,5 − 0,5 | 0 |
-| 1 richtige + 3 falsche | 0,25 − 0,75 → min 0 | 0 |
-| 2 richtige, 2 ausgelassen | 2 × 0,25 | **0,5** |
-
-**K‑Frage (Zuordnung)** — Beispiel: **1 Punkt**, **3 Zeilen** (→ je richtige Zeile = 1/3)
-
-| Zuordnung | Rechnung | Punkte |
-|---|---|---|
-| alle 3 richtig | 3 × 1/3 | **1** |
-| keine Zuordnung | – | 0 |
-| 2 richtig + 1 falsch | 2/3 − 1/3 | **1/3** |
-| 1 richtig + 2 falsch | 1/3 − 2/3 → min 0 | 0 |
-| 2 richtig, 1 Zeile leer | 2 × 1/3 | **2/3** |
-
-**Merksätze**
-- **Mehr** ankreuzen als gefordert (A: mehr als 1 · P: mehr als N) = **0 Punkte** für die ganze Frage.
-- Eine Frage kann **nie negativ** werden (Minimum 0) – Fehler in einer Frage ziehen keine Punkte anderer Fragen ab.
-- **Bestehen:** ≥ **60 %** der Summe aller erreichbaren Punkte.
-
----
-
-## 6. Abkürzungen & Begriffe
-
-| Kürzel | Bedeutung |
-|---|---|
-| **iSAQB** | International Software Architecture Qualification Board (Herausgeber der Zertifizierung) |
-| **CPSA‑F** | Certified Professional for Software Architecture – **F**oundation Level |
-| **R1 / R2 / R3** | Prüfungsrelevanz je Lernziel: **R1** = kommt sicher dran · **R2** = kann drankommen · **R3** = nicht prüfungsrelevant |
-| **A / P / K** | Fragetypen (siehe Abschnitt 4) |
-| **LZ** | Lernziel (Nummerierung nach Curriculum 2025.1, z. B. „LZ 03‑08") – Verweis ins Curriculum |
-| **arc42** | Bewährte Vorlage/Gliederung für Architekturdokumentation |
-| **ADR** | Architecture Decision Record – dokumentierte Architekturentscheidung |
-| **ATAM** | Architecture Tradeoff Analysis Method – szenariobasierte Bewertungsmethode |
-| **ISO 25010** | Normiertes Qualitätsmodell (Wartbarkeit, Sicherheit, Performanz …) |
-| **UML** | Unified Modeling Language (Diagramme: Klassen, Sequenz, Verteilung …) |
-| **SOLID** | 5 Entwurfsprinzipien: SRP, OCP, LSP, ISP, DIP |
-| **DRY / KISS / YAGNI** | Don't Repeat Yourself · Keep It Simple · You Aren't Gonna Need It |
-| **SoC** | Separation of Concerns (Trennung der Zuständigkeiten) |
-
----
-
-## 7. Grundlage & Referenzen
-
-Die Fragen sind **eigenständig formuliert** und orientieren sich an den **öffentlichen Lernzielen** des iSAQB‑Curriculums (6 Kapitel, 38 Lernziele, R1/R2/R3‑Markierung). Die Bewertung folgt der **offiziellen Prüfungsordnung** (Version 2020.2).
-
-- Curriculum (HTML/PDF): <https://public.isaqb.org/curriculum-foundation/>
-- Curriculum als PDF (DE): <https://public.isaqb.org/curriculum-foundation/curriculum-foundation-de.pdf>
-- Prüfungsordnung / Bewertung (EN): <https://public.isaqb.org/examination-foundation/examination_rules/examination-rules-en.pdf>
-- Prüfungsformat & Ablauf: <https://www.isaqb.org/certifications/cpsa-exams/foundation-level-exam/>
-- Curriculum‑Repository: <https://github.com/isaqb-org/curriculum-foundation>
-
----
-
-## 8. Wichtiger Hinweis (Disclaimer)
-
-- **Inoffiziell** – nicht mit dem iSAQB® verbunden.
-- Die **Übungsfragen im Katalog** sind **keine Original‑Prüfungsfragen**, sondern eigene Formulierungen zum Üben.
-- Fragen wurden **KI‑gestützt erstellt und geprüft**. Sie eignen sich sehr gut zum Trainieren; im Zweifel bitte mit dem Curriculum abgleichen. Auch die **englischen Übersetzungen** sind KI‑gestützt.
-- Die **🎓 Musterprüfung** enthält die **offizielle iSAQB‑Beispielprüfung** (© iSAQB e. V.), genutzt zur **Prüfungsvorbereitung** gemäß deren Nutzungsbedingungen (Quelle & Copyright werden in der App genannt).
-- Das iSAQB‑Curriculum ist urheberrechtlich geschützt (© iSAQB e. V.); für den Fragenkatalog dienen nur die **öffentlichen Lernziele** als inhaltliche Orientierung.
-- Empfehlung: Die **🎓 Musterprüfung** am besten erst **nach** dem Lernen als Generalprobe durchspielen.
-
----
-
-## 9. Technik & Datenschutz (kurz)
-
-- Eine **self‑contained** HTML‑Datei (HTML + CSS + JavaScript), **keine externen Abhängigkeiten**, Fragen als Daten direkt im Code.
-- Die App selbst kommuniziert mit **keinem Server** (keine Tracker, keine Datenübertragung). Beim **Web‑Link** wird die Seite einmalig von GitHub Pages geladen, danach läuft alles im Browser; die **lokale Version** kommt ganz **ohne Internet** aus.
-- Fortschritt liegt ausschließlich im **localStorage** des Browsers. Browserdaten löschen (oder „Fortschritt zurücksetzen") = Neustart bei null.
-- Mehr Fragen ergänzen: neue Einträge folgen dem Datenschema im Code
-  (`{ id, chapter, lz, r, type, q, options, correct, optExpl, explanation }` – `optExpl` = Begründung je Option, bzw. für K‑Fragen `categories` + `rows`).
+**Unofficial**, not affiliated with iSAQB®. The catalogue questions are original wordings and **not real exam questions**; they were created and checked with AI support, please compare with the [curriculum](https://public.isaqb.org/curriculum-foundation/) when in doubt. The mock exam contains the official example exam (© iSAQB e. V.), used for exam preparation.
