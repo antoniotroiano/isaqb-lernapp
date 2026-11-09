@@ -43,7 +43,7 @@ function hasSelection(it){ return it.q.type==="k" ? it.selected.some(x=>x!=null)
 function persistSession(){
   if(!session) return;
   store.session={ mode:session.mode, mock:!!session.mock, orig:!!session.orig, idx:session.idx,
-    items:session.items.map(it=>({id:it.q.id, order:it.order, selected:it.selected, submitted:it.submitted, correct:it.correct})) };
+    items:session.items.map(it=>({id:it.q.id, order:it.order, selected:it.selected, submitted:it.submitted, correct:it.correct, guess:!!it.guess})) };
   if(session.mode==="exam" && session.endsAt){ store.session.durationMs=session.durationMs; store.session.remainingMs=Math.max(0, session.endsAt-Date.now()); }
   saveStore();
 }
@@ -56,7 +56,7 @@ function restoreSession(){
     const q=srcPool.find(x=>x.id===it.id); if(!q) continue;
     const defOrder = q.options ? q.options.map((_,i)=>i) : [];
     items.push({ q, order:(it.order&&q.options&&it.order.length===q.options.length)?it.order:defOrder,
-      selected:it.selected||(q.type==="k"?new Array(q.rows.length).fill(null):[]), submitted:!!it.submitted, correct:(it.correct===undefined?null:it.correct) });
+      selected:it.selected||(q.type==="k"?new Array(q.rows.length).fill(null):[]), submitted:!!it.submitted, correct:(it.correct===undefined?null:it.correct), guess:!!it.guess });
   }
   if(!items.length){ clearSession(); return false; }
   session={ mode:s.mode||"practice", mock:!!s.mock, orig:!!s.orig, items, idx:Math.min(s.idx||0, items.length-1) };
@@ -283,7 +283,7 @@ function renderQuestion(){
   // Tastaturhinweis passend zum Fragetyp (K: zwei Kategorien pro Zeile; sonst Anzahl der Optionen)
   const kh=$("#kbdQuiz");
   if(kh){
-    const tail=T(" · <kbd>Enter</kbd> Weiter · <kbd>←</kbd> Zurück"," · <kbd>Enter</kbd> Next · <kbd>←</kbd> Back");
+    const tail=T(" · <kbd>Enter</kbd> Weiter · <kbd>←</kbd> Zurück"," · <kbd>Enter</kbd> Next · <kbd>←</kbd> Back")+(session.mode==="practice"?T(" · <kbd>G</kbd> Geraten"," · <kbd>G</kbd> Guessed"):"");
     kh.innerHTML = T("Tastatur: ","Keyboard: ") + (q.type==="k"
       ? Lcats(q).map((c,i)=>"<kbd>"+(i+1)+"</kbd> "+c).join(" · ")+T(" für markierte Zeile · <kbd>↑</kbd> <kbd>↓</kbd> Zeile wechseln"," for highlighted row · <kbd>↑</kbd> <kbd>↓</kbd> change row")
       : (q.options.length>1?"<kbd>1</kbd>–<kbd>"+q.options.length+"</kbd>":"<kbd>1</kbd>")+T(" Antwort wählen"," select answer")) + tail;
@@ -291,6 +291,7 @@ function renderQuestion(){
 
   const ex=$("#explainBox"); ex.innerHTML="";
   if(it.submitted && session.mode==="practice"){
+    if(it.guess && it.correct){ const n=document.createElement("p"); n.className="fbmeta"; n.textContent=T("🎲 Als geraten/auswendig markiert: zählt als richtig, die Frage steigt aber nicht in der Box und kommt früher wieder.","🎲 Marked as guessed/memorized: counts as correct, but the question does not move up a box and comes back sooner."); ex.appendChild(n); }
     const d=document.createElement("div");
     d.innerHTML=feedbackHtml(q, it.selected, it.order, it.correct)+
       "<div class='lz'>"+(q.r?q.r+" · ":"")+lzLink(q.lz)+" · "+T("Kapitel","Chapter")+" "+q.chapter+"</div>";
@@ -311,7 +312,16 @@ function renderQuestion(){
     pb.disabled = false;
   }
   const prev=$("#prevBtn");
-  if(prev){ prev.classList.toggle("hidden", session.idx===0); prev.textContent=T("← Zurück","← Back"); }
+  if(prev){ prev.classList.toggle("hidden", session.idx===0); prev.innerHTML="← <span class='lbl'>"+T("Zurück","Back")+"</span>"; prev.setAttribute("aria-label",T("Zurück","Back")); }
+  const gb=$("#guessBtn");
+  if(gb){
+    gb.classList.toggle("hidden", !(session.mode==="practice" && (!it.submitted || (it.correct && it.snap))));
+    gb.classList.toggle("on", !!it.guess); gb.setAttribute("aria-pressed", it.guess?"true":"false");
+    gb.innerHTML="🎲 <span class='lbl'>"+T("Geraten / auswendig","Guessed / memorized")+"</span>";
+    gb.title=T("Geraten oder auswendig gewusst: Bei richtiger Antwort steigt die Frage nicht in der Box (Taste G).","Guessed or known by heart: if correct, the question does not move up a box (key G).");
+    gb.setAttribute("aria-label",T("Geraten oder auswendig","Guessed or memorized"));
+    gb.onclick=()=>{ it.guess=!it.guess; persistSession(); if(it.submitted){ regradeGuess(it); renderQuestion(); } else { gb.classList.toggle("on",!!it.guess); gb.setAttribute("aria-pressed",it.guess?"true":"false"); } };
+  }
   renderQNav();
   persistSession();
 }

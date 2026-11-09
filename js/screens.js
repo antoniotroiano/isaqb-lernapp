@@ -1,14 +1,25 @@
 "use strict";
 const SRS_DAY=86400000;
 const SRS_INT=[0, SRS_DAY, 3*SRS_DAY, 7*SRS_DAY, 16*SRS_DAY, 35*SRS_DAY];
-function gradeStat(id, ok){
+function gradeStat(id, ok, soft){   // soft: richtig, aber geraten/auswendig -> zählt als richtig, Box und Streak bleiben
   const s=qStat(id); s.seen++;
-  if(ok){ s.correct++; s.streak++; s.box=Math.min(5,(s.box||0)+1); }
+  if(ok && soft){ s.correct++; s.box=s.box||0; }
+  else if(ok){ s.correct++; s.streak++; s.box=Math.min(5,(s.box||0)+1); }
   else { s.wrong++; s.streak=0; s.box=0; }
   s.due = Date.now() + SRS_INT[s.box||0];
   saveStore();
 }
-function recordStat(it){ gradeStat(it.q.id, it.correct); }
+function recordStat(it){
+  it.snap = JSON.stringify(store.stats[it.q.id]||null);          // Stand vor der Wertung, damit „geraten“ auch nachträglich gesetzt werden kann
+  gradeStat(it.q.id, it.correct, !!it.guess);
+}
+function regradeGuess(it){   // nachträglich geraten/auswendig an- oder abwählen (nur Übungsmodus, nur nach dem Prüfen)
+  if(!it.snap) return;
+  const bm=qStat(it.q.id).bm, old=JSON.parse(it.snap);
+  if(old) store.stats[it.q.id]=old; else delete store.stats[it.q.id];
+  qStat(it.q.id).bm=bm;
+  gradeStat(it.q.id, it.correct, !!it.guess);
+}
 
 /* ============================================================
    Results

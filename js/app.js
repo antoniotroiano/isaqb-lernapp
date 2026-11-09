@@ -107,6 +107,7 @@ document.addEventListener("keydown", e=>{
     if(e.key===" " && e.target && e.target.classList && e.target.classList.contains("opt")){ e.preventDefault(); e.target.click(); return; }   // Leertaste auf fokussierter Antwort = auswählen
     if(enter){ if(onBtn) return; e.preventDefault(); if(!pb.disabled) pb.click(); }
     else if(e.key==="ArrowLeft"){ const pv=$("#prevBtn"); if(pv && !pv.classList.contains("hidden")){ e.preventDefault(); pv.click(); } }
+    else if(e.key==="g"||e.key==="G"){ const gb=$("#guessBtn"); if(gb && !gb.classList.contains("hidden")){ e.preventDefault(); gb.click(); } }
     else if(session && session.items[session.idx].q.type==="k"){
       // K-Fragen: ↑/↓ wechselt die markierte Zeile, 1/2 wählt die Kategorie und springt zur nächsten Zeile
       const it=session.items[session.idx], rows=$$("#optList .krow");
