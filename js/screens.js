@@ -69,7 +69,7 @@ function finishQuiz(){
     $("#resScore").textContent = pct+"%";
     const pass=pct>=60;
     const pe=$("#resPass"); pe.textContent=pass?T("Bestanden-Niveau (≥ 60 %)","Passing level (≥ 60 %)"):T("Noch unter 60 %","Still below 60 %"); pe.className="pass "+(pass?"ok":"no");
-    $("#resDetail").textContent = correct+T(" von "," of ")+total+T(" Fragen komplett richtig. (Übungsmodus – ohne Punktewertung; für die echte Simulation den Prüfungsmodus nutzen.)"," questions fully correct. (Practice mode – no points; use exam mode for the real simulation.)");
+    $("#resDetail").textContent = correct+T(" von "," of ")+total+T(" Fragen komplett richtig. (Übungsmodus – ohne Punktewertung; für die echte Simulation „Prüfung wie im Original“ nutzen.)"," questions fully correct. (Practice mode – no points; use “Exam like the original” for the real simulation.)");
     const byCh={};
     session.items.forEach(it=>{ const c=it.q.chapter; (byCh[c]=byCh[c]||{t:0,c:0}); byCh[c].t++; if(it.correct) byCh[c].c++; });
     Object.keys(byCh).sort().forEach(c=>{ const o=byCh[c]; const p=Math.round(o.c/o.t*100); box.appendChild(barRow(T("K","Ch")+c, p, o.c+"/"+o.t)); });
@@ -181,8 +181,6 @@ function renderStats(){
 }
 function drillChapter(ch){
   ui.mode="practice";
-  $$("#modeSeg button").forEach(x=>x.classList.toggle("active", x.dataset.mode==="practice"));
-  $("#modeHint").textContent=T("Üben: sofortiges Feedback mit Erklärung nach jeder Frage.","Practice: instant feedback with an explanation after each question.");
   ui.chapters=new Set([ch]); ui.onlyWrong=false; ui.onlyBookmarks=false;
   buildChapterChips();
   const pool=poolQuestions().length; ui.num=Math.min(Math.max(ui.num,10), Math.max(5,pool));

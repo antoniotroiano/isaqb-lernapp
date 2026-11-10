@@ -16,15 +16,6 @@ function cycleTheme(){
    ============================================================ */
 function initHome(){
   buildChapterChips();
-  // mode
-  $$("#modeSeg button").forEach(b=>b.onclick=()=>{
-    $$("#modeSeg button").forEach(x=>x.classList.remove("active"));
-    b.classList.add("active"); ui.mode=b.dataset.mode;
-    $("#modeHint").textContent = ui.mode==="practice"
-      ? T("Üben: sofortiges Feedback mit Erklärung nach jeder Frage.","Practice: instant feedback with an explanation after each question.")
-      : T("Prüfung: "+EXAM_BASE_N+" Fragen · "+EXAM_BASE_MIN+" Min · 60 % zum Bestehen · Punkte & offizielle iSAQB-Bewertung.","Exam: "+EXAM_BASE_N+" questions · "+EXAM_BASE_MIN+" min · 60 % to pass · points & official iSAQB scoring.");
-    if(ui.mode==="exam"){ const p=poolQuestions().length; ui.num=Math.min(EXAM_BASE_N, p||5); const r=$("#numRange"); r.value=ui.num; $("#numLabel").textContent=ui.num; }
-  });
   // R chips
   $$("#rChips .chip").forEach(c=>c.onclick=()=>{
     const r=c.dataset.r;
@@ -146,7 +137,7 @@ $("#dataHomeBtn").onclick=renderStats;
 $("#copyExportBtn").onclick=copyExport;
 $("#downloadExportBtn").onclick=downloadExport;
 $("#importBtn").onclick=doImport;
-$("#srsBtn").onclick=()=>{ const d=dueQuestions(); if(!d.length){ alert(T("Aktuell keine Fragen fällig. 🎉","No questions due right now. 🎉")); return; } if(store.session && !confirm(T("Es gibt eine unterbrochene Runde. Neue Runde starten und die alte verwerfen?","There is an interrupted round. Start a new round and discard the old one?"))) return; ui.mode="practice"; $$("#modeSeg button").forEach(x=>x.classList.toggle("active", x.dataset.mode==="practice")); $("#modeHint").textContent=T("Üben: sofortiges Feedback mit Erklärung nach jeder Frage.","Practice: instant feedback with an explanation after each question."); clearSession(); buildSession(d); };
+$("#srsBtn").onclick=()=>{ const d=dueQuestions(); if(!d.length){ alert(T("Aktuell keine Fragen fällig. 🎉","No questions due right now. 🎉")); return; } if(store.session && !confirm(T("Es gibt eine unterbrochene Runde. Neue Runde starten und die alte verwerfen?","There is an interrupted round. Start a new round and discard the old one?"))) return; ui.mode="practice"; clearSession(); buildSession(d); };
 $("#flashBtn").onclick=startFlash;
 $("#browseBtn").onclick=renderBrowse;
 $("#browseHomeBtn").onclick=()=>{ updatePool(); show("home"); };
@@ -176,8 +167,6 @@ $("#reviewWrongBtn").onclick=()=>{
   const wrong=session.items.filter(x=>x.correct!==true).map(x=>x.q);
   if(wrong.length===0){ alert(T("Alles komplett richtig – super!","Everything fully correct – great!")); return; }
   ui.mode="practice";
-  $$("#modeSeg button").forEach(x=>x.classList.toggle("active", x.dataset.mode==="practice"));
-  $("#modeHint").textContent=T("Üben: sofortiges Feedback mit Erklärung nach jeder Frage.","Practice: instant feedback with an explanation after each question.");
   ui.num=wrong.length; buildSession(wrong);
 };
 $("#resumeBtn").onclick=()=>{ if(restoreSession()){ show("quiz"); renderQuestion(); startExamTimer(); } else { updateResumeBanner(); } };
@@ -191,9 +180,6 @@ $("#navBack").onclick=()=>{ const vis=["stats","data","browse","conceptmap","glo
 /* Nach Sprachwechsel: sichtbaren Screen neu rendern (statische Texte macht applyLang). */
 function rerenderCurrent(){
   buildChapterChips(); updatePool(); updateResumeBanner();
-  $("#modeHint").textContent = ui.mode==="practice"
-    ? T("Üben: sofortiges Feedback mit Erklärung nach jeder Frage.","Practice: instant feedback with an explanation after each question.")
-    : T("Prüfung: "+EXAM_BASE_N+" Fragen · "+EXAM_BASE_MIN+" Min · 60 % zum Bestehen · Punkte & offizielle iSAQB-Bewertung.","Exam: "+EXAM_BASE_N+" questions · "+EXAM_BASE_MIN+" min · 60 % to pass · points & official iSAQB scoring.");
   const vis = id => !$("#"+id).classList.contains("hidden");
   if(vis("quiz") && session) renderQuestion();
   else if(vis("review")) renderReview();

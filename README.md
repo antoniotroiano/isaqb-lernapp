@@ -6,12 +6,12 @@
 
 **App öffnen:** <https://antoniotroiano.github.io/isaqb-lernapp/>
 
-*Version 1.19.0*
+*Version 1.20.0*
 
 ## Das steckt drin
 
 - **312 eigene Fragen** zu allen 6 Kapiteln des Curriculums, mit Begründung zu jeder Antwort (269 prüfungsrelevant R1/R2, 43 zur Vertiefung R3)
-- **Prüfungssimulation** nach den iSAQB-Regeln (38 Fragen, 75 Min, 60 % zum Bestehen) und die **offizielle iSAQB-Beispielprüfung**
+- **Prüfung wie im Original** nach den iSAQB-Regeln (38 Fragen, 75 Min, 60 % zum Bestehen) und die **offizielle iSAQB-Beispielprüfung**
 - **Lernhilfen:** Wiederholen nach Lernplan (Spaced Repetition), Karteikarten, Lernstoff je Lernziel, Concept Map, Glossar
 - **Statistik** mit Prüfungsreife-Schätzung, Export und Import des Fortschritts
 - **Deutsch und Englisch**, Dark Mode, Handy und Desktop
@@ -42,7 +42,7 @@ Practice app for preparing for the **CPSA-F** certification (Certified Professio
 ### What is inside
 
 - **312 original questions** on all 6 chapters of the curriculum, with a reason for every answer (269 exam-relevant R1/R2, 43 for deeper study R3)
-- **Exam simulation** following the iSAQB rules (38 questions, 75 min, 60 % to pass) and the **official iSAQB example exam**
+- **Exam like the original** following the iSAQB rules (38 questions, 75 min, 60 % to pass) and the **official iSAQB example exam**
 - **Learning aids:** spaced repetition, flashcards, study material per learning goal, concept map, glossary
 - **Statistics** with an exam readiness estimate, export and import of your progress
 - **German and English**, dark mode, phone and desktop

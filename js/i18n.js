@@ -61,7 +61,6 @@ const I18N = {
  de:{
   "hdr.stats":"Statistik","hdr.theme":"Design","hdr.lang":"Sprache",
   "home.resumeTitle":"⏸ Unterbrochene Runde","home.resume":"▶ Fortsetzen","home.discard":"Verwerfen",
-  "home.mode":"Modus","mode.practice":"Üben","mode.exam":"Prüfung simulieren",
   "home.chapters":"Kapitel","home.relevance":"Prüfungsrelevanz",
   "r1.chip":"R1 · kommt sicher","r2.chip":"R2 · kann drankommen","r3.chip":"R3 · nicht prüfungsrelevant",
   "relevance.hint":"Standard: R1 + R2. R3 dient nur dem Verständnis.",
@@ -100,7 +99,6 @@ const I18N = {
  en:{
   "hdr.stats":"Statistics","hdr.theme":"Theme","hdr.lang":"Language",
   "home.resumeTitle":"⏸ Interrupted round","home.resume":"▶ Resume","home.discard":"Discard",
-  "home.mode":"Mode","mode.practice":"Practice","mode.exam":"Exam simulation",
   "home.chapters":"Chapters","home.relevance":"Exam relevance",
   "r1.chip":"R1 · will be tested","r2.chip":"R2 · may be tested","r3.chip":"R3 · not exam-relevant",
   "relevance.hint":"Default: R1 + R2. R3 is for understanding only.",
