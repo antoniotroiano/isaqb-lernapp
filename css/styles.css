@@ -291,7 +291,7 @@ input[type=checkbox]{accent-color:var(--accent)}
 
 /* Startseite: Aktionen oben, Auswahl eingeklappt, Lern-Kacheln */
 .homeactions{margin-bottom:0}.homeactions .btn{margin-top:0}
-.seldet{padding:0}.seldet summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-height:48px}
+.seldet{padding:0;margin-top:14px}.seldet summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-height:48px}
 .seldet summary::-webkit-details-marker{display:none}
 .seldet summary{position:relative;padding-right:64px}
 .seldet summary::after{content:"";position:absolute;right:14px;top:50%;width:36px;height:36px;margin-top:-18px;border-radius:50%;background:var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d85a30' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 9l7 7 7-7'/%3E%3C/svg%3E") center/22px no-repeat;transition:transform .2s}
@@ -305,7 +305,7 @@ input[type=checkbox]{accent-color:var(--accent)}
 .tile{display:flex;flex-direction:column;gap:4px;text-align:left;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px;cursor:pointer;font:inherit;min-height:76px}
 .tile b{font-size:.95rem}.tile small{color:var(--muted);font-size:.78rem;line-height:1.3}
 .tile.wide{width:100%;margin-top:10px}
-.tile.mock{width:100%;margin-top:16px;border-color:var(--accent);background:var(--accent-soft)}
+.tile.mock{width:100%;margin-top:16px;border-left:4px solid var(--accent)}
 .tile:active{transform:scale(.98)}
 
 /* Hinweis-Dialog (Update / überarbeitete Fragen) */
