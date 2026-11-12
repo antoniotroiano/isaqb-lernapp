@@ -24,7 +24,6 @@ function initHome(){
   });
   // option chips
   $("#onlyBookmarks").onclick=e=>{ ui.onlyBookmarks=!ui.onlyBookmarks; e.target.classList.toggle("active"); updatePool(); };
-  $("#onlyWrong").onclick=e=>{ ui.onlyWrong=!ui.onlyWrong; e.target.classList.toggle("active"); updatePool(); };
   $("#spacedRep").onclick=e=>{ ui.spacedRep=!ui.spacedRep; e.target.classList.toggle("active"); };
   $("#shuffleOpts").onclick=e=>{ ui.shuffleOpts=!ui.shuffleOpts; e.target.classList.toggle("active"); };
   $("#numRange").oninput=e=>{ ui.num=+e.target.value; $("#numLabel").textContent=e.target.value; updateSelSummary(); };

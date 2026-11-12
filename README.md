@@ -6,7 +6,7 @@
 
 **App öffnen:** <https://antoniotroiano.github.io/isaqb-lernapp/>
 
-*Version 1.20.0*
+*Version 1.21.0*
 
 ## Das steckt drin
 

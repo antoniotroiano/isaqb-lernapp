@@ -14,7 +14,6 @@ let ui = {
   chapters:new Set([1,2,3,4,5,6]),
   rlevels:new Set(["R1","R2"]),
   onlyBookmarks:false,
-  onlyWrong:false,
   spacedRep:true,
   shuffleOpts:true,
   num:20

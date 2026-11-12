@@ -89,7 +89,6 @@ function buildChapterChips(){
 function poolQuestions(){
   let pool = QUESTIONS.filter(q=>ui.chapters.has(q.chapter) && ui.rlevels.has(q.r));
   if(ui.onlyBookmarks) pool = pool.filter(q=>qStat(q.id).bm);
-  if(ui.onlyWrong) pool = pool.filter(q=>{ const s=qStat(q.id); return s.seen>0 && s.wrong>0 && s.streak===0; });
   return pool;
 }
 function dueQuestions(){ const now=Date.now(); return poolQuestions().filter(q=>{ const s=store.stats[q.id]; return s && s.seen>0 && (s.due||0)<=now; }); }
@@ -98,7 +97,7 @@ function updateSelSummary(){
   const rl=["R1","R2","R3"].filter(r=>ui.rlevels.has(r)).join("+")||"–";
   const ch=ui.chapters.size>=6?T("alle Kapitel","all chapters"):T("Kap. ","Ch. ")+[...ui.chapters].sort().join(",");
   const n=Math.min(ui.num, poolQuestions().length);
-  el.textContent=n+T(" Fragen · "," questions · ")+rl+" · "+ch+(ui.onlyBookmarks?" · ☆":"")+(ui.onlyWrong?" · ✕":"");
+  el.textContent=n+T(" Fragen · "," questions · ")+rl+" · "+ch+(ui.onlyBookmarks?" · ☆":"");
 }
 function updatePool(){
   const pool = poolQuestions();

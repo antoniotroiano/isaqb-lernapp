@@ -181,7 +181,7 @@ function renderStats(){
 }
 function drillChapter(ch){
   ui.mode="practice";
-  ui.chapters=new Set([ch]); ui.onlyWrong=false; ui.onlyBookmarks=false;
+  ui.chapters=new Set([ch]); ui.onlyBookmarks=false;
   buildChapterChips();
   const pool=poolQuestions().length; ui.num=Math.min(Math.max(ui.num,10), Math.max(5,pool));
   buildSession();
