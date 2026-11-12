@@ -18,7 +18,7 @@ const QUESTIONS = [
   "q": "Welche Aussagen zum Begriff Softwarearchitektur treffen im Sinne des CPSA-F zu?",
   "options": [
    "Jedes System hat eine, auch ohne bewussten Entwurf.",
-   "Sie umfasst jede beliebige Entscheidung im Projekt, auch Namen von Variablen.",
+   "Sie entsteht erst durch ihre Dokumentation.",
    "Sie umfasst Bausteine samt Schnittstellen und Beziehungen.",
    "Querschnittsthemen und Prinzipien gehören dazu.",
    "Sie ist gleichbedeutend mit dem gewählten Architekturstil."
@@ -30,12 +30,12 @@ const QUESTIONS = [
   ],
   "optExpl": [
    "Richtig: Architektur existiert immer, auch wenn sie nie bewusst geplant oder dokumentiert wurde. Jedes System hat Bausteine und Beziehungen; Dokumentation beschreibt diese Architektur nur, sie erschafft sie nicht.",
-   "Falsch: Übergeneralisierung: Gemeint sind die tragenden, systemweit wirksamen und schwer änderbaren Entscheidungen. Detailentscheidungen wie Variablennamen oder lokale Algorithmen gehören nicht zur Architektur.",
+   "Falsch: Architektur existiert unabhängig von ihrer Beschreibung. Dokumentation macht die vorhandene Architektur nur sichtbar und kommunizierbar, sie erschafft sie nicht.",
    "Richtig: Das ist der gemeinsame Kern der gängigen Architekturdefinitionen (R1). Bausteine allein ohne ihre Schnittstellen und Beziehungen beschreiben noch keine Architektur, erst das Zusammenspiel macht sie aus.",
    "Richtig: Das Curriculum zählt neben Strukturen auch Querschnittsthemen wie Persistenz, Logging oder Fehlerbehandlung sowie übergreifende Prinzipien ausdrücklich zur Architektur. Sie wirken über viele Bausteine hinweg.",
    "Falsch: Begriffsverwechslung: Ein Stil wie Schichten oder Microservices prägt die Architektur, ist aber nur ein Teil davon. Bausteine, Querschnittsthemen und tragende Entscheidungen gehen weit über den Stil hinaus."
   ],
-  "explanation": "Architektur umfasst Bausteine mit Schnittstellen und Beziehungen, Querschnittsthemen, Prinzipien und tragende Entscheidungen, und jedes System hat eine. Fallen: Nicht jede Entscheidung ist Architektur, und der Architekturstil ist nur ein Teil davon."
+  "explanation": "Architektur umfasst Bausteine mit Schnittstellen und Beziehungen, Querschnittsthemen, Prinzipien und tragende Entscheidungen, und jedes System hat eine. Fallen: Sie entsteht nicht erst durch Dokumentation, und der Architekturstil ist nur ein Teil davon."
  },
  {
   "id": "c1q2",
@@ -73,23 +73,25 @@ const QUESTIONS = [
   "lz": "LZ 03-02",
   "r": "R1",
   "type": "single",
-  "q": "In einer Architekturdokumentation wird ein Subsystem an einer Stelle als Blackbox, an anderer als Whitebox beschrieben. Was trifft am ehesten zu?",
+  "q": "Was trifft auf das Verhältnis der Blackbox- und der Whitebox-Beschreibung eines Bausteins zu?",
   "options": [
-   "Die Blackbox beschreibt die angebotenen Schnittstellen; die benötigten Schnittstellen gehören dagegen erst in die Whitebox.",
-   "Die Whitebox zeigt die enthaltenen Bausteine; deren Blackbox-Beschreibungen gehören jedoch erst auf die nächste Verfeinerungsebene, nicht in diese Whitebox.",
-   "Die Whitebox darf zusätzliche externe Schnittstellen einführen, die in der Blackbox nicht vorkommen, weil sie detaillierter ist.",
-   "Die Whitebox muss zur Blackbox passen: Sie zeigt die inneren Bausteine, ihr Zusammenspiel und wie die Schnittstellen der Blackbox intern bedient werden."
+   "Die Whitebox ersetzt die Blackbox-Beschreibung, sobald sie vorliegt, da sie alle Informationen der Außensicht enthält.",
+   "Die Blackbox beschreibt die angebotenen Schnittstellen; die benötigten Schnittstellen gehören erst in die Whitebox.",
+   "Die Whitebox zeigt, wie innere Bausteine zusammen Verantwortung und Schnittstellen der Blackbox erfüllen; sie darf ihr nicht widersprechen.",
+   "Blackbox und Whitebox unterscheiden die Sichten: Die Blackbox gehört zur Bausteinsicht, die Whitebox zur Laufzeitsicht.",
+   "In der Whitebox werden die enthaltenen Bausteine nur benannt; ihre Verantwortung und Schnittstellen entstehen erst mit deren eigener Whitebox."
   ],
   "correct": [
-   3
+   2
   ],
   "optExpl": [
-   "Falsch: Auch benötigte Schnittstellen gehören zur Außensicht, denn sie zeigen, wovon der Baustein abhängt. Wer ihn einsetzen oder austauschen will, muss diese Abhängigkeiten kennen – deshalb beschreibt die Blackbox angebotene UND benötigte Schnittstellen.",
-   "Falsch: Eine Whitebox beschreibt ihre enthaltenen Bausteine gerade als Blackboxes, also mit Verantwortung und Schnittstellen. Erst wenn man einen dieser Bausteine öffnet, folgt auf der nächsten Verfeinerungsebene dessen eigene Whitebox.",
-   "Falsch: Mehr Detail bedeutet nicht mehr Außenkontakt: Externe Schnittstellen, die nur in der Whitebox auftauchen, machen beide Sichten inkonsistent. Die Whitebox verfeinert die Außensicht, sie erweitert sie nicht – fehlt eine Schnittstelle, ist die Blackbox zu korrigieren.",
-   "Richtig: Die Whitebox ist die Innensicht desselben Bausteins und muss zu dessen Außensicht konsistent sein. Sie zeigt die enthaltenen Bausteine, ihr Zusammenspiel und welche davon die äußeren Schnittstellen realisieren, z. B. welcher Teil die REST-API bedient."
+   "Falsch: Die Whitebox ergänzt die Blackbox. Verantwortung, Schnittstellen und Zusicherungen für Nutzer des Bausteins bleiben in der Blackbox beschrieben.",
+   "Falsch: Auch die benötigten Schnittstellen gehören zur Außensicht. Die Blackbox verbirgt das Innere, nicht die Abhängigkeiten nach außen.",
+   "Richtig: Die Whitebox verfeinert die Blackbox um die Innensicht. Beide beschreiben denselben Baustein und müssen konsistent sein.",
+   "Falsch: Blackbox und Whitebox unterscheiden die Detailtiefe (Außen- bzw. Innensicht), nicht die Sicht. Beide kommen z. B. in der Bausteinsicht vor.",
+   "Falsch: Jeder enthaltene Baustein hat seine Blackbox-Beschreibung (Verantwortung, Schnittstellen). Erst bei Bedarf wird er selbst als Whitebox geöffnet."
   ],
-  "explanation": "Blackbox = Außensicht mit Verantwortung sowie angebotenen UND benötigten Schnittstellen. Whitebox = Innensicht, konsistent zur Blackbox; ihre inneren Bausteine beschreibt sie selbst wieder als Blackboxes. Fallen: benötigte Schnittstellen in die Whitebox schieben oder dort neue externe Schnittstellen erfinden."
+  "explanation": "Blackbox = Außensicht (WAS), Whitebox = Innensicht (WIE), beide konsistent und ergänzend. Fallen: Blackbox/Whitebox mit Bausteinsicht/Laufzeitsicht verwechseln, benötigte Schnittstellen der Whitebox zuschlagen, die Whitebox als Ersatz sehen."
  },
  {
   "id": "c1q4",
@@ -99,7 +101,7 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Welche Aussagen zu Architektursichten treffen zu?",
   "options": [
-   "Sichten dürfen sich widersprechen, da sie verschiedene Zielgruppen bedienen.",
+   "Die Laufzeitsicht beschreibt, auf welchen Knoten die Bausteine betrieben werden.",
    "Die Bausteinsicht zeigt, welche Bausteine wann kommunizieren.",
    "Die Verteilungssicht ordnet Artefakte Infrastrukturknoten zu.",
    "Die Laufzeitsicht zeigt das Zusammenwirken von Bausteinen in Szenarien.",
@@ -110,13 +112,13 @@ const QUESTIONS = [
    3
   ],
   "optExpl": [
-   "Falsch: Sichten zeigen verschiedene Aspekte desselben Systems und müssen deshalb zueinander konsistent sein. Unterschiedliche Zielgruppen rechtfertigen andere Schwerpunkte und Detailgrade, aber keine Widersprüche – die wären ein Dokumentationsfehler.",
+   "Falsch: Die Zuordnung von Bausteinen bzw. Artefakten zu Knoten ist Sache der Verteilungssicht. Die Laufzeitsicht beschreibt das Zusammenspiel der Bausteine in Szenarien.",
    "Falsch: Das „wann“ gehört in die Laufzeitsicht. Die Bausteinsicht zeigt die statische Zerlegung des Systems in Bausteine mit ihren Schnittstellen und Abhängigkeiten, nicht deren zeitliches Zusammenspiel in konkreten Abläufen.",
    "Richtig: Die Verteilungssicht zeigt, auf welchen Infrastrukturknoten (Server, Container, Geräte) welche Artefakte laufen und über welche Kanäle die Knoten verbunden sind. Beispiel: das Web-Archiv läuft auf zwei Applikationsservern hinter einem Load Balancer.",
    "Richtig: Die Laufzeitsicht beschreibt das dynamische Verhalten: Wie wirken Bausteine in einem konkreten Szenario zusammen? Typisch sind Sequenz- oder Aktivitätsdiagramme, etwa für den Ablauf „Bestellung aufgeben“ oder den Systemstart.",
    "Falsch: Hier wird die Kontextsicht mit Ebene 1 der Bausteinsicht verwechselt. Die Kontextsicht zeigt das System als Blackbox mit seinen externen Nachbarn (Nutzer, Fremdsysteme) und Schnittstellen; die erste Zerlegung gehört in die Bausteinsicht."
   ],
-  "explanation": "Laufzeitsicht = dynamisches Zusammenspiel in Szenarien, Verteilungssicht = Artefakte auf Knoten. Fallen: Die Kontextsicht ist keine Zerlegungsebene, das zeitliche Verhalten gehört nicht in die Bausteinsicht, und Sichten müssen konsistent sein."
+  "explanation": "Laufzeitsicht = dynamisches Zusammenspiel in Szenarien, Verteilungssicht = Artefakte auf Knoten. Fallen: Die Kontextsicht ist keine Zerlegungsebene, das zeitliche Verhalten gehört nicht in die Bausteinsicht, und die Zuordnung zu Knoten gehört nicht in die Laufzeitsicht."
  },
  {
   "id": "c1q5",
@@ -183,23 +185,25 @@ const QUESTIONS = [
   "lz": "LZ 03-05",
   "r": "R1",
   "type": "single",
-  "q": "Ein Team muss den Architekturstil festlegen, obwohl wichtige Anforderungen noch offen sind. Was ist am ehesten angemessen?",
+  "q": "Wichtige Anforderungen sind noch offen, der Architekturstil muss aber festgelegt werden. Welches Vorgehen ist am ehesten angemessen?",
   "options": [
-   "Zuerst ein detailliertes Feindesign aller Bausteine erstellen.",
-   "Ein ADR schreiben, damit die Entscheidung günstig umkehrbar bleibt.",
-   "Entscheiden, sobald die Anforderungen abgenommen sind.",
-   "Entscheiden, Annahmen festhalten und später überprüfen."
+   "Den Stil so wählen, dass er möglichst alle denkbaren künftigen Anforderungen abdeckt.",
+   "Die Entscheidung in einem ADR festhalten, damit sie später ohne Mehraufwand änderbar ist.",
+   "Den Stil festlegen, die zugrunde liegenden Annahmen dokumentieren und die Entscheidung bei neuen Erkenntnissen überprüfen.",
+   "Einen Prototyp des Stils bauen und diesen später zum Produktivsystem ausbauen.",
+   "Die Entscheidung zurückstellen, bis der Auftraggeber die offenen Anforderungen abgenommen hat."
   ],
   "correct": [
-   3
+   2
   ],
   "optExpl": [
-   "Falsch: Big Design Up Front beruht auf demselben unvollständigen Wissen wie die offene Stilentscheidung. Ein detailliertes Feindesign verlagert die Unsicherheit nur in einen umfangreichen Plan, der bei geklärten Anforderungen wieder umgeworfen werden muss.",
-   "Falsch: Ein ADR macht die Entscheidung samt Kontext und Begründung nachvollziehbar, macht sie aber nicht billiger umkehrbar. Ein Wechsel des Architekturstils bleibt teuer, egal wie gut er dokumentiert ist – Doku und Reversibilität sind zwei verschiedene Dinge.",
-   "Falsch: Anforderungen sind in der Praxis nie vollständig und stabil; auf eine komplette Abnahme zu warten blockiert das Projekt. Das Warten verschiebt Risiken nur nach hinten, statt sie früh durch bewusste Entscheidungen sichtbar zu machen.",
-   "Richtig: Architekturarbeit geschieht laut Curriculum unter Unsicherheit und ist iterativ. Wer entscheidet und die zugrunde liegenden Annahmen explizit festhält, kann sie später gezielt überprüfen und die Entscheidung bei Bedarf anpassen, etwa nach einem Spike."
+   "Falsch: Ein Stil, der alles Denkbare abdeckt, ist meist komplex und teuer und trifft ohnehin nicht die tatsächlich eintretenden Anforderungen. Flexibilität sollte gezielt dort vorgesehen werden, wo Änderungen wahrscheinlich sind.",
+   "Falsch: Ein ADR macht Entscheidung, Kontext und Begründung nachvollziehbar, senkt aber nicht die Kosten einer späteren Änderung. Dokumentation und Umkehrbarkeit sind zwei verschiedene Eigenschaften.",
+   "Richtig: Architekturarbeit findet unter Unsicherheit statt und ist iterativ. Mit explizit dokumentierten Annahmen lässt sich später gezielt prüfen, ob die Entscheidung noch trägt, etwa nach einem Durchstich.",
+   "Falsch: Prototypen sind auf schnelle Erkenntnis ausgelegt, nicht auf Robustheit und Wartbarkeit. Sie als Basis des Produktivsystems weiterzuverwenden, übernimmt bewusst eingegangene Abkürzungen ins Produkt.",
+   "Falsch: Eine vollständige Abnahme ist in der Praxis selten und blockiert bis dahin das Projekt. Das Warten verschiebt Risiken nur nach hinten, statt sie früh durch bewusste Entscheidungen beherrschbar zu machen."
   ],
-  "explanation": "Unter Unsicherheit entscheidet man bewusst, dokumentiert die Annahmen und überprüft sie iterativ. Fallen: Warten auf vollständige Anforderungen verschiebt nur Risiken, und ein ADR schafft Nachvollziehbarkeit, aber keine billige Umkehrbarkeit."
+  "explanation": "Unter Unsicherheit entscheidet man bewusst, dokumentiert Annahmen und überprüft sie iterativ. Fallen: Alles abdecken wollen, Dokumentation mit Umkehrbarkeit verwechseln, Prototypen weiterverwenden oder auf Vollständigkeit warten."
  },
  {
   "id": "c1q8",
@@ -213,8 +217,8 @@ const QUESTIONS = [
    "Randbedingungen schränken den Lösungsraum von Beginn an ein.",
    "Architekturentscheidungen können neue Anforderungen erzeugen.",
    "Die Architektur muss sicherstellen, dass die funktionalen Anforderungen erfüllbar sind.",
-   "Qualitätsanforderungen prägen vor allem die Grobstruktur.",
-   "Die Anforderungen stehen zu Projektbeginn fest, daher bleibt die Architektur danach stabil.",
+   "Qualitätsanforderungen prägen wesentlich die Grobstruktur.",
+   "Nichtfunktionale Anforderungen werden erst nach der Implementierung für die Architektur relevant.",
    "Funktionale Anforderungen legen die Bausteinstruktur eindeutig fest."
   ],
   "correct": [
@@ -229,10 +233,10 @@ const QUESTIONS = [
    "Richtig: Architektur und Anforderungen beeinflussen sich wechselseitig. Wer sich etwa für Cloud-Betrieb entscheidet, bekommt neue Anforderungen an Betrieb, Sicherheit und Kostenkontrolle, die vorher niemand formuliert hatte.",
    "Richtig: Das Curriculum nennt als Ziel von Architektur, funktionale Anforderungen zu erreichen bzw. deren Erfüllbarkeit sicherzustellen.",
    "Richtig: Funktionen lassen sich mit sehr vielen Strukturen umsetzen. Erst Qualitätsanforderungen wie Performanz, Verfügbarkeit oder Änderbarkeit schränken die Lösung wirklich ein und prägen damit die Grobstruktur.",
-   "Falsch: Anforderungen ändern sich, und Entscheidungen können neue Anforderungen erzeugen. Die Architektur entwickelt sich deshalb iterativ weiter.",
+   "Falsch: Qualitätsanforderungen prägen die Grobstruktur von Beginn an. Werden sie spät berücksichtigt, lassen sie sich oft nur mit hohem Aufwand nachträglich erreichen.",
    "Falsch: Dieselbe Funktionalität lässt sich als Monolith, in Schichten oder als Microservices umsetzen. Funktionale Anforderungen legen die Bausteinstruktur deshalb nicht eindeutig fest; das tun eher Qualitäten und Randbedingungen."
   ],
-  "explanation": "Qualitätsanforderungen und Randbedingungen prägen die Struktur, und Architekturentscheidungen wirken auf die Anforderungen zurück. Fallen: Die Architektur bestimmt nicht den Funktionsumfang, und Funktionen allein legen keine Struktur eindeutig fest."
+  "explanation": "Qualitätsanforderungen und Randbedingungen prägen die Struktur, und Architekturentscheidungen wirken auf die Anforderungen zurück. Fallen: Die Architektur bestimmt nicht den Funktionsumfang, Qualitäten sind nicht erst nach der Implementierung relevant, und Funktionen allein legen keine Struktur eindeutig fest."
  },
  {
   "id": "c1q9",
@@ -337,26 +341,29 @@ const QUESTIONS = [
   "lz": "LZ 03-06",
   "r": "R1",
   "type": "multi",
-  "q": "Welche Eigenschaften kennzeichnen am ehesten einen gut geschnittenen Baustein?",
+  "q": "Welche Aussagen zum Zuschnitt von Bausteinen treffen zu?",
   "options": [
-   "Lose Kopplung zu anderen Bausteinen.",
-   "Hohe Kohäsion zwischen benachbarten Bausteinen.",
-   "Möglichst feine Granularität.",
-   "Möglichst viele öffentliche Operationen für Flexibilität.",
-   "Hohe Kohäsion innerhalb des Bausteins."
+   "Je feiner Bausteine geschnitten werden, desto geringer ist die Gesamtkopplung des Systems.",
+   "Bei hoher Kohäsion bleiben Änderungen eines fachlichen Aspekts tendenziell auf einen Baustein beschränkt.",
+   "Ein Baustein mit hoher Kohäsion kann trotzdem stark an andere Bausteine gekoppelt sein.",
+   "Eine breite öffentliche Schnittstelle verringert die Kopplung, weil Nutzer weniger Umwege über andere Bausteine brauchen.",
+   "Hohe Kohäsion bezeichnet den Grad der Abhängigkeiten zwischen benachbarten Bausteinen.",
+   "Ein Zuschnitt nach fachlicher Verantwortung führt tendenziell zu hoher Kohäsion und geringer Kopplung."
   ],
   "correct": [
-   0,
-   4
+   1,
+   2,
+   5
   ],
   "optExpl": [
-   "Richtig: Wenige, klar definierte Abhängigkeiten über Schnittstellen begrenzen die Auswirkungen von Änderungen. Ändert sich ein Baustein intern, bleiben lose gekoppelte Nachbarn unberührt – ein zentrales Entwurfsprinzip im Curriculum.",
-   "Falsch: Begriffsverwechslung: Kohäsion beschreibt den Zusammenhalt im Inneren eines Bausteins. Enge Verflechtung zwischen benachbarten Bausteinen ist Kopplung – und die soll gerade niedrig sein.",
-   "Falsch: Kleine Bausteine sind nicht automatisch kohäsiv. Zu feine Schnitte zerreißen zusammengehörige Logik und erhöhen die Zahl der Abhängigkeiten, also die Kopplung. Die richtige Größe ergibt sich aus der Verantwortung, nicht aus einem Minimum.",
-   "Falsch: Breite Schnittstellen legen Interna offen und verletzen das Geheimnisprinzip. Je mehr Operationen Nutzer verwenden, desto stärker sind sie an den Baustein gekoppelt und desto schwerer wird er änderbar.",
-   "Richtig: Hohe Kohäsion bedeutet: Zusammengehörige Aufgaben sind in einem Baustein gebündelt. Änderungen an einer fachlichen Verantwortung bleiben dadurch lokal, statt sich über viele Bausteine zu verteilen."
+   "Falsch: Sehr feine Bausteine reißen Zusammengehöriges auseinander und erzeugen mehr Beziehungen zwischen Bausteinen. Die Kopplung steigt dann eher, als dass sie sinkt.",
+   "Richtig: Was fachlich zusammengehört, liegt im selben Baustein. Eine Änderung an diesem Aspekt trifft dann wenige Bausteine.",
+   "Richtig: Kohäsion (innen) und Kopplung (außen) sind unabhängige Kriterien. Ein in sich stimmiger Baustein kann viele Abhängigkeiten zu anderen haben.",
+   "Falsch: Eine breite Schnittstelle legt Interna offen und lässt Nutzer von mehr Details abhängen. Das erhöht die Kopplung und verletzt Information Hiding.",
+   "Falsch: Das beschreibt Kopplung. Kohäsion bezeichnet den inneren Zusammenhalt innerhalb eines Bausteins, nicht die Beziehungen zu Nachbarn.",
+   "Richtig: Ein fachlich orientierter Schnitt bündelt Zusammengehöriges (Kohäsion) und braucht dadurch weniger Beziehungen zwischen den Bausteinen. Es ist eine Tendenz, keine Garantie."
   ],
-  "explanation": "Ein gut geschnittener Baustein hat hohe Kohäsion im Inneren und lose Kopplung nach außen über schmale Schnittstellen. Fallen: Kohäsion gilt innerhalb, nicht zwischen Bausteinen; „möglichst klein“ ist nicht gleich kohäsiv, und viele öffentliche Operationen erhöhen die Kopplung."
+  "explanation": "Gut geschnittene Bausteine haben hohe Kohäsion innen und lose Kopplung außen, orientiert an fachlicher Verantwortung. Beide Kriterien sind unabhängig. Fallen: Kohäsion und Kopplung verwechseln, feine Granularität als Entkopplung ansehen, breite Schnittstellen als Entkopplung deuten."
  },
  {
   "id": "c1q13",
@@ -481,7 +488,7 @@ const QUESTIONS = [
    "Komplexität systematisch reduzieren.",
    "Den Funktionsumfang des Systems festlegen.",
    "Richtlinien für Implementierung und Betrieb festlegen.",
-   "Einhaltung von Budget und Terminen sicherstellen.",
+   "Die Qualität des Systems durch Tests nachweisen.",
    "Künftige Änderungen auch unvorhergesehener Art günstig machen."
   ],
   "correct": [
@@ -494,10 +501,10 @@ const QUESTIONS = [
    "Richtig: Komplexität systematisch zu reduzieren ist eines der Ziele laut Curriculum. Das geschieht durch Zerlegung, Abstraktion und klare Zuständigkeiten, sodass man Teile des Systems unabhängig verstehen und ändern kann.",
    "Falsch: Den Funktionsumfang bestimmen die Stakeholder über die Anforderungen. Architektur stellt sicher, dass er sich umsetzen lässt, legt ihn aber nicht fest – hier werden Anforderungs- und Lösungsseite verwechselt.",
    "Richtig: Leicht übersehen: Architekturrelevante Richtlinien für Implementierung und Betrieb sind ein eigenes Ziel im Curriculum. Beispiele sind Vorgaben zu Fehlerbehandlung, Logging oder Deployment, die die Struktur und die Qualitäten absichern.",
-   "Falsch: Architektur kann Planung und Aufwandsschätzung unterstützen, garantiert aber weder Budget- noch Termintreue. Das ist Aufgabe des Projektmanagements; im Curriculum steht es nicht unter den Zielen von Architektur.",
+   "Falsch: Der Nachweis der Qualität durch Tests gehört zu Test und Qualitätssicherung. Ziel der Architektur ist, die Qualitätsanforderungen auf nachvollziehbare Weise zu erreichen.",
    "Falsch: Nur vorhergesehene Änderungen lassen sich gezielt erleichtern, etwa durch Kapselung volatiler Teile. Jede beliebige Änderung billig zu machen ist unmöglich und würde zu Überkonstruktion führen."
   ],
-  "explanation": "Ziele laut Curriculum: Umsetzung unterstützen, Funktionen und Qualitäten erreichen, Verständnis sichern, Komplexität reduzieren, Richtlinien für Implementierung und Betrieb festlegen. Fallen: keine Budget-/Termingarantie, keine Festlegung der Features und keine Billig-Änderbarkeit für alles."
+  "explanation": "Ziele laut Curriculum: Umsetzung unterstützen, Funktionen und Qualitäten erreichen, Verständnis sichern, Komplexität reduzieren, Richtlinien für Implementierung und Betrieb festlegen. Fallen: keine Festlegung der Features, Qualitätsnachweis gehört zum Testen, keine Billig-Änderbarkeit für alles."
  },
  {
   "id": "c1q18",
@@ -505,29 +512,29 @@ const QUESTIONS = [
   "lz": "LZ 03-05",
   "r": "R1",
   "type": "multi",
-  "q": "Welche Aussagen kennzeichnen ein iteratives Vorgehen bei der Architekturarbeit?",
+  "q": "Welche Aussagen zum iterativen Vorgehen im Architekturentwurf treffen zu?",
   "options": [
-   "Tragende Entscheidungen bis zur letzten Iteration aufschieben.",
-   "Früh entscheiden und anhand neuer Erkenntnisse verfeinern.",
-   "Die Architektur rein emergent aus dem Code entstehen lassen.",
-   "Rückmeldungen aus einer Iteration fließen in die nächsten Entscheidungen ein.",
-   "Die Architektur zu Beginn der Iterationen von Grund auf neu entwerfen.",
-   "Iterationen erhöhen die Prognostizierbarkeit und senken das Risiko bei Entscheidungen unter Unsicherheit."
+   "Tragende Entscheidungen werden früh getroffen und in späteren Iterationen anhand neuer Erkenntnisse überprüft.",
+   "Iterationen verkürzen die Rückkopplung und verbessern dadurch die Prognostizierbarkeit.",
+   "Eine Iteration ist erst abgeschlossen, wenn die Architekturdokumentation vollständig abgenommen ist.",
+   "Iteratives Vorgehen setzt stabile Anforderungen voraus, damit Feedback sinnvoll ausgewertet werden kann.",
+   "Auch bei iterativem Vorgehen können frühere Entscheidungen revidiert werden, was Aufwand verursacht.",
+   "Iteratives Vorgehen verzichtet auf eine frühe Architekturphase, weil sich die Architektur aus dem Code ergibt."
   ],
   "correct": [
+   0,
    1,
-   3,
-   5
+   4
   ],
   "optExpl": [
-   "Falsch: Aufschieben verschiebt nur Risiken nach hinten, wo Änderungen teurer werden. Iterativ heißt nicht, Entscheidungen zu vermeiden, sondern sie früh genug auf Basis des aktuellen Wissens zu treffen und dann zu überprüfen.",
-   "Richtig: Tragende Entscheidungen fallen früh, weil sie die weitere Arbeit prägen, werden aber in jeder Iteration anhand von Feedback, Messungen und neuen Anforderungen überprüft und bei Bedarf verfeinert oder korrigiert.",
-   "Falsch: Rein emergente Architektur verzichtet auf bewusste, übergreifende Entscheidungen. Dann fehlt die Ausrichtung auf Qualitätsziele und Randbedingungen; querschnittliche Themen wie Sicherheit oder Skalierbarkeit entstehen nicht zufällig aus dem Code.",
-   "Richtig: Iterativ arbeiten heißt, Rückmeldungen von Stakeholdern, Messungen und Tests systematisch zu nutzen. So werden Annahmen schrittweise durch Fakten ersetzt.",
-   "Falsch: Iterationen verfeinern und korrigieren die Architektur schrittweise. Ein Neuentwurf in jeder Iteration würde getroffene tragende Entscheidungen entwerten, enorme Kosten verursachen und keine stabile Grundlage für die Umsetzung bieten.",
-   "Richtig: Das Curriculum nennt den Einfluss iterativen Vorgehens auf Risiken und Prognostizierbarkeit ausdrücklich. Kurze Zyklen decken Fehlannahmen früh auf."
+   "Richtig: Tragende Entscheidungen prägen die weitere Arbeit und werden deshalb früh getroffen. In jeder Iteration werden sie anhand von Feedback und neuem Wissen überprüft und bei Bedarf korrigiert.",
+   "Richtig: Kurze Zyklen decken Fehlannahmen früh auf. Laut Curriculum beeinflusst iteratives Vorgehen Risiko und Prognostizierbarkeit positiv.",
+   "Falsch: Dokumentation wächst iterativ mit und wird nicht als Abnahmekriterium jeder Iteration verlangt. Maßgeblich ist, dass die Ergebnisse als Feedback genutzt werden können.",
+   "Falsch: Iteratives Vorgehen ist gerade die Antwort auf unsichere und sich ändernde Anforderungen. Feedback hilft, Anforderungen und Entwurf schrittweise zu klären.",
+   "Richtig: Revision ist Teil des Konzepts, sie ist aber nicht kostenlos. Je tragender und je früher umgesetzt eine Entscheidung ist, desto teurer ist ihre Korrektur.",
+   "Falsch: Auch iterativ braucht es früh bewusste, übergreifende Entscheidungen zu Qualitätszielen und Randbedingungen. Rein emergente Architektur deckt diese nicht zuverlässig ab."
   ],
-  "explanation": "Iterativ heißt: früh entscheiden, dann anhand von Rückmeldungen und neuen Erkenntnissen überprüfen und verfeinern; das erhöht die Prognostizierbarkeit und senkt Risiken. Fallen: Weder das Aufschieben bis zum Ende noch eine rein emergente Architektur noch ein kompletter Neuentwurf pro Iteration entspricht diesem Vorgehen."
+  "explanation": "Iterativ heißt: früh bewusst entscheiden, mit Feedback prüfen, bei Bedarf revidieren (mit Kosten) und so Risiko und Prognostizierbarkeit verbessern. Fallen: stabile Anforderungen als Voraussetzung sehen, Dokumentationsabnahme als Iterationsende verstehen oder Architektur nur emergent entstehen lassen."
  },
  {
   "id": "c1q19",
@@ -567,9 +574,9 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Welche Aspekte guter Kommunikation erwartet das Curriculum von Softwarearchitekt:innen?",
   "options": [
-   "Primär die Entwicklung adressieren; Fachbereiche erreicht der PO.",
+   "Sich auf die Kommunikation mit dem Entwicklungsteam konzentrieren, weil dort die Architektur umgesetzt wird.",
    "Aktiv zuhören, um Anliegen zu verstehen.",
-   "Vor allem das fertige Ergebnis überzeugend präsentieren.",
+   "Komplexe Sachverhalte mit einheitlicher Fachterminologie darstellen, unabhängig vom Publikum.",
    "Mündlich abstimmen, statt Entscheidungen schriftlich zu begründen.",
    "Zwischen Stakeholdern vermitteln.",
    "Entscheidungen zielgruppengerecht begründen."
@@ -580,14 +587,14 @@ const QUESTIONS = [
    5
   ],
   "optExpl": [
-   "Falsch: Zu eng: Architekt:innen kommunizieren laut Curriculum selbst mit allen relevanten Stakeholdern, auch mit der Fachseite. Sie können diese Aufgabe nicht an den Product Owner abschieben.",
+   "Falsch: Architekt:innen kommunizieren laut Curriculum selbst mit allen relevanten Stakeholdern, auch mit der Fachseite und dem Management. Die Entwicklung ist nur ein Gegenüber unter mehreren.",
    "Richtig: Kommunikation ist keine Einbahnstraße. Aktives Zuhören hilft, die eigentlichen Anliegen der Stakeholder zu verstehen, und gehört laut Curriculum ausdrücklich zu den Fähigkeiten von Architekt:innen.",
-   "Falsch: Kommunikation ist während des gesamten Entwurfs zentral, nicht erst am Ende. Wer nur ein fertiges Ergebnis präsentiert, erfährt Einwände zu spät und verpasst die Abstimmung mit den Stakeholdern.",
+   "Falsch: Gute Kommunikation passt Inhalt und Darstellung an Wissen und Interessen der Zielgruppe an. Eine einheitliche Fachsprache überfordert z. B. Management oder Fachseite.",
    "Falsch: Mündliche Abstimmung ist wertvoll, ersetzt aber nicht die dokumentierte, nachvollziehbare Begründung. Ohne schriftliche Festhaltung gehen Gründe verloren und Entscheidungen werden später angezweifelt.",
    "Richtig: Architekt:innen stehen zwischen Fachseite, Entwicklung, Betrieb und Management. Sie müssen unterschiedliche Interessen ausgleichen und tragfähige Kompromisse herbeiführen.",
    "Richtig: Dieselbe Entscheidung wird dem Management anders erklärt als der Entwicklung: Der Inhalt bleibt gleich, die Darstellung passt sich an Wissen und Interessen der Zielgruppe an."
   ],
-  "explanation": "Gute Kommunikation heißt: vermitteln, aktiv zuhören und Entscheidungen zielgruppengerecht begründen – laufend während des Entwurfs und gegenüber allen Stakeholdern. Fallen: Kommunikation ist kein Abschlussvortrag, nicht auf die Entwicklung beschränkt und kein Ersatz für Dokumentation."
+  "explanation": "Gute Kommunikation heißt: vermitteln, aktiv zuhören und Entscheidungen zielgruppengerecht begründen – laufend während des Entwurfs und gegenüber allen Stakeholdern. Fallen: Kommunikation ist nicht auf die Entwicklung beschränkt, nicht publikumsunabhängig und kein Ersatz für Dokumentation."
  },
  {
   "id": "c1q22",
@@ -1134,7 +1141,7 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Ein Team muss Anforderungen für die nächsten Releases priorisieren. Welche Aussagen zur Priorisierung treffen zu?",
   "options": [
-   "Einmal festgelegt, gilt die Reihenfolge bis zum Release.",
+   "Die Reihenfolge legt allein das Entwicklungsteam nach technischem Aufwand fest.",
    "Neben dem Aufwand fließen Geschäftswert und Risiko ein.",
    "Qualitätsanforderungen stehen hinter funktionalen zurück.",
    "Architektonisch riskante Anforderungen möglichst spät umsetzen.",
@@ -1145,13 +1152,13 @@ const QUESTIONS = [
    4
   ],
   "optExpl": [
-   "Falsch: Prioritäten sind nicht eingefroren: Neue Erkenntnisse, Feedback oder veränderte Risiken erfordern eine Anpassung. Eine bis zum Release starre Reihenfolge widerspricht dem iterativen Vorgehen und ignoriert Lernfortschritt.",
+   "Falsch: Die Reihenfolge wird mit den verantwortlichen Stakeholdern (z. B. Product Owner) nach Geschäftswert, Risiko und Aufwand festgelegt. Das Team liefert Aufwandsschätzungen und technische Konsequenzen, entscheidet aber nicht allein.",
    "Richtig: Aufwand allein sagt nichts über den Nutzen. Erst wenn Geschäftswert und Risiko mit einfließen, entsteht eine sinnvolle Reihenfolge, etwa: hoher Wert bei geringem Aufwand zuerst, riskante Punkte früh absichern.",
    "Falsch: Qualitätsanforderungen sind oft die stärkeren Architekturtreiber. Wer sie pauschal hinter funktionale Anforderungen stellt, riskiert teure Strukturänderungen, wenn sich später zeigt, dass z. B. Performanz oder Sicherheit nicht erreicht werden.",
    "Falsch: Umgekehrt: Architektonisch riskante Anforderungen geht man früh an, etwa per Prototyp oder Durchstich. Spät entdeckte Risiken sind deutlich teurer zu beheben, weil dann schon viel auf den falschen Annahmen aufbaut.",
    "Richtig: Widersprüche wie maximale Sicherheit gegen minimale Bedienhürden lassen sich nicht beide voll erfüllen. Die Priorisierung macht solche Konflikte bewusst entscheidbar, statt sie offen zu lassen und den Zufall entscheiden zu lassen."
   ],
-  "explanation": "Priorisierung wägt Geschäftswert, Risiko und Aufwand ab und löst Widersprüche bewusst auf. Fallen: Riskantes kommt früh statt spät, Qualitätsanforderungen sind nicht pauschal nachrangig, und Prioritäten bleiben bei neuen Erkenntnissen anpassbar."
+  "explanation": "Priorisierung wägt Geschäftswert, Risiko und Aufwand ab und löst Widersprüche bewusst auf. Fallen: Riskantes kommt früh statt spät, Qualitätsanforderungen sind nicht pauschal nachrangig, und die Reihenfolge bestimmt nicht das Team allein nach Aufwand."
  },
  {
   "id": "c2q12",
@@ -1195,7 +1202,7 @@ const QUESTIONS = [
    "Solange das System läuft, muss sie nicht weiter beachtet werden.",
    "Erweist sie sich als falsch, zeigt sie, welche Entscheidung zu prüfen ist.",
    "Sie ist ein unterstellter, aber nicht gesicherter Sachverhalt.",
-   "Man meidet sie in der Doku, da sie Entscheidungen angreifbar macht.",
+   "Sie wird zur Randbedingung, sobald das Team sie im Entwurf festhält.",
    "Sie sollte explizit festgehalten und geprüft werden."
   ],
   "correct": [
@@ -1208,10 +1215,10 @@ const QUESTIONS = [
    "Falsch: Eine Annahme kann sich jederzeit als falsch erweisen, etwa bei Lastspitzen oder einem Ausfall beim Partner. Dass das System gerade läuft, bestätigt sie nicht; sie bleibt ein Risiko, bis sie belegt ist.",
    "Richtig: Weil die Annahme dokumentiert ist, weiß man, welche Entscheidung auf ihr beruht – etwa der Verzicht auf eine Warteschlange oder einen Circuit Breaker. Fällt sie, lässt sich die betroffene Entscheidung gezielt überprüfen.",
    "Richtig: Genau das kennzeichnet eine Annahme: Ein Sachverhalt wird für den Entwurf unterstellt, ist aber nicht gesichert. Hier hat niemand die 99,9 % bestätigt, also ist es keine Tatsache und keine Vorgabe.",
-   "Falsch: Umgekehrt: Das Curriculum verlangt, Annahmen explizit darzustellen. Verschwiegene Annahmen sind das eigentliche Risiko, weil später niemand mehr weiß, worauf eine Entscheidung beruhte.",
+   "Falsch: Festhalten macht eine Annahme explizit und prüfbar, aber nicht zur Vorgabe. Eine Randbedingung ist von außen gegeben; die 99,9 % bleiben ein unbestätigter Sachverhalt.",
    "Richtig: Explizite Annahmen lassen sich hinterfragen und verifizieren, etwa durch Nachfrage beim Betreiber oder Prüfung des SLA. Implizite Annahmen führen dagegen zu Missverständnissen zwischen Stakeholdern."
   ],
-  "explanation": "Annahmen sind unterstellte, nicht gesicherte Sachverhalte und gehören explizit dokumentiert, damit man sie prüfen und die abhängigen Entscheidungen finden kann. Fallen: Eine Annahme ist keine verbindliche Randbedingung, und Verschweigen erhöht das Risiko."
+  "explanation": "Annahmen sind unterstellte, nicht gesicherte Sachverhalte und gehören explizit dokumentiert, damit man sie prüfen und die abhängigen Entscheidungen finden kann. Fallen: Eine Annahme ist keine verbindliche Randbedingung, auch nicht durch Dokumentation, und läuft das System, ist sie damit nicht bestätigt."
  },
  {
   "id": "c2q14",
@@ -1421,7 +1428,7 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Zu Beginn eines Projekts sollen die Stakeholder identifiziert werden. Welche Vorgehensweisen sind sinnvoll?",
   "options": [
-   "Die Stakeholder einmalig zu Projektbeginn abschließend ermitteln.",
+   "Die Stakeholderanalyse dem Management überlassen, das die Liste verbindlich festlegt.",
    "Auch indirekt Betroffene wie Betrieb oder Support einbeziehen.",
    "Bekannte Stakeholder nach weiteren Betroffenen fragen.",
    "Sich auf Stakeholder mit Budgetverantwortung beschränken.",
@@ -1432,13 +1439,13 @@ const QUESTIONS = [
    2
   ],
   "optExpl": [
-   "Falsch: Stakeholder und ihre Anliegen ändern sich im Projektverlauf, etwa durch neue Partner, Reorganisationen oder neue Regulierung. Die Stakeholderanalyse wird daher regelmäßig wiederholt und nicht einmalig abgeschlossen.",
+   "Falsch: Stakeholder und ihre Anliegen ändern sich im Projektverlauf, und Architekt:innen müssen sie aktiv und fortlaufend ermitteln. Das Management kennt etwa Betrieb, Support oder externe Partner oft nicht vollständig.",
    "Richtig: Betrieb, Support oder Qualitätssicherung nutzen das System nicht fachlich, haben aber Anliegen wie Monitoring, Deployment oder Fehleranalyse, die die Architektur prägen. Werden sie übersehen, fehlen wichtige Qualitätsanforderungen.",
    "Richtig: Jeder Stakeholder kennt weitere Beteiligte (Schneeballprinzip). So findet man auch Rollen, die in keiner Liste stehen, etwa externe Dienstleister oder Fachabteilungen, die Daten liefern.",
    "Falsch: Budgetverantwortung sagt nichts darüber aus, wer architekturrelevante Anliegen hat. Gerade Betrieb, Entwickler:innen oder Behörden haben oft keinen Budgeteinfluss, stellen aber entscheidende Anforderungen.",
    "Falsch: Das Organigramm ist ein guter Startpunkt, aber unvollständig. Externe Partner, Kunden, Behörden oder Nachbarsysteme stehen dort nicht, und Rollen im Organigramm entsprechen nicht immer den tatsächlichen Anliegen."
   ],
-  "explanation": "Stakeholder findet man durch Nachfragen bei bekannten Beteiligten und indem man auch indirekt Betroffene wie Betrieb oder Support einbezieht. Fallen: Organigramm, Budgetverantwortung oder eine einmalige Erhebung liefern kein vollständiges Bild – die Analyse ist fortlaufend."
+  "explanation": "Stakeholder findet man durch Nachfragen bei bekannten Beteiligten und indem man auch indirekt Betroffene wie Betrieb oder Support einbezieht. Fallen: Organigramm, Budgetverantwortung oder eine Liste des Managements liefern kein vollständiges Bild – die Analyse ist fortlaufend."
  },
  {
   "id": "c2q23",
@@ -1451,7 +1458,7 @@ const QUESTIONS = [
    "Systemstrukturen spiegeln die Kommunikationsstrukturen der Organisation.",
    "Genutzte Systeme müssen sich ändern, sonst verlieren sie an Nutzen.",
    "Mehr Personal verzögert ein verspätetes Projekt weiter.",
-   "Die Systemstruktur entsteht unabhängig von der Organisation allein aus den technischen Anforderungen."
+   "Ein funktionierendes komplexes System entwickelt sich aus einem funktionierenden einfachen System."
   ],
   "correct": [
    0
@@ -1460,9 +1467,9 @@ const QUESTIONS = [
    "Richtig: Das ist Conways Gesetz: Die Struktur eines Systems spiegelt tendenziell die Kommunikationsstrukturen der entwickelnden Organisation wider. Bausteingrenzen entlang von Abteilungsgrenzen sind ein typisches Symptom dafür.",
    "Falsch: Das beschreibt Lehmans Gesetze der Softwareevolution: Genutzte Systeme müssen sich laufend anpassen, sonst sinkt ihr Nutzen. Mit dem Zusammenhang zwischen Organisation und Systemstruktur hat das nichts zu tun.",
    "Falsch: Das ist Brooks' Law aus „The Mythical Man-Month“ über Projektpersonal: Neue Leute brauchen Einarbeitung und erhöhen den Kommunikationsaufwand. Conways Gesetz betrifft dagegen die Systemstruktur.",
-   "Falsch: Conways Gesetz sagt gerade das Gegenteil: Die Systemstruktur entsteht nicht losgelöst, sondern spiegelt tendenziell die Kommunikationsstrukturen der Organisation. Die bewusste Steuerung in der Gegenrichtung – Teams passend zur gewünschten Architektur schneiden – heißt Inverse Conway Maneuver."
+   "Falsch: Das ist Galls Gesetz über die Entstehung komplexer Systeme. Conways Gesetz betrifft dagegen den Zusammenhang zwischen Kommunikationsstruktur der Organisation und Systemstruktur."
   ],
-  "explanation": "Conways Gesetz: Die Kommunikationsstruktur der Organisation prägt die Systemstruktur. Fallen: die Annahme, die Systemstruktur sei von der Organisation unabhängig, sowie die Verwechslung mit Brooks' Law und Lehmans Gesetzen. Die bewusste Steuerung in der Gegenrichtung heißt Inverse Conway Maneuver."
+  "explanation": "Conways Gesetz: Die Kommunikationsstruktur der Organisation prägt die Systemstruktur. Fallen: die Verwechslung mit Brooks' Law, Lehmans Gesetzen oder Galls Gesetz. Die bewusste Steuerung in der Gegenrichtung heißt Inverse Conway Maneuver."
  },
  {
   "id": "c2q24",
@@ -1526,7 +1533,7 @@ const QUESTIONS = [
   "options": [
    "Sie wirken auch auf die Architekturarbeit selbst, nicht nur auf den Entwurf.",
    "Sie müssen vom Auftraggeber schriftlich vorgegeben sein, um zu gelten.",
-   "Randbedingungen müssen im Entwurf nie hinterfragt werden, da sie fest vorgegeben sind.",
+   "Als Vorgaben des Auftraggebers sind sie im Entwurf nicht verhandelbar.",
    "Sie sind besonders verbindliche Qualitätsanforderungen.",
    "Sie können technologisch, organisatorisch oder regulatorisch sein.",
    "Ändert sich eine Randbedingung, kann das bestehende Entscheidungen kippen."
@@ -1544,7 +1551,7 @@ const QUESTIONS = [
    "Richtig: Das Curriculum unterscheidet technologische, organisatorische und regulatorische Randbedingungen und nennt Trends als weiteren Einflussfaktor. Beispiele: Zielplattform, Teamstruktur, DSGVO.",
    "Richtig: Randbedingungen sind nicht unveränderlich. Eine neue Datenschutzvorgabe kann etwa die Wahl der Cloud-Region kippen; solche Folgen sollen Architekt:innen erkennen und erläutern können."
   ],
-  "explanation": "Randbedingungen sind technologisch, organisatorisch oder regulatorisch, wirken auch auf den Prozess und können sich ändern. Fallen: Sie müssen nicht schriftlich vorliegen, sind keine besonders verbindlichen Qualitätsanforderungen und dürfen im Entwurf durchaus hinterfragt werden."
+  "explanation": "Randbedingungen sind technologisch, organisatorisch oder regulatorisch, wirken auch auf den Prozess und können sich ändern. Fallen: Sie müssen nicht schriftlich vorliegen, sind keine besonders verbindlichen Qualitätsanforderungen und sind nicht pauschal unverhandelbar."
  },
  {
   "id": "c3q1",
@@ -1552,29 +1559,29 @@ const QUESTIONS = [
   "lz": "LZ 03-06",
   "r": "R1",
   "type": "multi",
-  "q": "Welche Aussagen zu Kopplung und Kohäsion von Bausteinen treffen zu?",
+  "q": "Welche Aussagen zu Kopplung und Kohäsion treffen zu?",
   "options": [
-   "Auch Vererbung und Erzeugung sind Arten der Kopplung.",
-   "Efferente Kopplung: Andere Bausteine nutzen diesen Baustein.",
-   "Events statt direkter Aufrufe beseitigen die fachliche Kopplung.",
-   "Kohäsion misst, wie stark ein Baustein von anderen abhängt.",
-   "Hohe Kohäsion: Ein Baustein dient einem klar umrissenen Zweck.",
-   "Viele afferente Abhängigkeiten machen Änderungen am Baustein riskant."
+   "Efferente Kopplung zählt die Bausteine, die von diesem Baustein abhängen.",
+   "Vererbung und Erzeugung von Objekten sind Arten von Kopplung.",
+   "Kommunikation über Events beseitigt die Abhängigkeit vom Nachrichtenformat zwischen Sender und Empfänger.",
+   "Hohe Kohäsion setzt voraus, dass ein Baustein keine Abhängigkeiten zu anderen Bausteinen hat.",
+   "Viele afferente Abhängigkeiten machen Änderungen an der Schnittstelle eines Bausteins aufwendig.",
+   "Hohe Kohäsion und lose Kopplung können im Zielkonflikt stehen, etwa wenn das Aufteilen zusammengehöriger Logik neue Abhängigkeiten schafft."
   ],
   "correct": [
-   0,
+   1,
    4,
    5
   ],
   "optExpl": [
-   "Richtig: Das Curriculum zählt neben Benutzung und Nachrichtenaustausch ausdrücklich auch Vererbung, Erzeugung, Komposition und zeitliche Kopplung als Arten der Kopplung auf. Eine Unterklasse hängt etwa stark von ihrer Basisklasse ab.",
-   "Falsch: Vertauscht: Efferent heißt ausgehend, also dieser Baustein nutzt andere. Wenn andere Bausteine diesen nutzen, sind das eingehende, also afferente Abhängigkeiten.",
-   "Falsch: Laut Curriculum reduziert dynamische Kopplung über Events die Kopplung nicht notwendigerweise. Nachrichtenformat und fachliche Bedeutung der Events bleiben gemeinsame Abhängigkeiten von Sender und Empfänger.",
-   "Falsch: Das beschreibt Kopplung, also Abhängigkeiten zwischen Bausteinen. Kohäsion betrifft dagegen den inneren Zusammenhalt: wie gut die Elemente innerhalb eines Bausteins zusammengehören.",
-   "Richtig: Was fachlich oder technisch zusammengehört, liegt zusammen, und der Baustein verfolgt einen klar umrissenen Zweck. Genau das bedeutet hohe Kohäsion; sie erleichtert Verständnis und gezielte Änderungen.",
-   "Richtig: Afferent heißt eingehend: Viele andere Bausteine hängen von diesem ab. Jede Änderung an seiner Schnittstelle wirkt sich deshalb breit aus und ist entsprechend riskant und abstimmungsintensiv."
+   "Falsch: Vertauscht. Efferent heißt ausgehend: dieser Baustein hängt von anderen ab. Die Bausteine, die von ihm abhängen, bilden die afferente (eingehende) Kopplung.",
+   "Richtig: Das Curriculum nennt neben Benutzung und Nachrichtenaustausch auch Vererbung, Erzeugung, Komposition und zeitliche Kopplung. Eine Unterklasse hängt stark von ihrer Basisklasse ab.",
+   "Falsch: Events entkoppeln zeitlich und technisch, aber Sender und Empfänger teilen weiterhin Format und Bedeutung der Nachricht. Diese Abhängigkeit besteht fort.",
+   "Falsch: Kohäsion beschreibt den inneren Zusammenhalt eines Bausteins, nicht seine Außenbeziehungen. Ein hochkohäsiver Baustein kann trotzdem Dienste anderer nutzen.",
+   "Richtig: Afferent heißt eingehend: Viele Nutzer hängen vom Baustein ab. Eine Schnittstellenänderung betrifft alle und erfordert Abstimmung.",
+   "Richtig: Beide Ziele ziehen nicht immer in dieselbe Richtung. Wer zusammengehörige Logik auf mehrere Bausteine verteilt, senkt womöglich die Größe, erzeugt aber zusätzliche Abhängigkeiten und reduziert die Kohäsion."
   ],
-  "explanation": "Kopplung beschreibt Beziehungen zwischen Bausteinen, Kohäsion den inneren Zusammenhalt eines Bausteins; Vererbung und Erzeugung sind ebenfalls Kopplung. Fallen: efferent und afferent vertauschen und annehmen, Events würden die fachliche Kopplung beseitigen."
+  "explanation": "Kopplung beschreibt Beziehungen zwischen Bausteinen (auch Vererbung, Erzeugung), Kohäsion den inneren Zusammenhalt. Beide Ziele können sich widersprechen. Fallen: afferent und efferent vertauschen, Events als Beseitigung der fachlichen Abhängigkeit sehen, Kohäsion mit Abhängigkeitsfreiheit gleichsetzen."
  },
  {
   "id": "c3q2",
@@ -1582,32 +1589,27 @@ const QUESTIONS = [
   "lz": "LZ 03-04",
   "r": "R1",
   "type": "multi",
-  "q": "In einem Code-Review fällt auf, dass mehrere Bausteine direkt auf die interne Datenstruktur eines Preisberechnungsmoduls zugreifen. Die Architektin erinnert an das Geheimnisprinzip nach Parnas. Welche Aussagen beschreiben das Geheimnisprinzip (Information Hiding) nach Parnas zutreffend?",
+  "q": "Welche Aussagen zum Geheimnisprinzip (Information Hiding) nach Parnas treffen zu?",
   "options": [
-   "Veränderliche Entwurfsentscheidungen hinter einer Schnittstelle verbergen.",
-   "Information Hiding bedeutet, den Quellcode vor Außenstehenden geheim zu halten.",
-   "Das Speicherformat ändern, ohne die Nutzer anpassen zu müssen.",
-   "Interna offenlegen ist zulässig, sofern sie dokumentiert sind.",
-   "Nutzer:innen müssen nur den Vertrag der Schnittstelle kennen, nicht die verborgenen Entscheidungen.",
-   "Daten und die Operationen darauf zu einer Einheit bündeln.",
-   "Ziel: Voraussichtliche Änderungen bleiben lokal in einem Baustein."
+   "Verborgen wird, was für die Nutzer eines Bausteins irrelevant ist, unabhängig davon, ob es sich ändern kann.",
+   "Verborgen werden Entwurfsentscheidungen, die sich wahrscheinlich ändern.",
+   "Information Hiding ist ein Merkmal objektorientierter Sprachen und in anderen Paradigmen nicht anwendbar.",
+   "Die Schnittstelle darf keine Details der verborgenen Entscheidung preisgeben, sonst ist sie bei deren Änderung nicht stabil.",
+   "Entwickler:innen anderer Bausteine dürfen sich nicht auf verborgene Details verlassen, auch wenn diese technisch zugänglich wären."
   ],
   "correct": [
-   0,
-   2,
-   4,
-   6
+   1,
+   3,
+   4
   ],
   "optExpl": [
-   "Richtig: Das ist der Kern des Prinzips nach Parnas: Entwurfsentscheidungen, die sich wahrscheinlich ändern, werden als „Geheimnis“ eines Bausteins hinter einer stabilen Schnittstelle verborgen. Zerlegt wird also entlang erwarteter Änderungen.",
-   "Falsch: Es geht nicht um Geheimhaltung von Code, sondern darum, Entwurfsentscheidungen hinter einer Schnittstelle zu verbergen, damit Nutzer nicht von ihnen abhängen.",
-   "Richtig: Ein typisches Beispiel: Das Speicherformat (etwa CSV statt XML oder eine andere Tabellenstruktur) ist ein verborgenes Geheimnis des Bausteins. Nach außen sichtbar ist nur die Schnittstelle, daher bleiben Nutzer bei einem Formatwechsel unberührt.",
-   "Falsch: Dokumentation ändert nichts daran, dass Nutzer sich an offengelegte Interna koppeln und bei deren Änderung angepasst werden müssen. Genau diese Kopplung soll Information Hiding verhindern; gut dokumentierte Interna bleiben Interna.",
-   "Richtig: Was hinter der Schnittstelle liegt, darf sich ändern. Nutzer verlassen sich auf den Vertrag, deshalb bleiben Änderungen lokal.",
-   "Falsch: Das beschreibt Kapselung – das sprachliche Mittel, mit dem man Information Hiding umsetzen kann, nicht das Prinzip selbst. Man kann Daten und Operationen bündeln und trotzdem über öffentliche Getter alle Interna preisgeben.",
-   "Richtig: Ziel von Information Hiding ist lokale Änderbarkeit: Voraussichtliche Änderungen betreffen nur einen Baustein, dessen Nutzer unberührt bleiben. Das senkt Änderungsaufwand und Risiko und fördert lose Kopplung."
+   "Falsch: Das Kriterium nach Parnas ist die Änderungswahrscheinlichkeit einer Entwurfsentscheidung, nicht ihre Relevanz für Nutzer. Irrelevante, aber stabile Details müssen nicht verborgen werden.",
+   "Richtig: Änderungsträchtige Entscheidungen, etwa das Speicherformat, liegen hinter einer stabilen Schnittstelle. Änderungen bleiben dadurch lokal im Baustein.",
+   "Falsch: Es ist ein Entwurfsprinzip, unabhängig von der Sprache. Parnas formulierte es für Module, lange vor der Verbreitung der Objektorientierung.",
+   "Richtig: Gibt etwa ein Rückgabetyp das Speicherformat preis, ist das Geheimnis nur scheinbar verborgen und die Schnittstelle bricht mit der Änderung.",
+   "Richtig: Zugesichert ist nur der Vertrag der Schnittstelle. Wer sich auf unzugesicherte Interna stützt, macht sich von Details abhängig, die sich ohne Ankündigung ändern dürfen."
   ],
-  "explanation": "Information Hiding verbirgt veränderliche Entwurfsentscheidungen hinter stabilen Schnittstellen, damit Änderungen lokal bleiben. Fallen: die Verwechslung mit Kapselung, die nur das Mittel dazu ist, und die Annahme, dokumentierte Interna dürften offengelegt werden."
+  "explanation": "Information Hiding verbirgt änderungswahrscheinliche Entscheidungen hinter einer stabilen Schnittstelle, die selbst nichts von ihnen preisgibt. Fallen: Relevanz statt Änderungswahrscheinlichkeit als Kriterium, Bindung an Objektorientierung und Schnittstellen, die Interna durchsickern lassen."
  },
  {
   "id": "c3q4",
@@ -1615,30 +1617,29 @@ const QUESTIONS = [
   "lz": "LZ 03-08",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Team baut eine Verwaltungsanwendung für ein Versicherungsunternehmen und diskutiert, ob es die Anwendung nach dem Muster der Schichtenarchitektur strukturiert. Im Gespräch fallen unterschiedliche Aussagen zu Zweck, Regeln und Nebenwirkungen des Musters. Welche Aussagen zur Schichtenarchitektur (Layers) treffen zu?",
+  "q": "Welche Aussagen zur Schichtenarchitektur (Layers) treffen zu?",
   "options": [
-   "In der strikten (closed) Variante darf eine Schicht eine tieferliegende Schicht überspringen, wenn das die Performance verbessert.",
-   "In der offenen (relaxed) Variante darf eine Schicht auch weiter unten liegende Schichten direkt nutzen.",
-   "Eine tiefere Schicht darf höhere Schichten über eine von ihr selbst definierte Callback-Schnittstelle benachrichtigen, ohne die Schichtung zu verletzen.",
-   "Schichten entsprechen typischerweise eigenen Tiers, daher bringt eine zusätzliche Schicht zusätzliche Netzwerkkommunikation mit sich.",
-   "Abhängigkeiten von einer tieferen zu einer höheren Schicht gelten als Schichtungsverletzung.",
-   "Zusätzliche Schichten bringen Indirektion und können zu Lasten der Laufzeit-Performance gehen."
+   "Schichten entsprechen typischerweise eigenen Tiers, daher bringt jede zusätzliche Schicht Netzwerkkommunikation mit sich.",
+   "Eine Schicht fasst Bausteine mit ähnlichem Abstraktionsniveau zusammen und lässt sich ersetzen, solange ihre Schnittstelle erhalten bleibt.",
+   "In der strikten Variante darf eine Schicht eine tiefere überspringen, wenn diese nur durchreicht.",
+   "Eine tiefere Schicht darf höhere über eine von ihr selbst definierte Callback-Schnittstelle benachrichtigen, ohne die Schichtung zu verletzen.",
+   "Zusätzliche Schichten bringen Indirektion und können zu Lasten der Laufzeit-Performance gehen.",
+   "Durch die Schichtung sind auch zyklische Abhängigkeiten zwischen Bausteinen derselben Schicht ausgeschlossen."
   ],
   "correct": [
    1,
-   2,
-   4,
-   5
+   3,
+   4
   ],
   "optExpl": [
-   "Falsch: Das Überspringen von Schichten ist gerade das Merkmal der offenen (relaxed) Schichtung. In der strikten Variante darf eine Schicht nur die unmittelbar darunterliegende nutzen – auch Performancegründe ändern daran nichts, sonst wäre es keine strikte Schichtung mehr.",
-   "Richtig: Offene Schichtung erlaubt das Überspringen von Schichten, die Abhängigkeiten zeigen aber weiterhin nur nach unten. Man gewinnt Performance und Einfachheit, verliert aber etwas Austauschbarkeit, weil höhere Schichten mehr tiefere kennen.",
-   "Richtig: Die Callback-Schnittstelle gehört zur tieferen Schicht, die höhere implementiert sie. Die Abhängigkeit im Code zeigt also weiter nach unten, nur der Aufruf läuft zur Laufzeit nach oben – etwa beim Observer-Muster.",
-   "Falsch: Schichten sind eine logische Gliederung, Tiers eine physische Verteilung. Mehrere Schichten können problemlos im selben Prozess laufen – eine zusätzliche Schicht bedeutet daher nicht automatisch zusätzliche Netzwerkaufrufe.",
-   "Richtig: Schichtung bedeutet, dass Abhängigkeiten nur von oben nach unten zeigen. Kennt eine tiefere Schicht eine höhere direkt, entsteht eine Rückwärtsabhängigkeit, oft sogar ein Zyklus, der die Schichtung verletzt.",
-   "Richtig: Jede Schicht fügt eine Indirektion hinzu, durch die Aufrufe und Daten durchgereicht werden. Das kann Laufzeit kosten – ein typischer Trade-off zugunsten besserer Änderbarkeit und Verständlichkeit."
+   "Falsch: Schichten sind eine logische Gliederung, Tiers eine physische Verteilung. Mehrere Schichten laufen oft im selben Prozess.",
+   "Richtig: Das Abstraktionsniveau bestimmt den Schnitt; die Abhängigkeit zeigt nach unten auf die Schnittstelle der tieferen Schicht, was den Austausch erleichtert.",
+   "Falsch: Überspringen kennzeichnet die offene (relaxed) Variante. In der strikten Variante nutzt eine Schicht nur die direkt darunterliegende, auch wenn diese bloß durchreicht.",
+   "Richtig: Die Callback-Schnittstelle gehört der tieferen Schicht, die höhere implementiert sie. Die Abhängigkeit im Code zeigt weiter nach unten, nur der Aufruf läuft zur Laufzeit nach oben (z. B. Observer).",
+   "Richtig: Jede Schicht ist eine Stufe, durch die Aufrufe und Daten durchgereicht werden, das kann Laufzeit kosten. Typischer Trade-off zugunsten besserer Änderbarkeit.",
+   "Falsch: Schichtung regelt die Richtung zwischen Schichten, nicht die Abhängigkeiten innerhalb einer Schicht. Dort können Zyklen entstehen und müssen separat vermieden werden."
   ],
-  "explanation": "Schichten: Abhängigkeiten zeigen nur nach unten; Callbacks über eine Schnittstelle der tieferen Schicht sind erlaubt. Strikt = nur die direkt darunterliegende Schicht, offen = Überspringen erlaubt. Fallen: Schichten sind logisch, nicht jede ist ein eigenes Tier."
+  "explanation": "Schichten: Abhängigkeiten zeigen nur nach unten; Callbacks über Schnittstellen der tieferen Schicht sind erlaubt. Strikt = nur die direkt darunterliegende, offen = Überspringen erlaubt. Fallen: Schichten sind logisch, nicht jede ist ein eigenes Tier; Zyklen innerhalb einer Schicht bleiben möglich."
  },
  {
   "id": "c3q5",
@@ -1647,29 +1648,29 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "multi",
-  "q": "Ein Team strukturiert seine Anwendung nach Ports and Adapters. Welche Aussagen treffen auf dieses Muster zu?",
+  "q": "Welche Aussagen zu Ports and Adapters (hexagonale Architektur) treffen zu?",
   "options": [
-   "Onion und Clean Architecture gelten als verwandte Varianten.",
-   "Der fachliche Kern definiert die Ports.",
-   "Der Fachkern ruft die Adapterklassen direkt auf.",
-   "Adapter binden Datenbank oder UI an die Ports an.",
-   "Setzt einen Betrieb als Microservices voraus.",
-   "Ein Port ist die konkrete JDBC-Implementierung."
+   "Die Abhängigkeiten zeigen von den Adaptern zum Fachkern; der Kern kennt nur die von ihm definierten Ports.",
+   "Ein Port beschreibt die technische Anbindung (z. B. JDBC), der Adapter enthält die Fachlogik.",
+   "Man unterscheidet Ports für eingehende Aufrufe (Nutzung des Kerns) und für ausgehende Aufrufe (Nutzung externer Systeme).",
+   "Die Fachlogik hängt wie bei klassischen Schichten von der Datenhaltung ab, nur mit zusätzlicher Indirektion.",
+   "Der Fachkern lässt sich mit Testdoubles statt echter Adapter testen.",
+   "Ausgehende Aufrufe des Kerns gehen direkt an die Adapterklassen; Ports dienen nur für eingehende Aufrufe."
   ],
   "correct": [
    0,
-   1,
-   3
+   2,
+   4
   ],
   "optExpl": [
-   "Richtig: Das Curriculum nennt Hexagonal, Onion und Clean Architecture als Synonyme bzw. eng verwandte Varianten von Ports and Adapters. Gemeinsam ist allen: Der fachliche Kern steht in der Mitte, Technik hängt von ihm ab, nicht umgekehrt.",
-   "Richtig: Ports sind technologieneutrale Schnittstellen, die der Fachkern aus seiner eigenen Sicht vorgibt, etwa ein Interface „Bestellungen speichern“. So bleibt die Fachlogik frei von Datenbank- oder UI-Details.",
-   "Falsch: Ruft der Fachkern Adapterklassen direkt auf, hängt die Fachlogik von der Technik ab und das Muster ist ausgehebelt. Die Abhängigkeit zeigt vom Adapter zum Port (Dependency Inversion), nicht umgekehrt.",
-   "Richtig: Adapter sind die konkreten, technologiespezifischen Anbindungen, etwa ein JDBC-Repository oder ein REST-Controller. Sie implementieren bzw. nutzen die Ports und lassen sich austauschen, ohne den Fachkern zu ändern.",
-   "Falsch: Ports and Adapters strukturiert die Abhängigkeiten im Inneren einer Anwendung. Es funktioniert genauso in einem Monolithen wie in einem einzelnen Microservice; eine verteilte Betriebsform ist keine Voraussetzung.",
-   "Falsch: Verwechslung von Port und Adapter: Die konkrete JDBC-Implementierung ist ein Adapter. Der Port ist die abstrakte, technikfreie Schnittstelle, die der Fachkern definiert."
+   "Richtig: Der Kern definiert, was er braucht und anbietet (Ports); Adapter implementieren sie. Die Abhängigkeit zeigt daher nach innen (Dependency Inversion).",
+   "Falsch: Vertauscht: Der Port ist die fachlich formulierte Schnittstelle des Kerns, der Adapter übernimmt die technische Anbindung.",
+   "Richtig: Eingehende Ports (z. B. Anwendungsfälle) werden vom Kern angeboten, ausgehende (z. B. Repository) vom Kern definiert und von Adaptern implementiert.",
+   "Falsch: Gerade das wird umgekehrt: Der Kern definiert einen Port, die Datenhaltung implementiert ihn als Adapter. Die Abhängigkeit zeigt zum Kern, nicht zur Datenhaltung.",
+   "Richtig: Weil der Kern nur Ports kennt, lassen sich Adapter für UI und Datenbank durch Testersatz austauschen. Das ist ein wesentlicher Vorteil.",
+   "Falsch: Auch ausgehende Aufrufe laufen über Ports (z. B. ein Repository-Interface); sonst wäre der Kern an konkrete Technik gebunden."
   ],
-  "explanation": "Bei Ports and Adapters definiert der Fachkern die Ports, austauschbare Adapter binden Technik wie Datenbank oder UI an; Onion und Clean Architecture sind verwandte Varianten. Fallen: Port und Adapter vertauschen, Abhängigkeit vom Kern zur Technik und die Annahme, das Muster erfordere Microservices."
+  "explanation": "Ports and Adapters stellt den Fachkern ins Zentrum: Er definiert Ports, Adapter implementieren sie für UI, Datenbank oder externe Systeme, Abhängigkeiten zeigen nach innen. Fallen: Rollen von Port und Adapter vertauschen, Abhängigkeit von Kern zur Datenhaltung."
  },
  {
   "id": "c3q6",
@@ -1677,34 +1678,29 @@ const QUESTIONS = [
   "lz": "LZ 03-08",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Onlinehändler will sein monolithisches System in Microservices zerlegen. Welche Aussagen zu Microservices treffen typischerweise zu?",
+  "q": "Welche Aussagen zu Microservices treffen typischerweise zu?",
   "options": [
-   "Der Gesamtaufwand für Test und Betrieb sinkt.",
-   "Transaktionen über Services sind so einfach wie im Monolithen.",
-   "Jeder Service ist unabhängig deploybar.",
-   "Die betriebliche Komplexität steigt.",
-   "Je Schicht ein Service: UI, Logik, Daten.",
-   "Jeder Service verwaltet seine eigenen Daten.",
-   "Teams können Services unabhängig voneinander weiterentwickeln.",
-   "Services teilen sich zur einfacheren Konsistenz eine zentrale Datenbank."
+   "Geschnitten wird typischerweise entlang fachlicher Grenzen; ein Schnitt nach technischen Schichten führt dazu, dass jede Änderung mehrere Services betrifft.",
+   "Serviceübergreifende Abfragen und Konsistenz sind einfacher als im Monolithen, weil jeder Service seine Daten selbst hält.",
+   "Der Gesamtaufwand für Tests sinkt, weil jeder Service isoliert getestet werden kann.",
+   "Teams können Services unabhängig weiterentwickeln, solange die Schnittstellenverträge kompatibel bleiben.",
+   "Schnittstellenänderungen sind unkritisch, weil jeder Service unabhängig deployt werden kann.",
+   "Betrieb und Monitoring werden aufwendiger, weil viele einzeln deploybare Einheiten verwaltet werden."
   ],
   "correct": [
-   2,
+   0,
    3,
-   5,
-   6
+   5
   ],
   "optExpl": [
-   "Falsch: Einzelne Services sind kleiner und überschaubarer, das Gesamtsystem wird aber aufwendiger: Integrationstests über Servicegrenzen, Deployment-Pipelines und Monitoring vieler Prozesse kosten zusätzlich.",
-   "Falsch: Verteilte Transaktionen sind deutlich schwieriger als lokale. Meist verzichtet man auf sie und arbeitet mit eventueller Konsistenz, Sagas oder Ausgleichsaktionen statt einer gemeinsamen Datenbanktransaktion.",
-   "Richtig: Unabhängiges Deployment ist ein Kernmerkmal von Microservices: Ein Service kann ausgeliefert werden, ohne die anderen neu zu deployen. Das ermöglicht autonome Teams und kurze Release-Zyklen.",
-   "Richtig: Verteilung bringt Netzwerkfehler, Latenzen, verteiltes Monitoring und Tracing sowie neue Ausfallszenarien mit sich. Diese betriebliche Komplexität hat ein Monolith so nicht.",
-   "Falsch: Microservices werden fachlich geschnitten, etwa nach Bounded Contexts, nicht nach technischen Schichten. Ein Schichtenschnitt erzeugt eng gekoppelte Services, die bei jeder Fachänderung gemeinsam angepasst werden müssen.",
-   "Richtig: Jeder Service hält seine Daten hinter der eigenen Schnittstelle. Das verhindert versteckte Kopplung über eine gemeinsame Datenbank und erlaubt, Schema und Technologie unabhängig zu ändern.",
-   "Richtig: Fachlich geschnittene Services mit eigener Schnittstelle erlauben autonomen Teams, ihren Service unabhängig zu ändern und auszuliefern, solange die Schnittstelle stabil bleibt.",
-   "Falsch: Eine gemeinsame Datenbank koppelt die Services versteckt über das Schema und widerspricht dem Prinzip, dass jeder Service seine eigenen Daten verwaltet. Konsistenz wird stattdessen über Schnittstellen und Ereignisse gelöst."
+   "Richtig: Fachliche Schnitte halten Änderungen lokal und ermöglichen unabhängige Teams. Technische Schnitte erzeugen enge Abhängigkeiten zwischen den Services.",
+   "Falsch: Eigene Datenhaltung erschwert gerade serviceübergreifende Abfragen und atomare Konsistenz; sie wird für Unabhängigkeit in Kauf genommen.",
+   "Falsch: Einzelne Services sind leichter zu testen, Integrations- und End-to-End-Tests über Servicegrenzen und Netzwerk werden aber aufwendiger. Netto sinkt der Aufwand typischerweise nicht.",
+   "Richtig: Die Unabhängigkeit gilt nur innerhalb des vereinbarten Vertrags. Das ist die Voraussetzung für das Skalieren der Entwicklung über mehrere Teams.",
+   "Falsch: Unabhängiges Deployment setzt kompatible Schnittstellen voraus. Inkompatible Änderungen zwingen Konsumenten zur gleichzeitigen Anpassung.",
+   "Richtig: Mehr Deployment-Einheiten erfordern Automatisierung, verteiltes Logging und Tracing. Das ist der übliche Preis der Unabhängigkeit."
   ],
-  "explanation": "Microservices sind fachlich geschnitten, unabhängig deploybar und verwalten eigene Daten – um den Preis höherer betrieblicher Komplexität. Fallen: Gesamtaufwand für Test und Betrieb sinkt nicht, Konsistenz über Servicegrenzen ist schwierig, und ein Schnitt nach Schichten ist kein Microservice-Schnitt."
+  "explanation": "Microservices tauschen Unabhängigkeit gegen verteilte Komplexität. Der Schnitt erfolgt fachlich, damit Änderungen lokal bleiben; Betrieb, Konsistenz und Tests über Servicegrenzen hinweg werden dagegen aufwendiger. Typische Falle: Annahme, dass unabhängiges Deployment Schnittstellenabstimmung überflüssig macht."
  },
  {
   "id": "c3q7",
@@ -1712,30 +1708,27 @@ const QUESTIONS = [
   "lz": "LZ 03-04",
   "r": "R1",
   "type": "multi",
-  "q": "Welche der folgenden zählen laut CPSA-F-Curriculum zu den grundlegenden Entwurfsprinzipien?",
+  "q": "Welche Zuordnungen von Entwurfsprinzip und Kernaussage sind zutreffend?",
   "options": [
-   "Erwarte Fehler (Robustheitsgrundsatz).",
-   "Maximale Wiederverwendung.",
-   "Offen/geschlossen-Prinzip.",
-   "Abstraktion.",
-   "Konfiguration statt Code.",
-   "Konzeptionelle Integrität."
+   "Postel’s Law: Eingaben an Vertrauensgrenzen ungeprüft übernehmen, damit Partner flexibel bleiben.",
+   "Erwarte Fehler: streng in dem sein, was man sendet, und tolerant in dem, was man annimmt.",
+   "KISS: keine Funktionalität auf Vorrat bauen.",
+   "Konzeptionelle Integrität: gleichartige Probleme im System gleichartig lösen.",
+   "Abstraktion: Bausteine hängen von Abstraktionen statt von Implementierungen ab."
   ],
   "correct": [
-   0,
-   2,
+   1,
    3,
-   5
+   4
   ],
   "optExpl": [
-   "Richtig: Leicht übersehen: „Erwarte Fehler“ als Verallgemeinerung des Robustheitsgrundsatzes (Postel's Law) steht ausdrücklich im Curriculum. Systeme sollen mit fehlerhaften Eingaben und Ausfällen rechnen und robust darauf reagieren.",
-   "Falsch: Klingt nach Prinzip, ist aber keins des Curriculums. Wiederverwendung um jeden Preis, besonders über Fachgrenzen hinweg, erhöht oft die Kopplung, weil viele Bausteine vom selben gemeinsamen Code abhängen.",
-   "Richtig: Das Offen/geschlossen-Prinzip gehört als Teil der Modularisierung zu den R1-Inhalten. Bausteine sollen offen für Erweiterungen, aber geschlossen gegenüber Änderungen sein, etwa durch Erweiterung über Schnittstellen.",
-   "Richtig: Abstraktion ist ein grundlegendes Entwurfsprinzip: zweckmäßige Verallgemeinerungen erarbeiten und Details verbergen. Bausteine sollen von Abstraktionen statt von konkreten Implementierungen abhängen.",
-   "Falsch: „Konfiguration statt Code“ ist kein Entwurfsprinzip des Curriculums. Übermäßige Konfigurierbarkeit erhöht sogar die Komplexität und die Zahl ungetesteter Kombinationen.",
-   "Richtig: Konzeptionelle Integrität ist ein ausdrücklich genanntes Prinzip: Gleichartige Probleme werden im ganzen System gleichartig gelöst. Das macht die Architektur verständlicher und leichter wartbar."
+   "Falsch: Tolerant annehmen heißt nicht, ungültige Eingaben ungeprüft zu akzeptieren. Eingaben an Vertrauensgrenzen müssen validiert werden; tolerant ist man etwa gegenüber unbekannten zusätzlichen Feldern.",
+   "Richtig: Das ist die Aussage des Robustheitsgrundsatzes (Postel's Law), auf den „Erwarte Fehler“ zurückgeführt wird. Eingaben an Vertrauensgrenzen sind trotzdem zu validieren.",
+   "Falsch: Das ist YAGNI. KISS fordert, Lösungen so einfach wie möglich zu halten.",
+   "Richtig: Einheitlichkeit und Konsistenz sind ihr Kern. Das senkt die Einarbeitung und macht Verhalten vorhersagbar.",
+   "Richtig: Schnittstellen sind Abstraktionen. Wer von ihnen abhängt, ist von konkreten Implementierungen entkoppelt."
   ],
-  "explanation": "Das Curriculum nennt u. a. Abstraktion, Modularisierung inklusive OCP, konzeptionelle Integrität und „Erwarte Fehler“ als Entwurfsprinzipien. Fallen: Maximale Wiederverwendung und „Konfiguration statt Code“ klingen nach Best Practice, sind aber keine dieser Prinzipien."
+  "explanation": "Typische Zuordnungsfallen: KISS und YAGNI vertauschen, Toleranz mit ungeprüfter Annahme gleichsetzen. Richtig zugeordnet sind Postel's Law (Erwarte Fehler), konzeptionelle Integrität (Einheitlichkeit) und Abstraktion (Abhängigkeit von Abstraktionen)."
  },
  {
   "id": "c3q8",
@@ -1743,30 +1736,29 @@ const QUESTIONS = [
   "lz": "LZ 03-10",
   "r": "R1",
   "type": "multi",
-  "q": "Welche der folgenden sind typische Querschnittsthemen?",
+  "q": "Welche der folgenden Themen sind typische Querschnittsthemen?",
   "options": [
-   "Authentifizierung und Autorisierung.",
-   "Versandkosten, die mehrere Dialoge anzeigen.",
-   "Nebenläufigkeit.",
-   "Validierung der Bestelldaten im Bestellmodul.",
-   "Energieeffizienz.",
-   "Fehlerbehandlung."
+   "Berechnung der Versandkosten, die mehrere Dialoge anzeigen",
+   "Protokollierung (Logging)",
+   "Die Entität Kunde, die von vielen Bausteinen gelesen wird",
+   "Konfigurierbarkeit",
+   "Internationalisierung",
+   "Validierung der Bestelldaten im Bestellmodul"
   ],
   "correct": [
-   0,
-   2,
-   4,
-   5
+   1,
+   3,
+   4
   ],
   "optExpl": [
-   "Richtig: Zugriffsschutz betrifft nahezu alle Bausteine und Schnittstellen. Ohne einheitliches Sicherheitskonzept würde jeder Baustein Authentifizierung und Autorisierung anders umsetzen, mit Lücken als Folge. Das Curriculum nennt Sicherheit nicht namentlich, seine Liste der Querschnittsthemen ist aber nur beispielhaft („unter anderem“); Authentifizierung und Autorisierung sind ein klassisches weiteres Beispiel.",
-   "Falsch: Dass mehrere Dialoge denselben Wert anzeigen, macht ihn nicht querschnittlich. Die Versandkostenberechnung ist Fachlogik und gehört in einen fachlichen Baustein, den die Dialoge nutzen. Das Curriculum nennt als Querschnittsthemen technische Belange wie Persistenz, Kommunikation, GUI, Fehlerbehandlung, Nebenläufigkeit und Energieeffizienz, keine fachlichen Funktionen.",
-   "Richtig: Threading- und Sperrkonzepte müssen systemweit einheitlich sein. Behandelt jeder Baustein Nebenläufigkeit anders, drohen Deadlocks, Race Conditions und inkonsistente Daten.",
-   "Falsch: Das betrifft nur einen Baustein und ist fachliche Logik des Bestellmoduls. Querschnittlich wäre erst ein systemweites Validierungskonzept, das festlegt, wie und wo alle Bausteine validieren.",
-   "Richtig: Das Curriculum nennt Energieeffizienz ausdrücklich als Querschnittsthema. Energieverbrauch entsteht durch Entscheidungen in vielen Bausteinen, etwa Polling, Caching oder Datenübertragung.",
-   "Richtig: Fehler entstehen in allen Bausteinen. Ein einheitliches Konzept für Fehlerbehandlung verhindert, dass jeder Baustein anders reagiert, protokolliert oder Fehler an Aufrufer weitergibt."
+   "Falsch: Fachliche Funktion in einem Baustein, die von anderen genutzt wird. Sie ist kein Aspekt, den viele Bausteine selbst regeln müssen.",
+   "Richtig: Alle Bausteine schreiben Logs; Format, Ebenen und Inhalte sollten einheitlich sein.",
+   "Falsch: Ein fachliches Datenmodell, das häufig genutzt wird, ist ein gemeinsamer Fachbaustein, aber kein Querschnittsthema.",
+   "Richtig: Wie Werte geladen, überschrieben und validiert werden, betrifft viele Bausteine und braucht einheitliche Regeln.",
+   "Richtig: Sprachen, Formate und Zeichensätze betreffen alle Bausteine, die Texte oder Werte ausgeben.",
+   "Falsch: Fachliche Regel mit lokalem Geltungsbereich. Querschnittlich wäre nur eine systemweite Strategie für Validierung."
   ],
-  "explanation": "Querschnittsthemen betreffen viele Bausteine; das Curriculum nennt unter anderem Persistenz, Kommunikation, GUI, Fehlerbehandlung, Nebenläufigkeit und Energieeffizienz, Sicherheit ist ein weiteres klassisches Beispiel. Falle: Fachlogik wie Versandkosten oder Bestellvalidierung bleibt fachlich, auch wenn ihr Ergebnis an mehreren Stellen angezeigt wird."
+  "explanation": "Querschnittsthemen betreffen viele Bausteine gleichermaßen und sind meist technischer oder qualitativer Natur (Internationalisierung, Protokollierung, Konfigurierbarkeit). Fachliche Berechnungen, Validierungen und Entitäten gehören dagegen in fachlich geschnittene Bausteine, auch wenn mehrere sie nutzen."
  },
  {
   "id": "c3q9",
@@ -1774,29 +1766,29 @@ const QUESTIONS = [
   "lz": "LZ 03-03",
   "r": "R1",
   "type": "multi",
-  "q": "Sie sollen eine vorhandene Zahlungsbibliothek und einen Altsystem-Kern zu größeren Strukturen kombinieren. Welche Aussagen treffen zu?",
+  "q": "Welche Aussagen zu Top-down- und Bottom-up-Vorgehen beim Entwurf treffen zu?",
   "options": [
-   "Sichtenbasiert: Die vorhandenen Teile bilden die Verteilungssicht.",
-   "Bottom-up: Vorhandenes zu größeren Einheiten zusammensetzen.",
-   "Bottom-up bietet sich an, wenn vorhandene Bausteine wiederverwendet werden müssen.",
-   "Bottom-up; danach darf nicht mehr top-down gearbeitet werden.",
-   "Top-down verfeinert ein Gesamtbild schrittweise und passt weniger, wenn viele Teile bereits feststehen.",
-   "Top-down: vorgegebene Teile schrittweise verfeinern."
+   "Bottom-up setzt größere Strukturen aus Vorhandenem zusammen und bietet sich an, wenn viel Bestehendes wiederverwendet werden muss.",
+   "Bottom-up ist fachlich näher an den Stakeholdern, Top-down dagegen entwicklerfreundlicher.",
+   "Top-down birgt das Risiko später Integration und kann vorhandene fertige Lösungen übersehen.",
+   "Top-down liefert früh lauffähige Teile und schnelle Test- und Feedback-Ergebnisse.",
+   "Wer bottom-up beginnt, kann später nicht mehr top-down vorgehen.",
+   "Bottom-up birgt das Risiko fehlender Orientierung und enger Kopplung."
   ],
   "correct": [
-   1,
+   0,
    2,
-   4
+   5
   ],
   "optExpl": [
-   "Falsch: Bibliothek und Altsystem-Kern sind Bausteine, nicht die Verteilungssicht; diese zeigt Infrastruktur und die Zuordnung von Artefakten zu Knoten. Außerdem beschreibt eine Sicht keine Entwurfsrichtung wie top-down oder bottom-up.",
-   "Richtig: Bottom-up setzt vorhandene oder zuerst entworfene Teile zu größeren Einheiten zusammen. Das eignet sich besonders, wenn viel Bestehendes wie Bibliotheken oder Altsysteme genutzt werden muss.",
-   "Richtig: Wenn Bibliotheken oder ein Altsystem-Kern feststehen, ist es natürlich, von diesen Teilen aus zu größeren Einheiten aufzubauen.",
-   "Falsch: Der erste Teil stimmt, der Zusatz nicht: In der Praxis werden top-down und bottom-up kombiniert und iterativ gewechselt. Eine Richtung schließt die andere nicht aus; das Curriculum betont dieses Wechselspiel.",
-   "Richtig: Top-down geht vom Ganzen aus. Sind wesentliche Teile vorgegeben, muss der Entwurf diese einbeziehen, statt sie erst durch Zerlegung zu erzeugen.",
-   "Falsch: Top-down zerlegt das Ganze schrittweise in Teile. Bereits vorhandene Teile zu größeren Strukturen zusammenzusetzen, ist die umgekehrte Richtung; die Formulierung „vorgegebene Teile verfeinern“ verdreht das."
+   "Richtig: Bibliotheken, Altsysteme oder gesetzte Technologien prägen dann die Struktur; Bottom-up berücksichtigt diese Details früh.",
+   "Falsch: Vertauscht. Top-down ist fachlich nah an Stakeholdern und schnittstellenorientiert, Bottom-up entwicklerfreundlich.",
+   "Richtig: Das sind typische Nachteile, weil die Details erst spät in den Entwurf einfließen.",
+   "Falsch: Das ist ein Vorteil von Bottom-up. Top-down liefert erst spät integrierbare Ergebnisse.",
+   "Falsch: Die Ansätze werden kombiniert und iterativ eingesetzt; die Richtung kann je nach Wissensstand wechseln.",
+   "Richtig: Ohne Gesamtbild fehlt das „Wozu?“, und vorhandene Teile prägen die Struktur und erhöhen die Kopplung."
   ],
-  "explanation": "Aus Vorhandenem größere Einheiten zusammensetzen ist Bottom-up, das Ganze schrittweise zerlegen ist Top-down. Fallen: Man muss sich nicht dauerhaft auf eine Richtung festlegen – beide werden kombiniert –, und Entwurfsrichtungen sind keine Architektursichten."
+  "explanation": "Top-down = vom Ganzen zu den Teilen (stakeholdernah, späte Integration); Bottom-up = aus Vorhandenem zusammensetzen (entwicklernah, schnelles Feedback, Gefahr fehlender Orientierung und enger Kopplung). Falle: Vorteile vertauschen."
  },
  {
   "id": "c3q10",
@@ -1804,47 +1796,14 @@ const QUESTIONS = [
   "lz": "LZ 03-04",
   "r": "R2",
   "type": "multi",
-  "q": "In einem Architekturworkshop für ein wachsendes Bestellsystem streitet das Team darüber, wie viel Abstraktion und Modularisierung angemessen ist. Einige befürchten Überengineering, andere wollen früh vorsorgen. Welche Aussagen zum Nutzen von Abstraktion und Modularisierung im Entwurf treffen zu?",
+  "q": "Welche Aussagen zu Abstraktion und Modularisierung im Entwurf treffen zu?",
   "options": [
-   "Die Zahl der Schnittstellen sinkt, da Bausteine mehr selbst erledigen.",
-   "Unnötige Abstraktionen können die Verständlichkeit senken.",
-   "Sie machen Komplexität beherrschbar.",
-   "Zusätzliche Schichten erhöhen die Änderbarkeit.",
-   "Modularisierung erlaubt, Teile getrennt zu verstehen und zu ändern.",
-   "Mehr Abstraktion senkt den Aufwand, den Code zu verstehen.",
-   "Implementierungen lassen sich hinter Schnittstellen austauschen."
-  ],
-  "correct": [
-   1,
-   2,
-   4,
-   6
-  ],
-  "optExpl": [
-   "Falsch: Umgekehrt: Modularisierung schafft gerade explizite Schnittstellen zwischen den Bausteinen. Gerade diese klar definierten Schnittstellen sind der Gewinn, weil sie Abhängigkeiten sichtbar und kontrollierbar machen.",
-   "Richtig: Das Curriculum nennt diese Grenze ausdrücklich: Zu viele oder unnötige Abstraktionen machen ein System schwerer verständlich. Jede Indirektion muss man beim Lesen erst auflösen, ohne dass sie einen Nutzen bringt.",
-   "Richtig: Die Zerlegung in Bausteine mit klaren Schnittstellen erlaubt, Teile getrennt zu verstehen, zu entwickeln und zu ändern. So wird ein großes System in überschaubare Einheiten aufgeteilt – das ist der Kernnutzen.",
-   "Falsch: Übergeneralisierung: Eine Schicht ohne konkreten Bedarf kostet Aufwand, Performanz und Verständlichkeit, ohne Änderungen zu erleichtern. Abstraktion lohnt sich nur dort, wo tatsächlich Variabilität erwartet wird.",
-   "Richtig: Überschaubare Module mit klaren Grenzen begrenzen, was man gleichzeitig im Kopf behalten muss, und halten Änderungen lokal.",
-   "Falsch: Abstraktionen kosten Verständnisaufwand, wenn sie keinen konkreten Bedarf erfüllen. Sie sind ein Mittel, nicht automatisch ein Gewinn.",
-   "Richtig: Schnittstellen sind Abstraktionen: Nutzer hängen nur vom Vertrag ab, nicht von der konkreten Implementierung. Dadurch lässt sich z. B. eine Datenbankanbindung austauschen, ohne die Aufrufer zu ändern."
-  ],
-  "explanation": "Abstraktion und Modularisierung machen Komplexität beherrschbar und Implementierungen hinter Schnittstellen austauschbar. Fallen: Mehr Abstraktion bzw. mehr Schichten sind nicht automatisch besser, und Modularisierung erzeugt Schnittstellen statt sie einzusparen."
- },
- {
-  "id": "c3q11",
-  "chapter": 3,
-  "lz": "LZ 03-08",
-  "r": "R1",
-  "type": "multi",
-  "q": "Für welche Szenarien eignet sich das Muster Pipes and Filters?",
-  "options": [
-   "Fachmodule lösen ein Problem über einen gemeinsamen Wissensspeicher.",
-   "ETL-Strecke: importieren, bereinigen, anreichern, exportieren.",
-   "Assistent, in dem Nutzer frei zwischen Schritten springen.",
-   "Stufenweise Verarbeitung von Logdaten (parsen, filtern, aggregieren).",
-   "Getrennte Modelle für Schreib- und Lesezugriffe.",
-   "Bildverarbeitungskette aus aufeinanderfolgenden Verarbeitungsschritten."
+   "Jede zusätzliche Abstraktionsebene verbessert die Verständlichkeit, weil sie weitere Details verbirgt.",
+   "Modularisierung kann die Zahl der Schnittstellen und damit den Abstimmungsaufwand erhöhen.",
+   "Modularisierung senkt die Komplexität des Gesamtsystems, ohne neue Abhängigkeiten zu erzeugen.",
+   "Abstraktion erlaubt es, über einen Baustein zu urteilen, ohne seine Interna zu kennen.",
+   "Abstraktion macht Bausteine wiederverwendbar, deshalb sollte jeder Baustein möglichst generisch ausgelegt werden.",
+   "Eine Abstraktion senkt Änderungskosten nur dort, wo sie veränderliche Entscheidungen von ihren Nutzern trennt."
   ],
   "correct": [
    1,
@@ -1852,14 +1811,41 @@ const QUESTIONS = [
    5
   ],
   "optExpl": [
-   "Falsch: Ein gemeinsamer Wissensspeicher, an dem Fachmodule schrittweise ein Problem lösen, beschreibt das Blackboard-Muster. Filter in Pipes and Filters teilen gerade keinen gemeinsamen Zustand, sondern reichen Daten nur weiter.",
-   "Richtig: Eine ETL-Strecke besteht aus unabhängigen Verarbeitungsschritten, die Daten der Reihe nach weiterreichen – ein klassischer Fall für Pipes and Filters. Filter lassen sich einzeln austauschen, neu kombinieren oder parallelisieren.",
-   "Falsch: Interaktive Abläufe, in denen Nutzer frei zwischen Schritten springen, passen schlecht zu einer gerichteten Verarbeitungskette. Pipes and Filters setzt einen festen Datenfluss in eine Richtung voraus, ohne Rücksprünge.",
-   "Richtig: Jede Stufe nimmt Daten entgegen, verarbeitet sie und gibt sie weiter. Das ist die typische Struktur einer Pipes-and-Filters-Verarbeitung.",
-   "Falsch: Getrennte Modelle für Schreib- und Lesezugriffe beschreiben CQRS (Command Query Responsibility Segregation). Das ist ein anderes Muster mit anderem Ziel, etwa unabhängige Optimierung von Lesen und Schreiben.",
-   "Richtig: Unabhängige Filter wie Skalieren, Schärfen oder Komprimieren lassen sich zu Ketten kombinieren und neu anordnen."
+   "Falsch: Abstraktion hilft nur, wenn sie wirklich Unwesentliches verbirgt. Zusätzliche Ebenen ohne Nutzen erzwingen Indirektionen und machen das System schwerer nachvollziehbar.",
+   "Richtig: Jedes Modul braucht eine definierte Schnittstelle, die vereinbart und gepflegt werden muss. Der Gewinn an Beherrschbarkeit wird mit zusätzlichem Abstimmungsaufwand erkauft.",
+   "Falsch: Beim Schneiden in Module entstehen Abhängigkeiten über Modulgrenzen hinweg, die vorher intern waren. Die Komplexität verschiebt sich teilweise auf die Schnittstellen.",
+   "Richtig: Eine Abstraktion beschreibt, was ein Baustein leistet, nicht wie. Dadurch lässt sich das Zusammenspiel verstehen, ohne jedes Detail zu überblicken.",
+   "Falsch: Übermäßige Generalisierung erzeugt Komplexität für Fälle, die nie eintreten. Der Nutzen einer Abstraktion hängt davon ab, ob sie tatsächlich benötigte Variabilität abdeckt.",
+   "Richtig: An stabilen Stellen bringt eine zusätzliche Abstraktion keinen Änderbarkeitsgewinn, sondern nur Aufwand. Ihr Wert ergibt sich aus der erwarteten Änderungsrichtung."
   ],
-  "explanation": "Pipes and Filters passt zu gerichteten, mehrstufigen Verarbeitungsketten aus unabhängigen Filtern, etwa ETL-Strecken. Fallen: interaktive, frei verzweigende Abläufe sowie Verwechslungen mit Blackboard (gemeinsamer Speicher) oder CQRS (getrennte Lese-/Schreibmodelle)."
+  "explanation": "Abstraktion und Modularisierung machen Komplexität beherrschbar, haben aber Kosten: mehr Schnittstellen, Indirektion und Abstimmung. Fallen: Abstraktion als Selbstzweck, Generalisierung auf Vorrat und die Annahme, Modularisierung erzeuge keine neuen Abhängigkeiten."
+ },
+ {
+  "id": "c3q11",
+  "chapter": 3,
+  "lz": "LZ 03-08",
+  "r": "R1",
+  "type": "multi",
+  "q": "Für welche Aufgaben ist das Muster Pipes and Filters gut geeignet?",
+  "options": [
+   "Viele Fachkomponenten greifen in wechselnder Reihenfolge auf einen gemeinsamen Datenbestand zu und ergänzen ihn schrittweise.",
+   "Ein Compiler zerlegt Quelltext in aufeinanderfolgenden Stufen: Lexer, Parser, Optimierer, Codegenerator.",
+   "Eine zentrale Komponente nimmt Anfragen entgegen und verteilt sie an passende Fachkomponenten.",
+   "Verarbeitungsschritte, bei denen späte Stufen frühere Stufen rückwirkend neu anstoßen.",
+   "Eingehende Messwerte werden in unabhängigen Stufen normalisiert, validiert und angereichert."
+  ],
+  "correct": [
+   1,
+   4
+  ],
+  "optExpl": [
+   "Falsch: Das beschreibt das Blackboard-Muster mit gemeinsamem Wissensspeicher. Pipes and Filters kennt keinen gemeinsamen Zustand, Daten fließen nur zwischen benachbarten Stufen.",
+   "Richtig: Eine feste Folge von Transformationsschritten, die jeweils die Ausgabe des vorherigen verarbeitet, ist der Standardfall.",
+   "Falsch: Das ist eine Vermittler- bzw. Broker-Struktur. Bei Pipes and Filters gibt es keine zentrale Steuerung, die Stufen sind über Pipes verkettet.",
+   "Falsch: Rückkopplungen widersprechen der Idee unabhängiger, in eine Richtung verketteter Filter und machen Fehlerbehandlung und Nebenläufigkeit komplizierter.",
+   "Richtig: Datenstrom, unabhängige Transformationsstufen und ein einheitliches Pipe-Format passen genau auf das Muster."
+  ],
+  "explanation": "Pipes and Filters passt, wenn ein Datenstrom in unabhängigen, linear verketteten Transformationsschritten verarbeitet wird. Abgrenzung: Blackboard (gemeinsamer Datenbestand), Broker/Mediator (zentrale Verteilung), Rückkopplung (kein reiner Fluss)."
  },
  {
   "id": "c3q12",
@@ -1868,23 +1854,25 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Welche Aussage zum Unterschied zwischen synchroner und asynchroner Kommunikation trifft zu?",
+  "q": "Welche Aussage zu asynchroner Kommunikation zwischen Bausteinen trifft zu?",
   "options": [
-   "Asynchron entfällt die fachliche Abhängigkeit zum Empfänger.",
-   "Asynchron müssen Sender und Empfänger gleichzeitig verfügbar sein.",
-   "Lokale Aufrufe sind synchron, entfernte asynchron.",
-   "Synchron wartet der Aufrufer auf die Antwort, asynchron nicht."
+   "Sie macht Sender und Empfänger fachlich unabhängig, weil der Sender nicht auf das Ergebnis wartet.",
+   "Sie setzt voraus, dass Sender und Empfänger zum Zeitpunkt der Nachricht beide verfügbar sind.",
+   "Sie senkt die zeitliche Kopplung, lässt aber die Abhängigkeit vom Nachrichtenformat bestehen.",
+   "Sie entsteht erst durch Verteilung; innerhalb eines Prozesses sind Aufrufe synchron.",
+   "Sie vereinfacht die Fehlerbehandlung, weil Fehler des Empfängers beim Sender als Ausnahme ankommen."
   ],
   "correct": [
-   3
+   2
   ],
   "optExpl": [
-   "Falsch: Asynchronität senkt nur die zeitliche Kopplung. Nachrichtenformat und fachliche Bedeutung bleiben gemeinsame Abhängigkeiten: Erwartet der Empfänger andere Daten, funktioniert das Zusammenspiel trotzdem nicht.",
-   "Falsch: Vertauscht: Gleichzeitige Verfügbarkeit ist ein Merkmal synchroner Kommunikation. Asynchron kann der Sender eine Nachricht absetzen, auch wenn der Empfänger gerade nicht läuft, etwa über eine Warteschlange.",
-   "Falsch: Lokal/entfernt und synchron/asynchron sind unabhängige Merkmale. Entfernte Aufrufe sind oft synchron (z. B. REST oder RPC), und auch lokal gibt es asynchrone Mechanismen wie Events oder Futures.",
-   "Richtig: Synchron blockiert der Aufrufer, bis die Antwort da ist. Asynchron entkoppelt das Absenden zeitlich vom Verarbeiten: Der Aufrufer arbeitet weiter und erhält ein Ergebnis gegebenenfalls später, etwa per Callback."
+   "Falsch: Der Sender wartet zwar nicht, aber Format und fachliche Bedeutung der Nachricht bleiben gemeinsame Abhängigkeiten. Erwartet der Empfänger andere Daten, scheitert die Interaktion trotzdem.",
+   "Falsch: Vertauscht: Gleichzeitige Verfügbarkeit verlangt die synchrone Kommunikation. Asynchron kann der Sender senden, auch wenn der Empfänger gerade nicht läuft, etwa über eine Queue.",
+   "Richtig: Asynchronität entkoppelt Senden und Verarbeiten zeitlich. Die fachliche und formale Abhängigkeit (Nachrichtenformat, Bedeutung) bleibt bestehen.",
+   "Falsch: Auch innerhalb eines Prozesses gibt es asynchrone Mechanismen wie Events, Futures oder Callbacks. Lokal/entfernt und synchron/asynchron sind unabhängige Merkmale.",
+   "Falsch: Das ist ein Merkmal synchroner Aufrufe. Asynchron erfährt der Sender von Fehlern des Empfängers nicht direkt; das erschwert die Fehlerbehandlung eher (Fehlerkanäle, Wiederholung, Dead-Letter-Queue)."
   ],
-  "explanation": "Synchron heißt: Der Aufrufer wartet blockierend auf die Antwort; asynchron entkoppelt Senden und Verarbeiten zeitlich. Fallen: Asynchronität beseitigt nicht die fachliche Abhängigkeit, erfordert keine gleichzeitige Verfügbarkeit und hat nichts mit lokal oder entfernt zu tun."
+  "explanation": "Asynchrone Kommunikation entkoppelt Sender und Empfänger zeitlich, nicht aber fachlich. Fallen: Sie hängt nicht an Verteilung, verlangt keine gleichzeitige Verfügbarkeit und macht Fehlerbehandlung nicht einfacher."
  },
  {
   "id": "c3q14",
@@ -1892,26 +1880,29 @@ const QUESTIONS = [
   "lz": "LZ 03-04",
   "r": "R1",
   "type": "multi",
-  "q": "Die Fachlogik soll Kundendaten speichern, ohne von der Datenbanktechnik abzuhängen. Welche Aussagen zum DIP treffen zu?",
+  "q": "Welche Aussagen zum Dependency-Inversion-Prinzip (DIP) treffen zu?",
   "options": [
-   "Die Abstraktion gehört zum Modul, das sie implementiert.",
-   "Die Abstraktion gehört zur nutzenden Fachlogik.",
-   "Abhängigkeiten von außen übergeben, statt sie selbst zu erzeugen.",
-   "Ein DI-Framework erfüllt das Prinzip automatisch.",
-   "Fachlogik und DB-Adapter hängen von einer Abstraktion ab."
+   "Die Abstraktion gehört zum nutzenden, höherstufigen Baustein und nicht zum implementierenden.",
+   "Das DIP ist erfüllt, sobald Abhängigkeiten per Konstruktor übergeben werden.",
+   "Das DIP kann zusätzliche Schnittstellen und Indirektion erzeugen, die sich vor allem bei veränderlichen Abhängigkeiten lohnen.",
+   "Das DIP verringert die Abhängigkeit zur Laufzeit, weil Aufrufe nicht mehr direkt erfolgen.",
+   "Die Abstraktion gehört zum aufgerufenen, niedrigstufigen Baustein, damit Aufrufer sie vorfinden.",
+   "Dependency Injection ist eine Technik, die das DIP unterstützen kann, es aber nicht garantiert."
   ],
   "correct": [
-   1,
-   4
+   0,
+   2,
+   5
   ],
   "optExpl": [
-   "Falsch: Gehört die Abstraktion zum implementierenden Technikmodul, hängt die Fachlogik weiterhin von diesem Modul ab. Die Abhängigkeitsrichtung bliebe unverändert, die beabsichtigte Umkehr fände also gar nicht statt.",
-   "Richtig: Die nutzende Fachlogik definiert die Schnittstelle, etwa „Kundenablage“, nach ihrem eigenen Bedarf. Der DB-Adapter implementiert sie, sodass die Abhängigkeit von der Technik zur Fachlogik zeigt.",
-   "Falsch: Das ist die Definition von Dependency Injection, nicht des DIP. Das DIP betrifft die Richtung der Abhängigkeit zu Abstraktionen; DI ist nur eine Technik, die Instanzen von außen bereitstellt.",
-   "Falsch: DI ist eine Technik, die das DIP unterstützen kann, aber nicht garantiert. Ein Framework kann ebenso gut konkrete Klassen injizieren, und dann hängt die Fachlogik weiterhin direkt von der Datenbanktechnik ab.",
-   "Richtig: Kern des DIP: Höher- und niedrigerstufige Module hängen beide von einer Abstraktion ab, nicht das eine vom Detail des anderen. Fachlogik und DB-Adapter kennen nur die Schnittstelle „Kundenablage“."
+   "Richtig: Der nutzende Baustein definiert die Schnittstelle nach eigenem Bedarf; der Adapter implementiert sie. Erst dadurch zeigt die Abhängigkeit von der Technik zur Fachlogik.",
+   "Falsch: Das beschreibt Dependency Injection, eine Technik. Auch injizierte konkrete Klassen lassen die Fachlogik direkt von der Technik abhängen; das DIP betrifft die Richtung der Abhängigkeit zu Abstraktionen.",
+   "Richtig: Jede Abstraktion kostet Aufwand und Verständlichkeit. Sie lohnt sich dort, wo die Abhängigkeit voraussichtlich wechselt oder isoliert werden soll.",
+   "Falsch: Zur Laufzeit ruft die Fachlogik weiterhin den Adapter auf. Invertiert wird die Richtung der Quelltext-Abhängigkeit, nicht der Aufrufweg.",
+   "Falsch: Dann bliebe die Fachlogik vom Technikmodul abhängig, die Richtung wäre nicht umgekehrt. Die Abstraktion liegt auf der Seite des Nutzers.",
+   "Richtig: DI stellt Instanzen von außen bereit. Ob die Fachlogik dabei von einer Abstraktion oder einer konkreten Klasse abhängt, entscheidet erst der Entwurf."
   ],
-  "explanation": "Beim DIP hängen beide Seiten von einer Abstraktion ab, die der nutzenden Fachlogik gehört. Fallen: Gleichsetzung mit Dependency Injection, die nur eine unterstützende Technik ist, und die Annahme, ein DI-Framework erfülle das Prinzip automatisch."
+  "explanation": "Beim DIP hängen Fachlogik und Technik von einer Abstraktion ab, die dem Nutzer gehört. Fallen: DIP mit Dependency Injection gleichsetzen, Inversion auf die Laufzeit beziehen und Abstraktionen ohne Bedarf einziehen."
  },
  {
   "id": "k3",
@@ -1920,27 +1911,31 @@ const QUESTIONS = [
   "r": "R1",
   "type": "k",
   "points": 2,
-  "q": "In einem Architektur-Review fallen folgende Begriffe. Ordnen Sie zu: Architekturmuster oder Entwurfsprinzip?",
+  "q": "Handelt es sich um ein Architekturmuster oder ein Entwurfsprinzip?",
   "categories": [
    "Architekturmuster",
    "Entwurfsprinzip"
   ],
   "rows": [
    {
-    "text": "Geheimnisprinzip (Information Hiding)",
+    "text": "Dependency Inversion Principle",
     "cat": 1
    },
    {
-    "text": "Schichtenarchitektur (Layers)",
+    "text": "Separation of Concerns",
+    "cat": 1
+   },
+   {
+    "text": "Schichtenarchitektur",
     "cat": 0
+   },
+   {
+    "text": "Information Hiding",
+    "cat": 1
    },
    {
     "text": "Pipes und Filter",
     "cat": 0
-   },
-   {
-    "text": "Dependency Inversion Principle",
-    "cat": 1
    },
    {
     "text": "Microservices",
@@ -1948,13 +1943,14 @@ const QUESTIONS = [
    }
   ],
   "rowExpl": [
-   "Änderliches hinter einer stabilen Schnittstelle zu verbergen, ist eine allgemeine Leitlinie für Entwürfe. Es schreibt keine konkrete Struktur vor wie ein Muster, daher ist es ein Entwurfsprinzip.",
-   "Schichten sind eine konkrete, wiederverwendbare Lösungsschablone für die Struktur eines Systems mit geregelter Nutzungsrichtung. Ein Prinzip wäre nur die dahinterliegende Leitlinie, z. B. die Trennung von Zuständigkeiten.",
-   "Pipes und Filter beschreiben eine konkrete Struktur: Verarbeitungsschritte (Filter), verbunden durch Datenströme (Pipes). Das ist eine Lösungsschablone, also ein Muster, und keine allgemeine Leitlinie.",
-   "Das Dependency Inversion Principle verlangt, Abhängigkeiten über Schnittstellen umzukehren, sodass die Technik von der Fachlogik abhängt. Es ist eine Leitlinie und kein Muster. Dependency Injection ist nur eine Technik, die es unterstützt.",
-   "Microservices teilen ein System in klein geschnittene, unabhängig auslieferbare Dienste. Das ist eine konkrete Lösungsschablone mit festen Strukturmerkmalen, also ein Architekturmuster und kein Prinzip."
+   "Leitlinie zur Richtung von Abhängigkeiten (Abstraktionen statt Details); Muster wie Ports and Adapters wenden sie an.",
+   "Allgemeine Leitlinie zur Trennung von Belangen, ohne vorgegebene Bausteinarten.",
+   "Konkrete Struktur aus Ebenen mit gerichteten Abhängigkeiten.",
+   "Prinzip, interne Entscheidungen hinter einer Schnittstelle zu verbergen; unabhängig von einer konkreten Struktur.",
+   "Muster mit Verarbeitungsschritten, die über Datenströme verbunden sind.",
+   "Architekturstil mit unabhängig deploybaren, fachlich geschnittenen Services."
   ],
-  "explanation": "Information Hiding und das Dependency Inversion Principle sind Entwurfsprinzipien, also Leitlinien. Schichten, Pipes und Filter und Microservices sind Architekturmuster, d. h. konkrete Lösungsschablonen. Falle: Das DIP klingt nach einer konkreten Technik, ist aber ein Prinzip – Dependency Injection ist nur eine Technik, die es unterstützt."
+  "explanation": "Muster geben eine konkrete Struktur mit Bausteinarten und Beziehungen vor; Prinzipien sind Leitlinien, die in vielen Strukturen angewandt werden können. Ein Prinzip kann ein Muster begründen (z. B. Separation of Concerns die Schichtung), ist aber selbst keine Struktur."
  },
  {
   "id": "c3q15",
@@ -1962,32 +1958,29 @@ const QUESTIONS = [
   "lz": "LZ 03-04",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Entwicklungsteam räumt ein gewachsenes System auf: Oberflächenlogik, Fachregeln und Datenzugriff sind stark vermischt, und jede Änderung zieht viele Anpassungen nach sich. Die Architektin verweist auf die Trennung von Verantwortlichkeiten. Welche Aussagen zur Trennung von Verantwortlichkeiten (Separation of Concerns) treffen zu?",
+  "q": "Welche Aussagen zur Trennung der Belange (Separation of Concerns) treffen zu?",
   "options": [
-   "Unterschiedliche Belange in getrennten Bausteinen behandeln.",
-   "Geschäftsregeln und Persistenz liegen in getrennten Bausteinen.",
-   "Die Trennung erhöht die Kopplung, weil mehr Bausteine zusammenarbeiten müssen.",
-   "SoC ist ein anderer Name für das SRP.",
-   "Ein Belang kann auch fachlich geschnitten sein, etwa nach Subdomänen.",
-   "Jeder Belang braucht eine eigene technische Schicht.",
-   "Fachlogik lässt sich ohne Technik testen."
+   "Belange können technisch geschnitten werden, etwa Persistenz, oder fachlich, etwa nach Subdomänen.",
+   "SoC fordert, dass jede Klasse genau eine Aufgabe hat, und gilt nicht für größere Bausteine.",
+   "Eine Trennung der Belange setzt eine Schichtenarchitektur voraus.",
+   "Werden zusammengehörige Aspekte getrennt, kann die Kopplung steigen und die Kohäsion sinken.",
+   "Querschnittliche Belange wie Logging lassen sich vollständig in einem Baustein kapseln, sodass kein anderer Baustein betroffen ist.",
+   "Getrennte Belange lassen sich unabhängig ändern und testen, solange die Schnittstellen zwischen ihnen stabil bleiben."
   ],
   "correct": [
    0,
-   1,
-   4,
-   6
+   3,
+   5
   ],
   "optExpl": [
-   "Richtig: Das ist die Definition des Prinzips im Curriculum: Unterschiedliche Belange werden in getrennten Bausteinen behandelt. So lassen sie sich unabhängig verstehen, ändern und testen.",
-   "Richtig: Eine typische Anwendung: Fachliches und Technisches ändern sich aus unterschiedlichen Gründen. Getrennt kann man etwa die Datenbank wechseln, ohne Geschäftsregeln anzufassen.",
-   "Falsch: Getrennte Belange mit klaren Schnittstellen senken die Abhängigkeit von Details. Dass Bausteine zusammenarbeiten, heißt nicht, dass die Kopplung steigt.",
-   "Falsch: SoC ist das allgemeinere Prinzip auf allen Ebenen. Das Single-Responsibility-Prinzip ist eine spezielle Ausprägung, die sich auf einzelne Klassen bzw. Bausteine und ihre Änderungsgründe bezieht.",
-   "Richtig: Belange müssen nicht technisch getrennt werden. Fachliche Schnitte, etwa nach Subdomänen, sind ebenso eine Trennung von Verantwortlichkeiten.",
-   "Falsch: SoC ist nicht an Schichten gebunden. Belange können auch fachlich, etwa nach Subdomänen, oder per Modul getrennt werden; Schichten sind nur eine mögliche Umsetzung.",
-   "Richtig: Eine direkte Folge der Trennung: Ist die Fachlogik frei von Datenbank- und UI-Code, lässt sie sich isoliert und schnell mit Unit-Tests prüfen."
+   "Richtig: Der Begriff Belang ist nicht auf technische Schichten beschränkt. Auch fachliche Schnitte trennen Belange und sind oft änderungsstabiler.",
+   "Falsch: Das beschreibt das Single-Responsibility-Prinzip auf Klassenebene. SoC ist allgemeiner und gilt auf jeder Granularität, vom Modul bis zum Gesamtsystem.",
+   "Falsch: Schichten sind nur eine von mehreren Strukturen, Belange zu trennen. Auch Komponenten, Subdomänen oder Pipes & Filter trennen Belange.",
+   "Richtig: Ein falscher Schnitt verteilt Zusammengehöriges auf mehrere Bausteine, die dann viel miteinander abstimmen müssen. Trennung ist daher keine Garantie für lose Kopplung.",
+   "Falsch: Querschnittliche Belange wirken per Definition in vielen Bausteinen. Ein zentraler Baustein kann die Umsetzung bündeln, die Aufrufstellen bleiben aber in den Nutzern.",
+   "Richtig: Der Nutzen der Trennung hängt an stabilen Schnittstellen. Ändern sich diese, wirken Änderungen trotz Trennung über die Grenze."
   ],
-  "explanation": "Separation of Concerns behandelt unterschiedliche Belange in getrennten Bausteinen, etwa Fachliches und Technisches, was u. a. isolierte Tests ermöglicht. Fallen: SoC mit dem spezielleren SRP gleichsetzen oder zwingend an technische Schichten binden."
+  "explanation": "SoC trennt unterschiedliche Belange in eigene Bausteine, technisch oder fachlich, auf jeder Granularität. Fallen: SoC mit SRP gleichsetzen, an Schichten binden, Querschnittsbelange als vollständig kapselbar sehen und die Kopplungskosten schlechter Schnitte übersehen."
  },
  {
   "id": "c3q16",
@@ -1996,23 +1989,23 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Welche Aussage beschreibt das Prinzip DRY am genauesten?",
+  "q": "Welche Aussage zum DRY-Prinzip (Don't Repeat Yourself) trifft zu?",
   "options": [
-   "Syntaktisch gleicher Code wird immer zusammengeführt.",
-   "Gilt für Quellcode, nicht für Konfiguration oder Doku.",
-   "Jedes Wissen hat genau eine autoritative Repräsentation.",
-   "Lösungen so einfach wie möglich halten."
+   "DRY gilt für Quellcode, nicht für Dokumentation und Konfiguration.",
+   "Das Zusammenführen duplizierter Logik verringert die Kopplung zwischen den Bausteinen, die vorher Kopien enthielten.",
+   "DRY betrifft Wissen und Entscheidungen, nicht bloß gleich aussehenden Code.",
+   "DRY fordert, gleichartigen Code syntaktisch zusammenzuführen, auch wenn er unterschiedlichen Zwecken dient."
   ],
   "correct": [
    2
   ],
   "optExpl": [
-   "Falsch: Zufällig gleicher Code, der sich aus unterschiedlichen fachlichen Gründen ändert, ist kein doppeltes Wissen. Ihn zusammenzuführen, koppelt unabhängige Teile unnötig – ändert sich ein Grund, bricht der andere Nutzer.",
-   "Falsch: Diese Sicht ist zu eng: DRY bezieht sich auf Wissen, nicht nur auf Quellcode. Auch doppelt gepflegte Konfigurationswerte, Datenbankschemata oder Dokumentation verletzen DRY, weil sie auseinanderlaufen können.",
-   "Richtig: So formulieren Hunt und Thomas DRY: Jedes Stück Wissen hat genau eine eindeutige, autoritative Repräsentation im System – in Code, Konfiguration oder Dokumentation. Ändert es sich, muss man es nur an einer Stelle anpassen (R3).",
-   "Falsch: Das beschreibt KISS („Keep it simple, stupid“). Es ist im Motiv der Komplexitätsreduktion verwandt, aber ein eigenes Prinzip, das sich auf Einfachheit statt auf die Vermeidung von Wissensduplikaten bezieht."
+   "Falsch: DRY bezieht sich auf Wissen und Entscheidungen, egal wo sie festgehalten sind. Auch doppelte Konfigurationswerte oder Dokumentation können auseinanderlaufen.",
+   "Falsch: Gemeinsame Logik erzeugt eine Abhängigkeit aller Nutzer auf den gemeinsamen Baustein. DRY tauscht verteilte Kopien gegen explizite Kopplung, kann sie also erhöhen.",
+   "Richtig: Entscheidend ist, ob dieselbe Entscheidung mehrfach festgehalten wird. Ähnlicher Code mit unterschiedlichem fachlichen Hintergrund verletzt DRY nicht.",
+   "Falsch: Wer Code ohne gemeinsame fachliche Bedeutung zusammenführt, koppelt unabhängige Änderungsgründe. Das ist ein Missverständnis von DRY."
   ],
-  "explanation": "DRY bedeutet: Jedes Wissen hat genau eine autoritative Repräsentation, egal ob in Code, Konfiguration oder Dokumentation. Fallen: DRY auf textgleichen Code zu reduzieren (zufällige Gleichheit ist kein doppeltes Wissen), es nur auf Quellcode zu beziehen oder es mit KISS zu verwechseln."
+  "explanation": "DRY meint: Jede Entscheidung hat eine maßgebliche Repräsentation, in Code, Konfiguration und Dokumentation. Fallen: Zusammenführen nach Aussehen statt nach Bedeutung und die Annahme, Zusammenführen senke die Kopplung."
  },
  {
   "id": "c3q17",
@@ -2021,23 +2014,23 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Ein Entwickler schlägt vor, „für alle Fälle“ schon jetzt mehrere Erweiterungspunkte einzubauen. Welches Prinzip spricht am ehesten dagegen?",
+  "q": "Ein Team baut vorsorglich mehrere Erweiterungspunkte für nur vermutete Anforderungen ein. Welches Prinzip spricht am ehesten dagegen?",
   "options": [
-   "YAGNI: keine Funktionalität auf Vorrat bauen.",
-   "Information Hiding: veränderliche Entscheidungen verbergen.",
-   "OCP: offen für Erweiterung, geschlossen für Änderung.",
-   "Konzeptionelle Integrität: Gleiches gleich lösen."
+   "Offen/geschlossen-Prinzip",
+   "Information Hiding",
+   "Konzeptionelle Integrität",
+   "YAGNI"
   ],
   "correct": [
-   0
+   3
   ],
   "optExpl": [
-   "Richtig: YAGNI („You Ain't Gonna Need It“) richtet sich gegen Funktionalität auf Vorrat. Spekulative Erweiterungspunkte „für alle Fälle“ kosten Aufwand und Komplexität, obwohl sie aktuell niemand braucht und sie oft nie genutzt werden.",
-   "Falsch: Information Hiding verbirgt absehbar veränderliche Entwurfsentscheidungen hinter Schnittstellen. Es sagt nichts darüber aus, ob man vorsorglich Funktionalität bauen soll, und spricht deshalb nicht gegen den Vorschlag.",
-   "Falsch: Das OCP wird oft gerade als Begründung für solche Erweiterungspunkte angeführt, weil es Erweiterung ohne Änderung fordert. Es spricht also eher dafür als dagegen – richtig eingesetzt aber nur für erwartete Variabilität.",
-   "Falsch: Konzeptionelle Integrität fordert, Gleiches gleich zu lösen, also Einheitlichkeit im Entwurf. Sie sagt nichts darüber, ob Funktionalität vorab gebaut werden soll, und passt deshalb nicht zur Frage."
+   "Falsch: Das OCP stützt Erweiterungspunkte eher, als dass es ihnen widerspricht. Es sagt aber nichts darüber, ob eine vermutete Erweiterung den Aufwand rechtfertigt.",
+   "Falsch: Information Hiding verbirgt Entscheidungen, deren Änderung wahrscheinlich ist. Es begründet kein Bauen auf Vorrat, argumentiert aber auch nicht gegen spekulative Erweiterungspunkte.",
+   "Falsch: Sie verlangt, Gleichartiges gleichartig zu lösen. Ob Funktionalität nötig ist, beantwortet sie nicht.",
+   "Richtig: You Ain't Gonna Need It: Funktionalität, die nicht gebraucht wird, erhöht Komplexität und Wartungsaufwand, ohne Nutzen zu stiften. Vermutete Anforderungen rechtfertigen keine Vorleistung."
   ],
-  "explanation": "YAGNI richtet sich gegen spekulative Generalisierung und Funktionalität auf Vorrat. Falle: Das OCP klingt passend, wird aber eher als Argument FÜR Erweiterungspunkte genutzt; Information Hiding und konzeptionelle Integrität betreffen andere Fragen."
+  "explanation": "YAGNI richtet sich gegen Funktionalität und Flexibilität auf Vorrat. Falle: OCP und Information Hiding klingen nach Erweiterbarkeit, rechtfertigen aber keine spekulativen Erweiterungspunkte."
  },
  {
   "id": "c3q18",
@@ -2047,27 +2040,27 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Welche Aussagen zu Architekturmustern treffen zu?",
   "options": [
-   "Architektur- und Entwurfsmuster sind Synonyme.",
-   "Jedes Muster hat neben Vorteilen auch Nachteile.",
-   "Sie helfen, bestimmte Qualitäten in einem Kontext zu erreichen.",
-   "Bewährte Lösungsschablonen für wiederkehrende Strukturprobleme.",
-   "Ein System sollte sich auf ein Architekturmuster beschränken, um konsistent zu bleiben.",
-   "Sie lassen sich unverändert auf andere Systeme übertragen."
+   "Die Verbesserung einer Qualität durch ein Muster geht häufig zu Lasten einer anderen.",
+   "Innerhalb eines Systems können für unterschiedliche Teile verschiedene Muster gelten.",
+   "Ein Muster ist eine fertige Implementierung, die sich in andere Systeme übernehmen lässt.",
+   "Architekturmuster betreffen typischerweise die Struktur des Gesamtsystems, Entwurfsmuster eher die einzelner Bausteine.",
+   "Wird ein Muster an den Kontext angepasst, gilt es nicht mehr als Anwendung dieses Musters.",
+   "Ein Muster garantiert die Qualitätsziele, für die es bekannt ist."
   ],
   "correct": [
+   0,
    1,
-   2,
    3
   ],
   "optExpl": [
-   "Falsch: Das Curriculum unterscheidet Architekturmuster (z. B. Schichten, Pipes and Filters) von Entwurfsmustern (z. B. Adapter, Observer). Entwurfsmuster wirken meist feiner granular innerhalb von Bausteinen, Architekturmuster prägen die Gesamtstruktur.",
-   "Richtig: Kein Muster ist kostenlos: Schichten bringen Indirektion, Microservices Verteilungskomplexität. Darum muss man beim Einsatz Vor- und Nachteile bewusst gegen die Qualitätsziele abwägen.",
-   "Richtig: Muster sind ein Weg zu Qualitäten wie Änderbarkeit oder Skalierbarkeit – aber nur für gegebene Probleme in einem gegebenen Kontext. Außerhalb dieses Kontexts können sie mehr schaden als nützen.",
-   "Richtig: So definiert das Curriculum Architekturmuster: bewährte Lösungsschablonen für wiederkehrende Strukturprobleme. Sie bündeln Erfahrung und schaffen gemeinsames Vokabular im Team.",
-   "Falsch: Reale Systeme kombinieren oft mehrere Muster, z. B. Microservices, die intern geschichtet sind und über Ereignisse kommunizieren. Die Beschränkung auf ein einziges Muster ist keine Regel des Curriculums.",
-   "Falsch: Muster sind abstrakte Schablonen und müssen an das konkrete Problem, die Randbedingungen und die Qualitätsziele angepasst werden. Wer sie ungeprüft überträgt, riskiert unpassende Lösungen."
+   "Richtig: Muster sind Kompromisse: Schichten verbessern Änderbarkeit auf Kosten der Laufzeit, Pipes and Filters Austauschbarkeit auf Kosten der Fehlerbehandlung.",
+   "Richtig: Ein System kombiniert Muster, etwa Schichten im Innern und Publish/Subscribe zwischen Teilsystemen. Entscheidend ist, dass sie sich nicht widersprechen.",
+   "Falsch: Ein Muster ist eine abstrakte Lösungsschablone, keine Implementierung. Sie muss je Kontext ausgeprägt werden.",
+   "Richtig: Die Unterscheidung nach Wirkungsbereich ist üblich: Architekturmuster strukturieren das System, Entwurfsmuster wirken innerhalb von Bausteinen.",
+   "Falsch: Muster werden regelmäßig angepasst (z. B. offene statt strikter Schichten). Entscheidend ist, dass die Grundidee und ihre Konsequenzen erhalten bleiben.",
+   "Falsch: Ein Muster erhöht die Wahrscheinlichkeit, Qualitäten zu erreichen, garantiert sie aber nicht; Kontext und Umsetzung entscheiden."
   ],
-  "explanation": "Architekturmuster sind bewährte, kontextabhängige Lösungsschablonen mit Vor- und Nachteilen, die man abwägen muss. Fallen: nur ein Muster pro System, Übertragung ohne Anpassung und die Gleichsetzung mit (feiner granularen) Entwurfsmustern."
+  "explanation": "Muster sind Lösungsschablonen mit Vor- und Nachteilen, kombinierbar und anpassbar, aber keine Garantie und keine fertige Implementierung. Falle: Beschreibung der Struktur ist nicht gleichbedeutend mit Qualitätsnachweis."
  },
  {
   "id": "c3q19",
@@ -2076,23 +2069,25 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Welche Elemente trennt das Muster Model-View-Controller (MVC)?",
+  "q": "Welche Aussage zum Muster Model-View-Controller (MVC) trifft zu?",
   "options": [
-   "Präsentations-, Anwendungs- und Datenhaltungsschicht.",
-   "Fachkern, Ports und technische Adapter.",
-   "Schreibmodell, Lesemodell und Ereignisspeicher.",
-   "Datenmodell, Darstellung und Steuerung der Interaktion."
+   "Die View verarbeitet Benutzereingaben und ändert direkt das Model; der Controller verwaltet nur die Darstellung.",
+   "MVC trennt Präsentations-, Anwendungs- und Datenhaltungsschicht in drei Schichten, die nur nach unten abhängen.",
+   "Der Controller enthält die Fachlogik, das Model nur die Daten.",
+   "Das Model kennt die View nicht; die View bezieht ihre Daten vom Model und bildet sie ab.",
+   "MVC ist ein Verteilungsmuster, das Bausteine auf Client und Server aufteilt."
   ],
   "correct": [
    3
   ],
   "optExpl": [
-   "Falsch: Präsentations-, Anwendungs- und Datenhaltungsschicht beschreiben eine Drei-Schichten-Architektur. MVC trennt dagegen Belange innerhalb der Benutzeroberfläche, nicht die Schichten eines Gesamtsystems.",
-   "Falsch: Fachkern, Ports und Adapter sind die Elemente des Musters Ports and Adapters (Hexagonal). Dieses Muster schützt die Fachlogik vor Technik, MVC organisiert dagegen die Interaktion mit der Oberfläche.",
-   "Falsch: Schreib- und Lesemodell stammen aus CQRS, der Ereignisspeicher aus Event Sourcing. Das sind eigenständige Muster zur Datenhaltung und haben mit der Trennung in MVC nichts zu tun.",
-   "Richtig: MVC trennt das Datenmodell (Model), dessen Darstellung (View) und die Steuerung der Benutzerinteraktion (Controller). So lassen sich z. B. mehrere Darstellungen desselben Modells umsetzen."
+   "Falsch: Vertauscht: Der Controller nimmt Eingaben entgegen und steuert Model und View; die View stellt dar.",
+   "Falsch: MVC trennt Aufgaben der Interaktion (Daten, Darstellung, Steuerung), nicht technische Schichten; View und Controller sind zudem eng verbunden.",
+   "Falsch: Das Model enthält Daten und Fachlogik; der Controller vermittelt zwischen Eingabe, Model und View.",
+   "Richtig: Das Model ist unabhängig von der Darstellung, dadurch lassen sich mehrere Views auf dasselbe Model setzen, ohne es zu ändern.",
+   "Falsch: MVC strukturiert die Verantwortlichkeiten der Interaktion. Wo die Teile laufen (Client, Server), ist unabhängig davon."
   ],
-  "explanation": "MVC trennt innerhalb der Benutzeroberfläche Model (Daten), View (Darstellung) und Controller (Interaktionssteuerung). Fallen: Gleichsetzung mit den drei technischen Schichten sowie Verwechslung mit Ports and Adapters oder CQRS/Event Sourcing."
+  "explanation": "MVC trennt Model (Daten und Fachlogik), View (Darstellung) und Controller (Steuerung der Interaktion). Das Model kennt die View nicht. Fallen: Verwechslung mit Schichten, Vertauschen der Rollen von View und Controller."
  },
  {
   "id": "c3q21",
@@ -2100,29 +2095,29 @@ const QUESTIONS = [
   "lz": "LZ 03-06",
   "r": "R1",
   "type": "multi",
-  "q": "Die Bausteine A und B referenzieren sich gegenseitig (zyklische Abhängigkeit). Welche Aussagen treffen zu?",
+  "q": "Welche Aussagen zu zyklischen Abhängigkeiten zwischen Bausteinen treffen zu?",
   "options": [
-   "Unproblematisch, solange ein Team beide pflegt.",
-   "Aufbrechen, indem eine Abhängigkeit über eine Abstraktion umgekehrt wird.",
-   "Bei engem fachlichem Bezug: zu einem Baustein zusammenlegen.",
-   "Liegen beide Bausteine in derselben Schicht, ist der Zyklus unproblematisch.",
-   "Events statt Aufrufe beseitigen den Zyklus samt fachlicher Abhängigkeit.",
-   "Isoliertes Testen und Ändern wird erschwert."
+   "Bausteine in einem Zyklus lassen sich kaum unabhängig voneinander testen oder wiederverwenden.",
+   "Zyklen innerhalb einer Schicht sind unkritisch, solange die Regeln zwischen den Schichten eingehalten werden.",
+   "Ein Zyklus zwischen zwei Bausteinen lässt sich durch Umkehrung einer Abhängigkeit über eine Abstraktion auflösen.",
+   "Ersetzt man direkte Aufrufe durch Events, besteht keine zyklische Abhängigkeit mehr.",
+   "Zyklische Abhängigkeiten sind nur bei Aufrufen zur Laufzeit problematisch, nicht bei Abhängigkeiten zwischen Datentypen.",
+   "Ein Zyklus kann auf einen unglücklichen Schnitt hindeuten; Zusammenlegen kann dann die sinnvollere Lösung sein."
   ],
   "correct": [
-   1,
+   0,
    2,
    5
   ],
   "optExpl": [
-   "Falsch: Die Organisation ändert nichts an der technischen Kopplung. Auch wenn ein Team beide Bausteine pflegt, lassen sie sich weiterhin nicht getrennt testen, ändern oder wiederverwenden.",
-   "Richtig: Definiert A eine Schnittstelle, die B implementiert, hängt B von A ab statt umgekehrt. Damit zeigen beide Abhängigkeiten in dieselbe Richtung und der Zyklus ist aufgelöst – eine Anwendung des DIP.",
-   "Richtig: Gehören A und B fachlich eng zusammen, ist das Zusammenlegen eine legitime Lösung. Der Zyklus zeigt dann oft nur, dass der Schnitt falsch war; ein gemeinsamer Baustein erhöht die Kohäsion.",
-   "Falsch: Die Schichtregel betrifft Aufrufe zwischen Schichten. Ein Zyklus innerhalb einer Schicht bleibt trotzdem problematisch, weil A und B weiterhin nicht unabhängig voneinander verstanden und geändert werden können.",
-   "Falsch: Mit Events verschwindet zwar die direkte technische Referenz, die fachliche Abhängigkeit bleibt aber bestehen. A und B hängen weiter von Struktur und Bedeutung der Nachrichten des jeweils anderen ab.",
-   "Richtig: A und B lassen sich kaum getrennt verstehen, testen oder wiederverwenden. Änderungen breiten sich in beide Richtungen aus, und für einen Test von A braucht man immer auch B."
+   "Richtig: Zum Testen von A braucht man B und umgekehrt. Änderungen breiten sich in beide Richtungen aus, und eine Wiederverwendung eines einzelnen Bausteins zieht den anderen mit.",
+   "Falsch: Die Schichtenregel betrifft Abhängigkeiten zwischen Schichten. Innerhalb einer Schicht bleiben Bausteine im Zyklus voneinander abhängig und nur gemeinsam änderbar.",
+   "Richtig: Definiert A eine Schnittstelle, die B implementiert, hängt B von A ab statt umgekehrt, und beide Abhängigkeiten zeigen in dieselbe Richtung (Dependency Inversion).",
+   "Falsch: Events entfernen nur die direkte, statische Referenz. Fachlich bleiben A und B über Bedeutung und Struktur der Nachrichten voneinander abhängig, nur weniger sichtbar.",
+   "Falsch: Auch Abhängigkeiten zwischen Datentypen oder Modulen zur Entwicklungszeit bilden Zyklen und erschweren Verständnis, Änderung und Test. Entscheidend ist die Abhängigkeitsstruktur.",
+   "Richtig: Gehören A und B fachlich eng zusammen, spricht der Zyklus für einen falschen Schnitt. Zusammenlegen erhöht dann die Kohäsion, statt künstlich über Abstraktionen zu entkoppeln."
   ],
-  "explanation": "Zyklische Abhängigkeiten erschweren isoliertes Testen, Ändern und Wiederverwenden. Lösungen sind Abhängigkeitsumkehr über eine Abstraktion oder Zusammenlegen; Fallen: Teamzugehörigkeit, gemeinsame Schicht oder Events beseitigen das Problem nicht."
+  "explanation": "Zyklen erschweren isoliertes Testen, Ändern und Wiederverwenden, unabhängig von Schicht oder Art der Abhängigkeit. Lösungen: Abhängigkeit über eine Abstraktion umkehren oder Bausteine zusammenlegen. Fallen: Events beseitigen die fachliche Abhängigkeit nicht, Schichtenzugehörigkeit relativiert den Zyklus nicht."
  },
  {
   "id": "c3q23",
@@ -2130,32 +2125,32 @@ const QUESTIONS = [
   "lz": "LZ 03-06",
   "r": "R1",
   "type": "multi",
-  "q": "Warum programmiert man gegen Schnittstellen statt gegen konkrete Implementierungen?",
+  "q": "Welche Aussagen zum Programmieren gegen Schnittstellen statt gegen konkrete Implementierungen treffen zu?",
   "options": [
-   "Die Kopplung an Implementierungsdetails sinkt.",
-   "Die statische Kopplung entfällt, weil zur Laufzeit gebunden wird.",
-   "Implementierungen werden austauschbar.",
-   "Abhängigkeiten lassen sich im Test ersetzen.",
-   "Die Zahl der Klassen sinkt, weil Implementierungen zusammengelegt werden.",
-   "Die Signatur genügt Aufrufern, um die Schnittstelle korrekt zu nutzen.",
-   "Neue Implementierungen lassen sich ergänzen, ohne die Aufrufer zu ändern."
+   "Eine Schnittstelle zwischen Aufrufer und Implementierung beseitigt die Abhängigkeit des Aufrufers von der Semantik der Operationen.",
+   "Aufrufer sind von Implementierungsdetails entkoppelt, nicht aber vom Vertrag der Schnittstelle.",
+   "Implementierungen hinter derselben Schnittstelle sind austauschbar, sobald die Signaturen kompatibel sind.",
+   "Testdoubles können anstelle realer Abhängigkeiten eingesetzt werden.",
+   "Neue Implementierungen lassen sich ergänzen, ohne Aufrufer zu ändern, sofern sie den Vertrag der Schnittstelle einhalten.",
+   "Wird die Implementierung erst zur Laufzeit gebunden, besteht für den Aufrufer keine Abhängigkeit zur Entwicklungszeit mehr.",
+   "Zusätzliche Schnittstellen erhöhen die Zahl der Typen und führen Indirektion ein, auch wenn nie eine zweite Implementierung entsteht."
   ],
   "correct": [
-   0,
-   2,
+   1,
    3,
+   4,
    6
   ],
   "optExpl": [
-   "Richtig: Nutzer hängen nur noch vom Vertrag der Schnittstelle ab, nicht von Interna der Implementierung wie Datenstrukturen oder Hilfsklassen. Änderungen hinter der Schnittstelle wirken sich so nicht auf die Aufrufer aus.",
-   "Falsch: Die statische Abhängigkeit zur Schnittstelle bleibt bestehen; sie ist nur loser, weil sie nicht mehr an Implementierungsdetails hängt. Ändert sich die Schnittstelle selbst, müssen die Aufrufer weiterhin angepasst werden.",
-   "Richtig: Solange der Vertrag eingehalten wird, lässt sich die Implementierung ersetzen, ohne Nutzer zu ändern – etwa eine In-Memory-Ablage durch eine Datenbankanbindung. Das ist die Grundlage für Erweiterbarkeit und das Dependency-Inversion-Prinzip.",
-   "Richtig: Hinter einer Schnittstelle kann im Test ein Testdouble wie ein Mock oder Stub stehen. Das erleichtert isoliertes, schnelles Testen ohne echte Datenbank oder externe Dienste und verbessert so die Testbarkeit.",
-   "Falsch: Gegen Schnittstellen zu programmieren führt eher zu zusätzlichen Typen, weil Schnittstelle und Implementierung getrennt sind. Der Nutzen liegt in der Entkopplung, nicht in weniger Klassen.",
-   "Falsch: Die Signatur allein reicht nicht: Die Semantik – was ein Aufruf bewirkt, Vor- und Nachbedingungen, Fehlerverhalten – ist Teil des Vertrags. Ohne sie weiß der Aufrufer nicht, wie er die Schnittstelle korrekt nutzt.",
-   "Richtig: Solange eine neue Implementierung den Vertrag der Schnittstelle erfüllt, bleiben Aufrufer unverändert. Das entspricht dem Offen/geschlossen-Prinzip."
+   "Falsch: Die Semantik (Wirkung, Vor- und Nachbedingungen, Fehlerverhalten) gehört zum Vertrag. Der Aufrufer muss sie weiterhin kennen und ist davon abhängig.",
+   "Richtig: Der Aufrufer hängt nur vom Vertrag ab, nicht von Datenstrukturen oder Hilfsklassen der Implementierung. Ändert sich der Vertrag selbst, müssen Aufrufer angepasst werden.",
+   "Falsch: Kompatible Signaturen genügen nicht. Eine Implementierung muss auch die vereinbarte Semantik einhalten, sonst ist sie trotz passender Typen nicht substituierbar (Liskov).",
+   "Richtig: Hinter der Schnittstelle kann im Test ein Mock oder Stub stehen. Das ermöglicht isolierte Tests ohne echte Datenbank oder externe Dienste.",
+   "Richtig: Wer den Vertrag erfüllt, kann ergänzt werden, ohne dass Aufrufer sich ändern. Das entspricht dem Open/Closed-Principle.",
+   "Falsch: Die Abhängigkeit zur Schnittstelle selbst besteht weiterhin schon zur Entwicklungszeit, nur die Zuordnung zur konkreten Implementierung erfolgt später.",
+   "Richtig: Schnittstellen sind nicht kostenlos: Mehr Typen, mehr Indirektion und erschwerte Nachvollziehbarkeit. Ohne tatsächlichen Variationsbedarf ist das Aufwand ohne Nutzen."
   ],
-  "explanation": "Gegen Schnittstellen zu programmieren senkt die Kopplung an Details, macht Implementierungen austauschbar, erleichtert Tests mit Testdoubles und erlaubt Erweiterungen ohne Änderung der Aufrufer. Fallen: Die statische Abhängigkeit zur Schnittstelle bleibt auch bei Bindung zur Laufzeit, die Semantik muss man weiter kennen, und die Zahl der Klassen sinkt nicht."
+  "explanation": "Gegen Schnittstellen zu programmieren entkoppelt von Implementierungsdetails, ermöglicht Austausch, Erweiterung und Testdoubles, hat aber Kosten (Indirektion, mehr Typen). Fallen: Die Abhängigkeit zur Schnittstelle bleibt statisch bestehen, und Signaturkompatibilität reicht ohne passende Semantik nicht für einen Austausch."
  },
  {
   "id": "k6",
@@ -2164,41 +2159,41 @@ const QUESTIONS = [
   "r": "R1",
   "type": "k",
   "points": 2,
-  "q": "Sie prüfen Entwurfsvarianten für ein Bestellsystem. Erhöht oder reduziert die jeweilige Maßnahme die Kopplung zwischen Bausteinen?",
+  "q": "Welche Dependency-Richtung beschreibt die Aussage aus Sicht des betrachteten Bausteins: efferent oder afferent?",
   "categories": [
-   "Erhöht Kopplung",
-   "Reduziert Kopplung"
+   "Efferent",
+   "Afferent"
   ],
   "rows": [
    {
-    "text": "Die konkrete Implementierung wird erst zur Laufzeit per Dependency Injection übergeben.",
+    "text": "Der Baustein importiert Typen aus Lager, Versand und Rechnungswesen.",
+    "cat": 0
+   },
+   {
+    "text": "Zwölf andere Bausteine rufen die Schnittstelle dieses Bausteins auf.",
     "cat": 1
    },
    {
-    "text": "Der Aufrufer hängt nur von einer Schnittstelle ab, nicht von deren Implementierung.",
+    "text": "Der Baustein lässt sich nur testen, wenn mehrere Nachbarbausteine bereitstehen.",
+    "cat": 0
+   },
+   {
+    "text": "Eine Änderung der Schnittstelle erzwingt Anpassungen in vielen anderen Bausteinen.",
     "cat": 1
    },
    {
-    "text": "Ein Baustein erbt von einer konkreten Klasse eines anderen Bausteins.",
-    "cat": 0
-   },
-   {
-    "text": "Zwei Bausteine lesen und schreiben dieselben Tabellen einer gemeinsamen Datenbank.",
-    "cat": 0
-   },
-   {
-    "text": "Ein Baustein arbeitet nur, solange der aufgerufene Dienst gleichzeitig erreichbar ist.",
-    "cat": 0
+    "text": "Ein Fehler im Baustein wirkt sich auf viele andere Bausteine aus.",
+    "cat": 1
    }
   ],
   "rowExpl": [
-   "Weil die konkrete Implementierung erst zur Laufzeit übergeben wird, kennt der Baustein sie zur Entwurfszeit nicht. Das lockert die Bindung und reduziert die Kopplung; feste Verdrahtung im Code würde sie erhöhen.",
-   "Wer nur eine Schnittstelle kennt, ist von der Implementierung entkoppelt und bleibt von deren Änderungen unberührt. Das reduziert die Kopplung, die Abhängigkeit von einer konkreten Klasse wäre dagegen enger.",
-   "Vererbung von einer konkreten Fremdklasse bindet den Baustein an deren Interna und Änderungen. Das erhöht die Kopplung deutlich, statt sie über eine Schnittstelle zu reduzieren.",
-   "Gemeinsam genutzte Tabellen machen die Datenstruktur zur versteckten Schnittstelle: Eine Änderung an einer Stelle wirkt auf beide Bausteine. Das erhöht die Kopplung und reduziert sie nicht.",
-   "Das ist zeitliche Kopplung: Der Baustein ist darauf angewiesen, dass der Dienst genau jetzt erreichbar ist. Diese oft übersehene Kopplungsart erhöht die Kopplung, auch ohne direkte Codeabhängigkeit."
+   "Der Baustein nutzt andere, die Abhängigkeiten gehen von ihm aus: efferent (exit). Afferent wäre es, wenn andere Bausteine ihn nutzen würden.",
+   "Viele Bausteine hängen vom betrachteten Baustein ab, die Abhängigkeiten kommen bei ihm an: afferent (arrival). Efferent wäre die umgekehrte Richtung, also was der Baustein selbst nutzt.",
+   "Der Testaufwand entsteht, weil der Baustein viele andere benötigt – das sind ausgehende, efferente Abhängigkeiten. Viele afferente Abhängigkeiten erschweren dagegen die Änderung, nicht den isolierten Test.",
+   "Die Anpassungen entstehen bei den Nutzern des Bausteins; es sind also eingehende, afferente Abhängigkeiten. Viele afferente Abhängigkeiten machen Änderungen riskant.",
+   "Wer vom Baustein abhängt, ist von seinem Ausfall betroffen. Das sind eingehende, afferente Abhängigkeiten; Fehler im Baustein breiten sich entgegen der Abhängigkeitsrichtung aus."
   ],
-  "explanation": "Dependency Injection und die Abhängigkeit nur von Schnittstellen reduzieren die Kopplung. Erhöht wird sie durch Vererbung von einer konkreten Fremdklasse, gemeinsam genutzte Datenbanktabellen und zeitliche Abhängigkeit von einem gleichzeitig erreichbaren Dienst – Kopplungsarten, die oft übersehen werden."
+  "explanation": "Efferent = ausgehend (der Baustein nutzt andere), afferent = eingehend (andere nutzen den Baustein). Viele efferente Abhängigkeiten erschweren Verständnis, Wiederverwendung und isolierten Test; viele afferente machen Änderungen riskant. Falle: Die Begriffe werden gern vertauscht – die Richtung gilt immer aus Sicht des betrachteten Bausteins."
  },
  {
   "id": "k8",
@@ -2208,36 +2203,46 @@ const QUESTIONS = [
   "extra": true,
   "type": "k",
   "points": 2,
-  "q": "Ein Team möchte seine Code-Richtlinien an SOLID ausrichten. Gehört das jeweilige Prinzip zu SOLID?",
+  "q": "Welche der folgenden Entwurfsprinzipien gehören zu den fünf SOLID-Prinzipien?",
   "categories": [
    "Teil von SOLID",
    "Nicht Teil von SOLID"
   ],
   "rows": [
    {
-    "text": "Dependency Inversion Principle",
+    "text": "Open/Closed-Principle",
     "cat": 0
    },
    {
-    "text": "Interface Segregation Principle",
-    "cat": 0
+    "text": "Information Hiding",
+    "cat": 1
    },
    {
     "text": "Separation of Concerns",
     "cat": 1
    },
    {
-    "text": "Single Responsibility Principle",
+    "text": "Liskov Substitution Principle",
     "cat": 0
+   },
+   {
+    "text": "Dependency Inversion Principle",
+    "cat": 0
+   },
+   {
+    "text": "Law of Demeter",
+    "cat": 1
    }
   ],
   "rowExpl": [
-   "Das Dependency Inversion Principle ist das „D“ in SOLID. Es verlangt, Abhängigkeiten über Schnittstellen umzukehren, und gehört damit eindeutig zu SOLID.",
-   "Das Interface Segregation Principle ist das „I“ in SOLID und gehört deshalb dazu. Es ist eines der fünf Prinzipien, die das Akronym bilden.",
-   "Separation of Concerns ähnelt dem Single Responsibility Principle, ist aber ein eigenständiges Prinzip und kein Bestandteil von SOLID. SOLID umfasst nur SRP, OCP, LSP, ISP und DIP.",
-   "Das Single Responsibility Principle ist das „S“ in SOLID und gehört dazu. Es darf nicht mit Separation of Concerns verwechselt werden, das nicht zu SOLID zählt."
+   "Das Open/Closed-Principle ist das „O“ in SOLID: Bausteine sollen für Erweiterungen offen, für Änderungen geschlossen sein. Es gehört dazu.",
+   "Information Hiding ist ein allgemeines Entwurfsprinzip (Parnas) und verwandt mit Kapselung, aber keiner der fünf Buchstaben von SOLID.",
+   "Separation of Concerns ähnelt dem Single Responsibility Principle, ist aber ein eigenständiges, übergeordnetes Prinzip und nicht Teil von SOLID.",
+   "Das Liskov Substitution Principle ist das „L“ in SOLID: Subtypen müssen sich überall dort verwenden lassen, wo der Basistyp erwartet wird.",
+   "Das Dependency Inversion Principle ist das „D“ in SOLID: Abstraktionen sollen nicht von Details abhängen, sondern Details von Abstraktionen.",
+   "Das Law of Demeter (nur mit direkten Kollaborateuren sprechen) ist eine bekannte Kopplungsregel, gehört aber nicht zu SOLID."
   ],
-  "explanation": "SOLID umfasst SRP, OCP, LSP, ISP und DIP – Dependency Inversion, Interface Segregation und Single Responsibility gehören also dazu. Falle ist ein Verwandter: Separation of Concerns ähnelt SRP, ist aber ein eigenes Prinzip."
+  "explanation": "SOLID besteht aus SRP, OCP, LSP, ISP und DIP. Typische Falle: verwandte, ebenfalls bekannte Prinzipien (Separation of Concerns, Information Hiding, Law of Demeter) werden fälschlich zu SOLID gezählt, weil sie ähnliche Ziele wie SRP bzw. DIP verfolgen."
  },
  {
   "id": "c3q24",
@@ -2245,26 +2250,26 @@ const QUESTIONS = [
   "lz": "LZ 03-04",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Shop soll künftig weitere Zahlarten unterstützen. Welche der folgenden Aussagen bzw. Vorgehensweisen entsprechen dem Offen/geschlossen-Prinzip (OCP)?",
+  "q": "Welche Aussagen zum Offen/geschlossen-Prinzip (OCP) treffen zu?",
   "options": [
-   "Neue Zahlart: die bestehende if-Kette um einen weiteren Fall ergänzen.",
-   "Offen für Erweiterung, geschlossen für Änderung.",
-   "Neue Zahlart als weitere Implementierung einer Schnittstelle.",
-   "Jede Klasse hat genau eine Verantwortlichkeit.",
-   "Nach dem ersten Release darf Code nicht mehr geändert werden."
+   "OCP lässt sich über Polymorphie umsetzen, indem neue Varianten als weitere Implementierungen einer Schnittstelle hinzukommen.",
+   "OCP verlangt, dass ausgelieferter Code nicht mehr geändert wird.",
+   "OCP lässt sich nur über Vererbung realisieren, Komposition mit Schnittstellen fällt nicht darunter.",
+   "Ein Baustein ist nur gegenüber den Änderungen geschlossen, die beim Entwurf vorhergesehen wurden.",
+   "OCP ist ein Spezialfall des Liskov'schen Substitutionsprinzips."
   ],
   "correct": [
-   1,
-   2
+   0,
+   3
   ],
   "optExpl": [
-   "Falsch: Das entspricht gerade nicht dem OCP: Eine if-Kette zu erweitern ändert erprobten Code, und mit jeder Zahlart wächst die Gefahr von Seiteneffekten. OCP-konform wäre eine neue Implementierung hinter einer Abstraktion.",
-   "Richtig: Das ist die Kernformulierung des Prinzips nach Meyer: Bausteine sollen für Erweiterungen offen sein, ihr bestehender, erprobter Code aber für Änderungen geschlossen. Neues Verhalten kommt hinzu, statt Altes umzubauen.",
-   "Richtig: Eine neue Zahlart als weitere Implementierung einer Schnittstelle wie „PaymentMethod“ ergänzt Verhalten, ohne erprobten Code zu ändern. Das ist die typische Umsetzung des OCP über Abstraktion und Polymorphie.",
-   "Falsch: Genau eine Verantwortlichkeit pro Klasse fordert das Single Responsibility Principle, nicht das OCP. Beide Prinzipien ergänzen sich, beschreiben aber unterschiedliche Aspekte.",
-   "Falsch: Übertreibung: Das OCP ist kein Änderungsverbot. Fehlerbehebungen und Refactorings bleiben selbstverständlich möglich; es geht darum, neue Anforderungen möglichst durch Erweiterung umzusetzen."
+   "Richtig: Der nutzende Baustein bleibt unverändert, neue Varianten ergänzen nur. Strategy ist ein typisches Muster dafür.",
+   "Falsch: Das Prinzip bezieht sich auf Erweiterungen, nicht auf ein Änderungsverbot. Fehler und neue Anforderungen außerhalb der vorgesehenen Variabilität erfordern weiterhin Änderungen.",
+   "Falsch: Auch Komposition mit Delegation an austauschbare Implementierungen erfüllt das OCP, oft sogar flexibler als Vererbung.",
+   "Richtig: Es gibt keine vollständige Geschlossenheit. Die Abstraktion muss die erwartete Änderungsrichtung treffen; eine Abstraktion für nie eintretende Erweiterungen ist Aufwand ohne Nutzen.",
+   "Falsch: Das LSP betrifft die Verhaltenskonformität von Subtypen. Es unterstützt das OCP, ist aber ein eigenständiges Prinzip und nicht dessen Ursprung."
   ],
-  "explanation": "OCP: offen für Erweiterung, geschlossen für Änderung – neues Verhalten wie eine weitere Zahlart kommt über zusätzliche Implementierungen hinter einer Abstraktion. Fallen: OCP als absolutes Änderungsverbot missverstehen, mit dem SRP verwechseln oder if-Ketten erweitern."
+  "explanation": "OCP: Erweiterung durch Hinzufügen statt Ändern, bezogen auf erwartete Änderungsachsen. Fallen: OCP als Änderungsverbot, an Vererbung binden, mit LSP vermischen und Abstraktionen ohne Änderungsbedarf bauen."
  },
  {
   "id": "c3q25",
@@ -2273,23 +2278,25 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Eine Schnittstelle „Kundenservice“ hat 40 Operationen, die meisten Clients nutzen nur drei. Was empfiehlt das Interface-Segregation-Prinzip?",
+  "q": "Welche Aussage zum Interface-Segregation-Prinzip (ISP) trifft zu?",
   "options": [
-   "Die Operationen zentral bündeln, um Konsistenz zu sichern.",
-   "Schmale, rollenspezifische Schnittstellen für die Clients.",
-   "Clients von Abstraktionen statt von Klassen abhängig machen.",
-   "Die Schnittstelle nach technischen Schichten aufteilen."
+   "Schnittstellen werden nach der Kohäsion der implementierenden Klasse geschnitten, nicht nach den Bedürfnissen der Clients.",
+   "Clients sollen nicht von Operationen abhängen, die sie nicht nutzen; Schnittstellen werden deshalb nach Client-Rollen geschnitten.",
+   "Jede Operation soll in einer eigenen Schnittstelle stehen.",
+   "Clients sollen von Abstraktionen statt von konkreten Klassen abhängen.",
+   "Das ISP führt zu weniger, dafür umfassenderen Schnittstellen."
   ],
   "correct": [
    1
   ],
   "optExpl": [
-   "Falsch: Alle Operationen zentral zu bündeln ist genau der Ausgangszustand, den das ISP auflösen will. Eine breite Schnittstelle zwingt Clients, von Operationen abzuhängen, die sie nie nutzen – Änderungen daran betreffen sie trotzdem.",
-   "Richtig: Das Interface-Segregation-Prinzip fordert, dass Clients nicht von Operationen abhängen, die sie nicht nutzen. Also teilt man die Schnittstelle in schmale, rollenspezifische Schnittstellen, z. B. „Kundensuche“ oder „Adressänderung“.",
-   "Falsch: Abhängigkeit von Abstraktionen statt konkreten Klassen beschreibt das Dependency-Inversion-Prinzip. Die Schnittstelle bliebe dabei so breit wie zuvor – das eigentliche Problem der 40 Operationen wäre nicht gelöst.",
-   "Falsch: Das ISP schneidet Schnittstellen nach den Bedürfnissen der Clients, nicht nach technischen Schichten. Eine Aufteilung nach Schichten würde Clients weiterhin mit vielen ungenutzten Operationen belasten."
+   "Falsch: Das ISP argumentiert von den Clients her. Ein Schnitt nach Implementierungssicht kann Clients weiter mit Operationen belasten, die sie nicht brauchen.",
+   "Richtig: Schmale, rollenspezifische Schnittstellen verhindern, dass Änderungen an ungenutzten Operationen Clients betreffen. Eine Klasse kann mehrere davon implementieren.",
+   "Falsch: Das wäre eine übertriebene Auslegung. Ziel sind rollenspezifische Gruppen zusammengehöriger Operationen, nicht Ein-Operation-Schnittstellen.",
+   "Falsch: Das ist das Dependency-Inversion-Prinzip. Das ISP regelt, wie groß und wie zugeschnitten die Abstraktion ist.",
+   "Falsch: Es führt typischerweise zu mehr und schmaleren Schnittstellen. Die Zahl der Schnittstellen steigt, die Abhängigkeit der einzelnen Clients sinkt."
   ],
-  "explanation": "ISP: Kein Client soll von Operationen abhängen, die er nicht nutzt – deshalb schmale, rollenspezifische Schnittstellen. Fallen: Verwechslung mit dem DIP (Abstraktionen statt Klassen) und ein Schnitt nach technischen Schichten statt nach Client-Bedürfnissen."
+  "explanation": "ISP: Clients hängen nur von dem ab, was sie nutzen; Schnittstellen sind rollenspezifisch geschnitten. Fallen: Schnitt nach Implementierungssicht, Verwechslung mit DIP und Übertreibung bis zur Ein-Operation-Schnittstelle."
  },
  {
   "id": "c3q26",
@@ -2298,23 +2305,25 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Was fordert das Liskov'sche Substitutionsprinzip (LSP)?",
+  "q": "Welche Aussage zum Liskov'schen Substitutionsprinzip (LSP) trifft zu?",
   "options": [
-   "Subtypen sind verhaltenskonform anstelle des Basistyps nutzbar.",
-   "Erfüllt, sobald der Subtyp erbt und die Signaturen passen.",
-   "Subtypen dürfen Vorbedingungen verschärfen.",
-   "Vererbung durch Komposition ersetzen."
+   "Ein Subtyp darf Nachbedingungen des Basistyps abschwächen, solange die Signaturen kompatibel sind.",
+   "Ein Subtyp darf Vorbedingungen abschwächen und Nachbedingungen verschärfen.",
+   "Das LSP ist erfüllt, wenn der Compiler die Subtyp-Beziehung akzeptiert.",
+   "Das LSP betrifft Klassenvererbung; Implementierungen von Schnittstellen sind davon ausgenommen.",
+   "Ein Subtyp muss alle Operationen des Basistyps unverändert übernehmen und darf nur ergänzen."
   ],
   "correct": [
-   0
+   1
   ],
   "optExpl": [
-   "Richtig: Wo der Basistyp erwartet wird, muss jeder Subtyp funktionieren, ohne das erwartete Verhalten zu brechen. Klassisches Gegenbeispiel: Ein Quadrat als Subtyp von Rechteck, bei dem das Setzen der Breite unerwartet die Höhe ändert.",
-   "Falsch: Syntaktische Kompatibilität reicht nicht. Erben und passende Signaturen erlaubt nur das Kompilieren; LSP verlangt, dass auch das Verhalten die Erwartungen an den Basistyp erfüllt (Verträge, Invarianten).",
-   "Falsch: Umgekehrt: Subtypen dürfen Vorbedingungen nur abschwächen und Nachbedingungen nur verschärfen. Verschärfte Vorbedingungen brechen Aufrufer, die sich auf den Vertrag des Basistyps verlassen.",
-   "Falsch: Das ist die Heuristik „Komposition vor Vererbung“, nicht LSP – und auch sie verlangt keinen generellen Ersatz. LSP regelt, wie sich Subtypen verhalten müssen, wenn Vererbung eingesetzt wird."
+   "Falsch: Nachbedingungen dürfen nur verschärft werden. Schwächt der Subtyp sie ab, kann ein Aufrufer sich nicht mehr auf die Zusagen des Basistyps verlassen.",
+   "Richtig: Ein Subtyp darf mehr akzeptieren und mehr zusichern als der Basistyp. Dann bleibt jeder Aufrufer, der den Basistyp erwartet, korrekt bedient.",
+   "Falsch: Compiler prüfen Signaturen, nicht Verhalten. Ein Subtyp kann typkorrekt sein und dennoch das erwartete Verhalten brechen.",
+   "Falsch: Jede Subtyp-Beziehung ist betroffen, auch Schnittstellenimplementierungen. Ein Aufrufer darf sich auf den Vertrag der Schnittstelle verlassen.",
+   "Falsch: Überschreiben ist erlaubt, solange das vertraglich zugesicherte Verhalten erhalten bleibt. Das LSP fordert Verhaltenskonformität, nicht Unveränderlichkeit."
   ],
-  "explanation": "LSP verlangt, dass Subtypen verhaltenskonform überall dort einsetzbar sind, wo der Basistyp erwartet wird. Fallen: Passende Signaturen allein genügen nicht, Vorbedingungen dürfen nicht verschärft werden, und LSP ist nicht dasselbe wie „Komposition vor Vererbung“."
+  "explanation": "LSP: Ein Subtyp muss verhaltenskonform an die Stelle des Basistyps treten können; Vorbedingungen nicht verschärfen, Nachbedingungen nicht abschwächen. Fallen: Richtung vertauschen, Typkorrektheit mit Verhaltenskonformität gleichsetzen und das Prinzip auf Klassenvererbung beschränken."
  },
  {
   "id": "c3q27",
@@ -2323,23 +2332,23 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Was kennzeichnet ein Publish/Subscribe-Muster am zutreffendsten?",
+  "q": "Welche Aussage zu Publish/Subscribe trifft zu?",
   "options": [
-   "Empfänger fragen den Sender regelmäßig nach Neuem ab.",
-   "Sender veröffentlichen Ereignisse, ohne die Empfänger zu kennen.",
-   "Jedes Ereignis hat genau einen festgelegten Empfänger.",
-   "Empfänger quittieren synchron, bevor der Sender fortfährt."
+   "Ein Ereignis wird von genau einem der registrierten Subscriber verarbeitet.",
+   "Zwischen Publisher und Subscriber besteht keine Abhängigkeit.",
+   "Publisher kennen ihre Subscriber nicht; gemeinsam bleiben Ereignistyp und -format.",
+   "Der Publisher wartet auf die Verarbeitungsbestätigung der Subscriber, bevor er fortfährt."
   ],
   "correct": [
-   1
+   2
   ],
   "optExpl": [
-   "Falsch: Das beschreibt Polling: Empfänger fragen aktiv und wiederholt nach. Bei Publish/Subscribe dagegen werden Ereignisse über einen Vermittler an die Abonnenten zugestellt, sobald sie auftreten.",
-   "Richtig: Der Sender veröffentlicht Ereignisse, ohne die Empfänger zu kennen; beliebig viele Abonnenten können darauf reagieren. Neue Empfänger lassen sich hinzufügen, ohne den Sender zu ändern – das entkoppelt beide Seiten.",
-   "Falsch: Ein fest vorgegebener einzelner Empfänger ist Punkt-zu-Punkt-Kommunikation, etwa über eine Queue. Publish/Subscribe ist dagegen Multipunkt: Ein Ereignis kann viele Abonnenten erreichen.",
-   "Falsch: Eine synchrone Quittierung würde den Sender wieder von den Empfängern abhängig machen und ihn blockieren. Das widerspricht der zeitlichen und logischen Entkopplung, die Pub/Sub gerade bieten soll."
+   "Falsch: Das beschreibt eine Queue mit konkurrierenden Empfängern (Punkt-zu-Punkt). Bei Publish/Subscribe erhalten alle interessierten Subscriber das Ereignis.",
+   "Falsch: Die fachliche Abhängigkeit bleibt: Beide müssen sich über Ereignistypen, Format und Bedeutung einig sein. Nur die direkte Kenntnis entfällt.",
+   "Richtig: Der Publisher veröffentlicht, ohne Empfänger zu adressieren; Kopplung besteht über das Ereignis als Vertrag.",
+   "Falsch: Das wäre synchrone Kommunikation. Publish/Subscribe ist typischerweise asynchron, der Publisher setzt nach dem Veröffentlichen fort."
   ],
-  "explanation": "Bei Publish/Subscribe veröffentlicht der Sender Ereignisse an unbekannte, beliebig viele Abonnenten; das entkoppelt Sender und Empfänger. Fallen: Verwechslung mit Punkt-zu-Punkt-Kommunikation, Polling oder synchroner Quittierung, die den Sender wieder abhängig macht."
+  "explanation": "Publish/Subscribe entkoppelt Sender und Empfänger bezüglich Kenntnis und Zeit, nicht bezüglich des Ereignisformats. Fallen: Gleichsetzung mit Punkt-zu-Punkt-Queues, völliger Wegfall der Abhängigkeit und synchrone Bestätigung."
  },
  {
   "id": "c3q28",
@@ -2348,23 +2357,23 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Welche Aussage beschreibt das Client-Server-Muster am zutreffendsten?",
+  "q": "Welche Aussage zum Client-Server-Muster trifft zu?",
   "options": [
-   "Alle Knoten sind gleichrangig und bieten dieselben Dienste.",
+   "Ein Baustein kann nicht zugleich Server und Client sein; die Rollen schließen sich aus.",
+   "Die Initiative geht typischerweise vom Client aus; der Server muss seine Clients nicht im Voraus kennen.",
    "Client und Server müssen auf getrennten Rechnern laufen.",
-   "Ein Vermittler verbindet Clients und Server, die sich nicht kennen.",
-   "Clients nutzen Dienste eines Servers über eine Schnittstelle."
+   "Die Fachlogik muss im Server liegen, da Clients nur die Darstellung übernehmen."
   ],
   "correct": [
-   3
+   1
   ],
   "optExpl": [
-   "Falsch: Gleichrangige Knoten, die dieselben Dienste anbieten und nutzen, beschreiben das Peer-to-Peer-Muster. Bei Client-Server sind die Rollen dagegen klar verteilt: einer fragt an, der andere stellt bereit.",
-   "Falsch: Getrennte Rechner sind üblich, aber nicht nötig. Das Muster beschreibt Rollen, nicht die Verteilung; Client und Server können auch im selben Prozess oder auf demselben Rechner laufen.",
-   "Falsch: Ein Vermittler zwischen Parteien, die sich nicht kennen, ist das Broker-Muster. Es baut zwar auf Client-Server auf, führt aber zusätzlich eine vermittelnde Instanz ein.",
-   "Richtig: Der Client fordert Dienste an, der Server stellt sie über eine Schnittstelle bereit und reagiert auf Anfragen. Beispiel: Ein Browser ruft Seiten von einem Webserver ab."
+   "Falsch: Rollen beziehen sich auf eine Interaktion. Ein Baustein kann Server für seine Nutzer und zugleich Client eines anderen Dienstes sein, z. B. ein Webdienst mit Datenbank.",
+   "Richtig: Clients rufen Dienste über die Schnittstelle des Servers auf; der Server reagiert und braucht keine Kenntnis seiner Clients.",
+   "Falsch: Client und Server sind logische Rollen; sie können im selben Prozess oder auf demselben Rechner laufen. Verteilung ist eine Option, keine Voraussetzung.",
+   "Falsch: Wie die Logik verteilt wird, legt das Muster nicht fest. Auch Clients können Fachlogik enthalten (Rich Client); das ist eine Abwägung."
   ],
-  "explanation": "Client-Server trennt anfragende Clients von bereitstellenden Servern über eine Schnittstelle. Fallen: Verwechslung mit Peer-to-Peer oder Broker und die Gleichsetzung von Rollen mit getrennten Rechnern; das Thema ist R3."
+  "explanation": "Client-Server beschreibt die Rollen bei einer Interaktion: Clients nutzen Dienste eines Servers über dessen Schnittstelle. Fallen: Rollen als feste Zuordnung oder Verteilung auf Rechner sowie Fachlogik nur auf dem Server."
  },
  {
   "id": "c3q29",
@@ -2375,24 +2384,27 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Welche Aussagen zur Heuristik „Komposition vor Vererbung“ treffen zu?",
   "options": [
-   "Vermeidet die Fragilität tiefer Vererbungshierarchien.",
-   "Das umschließende Objekt erbt alle Methoden seiner Teile.",
-   "Vererbung ist damit zu vermeiden.",
-   "Verhalten lässt sich zur Laufzeit austauschen, etwa per Strategy.",
-   "Vor allem bei echter „ist-ein“-Beziehung vorzuziehen."
+   "Komposition koppelt an die öffentliche Schnittstelle der Teile, Vererbung zusätzlich an deren Interna.",
+   "Komposition erfordert weniger Delegationscode als Vererbung.",
+   "Vererbung bleibt sinnvoll, wenn der Subtyp den Basistyp verhaltenskonform ersetzen kann.",
+   "Die Heuristik schließt Vererbung aus und verlangt, Subtyp-Beziehungen durch Schnittstellen zu ersetzen.",
+   "Komposition mit Delegation verhindert Polymorphie, weil keine Basistyp-Beziehung besteht.",
+   "Bei Komposition lässt sich Verhalten in der Regel zur Laufzeit austauschen, bei Vererbung ist es meist zur Übersetzungszeit festgelegt."
   ],
   "correct": [
    0,
-   3
+   2,
+   5
   ],
   "optExpl": [
-   "Richtig: Änderungen an Basisklassen schlagen auf alle Unterklassen durch (fragile base class). Komposition koppelt loser, weil nur die öffentliche Schnittstelle des Teils genutzt wird.",
-   "Falsch: Bei Komposition wird nichts geerbt: Das umschließende Objekt delegiert explizit an seine Teile und bietet nur die Operationen an, die es bewusst weiterreicht.",
-   "Falsch: Übergeneralisierung: Die Heuristik gibt Komposition Vorrang, verbietet Vererbung aber nicht. Bei echten Spezialisierungen bleibt Vererbung ein legitimes Mittel.",
-   "Richtig: Das Strategy-Muster nutzt Komposition: Ein Objekt hält eine austauschbare Strategie, etwa verschiedene Preisberechnungen, die sich zur Laufzeit wechseln lassen. Mit Vererbung ist das Verhalten fest.",
-   "Falsch: Umgekehrt: Bei einer echten „ist-ein“-Beziehung bleibt Vererbung legitim. Komposition empfiehlt sich gerade dort, wo eher eine „hat-ein“- oder „nutzt“-Beziehung vorliegt."
+   "Richtig: Eine Unterklasse sieht geschützte Details der Oberklasse und kann von ihnen abhängen (Whitebox-Wiederverwendung). Bei Komposition ist nur der Vertrag der Schnittstelle sichtbar.",
+   "Falsch: Komposition verlangt, Aufrufe explizit an die Teile weiterzureichen, während Vererbung Methoden automatisch übernimmt. Mehr Delegationscode ist ein typischer Nachteil.",
+   "Richtig: Die Heuristik ist eine Vorrangregel, kein Verbot. Wo eine echte Subtyp-Beziehung im Sinne des LSP besteht, ist Vererbung eine zulässige Wahl.",
+   "Falsch: Vererbung wird nicht ausgeschlossen, sondern nur nachrangig behandelt. Auch Schnittstellen sind Subtyp-Beziehungen und können mit Komposition kombiniert werden.",
+   "Falsch: Polymorphie entsteht über gemeinsame Schnittstellen. Ein komponiertes Teil kann hinter einer Schnittstelle ausgetauscht werden, auch ohne Vererbungsbeziehung.",
+   "Richtig: Ein referenziertes Teil kann ersetzt werden, etwa per Strategy. Die Oberklasse einer Instanz steht dagegen mit der Klassendefinition fest."
   ],
-  "explanation": "Komposition ist flexibler und loser gekoppelt als Vererbung und erlaubt den Austausch von Verhalten zur Laufzeit, etwa per Strategy. Fallen: die Heuristik als generelles Vererbungsverbot lesen oder annehmen, bei Komposition würden Methoden geerbt."
+  "explanation": "Komposition vor Vererbung heißt: Wiederverwendung bevorzugt über Zusammensetzung, weil sie schwächer koppelt und Laufzeitaustausch erlaubt; Preis ist mehr Delegationscode. Fallen: Vererbung als verboten ansehen und Polymorphie an Vererbung binden."
  },
  {
   "id": "c3q30",
@@ -2401,30 +2413,29 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "multi",
-  "q": "Ein Webdienst soll zustandslos (stateless) betrieben werden. Welche Aussagen treffen zu?",
+  "q": "Welche Aussagen zu einem zustandslosen (stateless) Dienst treffen zu?",
   "options": [
-   "Benötigter Zustand liegt extern, z. B. in DB, Cache oder Token.",
-   "Anfragen lassen sich auf beliebige Instanzen verteilen.",
-   "Für Anwendungen mit Benutzersitzungen ungeeignet.",
-   "Erleichtert horizontale Skalierung.",
-   "Sticky Sessions sind ein Wesensmerkmal.",
-   "Fällt eine Instanz aus, geht kein Sitzungszustand verloren."
+   "Mit Sticky Sessions bleibt ein Dienst zustandslos, solange Anfragen einer Sitzung bei derselben Instanz landen.",
+   "Anfragen lassen sich auf beliebige Instanzen verteilen, was Lastverteilung und horizontale Skalierung erleichtert.",
+   "Jede Anfrage trägt die für die Verarbeitung nötigen Informationen selbst oder verweist darauf.",
+   "Zustandslosigkeit verringert das Nachrichtenvolumen, weil Anfragen kleiner werden.",
+   "Zustandslosigkeit heißt, dass der Dienst keine Daten dauerhaft speichert.",
+   "Der benötigte Zustand liegt außerhalb des Dienstes und kann dort zum Engpass oder Ausfallrisiko werden."
   ],
   "correct": [
-   0,
    1,
-   3,
+   2,
    5
   ],
   "optExpl": [
-   "Richtig: Zustand, der über eine einzelne Anfrage hinaus benötigt wird, wird bewusst ausgelagert – in eine Datenbank, einen verteilten Cache oder ein signiertes Token beim Client. Die Dienstinstanz selbst hält keinen Sitzungszustand.",
-   "Richtig: Weil keine Instanz Zustand hält, kann jede gleichwertige Instanz jede Anfrage bearbeiten. Ein Load Balancer kann Anfragen daher frei verteilen, ohne einen Nutzer an eine bestimmte Instanz zu binden.",
-   "Falsch: Benutzersitzungen funktionieren auch mit zustandslosen Diensten, wenn der Sitzungszustand extern (z. B. Redis) oder im Token (z. B. JWT) liegt. Zustandslos bezieht sich auf die Instanz, nicht auf die Anwendung insgesamt.",
-   "Richtig: Neue Instanzen lassen sich einfach hinzufügen oder entfernen, ohne Zustand übertragen oder synchronisieren zu müssen. Das macht horizontale Skalierung, etwa per Autoscaling in Kubernetes, deutlich leichter.",
-   "Falsch: Sticky Sessions binden einen Nutzer und seinen Zustand an eine bestimmte Instanz. Sie sind damit das Gegenmodell zu zustandslosen Diensten und werden gerade dann nötig, wenn Zustand in der Instanz liegt.",
-   "Richtig: Da die Instanz keinen Zustand hält, geht bei ihrem Ausfall kein Sitzungszustand verloren; eine andere Instanz übernimmt die folgenden Anfragen. Das verbessert Verfügbarkeit und Fehlertoleranz."
+   "Falsch: Sticky Sessions binden Zustand an eine Instanz; der Dienst ist dann zustandsbehaftet, mit den bekannten Nachteilen bei Ausfall und Skalierung.",
+   "Richtig: Weil keine Instanz Sitzungswissen hält, kann jede jede Anfrage bearbeiten; Instanzen lassen sich hinzufügen oder ersetzen.",
+   "Richtig: Informationen reisen mit der Anfrage (Token, IDs) oder werden aus externem Speicher geholt; die Instanz muss nichts über frühere Anfragen wissen.",
+   "Falsch: Meist wird der Aufwand pro Anfrage größer, weil Kontext (Token, Parameter) jedes Mal mitgeschickt wird.",
+   "Falsch: Der Dienst kann Daten persistieren (z. B. Datenbank); zustandslos bezieht sich auf Sitzungszustand zwischen Anfragen, nicht auf Speicherung.",
+   "Richtig: Der Zustand wandert in Datenbank, Cache oder Client. Dort muss er verfügbar und skalierbar sein; die Verantwortung wird verlagert, nicht beseitigt."
   ],
-  "explanation": "Zustandslose Dienste halten keinen Zustand in der Instanz, sondern lagern ihn aus; das erleichtert horizontale Skalierung und Ausfallsicherheit. Fallen: Benutzersitzungen sind trotzdem möglich, und Sticky Sessions sind gerade das Gegenmodell, kein Wesensmerkmal."
+  "explanation": "Zustandslose Dienste verlagern den Zustand nach außen und erleichtern Lastverteilung und Skalierung; dafür trägt der externe Speicher die Last. Fallen: Sticky Sessions, Gleichsetzung mit fehlender Persistenz und kleinere Nachrichten."
  },
  {
   "id": "c3q32",
@@ -2433,23 +2444,25 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Ein Dienst ruft einen entfernten, gelegentlich überlasteten Partnerdienst auf. Wozu dienen dabei Timeout, Retry und Circuit Breaker?",
+  "q": "Welche Aussage zu Timeout, Retry und Circuit Breaker bei Aufrufen entfernter Dienste trifft zu?",
   "options": [
-   "Der Circuit Breaker beschleunigt Aufrufe durch Zwischenspeichern.",
-   "Robuster Umgang mit Fehlern und Ausfällen entfernter Aufrufe.",
-   "Retry ist auch für nicht idempotente Operationen unbedenklich.",
-   "Sie sorgen dafür, dass der Partnerdienst weniger Last erhält."
+   "Ein Circuit Breaker wiederholt fehlgeschlagene Aufrufe automatisch, bis der Dienst antwortet.",
+   "Ein Timeout macht Wiederholungen auch für nicht idempotente Operationen unkritisch.",
+   "Ein geöffneter Circuit Breaker leitet Aufrufe weiter, um den Zustand des Partners zu testen.",
+   "Wiederholungen ohne Begrenzung und Wartezeit können einen bereits überlasteten Partner zusätzlich belasten.",
+   "Retry stellt sicher, dass ein fehlgeschlagener Aufruf höchstens einmal ausgeführt wird."
   ],
   "correct": [
-   1
+   3
   ],
   "optExpl": [
-   "Falsch: Hier wird der Circuit Breaker mit einem Cache verwechselt. Ein Circuit Breaker speichert nichts zwischen, sondern unterbricht nach wiederholten Fehlern die Aufrufe an einen gestörten Dienst und schlägt sofort fehl, bis der Dienst sich erholt hat.",
-   "Richtig: Alle drei dienen dem robusten Umgang mit Fehlern entfernter Aufrufe: Timeouts begrenzen Wartezeiten, Retries fangen vorübergehende Fehler ab, und der Circuit Breaker verhindert Folgefehler und blockierte Ressourcen.",
-   "Falsch: Nur idempotente Operationen lassen sich gefahrlos wiederholen. Bei nicht idempotenten Aufrufen drohen z. B. doppelte Buchungen, wenn die erste Anfrage doch angekommen ist und nur die Antwort verloren ging.",
-   "Falsch: Entlastung des Partners ist höchstens ein Nebeneffekt des Circuit Breakers, aber nicht der Zweck aller drei Mechanismen. Retries erhöhen die Last sogar – deshalb kombiniert man sie mit Backoff und Begrenzungen."
+   "Falsch: Das beschreibt Retry. Ein Circuit Breaker unterbricht Aufrufe an einen offensichtlich gestörten Dienst, damit er sich erholen kann und Aufrufer nicht blockiert werden.",
+   "Falsch: Ein Timeout begrenzt nur die Wartezeit. Ob die Operation beim Partner doch ausgeführt wurde, bleibt unbekannt; eine Wiederholung nicht idempotenter Operationen kann sie doppelt auslösen.",
+   "Falsch: Im offenen Zustand werden Aufrufe sofort abgewiesen (Fail Fast). Probeaufrufe erfolgen erst im halboffenen Zustand nach Ablauf einer Wartezeit.",
+   "Richtig: Ungebremste Retries erzeugen zusätzliche Last und können eine Störung verschärfen. Deshalb werden sie mit Obergrenze, Wartezeit (Backoff) und oft einem Circuit Breaker kombiniert.",
+   "Falsch: Retry führt eher zu mehrfacher Ausführung (mindestens einmal). Höchstens einmal würde bedeuten, nach einem Fehler nicht zu wiederholen."
   ],
-  "explanation": "Timeout, Retry und Circuit Breaker dienen dem robusten Umgang mit Fehlern und Ausfällen entfernter Aufrufe. Fallen: Retry ist nur bei idempotenten Operationen unbedenklich, der Circuit Breaker ist kein Cache, und Lastreduktion ist nicht der gemeinsame Zweck."
+  "explanation": "Timeout, Retry und Circuit Breaker gehen mit Fehlern entfernter Aufrufe um, haben aber Nebenwirkungen: Retries brauchen Idempotenz und Begrenzung, der Circuit Breaker weist im offenen Zustand ab. Fallen: Retry und Circuit Breaker vertauschen und Timeout mit Idempotenz-Schutz verwechseln."
  },
  {
   "id": "k9",
@@ -2459,36 +2472,41 @@ const QUESTIONS = [
   "extra": true,
   "type": "k",
   "points": 2,
-  "q": "Sie dokumentieren die Kommunikation zwischen Bausteinen. Ist der beschriebene Ablauf synchron oder asynchron?",
+  "q": "Beschreibt die Aussage eher synchrone oder asynchrone Kommunikation zwischen Bausteinen?",
   "categories": [
    "Synchron",
    "Asynchron"
   ],
   "rows": [
    {
-    "text": "Ein Ereignis wird publiziert; Abonnenten verarbeiten es, sobald sie bereit sind.",
+    "text": "Der Aufrufer erhält sofort ein Future-Objekt und wertet das Ergebnis später aus.",
     "cat": 1
    },
    {
-    "text": "Der Aufrufer registriert einen Callback und arbeitet sofort weiter.",
-    "cat": 1
-   },
-   {
-    "text": "Ein REST-Aufruf, bei dem der Client auf die HTTP-Antwort wartet.",
+    "text": "Sender und Empfänger müssen zum Zeitpunkt der Kommunikation beide laufen.",
     "cat": 0
    },
    {
-    "text": "Der Client erhält sofort eine Auftragsnummer und fragt den Status später ab.",
+    "text": "Der Empfänger darf beim Senden offline sein; die Nachricht wird später zugestellt.",
+    "cat": 1
+   },
+   {
+    "text": "Fällt der Empfänger aus, schlägt der Aufruf beim Sender sofort fehl.",
+    "cat": 0
+   },
+   {
+    "text": "Ein Client legt eine Nachricht in eine Queue und setzt seine Arbeit fort.",
     "cat": 1
    }
   ],
   "rowExpl": [
-   "Beim Publizieren eines Ereignisses wartet der Sender nicht auf die Verarbeitung; Abonnenten arbeiten, sobald sie bereit sind. Der Sender wartet nicht auf ein Ergebnis, daher asynchron.",
-   "Der Aufrufer registriert den Callback und arbeitet sofort weiter, statt auf das Ergebnis zu warten. Das Ergebnis kommt später zurück, deshalb ist der Ablauf asynchron und nicht synchron.",
-   "Der Client wartet auf die HTTP-Antwort und ist bis dahin blockiert. Dieses Warten auf das Ergebnis macht den Ablauf synchron; dass es sich um eine Technologie wie REST handelt, ist dafür unerheblich.",
-   "Die sofortige Auftragsnummer ist nur eine Quittung; das eigentliche Ergebnis wird später per Statusabfrage geholt. Der Client wartet nicht auf das Ergebnis, daher asynchron."
+   "Der Aufrufer blockiert nicht, das Ergebnis liegt erst später vor. Aus Sicht des Aufrufers ist das asynchron, unabhängig davon, wie die Technik darunter arbeitet.",
+   "Der Aufrufer wartet auf die direkte Antwort und braucht dafür einen erreichbaren Empfänger. Gleichzeitige Verfügbarkeit ist das Kennzeichen synchroner Kommunikation (zeitliche Kopplung).",
+   "Eine Zwischenablage (Queue, Broker) entkoppelt Senden und Verarbeiten zeitlich, daher asynchron. Beim synchronen Aufruf wäre der Empfänger zwingend erreichbar.",
+   "Der Sender erfährt den Ausfall unmittelbar, weil er auf die Antwort wartet. Das ist ein typisches Merkmal synchroner Aufrufe; asynchron bemerkt der Sender den Ausfall zunächst nicht.",
+   "Der Client wartet nicht auf die Verarbeitung; das Einstellen in die Queue ist von ihr zeitlich entkoppelt. Das ist asynchron."
   ],
-  "explanation": "Entscheidend ist, ob der Aufrufer auf das Ergebnis wartet. Synchron ist der REST-Aufruf mit Warten auf die Antwort. Asynchron sind Publish/Subscribe, Callback und Auftragsnummer mit späterer Statusabfrage. Falle: Die Technologie entscheidet nicht, sondern das Warten auf das Ergebnis."
+  "explanation": "Entscheidend ist, ob der Aufrufer auf das Ergebnis wartet und ob beide Seiten gleichzeitig verfügbar sein müssen. Synchron = Warten und zeitliche Kopplung; asynchron = Entkopplung in der Zeit, Ergebnis später. Falle: Die verwendete Technik entscheidet nicht, sondern das Warten aus Sicht des Aufrufers."
  },
  {
   "id": "c3q33",
@@ -2497,23 +2515,25 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Wozu dient das Entwurfsmuster Fassade (Facade)?",
+  "q": "Welche Aussage zum Entwurfsmuster Fassade trifft zu?",
   "options": [
-   "Austauschbare Algorithmen hinter einer gemeinsamen Schnittstelle.",
-   "Vereinfachter, einheitlicher Zugang zu einem Subsystem.",
-   "Stellvertreter mit gleicher Schnittstelle, der den Zugriff kontrolliert.",
-   "Neue Operationen auf einer Objektstruktur, ohne deren Klassen zu ändern."
+   "Sie ersetzt die Schnittstellen des Subsystems, sodass Clients dieses nicht mehr direkt nutzen können.",
+   "Sie hat dieselbe Schnittstelle wie ihr Subsystemobjekt und kontrolliert den Zugriff darauf.",
+   "Sie bietet Clients einen vereinfachten Zugang, schließt den direkten Zugriff auf das Subsystem aber nicht zwingend aus.",
+   "Sie macht Algorithmen eines Subsystems zur Laufzeit austauschbar.",
+   "Sie passt eine vorhandene Schnittstelle an eine vom Client erwartete Schnittstelle an."
   ],
   "correct": [
-   1
+   2
   ],
   "optExpl": [
-   "Falsch: Austauschbare Algorithmen hinter einer gemeinsamen Schnittstelle beschreiben das Strategy-Muster. Es kapselt Varianten eines Verhaltens, vereinfacht aber nicht den Zugang zu einem Subsystem.",
-   "Richtig: Die Fassade bündelt die Nutzung eines komplexen Subsystems hinter einer einfachen Schnittstelle. Beispiel: Eine Methode „bestellen()“ koordiniert intern Lager, Zahlung und Versand; Nutzer müssen die Einzelteile nicht kennen.",
-   "Falsch: Ein Stellvertreter mit gleicher Schnittstelle, der den Zugriff kontrolliert, ist der Proxy. Er bietet dieselbe Schnittstelle wie das Original, die Fassade dagegen eine neue, vereinfachte.",
-   "Falsch: Neue Operationen auf einer Objektstruktur, ohne deren Klassen zu ändern, beschreiben das Visitor-Muster. Mit der Vereinfachung eines Subsystemzugangs hat es nichts zu tun."
+   "Falsch: Die Fassade ergänzt das Subsystem um einen bequemen Zugang; ein direkter Zugriff wird dadurch nicht technisch unterbunden.",
+   "Falsch: Das beschreibt den Proxy. Die Fassade hat eine andere, meist einfachere Schnittstelle als die dahinterliegenden Klassen.",
+   "Richtig: Die Fassade reduziert Komplexität und Abhängigkeiten der Clients vom Subsystem. Ob direkter Zugriff erlaubt ist, ist eine zusätzliche Regel.",
+   "Falsch: Das beschreibt Strategy. Die Fassade bündelt Aufrufe, tauscht aber keine Verhaltensvarianten aus.",
+   "Falsch: Das beschreibt den Adapter. Die Fassade definiert eine neue, einfachere Schnittstelle, ohne einen vorgegebenen Zielvertrag zu erfüllen."
   ],
-  "explanation": "Eine Fassade bietet einen vereinfachten, einheitlichen Zugang zu einem komplexen Subsystem. Fallen: Verwechslung mit dem Proxy (gleiche Schnittstelle, Zugriffskontrolle), mit Strategy (austauschbare Algorithmen) oder mit Visitor (neue Operationen)."
+  "explanation": "Die Fassade bietet einen vereinfachten, einheitlichen Zugang zu einem Subsystem. Sie ändert nicht dessen Schnittstelle zugunsten eines Zielvertrags (Adapter), kontrolliert keinen Zugriff (Proxy) und tauscht keine Algorithmen aus (Strategy). Der direkte Zugriff auf das Subsystem bleibt möglich."
  },
  {
   "id": "c3q34",
@@ -2521,29 +2541,26 @@ const QUESTIONS = [
   "lz": "LZ 03-04",
   "r": "R1",
   "type": "multi",
-  "q": "Für ein neues Logistiksystem legt das Team seine Bausteingrenzen fest und spricht dabei von Modulen. Es will vorab klären, was ein Modul im Sinne der Modularisierung ausmacht und welche Eigenschaften es haben sollte. Welche Aussagen zu einem Modul im Sinne der Modularisierung treffen zu?",
+  "q": "Welche Aussagen zu Modulen im Sinne der Modularisierung treffen zu?",
   "options": [
-   "Interna sind änderbar, solange die Schnittstelle stabil bleibt.",
-   "Idealerweise genau eine Klasse pro Modul.",
-   "Legt Datenstrukturen offen, damit Nutzer effizient zugreifen.",
-   "Bündelt Zusammengehöriges hinter einer definierten Schnittstelle.",
-   "Kann selbst aus weiteren Modulen bestehen.",
-   "Entspricht immer genau einem deploybaren Artefakt."
+   "Ein Modul entspricht in objektorientierten Systemen genau einer Klasse.",
+   "Ein Modul kapselt Entwurfsentscheidungen hinter seiner Schnittstelle.",
+   "Ein Modul sollte so geschnitten werden, dass es von möglichst vielen anderen Modulen genutzt wird.",
+   "Module können hierarchisch aus Untermodulen bestehen.",
+   "Ein Modul ist immer eine eigenständig auslieferbare Einheit."
   ],
   "correct": [
-   0,
-   3,
-   4
+   1,
+   3
   ],
   "optExpl": [
-   "Richtig: Das ist der Kern von Information Hiding und Kapselung: Nutzer hängen nur von der Schnittstelle ab. Solange diese stabil bleibt, darf sich die Implementierung frei ändern.",
-   "Falsch: Die Größe eines Moduls richtet sich nach seiner Verantwortung, nicht nach der Klassenzahl. Ein Modul kann viele Klassen umfassen; eine starre Ein-Klassen-Regel verfehlt den Zweck der Modularisierung.",
-   "Falsch: Offengelegte Datenstrukturen koppeln Nutzer an Interna und widersprechen dem Geheimnisprinzip. Effizienz rechtfertigt das selten; jede interne Änderung würde dann alle Nutzer treffen.",
-   "Richtig: Ein Modul hat einen klar umrissenen Zweck und bündelt Zusammengehöriges hinter einer definierten Schnittstelle. Das sorgt für hohe Kohäsion innen und kontrollierte Abhängigkeiten nach außen.",
-   "Richtig: Zerlegung ist hierarchisch: Ein Baustein wird als Whitebox in weitere Bausteine verfeinert. Ein Modul kann also selbst aus Untermodulen bestehen, wie es auch die Bausteinsicht zeigt.",
-   "Falsch: Module sind Strukturelemente des Quellcodes, Artefakte Einheiten der Auslieferung. Mehrere Module können in einem Artefakt landen und umgekehrt; die Abbildung zeigt erst die Verteilungssicht."
+   "Falsch: Ein Modul ist eine Einheit mit definierter Schnittstelle und kann viele Klassen umfassen. Die Gleichsetzung mit der Klasse verengt den Begriff.",
+   "Richtig: Das Modul ist die Einheit, an der Information Hiding ansetzt: Nutzer kennen die Schnittstelle, die Entscheidungen dahinter dürfen sich ändern.",
+   "Falsch: Maßgeblich für den Schnitt sind Zusammengehörigkeit und Änderungsgründe, nicht die Zahl der Nutzer. Ein stark genutztes Modul wird zum Änderungsrisiko für viele.",
+   "Richtig: Modularisierung ist rekursiv anwendbar: Ein Modul kann intern wieder in Module gegliedert sein, die ihrerseits Schnittstellen haben.",
+   "Falsch: Modularisierung betrifft die logische Gliederung. Mehrere Module können in einem Artefakt ausgeliefert werden, ein Modul kann sich auch über mehrere Artefakte erstrecken."
   ],
-  "explanation": "Ein Modul bündelt Zusammengehöriges hinter einer stabilen Schnittstelle, verbirgt seine Interna und kann hierarchisch in Untermodule zerlegt werden. Fallen: Gleichsetzung mit deploybaren Artefakten, Größe nach Klassenzahl und offengelegte Datenstrukturen."
+  "explanation": "Ein Modul bündelt Zusammengehöriges hinter einer Schnittstelle, kapselt Entscheidungen und kann selbst aus Modulen bestehen. Fallen: Modul gleich Klasse, Modul gleich Deployment-Einheit und Schnitt nach Nutzungshäufigkeit statt nach Zusammengehörigkeit."
  },
  {
   "id": "c3q35",
@@ -2551,27 +2568,29 @@ const QUESTIONS = [
   "lz": "LZ 03-08",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Team wägt zwischen modularem Monolith und Microservices ab. Welche Aussagen treffen zu?",
+  "q": "Welche Aussagen zur Abwägung zwischen modularem Monolith und Microservices treffen zu?",
   "options": [
-   "Microservices vereinfachen die Datenkonsistenz.",
-   "Modularer Monolith: klare interne Grenzen, ein Deployment.",
-   "Ein Monolith ist meist einfacher zu testen und zu betreiben.",
-   "Microservices: unabhängig deploybar, aber betrieblich komplexer.",
-   "Microservices senken die Gesamtkomplexität des Systems."
+   "Ein modularer Monolith mit klaren Modulgrenzen kann eine spätere Aufteilung in Services erleichtern.",
+   "Die Komplexität einzelner Services sinkt, daher sinkt auch die Gesamtkomplexität des Systems.",
+   "Transaktionen über Servicegrenzen sind aufwendiger als lokale Transaktionen im Monolithen.",
+   "Microservices lassen sich nur dann unabhängig ändern, wenn sie sich eine gemeinsame Datenbank teilen.",
+   "Microservices ermöglichen unabhängiges Deployment und Skalieren, verlagern aber Komplexität in Betrieb und Kommunikation.",
+   "Die Einhaltung von Modulgrenzen spricht für Microservices, weil sie sich im Monolithen technisch nicht durchsetzen lässt."
   ],
   "correct": [
-   1,
+   0,
    2,
-   3
+   4
   ],
   "optExpl": [
-   "Falsch: Umgekehrt: Konsistenz über Servicegrenzen hinweg ist schwieriger, weil jeder Dienst seine eigenen Daten hält. Statt einer lokalen Transaktion braucht man etwa Sagas und muss mit eventueller Konsistenz leben.",
-   "Richtig: Ein modularer Monolith kann intern sauber in fachliche Module mit klaren Grenzen gegliedert sein. Trotzdem wird er als eine Einheit gebaut und ausgeliefert – ein Gegenpol zu Microservices mit vielen Vorteilen der Modularität.",
-   "Richtig: Ein Deployment, ein Prozess und keine verteilten Fehlerfälle vereinfachen Test und Betrieb deutlich. Netzwerkausfälle, Versionskompatibilität zwischen Diensten oder verteiltes Tracing entfallen.",
-   "Richtig: Unabhängige Releases und gezielte Skalierung einzelner Dienste sind der Hauptnutzen. Erkauft wird er mit mehr Betriebsaufwand, Monitoring über viele Dienste und dem Netzwerk als zusätzlicher Fehlerquelle.",
-   "Falsch: Microservices verlagern Komplexität in Betrieb, Kommunikation und Datenhaltung, statt sie zu beseitigen. Der einzelne Dienst wird einfacher, das Gesamtsystem aber eher komplexer."
+   "Richtig: Klare Modulgrenzen und Schnittstellen im Monolithen sind eine gute Vorbereitung, falls Teile später ausgelagert werden müssen.",
+   "Falsch: Die Komplexität verschiebt sich in Verteilung, Netzwerk, Betrieb und Konsistenz. Die Gesamtkomplexität steigt typischerweise.",
+   "Richtig: Lokal genügt eine ACID-Transaktion; über Services braucht man Muster wie Sagas oder akzeptiert Eventual Consistency, was die Fachlichkeit beeinflusst.",
+   "Falsch: Eine gemeinsame Datenbank koppelt die Services über Daten und verhindert gerade unabhängige Änderungen.",
+   "Richtig: Unabhängigkeit und gezielte Skalierung stehen höherem Aufwand für Betrieb, Monitoring, Versionierung und Fehlertoleranz gegenüber.",
+   "Falsch: Modulgrenzen lassen sich auch im Monolithen durchsetzen, etwa durch Modulsysteme, Paketregeln und automatisierte Architekturprüfungen. Die Netzwerkgrenze ist nicht notwendig."
   ],
-  "explanation": "Microservices bringen unabhängige Deployments, aber mehr Betriebskomplexität und schwierigere Datenkonsistenz; ein modularer Monolith bietet klare Grenzen bei einem Deployment. Falle: Microservices senken die Gesamtkomplexität nicht, sie verlagern sie."
+  "explanation": "Microservices tauschen Unabhängigkeit gegen Verteilungskomplexität und Konsistenzprobleme; ein modularer Monolith ist ein oft ausreichender Kompromiss. Fallen: Gesamtkomplexität sinkt nicht, gemeinsame Datenbank widerspricht Unabhängigkeit, Modulgrenzen sind auch ohne Netzwerk durchsetzbar."
  },
  {
   "id": "c3q36",
@@ -2579,30 +2598,29 @@ const QUESTIONS = [
   "lz": "LZ 03-08",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Team will für ein neues System Architekturmuster auswählen. Welche Aussagen treffen zu?",
+  "q": "Welche Aussagen zur Auswahl und Kombination von Architekturmustern treffen zu?",
   "options": [
-   "Ein bewährtes Muster passt unabhängig vom Kontext.",
-   "Die Auswahl richtet sich nach Qualitätszielen und Kontext.",
-   "Domänenspezifische Musterquellen können Alternativen liefern.",
-   "Je mehr Muster kombiniert werden, desto robuster der Entwurf.",
-   "Ein Muster beschreibt ein wiederkehrendes Problem in einem Kontext samt einer bewährten Lösung.",
-   "Ein unpassendes Muster kann Qualitäten verschlechtern."
+   "Ein erprobtes Muster senkt das Risiko so weit, dass seine Auswirkungen nicht mehr bewertet werden müssen.",
+   "Muster adressieren oft gegenläufige Qualitäten; die Auswahl orientiert sich an den priorisierten Qualitätszielen.",
+   "Muster lassen sich kombinieren, solange sich ihre Regeln nicht widersprechen.",
+   "Hat ein Muster in vergleichbaren Systemen die Wartbarkeit verbessert, gilt das auch für das eigene System.",
+   "Dasselbe Muster kann in einem Kontext eine Qualität verbessern und in einem anderen verschlechtern.",
+   "Muster sollten gewählt werden, bevor die Qualitätsziele feststehen, um Spielraum zu behalten."
   ],
   "correct": [
    1,
    2,
-   4,
-   5
+   4
   ],
   "optExpl": [
-   "Falsch: Bewährt heißt nicht universell: Jedes Muster löst ein Problem in einem bestimmten Kontext. Passt der Kontext nicht, bringt es nur seine Nachteile und Komplexität mit.",
-   "Richtig: Muster sind Wege zu bestimmten Qualitäten in einem gegebenen Kontext. Die Auswahl richtet sich daher nach den priorisierten Qualitätszielen und Randbedingungen des Systems.",
-   "Richtig: Leicht übersehen: Das Curriculum nennt neben allgemeinen Musterkatalogen auch domänenspezifische Quellen, etwa für eingebettete Systeme oder Integration. Sie liefern oft passendere Alternativen.",
-   "Falsch: Jedes Muster bringt eigene Nachteile und Komplexität mit. Viele Muster zu kombinieren ist kein Selbstzweck und macht einen Entwurf eher schwerer verständlich als robuster.",
-   "Richtig: Muster beschreiben Problem, Kontext und Lösung; sie werden in der Praxis gefunden statt erfunden und sind nicht automatisch ideal.",
-   "Richtig: Muster haben Trade-offs: Microservices verbessern etwa die unabhängige Auslieferung, verschlechtern aber Performanz und Betriebsaufwand. Falsch gewählt, überwiegen die Nachteile."
+   "Falsch: Auch bewährte Muster haben Nachteile, deren Gewicht vom Kontext abhängt. Bewertung gegen die eigenen Anforderungen bleibt nötig.",
+   "Richtig: Weil Muster Kompromisse sind, entscheiden die wichtigsten Qualitätsziele, welche Nachteile hinnehmbar sind.",
+   "Richtig: Kombinationen sind üblich, z. B. Schichten innerhalb eines Services und Publish/Subscribe zwischen Services. Widersprüchliche Regeln (etwa Aufrufe nach oben bei strikten Schichten) schließen sich aus.",
+   "Falsch: Der Kontext (Größe, Last, Team, Umgebung) kann abweichen; Erfahrungen aus anderen Systemen sind ein Hinweis, kein Beleg.",
+   "Richtig: Ein Muster wirkt nur im passenden Kontext; ein unpassendes Muster, z. B. Schichten bei streng laufzeitkritischer Verarbeitung, verschlechtert Qualitäten.",
+   "Falsch: Qualitätsziele sind die Entscheidungsgrundlage für die Musterwahl. Ohne sie lässt sich nicht beurteilen, welches Muster passt."
   ],
-  "explanation": "Muster werden passend zu Qualitätszielen und Kontext gewählt, auch aus domänenspezifischen Quellen; sie beschreiben Problem, Kontext und Lösung, haben aber Trade-offs. Fallen: „bewährt“ oder „viele Muster kombiniert“ als Qualitätsgarantie lesen."
+  "explanation": "Musterauswahl ist eine Abwägung gegen priorisierte Qualitätsziele im konkreten Kontext. Kombinieren ist üblich, aber nicht beliebig. Fallen: Bewährtheit ersetzt keine Bewertung, Erfahrungen sind nicht übertragbar, Muster vor Zielen wählen."
  },
  {
   "id": "c3q37",
@@ -2611,26 +2629,29 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "multi",
-  "q": "Ein Team schneidet sein System nach Bounded Contexts (DDD). Welche Aussagen treffen zu?",
+  "q": "Welche Aussagen zu Bounded Contexts im Domain-Driven Design treffen zu?",
   "options": [
-   "Ein Bounded Context grenzt ein Modell mit eigener Fachsprache ab.",
-   "„Kunde“ muss in den Contexts einheitlich modelliert sein.",
-   "Bounded Contexts erzwingen eine Umsetzung als eigene Microservices.",
-   "Bounded Contexts entsprechen den Schichten der Anwendung.",
-   "Fachliche Grenzen können quer zu technischen Schichten verlaufen."
+   "Der Begriff „Kunde“ muss in allen Bounded Contexts identisch modelliert werden, damit das Gesamtsystem konsistent bleibt.",
+   "Fachliche Grenzen können quer zu technischen Schichten verlaufen; ein Bounded Context umfasst oft Anteile mehrerer Schichten.",
+   "Innerhalb eines Bounded Context hat die gemeinsame Fachsprache eine eindeutige Bedeutung; derselbe Begriff kann anderswo Anderes bedeuten.",
+   "Bounded Contexts entsprechen den technischen Schichten der Anwendung (z. B. Präsentation, Anwendungslogik, Datenhaltung).",
+   "Jeder Bounded Context muss als eigenständig deploybarer Microservice umgesetzt werden.",
+   "An den Grenzen zwischen Bounded Contexts ist oft eine Übersetzung zwischen den jeweiligen Modellen erforderlich."
   ],
   "correct": [
-   0,
-   4
+   1,
+   2,
+   5
   ],
   "optExpl": [
-   "Richtig: Ein Bounded Context grenzt ein fachliches Modell ab, innerhalb dessen eine konsistente, gemeinsame Sprache gilt (Ubiquitous Language). Begriffe haben dort eine eindeutige Bedeutung, die Fachleute und Entwickler:innen teilen.",
-   "Falsch: Gerade nicht: Jeder Kontext darf Begriffe anders modellieren. „Kunde“ hat im Vertrieb andere Attribute als in der Buchhaltung oder im Versand – genau diese Unterschiede macht die Abgrenzung beherrschbar.",
-   "Falsch: Das ist möglich, aber nicht zwingend. Auch ein modularer Monolith kann nach Bounded Contexts geschnitten sein, und ein Kontext kann aus mehreren Diensten bestehen. Bounded Context ist ein fachliches, kein Deployment-Konzept.",
-   "Falsch: Hier werden Schnittarten verwechselt: Schichten sind ein technischer Schnitt (UI, Logik, Daten), Bounded Contexts ein fachlicher. Ein Kontext umfasst typischerweise Anteile mehrerer Schichten.",
-   "Richtig: Der Schnitt folgt der Domäne, nicht der Technik. Ein Kontext wie „Bestellung“ kann eigene UI-, Logik- und Datenanteile umfassen und verläuft damit quer zu technischen Schichten (vertikaler Schnitt)."
+   "Falsch: Gerade das Gegenteil: Derselbe Begriff darf in verschiedenen Contexts unterschiedlich modelliert sein; jeder Context hat sein eigenes Modell.",
+   "Richtig: Der Schnitt folgt der Fachlichkeit, nicht der technischen Schichtung. Dadurch entstehen vertikale Schnitte.",
+   "Richtig: Ein Bounded Context grenzt ein Modell samt Fachsprache ab, in dem die Begriffe eindeutig sind.",
+   "Falsch: Schichten sind technische Gliederung, Bounded Contexts fachliche. Beide Aufteilungen stehen orthogonal zueinander.",
+   "Falsch: Die Abgrenzung ist eine fachliche Strukturentscheidung. Umsetzung als Module einer Anwendung ist ebenso möglich.",
+   "Richtig: Weil Begriffe unterschiedlich modelliert sein dürfen, müssen Daten und Bedeutungen an Context-Grenzen abgebildet werden."
   ],
-  "explanation": "Bounded Contexts grenzen fachliche Modelle mit eigener Fachsprache ab und verlaufen quer zu technischen Schichten. Fallen: überall einheitliche Begriffe erzwingen, Bounded Context mit Microservice gleichsetzen oder fachliche Kontexte mit technischen Schichten verwechseln (R3)."
+  "explanation": "Bounded Context = fachlich abgegrenztes Modell mit eigener Fachsprache. Er verläuft quer zu Schichten, muss kein Microservice sein, und an seinen Grenzen wird übersetzt. Fallen: unternehmensweit einheitliche Begriffe, Gleichsetzung mit Schichten."
  },
  {
   "id": "c3q38",
@@ -2638,32 +2659,27 @@ const QUESTIONS = [
   "lz": "LZ 03-04",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Team gestaltet die Klassen eines neuen Bausteins und möchte dessen interne Struktur vor den Nutzern des Bausteins schützen, damit sie später ohne Folgen für andere geändert werden kann. Welche Aussagen zur Kapselung (Encapsulation) treffen zu?",
+  "q": "Welche Aussagen zur Kapselung (Encapsulation) treffen zu?",
   "options": [
-   "Kapselung heißt, dass der Quellcode eines Bausteins für andere Teams nicht lesbar sein darf.",
-   "Kapselung ist ein Mittel, um Information Hiding umzusetzen.",
-   "Der Zustand eines Bausteins wird nur über definierte Operationen verändert, so bleibt er konsistent.",
-   "Erreicht, sobald die Felder private sind und Getter/Setter haben.",
-   "Zugriff auf den Zustand nur über die Schnittstelle.",
-   "Kapselung verhindert, dass Bausteine miteinander kommunizieren.",
-   "Die interne Repräsentation bleibt änderbar."
+   "Kapselung bündelt Daten und Operationen und regelt den Zugriff auf den Zustand über eine Schnittstelle.",
+   "Sobald alle Attribute nicht öffentlich sind, bleibt der Zustand von selbst konsistent.",
+   "Spiegeln Getter und Setter die interne Struktur 1:1 nach außen, ist Information Hiding trotz privater Attribute weitgehend verfehlt.",
+   "Kapselung verbietet es, dass Bausteine über Nachrichten oder Ereignisse kommunizieren.",
+   "Kapselung lässt sich auf verschiedenen Granularitäten anwenden, nicht nur auf Klassen."
   ],
   "correct": [
-   1,
+   0,
    2,
-   4,
-   6
+   4
   ],
   "optExpl": [
-   "Falsch: Kapselung beschränkt den Zugriff auf Zustand und Interna auf die Schnittstelle. Sie verbietet nicht, den Quellcode zu lesen; ob andere Teams ihn einsehen dürfen, ist eine organisatorische Frage.",
-   "Richtig: In der üblichen Lesart ist Information Hiding das Prinzip und Kapselung das Mittel dazu: Durch Sichtbarkeitsregeln und Schnittstellen wird verhindert, dass Nutzer von verborgenen Details abhängen. So lässt sich das Prinzip konkret umsetzen.",
-   "Richtig: Wer den Zustand nur über die Schnittstelle ändert, kann Regeln zur Konsistenz an einer Stelle durchsetzen.",
-   "Falsch: Pauschale Getter und Setter für alle Felder legen die interne Struktur doch wieder offen. Formal ist alles private, faktisch hängen Nutzer aber an der Repräsentation – echte Kapselung bietet fachliche Operationen.",
-   "Richtig: Bei Kapselung ist der Zustand von außen nicht direkt erreichbar, sondern nur über die Schnittstelle. So kann der Baustein z. B. Invarianten prüfen und Inkonsistenzen verhindern.",
-   "Falsch: Kapselung regelt, worüber Bausteine kommunizieren: über die Schnittstelle statt über Interna. Kommunikation selbst bleibt möglich.",
-   "Richtig: Solange die Schnittstelle gleich bleibt, merken Nutzer eine geänderte interne Repräsentation nicht – etwa der Wechsel von einer Liste zu einer Map. Genau das ist der Nutzen von Kapselung."
+   "Richtig: Das ist die Kernidee: Der Zustand wird nur über definierte Operationen verändert, die Konsistenzregeln durchsetzen können.",
+   "Falsch: Verborgene Attribute verhindern nur direkten Zugriff. Konsistenz entsteht erst, wenn die Operationen Invarianten prüfen und durchsetzen.",
+   "Richtig: Die Struktur ist dann Teil der Schnittstelle und kann nicht mehr ohne Folgen für Nutzer geändert werden. Kapselung ohne verborgene Entscheidung nützt wenig.",
+   "Falsch: Kapselung regelt den Zugriff auf den Zustand, nicht die Kommunikationsform. Nachrichten und Ereignisse sind Schnittstellen und mit Kapselung vereinbar.",
+   "Richtig: Auch Module, Komponenten oder Dienste kapseln ihren Zustand hinter einer Schnittstelle. Das Prinzip ist nicht an die Klassenebene gebunden."
   ],
-  "explanation": "Kapselung beschränkt den Zugriff auf den Zustand auf die Schnittstelle und ist das Mittel, um Information Hiding umzusetzen; die Repräsentation bleibt dadurch änderbar. Fallen: Getter/Setter für alles gelten nicht als Kapselung, und Kapselung bedeutet nicht, den Quellcode zu verstecken."
+  "explanation": "Kapselung ist das Mittel, Zustand und Operationen zu bündeln und nur über die Schnittstelle zugänglich zu machen; sie ist aber wirkungslos, wenn die Schnittstelle die Interna 1:1 spiegelt. Fallen: private Attribute mit Konsistenz gleichsetzen, Kapselung mit Kommunikationsverbot verwechseln und auf Klassen beschränken."
  },
  {
   "id": "c3q39",
@@ -2672,23 +2688,23 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Ein Zahlungsdienstleister bietet eine Schnittstelle, die nicht zu der von Ihrem System erwarteten passt. Welches Muster ist einschlägig?",
+  "q": "Worin unterscheiden sich Adapter und Fassade am ehesten?",
   "options": [
-   "Strategy.",
-   "Proxy.",
-   "Fassade.",
-   "Adapter."
+   "Der Adapter kontrolliert den Zugriff auf das angepasste Objekt, die Fassade nicht.",
+   "Der Adapter erweitert ein Objekt dynamisch um Verantwortlichkeiten, die Fassade tut das nicht.",
+   "Der Adapter erfüllt eine vorgegebene Zielschnittstelle, die Fassade definiert eine neue, vereinfachte Schnittstelle.",
+   "Der Adapter bündelt mehrere Subsystem-Klassen zu einer einfachen Schnittstelle, die Fassade passt Schnittstellen an."
   ],
   "correct": [
-   3
+   2
   ],
   "optExpl": [
-   "Falsch: Strategy macht Algorithmen hinter einer gemeinsamen Schnittstelle austauschbar, etwa verschiedene Berechnungsverfahren. Die Inkompatibilität zwischen erwarteter und angebotener Schnittstelle bliebe damit bestehen.",
-   "Falsch: Ein Proxy bietet dieselbe Schnittstelle wie das Original und steuert den Zugriff darauf, etwa für Caching, Zugriffsschutz oder Remote-Aufrufe. Er passt keine Schnittstelle an – genau das wäre hier aber nötig.",
-   "Falsch: Eine Fassade bietet eine vereinfachte Schnittstelle zu einem komplexen Subsystem. Sie löst aber nicht gezielt die Inkompatibilität zu einer vom Client bereits erwarteten Schnittstelle – dafür ist der Adapter gedacht.",
-   "Richtig: Der Adapter übersetzt zwischen der von Ihrem System erwarteten und der vom Zahlungsdienstleister angebotenen Schnittstelle, ohne eine von beiden zu ändern. Zugleich kapselt er die Fremdabhängigkeit an einer Stelle."
+   "Falsch: Zugriffskontrolle ist die Aufgabe des Proxys. Der Adapter passt nur die Schnittstelle an.",
+   "Falsch: Das beschreibt den Decorator. Der Adapter ändert die Schnittstelle, nicht den Funktionsumfang.",
+   "Richtig: Beim Adapter bestimmt der Client die erwartete Schnittstelle, bei der Fassade bestimmt der Anbieter eine bequeme Schnittstelle.",
+   "Falsch: Die Rollen sind vertauscht: Bündeln und Vereinfachen ist die Aufgabe der Fassade, Anpassen die des Adapters."
   ],
-  "explanation": "Inkompatible Schnittstellen löst der Adapter, indem er zwischen erwarteter und vorhandener Schnittstelle übersetzt. Fallen: Die Fassade vereinfacht ein Subsystem, der Proxy behält die Schnittstelle bei, und Strategy tauscht Algorithmen aus."
+  "explanation": "Der Adapter erfüllt eine vom Client erwartete Zielschnittstelle auf Basis einer vorhandenen, abweichenden Schnittstelle. Die Fassade definiert dagegen eine neue, vereinfachte Schnittstelle für ein Subsystem. Beide sind strukturell Hüllen; Unterschied ist die Absicht. Zugriffskontrolle (Proxy) und dynamische Erweiterung (Decorator) sind andere Muster."
  },
  {
   "id": "c3q40",
@@ -2696,27 +2712,27 @@ const QUESTIONS = [
   "lz": "LZ 03-04",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Team zerlegt einen gewachsenen Monolithen in Module. Welche Ziele verfolgt Modularisierung dabei?",
+  "q": "Welche Aussagen zu Zielen und Folgen der Modularisierung eines gewachsenen Systems treffen zu?",
   "options": [
-   "Klar geschnittene Teile lassen sich wiederverwenden.",
-   "Weniger Aufrufe zwischen Bausteinen.",
-   "Bausteine möglichst generisch auslegen.",
-   "Teile können parallel entwickelt werden.",
-   "Änderungen bleiben auf wenige Bausteine begrenzt."
+   "Modularisierung hat zum Ziel, dass zwischen Bausteinen keine Abhängigkeiten mehr bestehen.",
+   "Bei gutem Schnitt bleiben Änderungen auf wenige Bausteine begrenzt.",
+   "Modularisierung dient vor allem dazu, Bausteine auf mehrere Prozesse oder Rechner zu verteilen.",
+   "Modularisierung kann Laufzeitkosten verursachen, etwa durch zusätzliche Aufrufe über Schnittstellen.",
+   "Teams können weitgehend unabhängig arbeiten, sobald die Schnittstellen zwischen den Modulen vereinbart sind."
   ],
   "correct": [
-   0,
+   1,
    3,
    4
   ],
   "optExpl": [
-   "Richtig: Ein Baustein mit klarem Zweck und sauberer Schnittstelle passt auch in andere Kontexte. Wiederverwendbarkeit ist ein Ziel der Modularisierung und folgt aus einem guten Schnitt, nicht aus nachträglicher Verallgemeinerung.",
-   "Falsch: Modularisierung erzeugt eher mehr Aufrufe über Schnittstellen statt weniger. Performance ist dabei ein abzuwägender Trade-off, aber kein Ziel der Modularisierung.",
-   "Falsch: Übergeneralisierung erhöht die Komplexität und baut auf Vorrat (YAGNI). Wiederverwendbarkeit entsteht durch einen klaren Schnitt entlang von Verantwortungen, nicht durch maximale Generik.",
-   "Richtig: Klar abgegrenzte Module mit definierten Schnittstellen erlauben getrennte, parallele Arbeit mehrerer Teams. Abgestimmt werden muss nur der Schnittstellenvertrag, nicht jedes interne Detail.",
-   "Richtig: Verbirgt jedes Modul seine Interna hinter einer Schnittstelle (Geheimnisprinzip), wirkt eine Änderung meist nur lokal. Das ist ein Kernziel der Modularisierung und verbessert die Wartbarkeit."
+   "Falsch: Bausteine müssen zusammenarbeiten, also bleiben Abhängigkeiten nötig. Ziel ist, sie auf definierte Schnittstellen zu begrenzen und minimal zu halten.",
+   "Richtig: Zusammengehörige Entscheidungen liegen in einem Modul, sodass Änderungen lokal wirken. Bei schlechtem Schnitt ziehen Änderungen dagegen viele Module nach sich.",
+   "Falsch: Modularisierung ist eine logische Gliederung. Verteilung ist eine davon unabhängige Entscheidung, die Module nicht voraussetzt und die sie nicht ersetzt.",
+   "Richtig: Indirektion über Schnittstellen und Aufrufe über Modulgrenzen können Performance kosten. Das ist ein Zielkonflikt zur Änderbarkeit.",
+   "Richtig: Klar definierte Schnittstellen erlauben parallele Entwicklung. Die Abstimmung verlagert sich auf die Schnittstellen."
   ],
-  "explanation": "Modularisierung zielt auf lokal begrenzte Änderungen, parallele Entwicklung und Wiederverwendbarkeit durch klare Schnitte. Fallen: Maximale Generik (YAGNI) und weniger Aufrufe klingen nach Qualität, sind aber keine Ziele – Modularisierung erzeugt eher mehr Schnittstellenaufrufe."
+  "explanation": "Modularisierung begrenzt Änderungen, ermöglicht parallele Arbeit und Austauschbarkeit, kostet aber Schnittstellenaufwand und eventuell Laufzeit. Fallen: Abhängigkeitsfreiheit als Ziel und Modularisierung mit Verteilung verwechseln."
  },
  {
   "id": "c3q41",
@@ -2724,29 +2740,29 @@ const QUESTIONS = [
   "lz": "LZ 03-06",
   "r": "R1",
   "type": "multi",
-  "q": "Eine Logging-Bibliothek wird von 40 Bausteinen genutzt. Was gilt für diese starke Wiederverwendung am ehesten?",
+  "q": "Ein Baustein, etwa eine Logging-Bibliothek, wird von sehr vielen anderen Bausteinen genutzt. Welche Aussagen treffen zu?",
   "options": [
-   "Die Kopplung im System sinkt durch weniger Duplikate.",
-   "Ihre Schnittstelle sollte stabil und versioniert sein.",
-   "Sie sollte möglichst konkret implementiert sein.",
-   "Vorab für künftige Nutzer generalisieren.",
-   "Sie wird oft allgemeiner und dadurch komplexer.",
-   "Die afferente Kopplung an die Bibliothek ist hoch."
+   "Der Baustein ist im Sinne der Stabilitätsmetrik instabil, weil er von vielen Bausteinen genutzt wird.",
+   "Ersetzt man duplizierten Code durch einen gemeinsam genutzten Baustein, kann die Kopplung im System steigen.",
+   "Die Verallgemeinerung für viele Nutzer erhöht tendenziell die Komplexität des Bausteins.",
+   "Die efferente Kopplung des Bausteins ist hoch, weil viele Bausteine ihn nutzen.",
+   "Ein viel genutzter Baustein sollte möglichst konkret implementiert sein, damit er sich leichter ändern lässt.",
+   "Änderungen an der Schnittstelle des Bausteins sind aufwendig, weil sie alle Nutzer betreffen."
   ],
   "correct": [
    1,
-   4,
+   2,
    5
   ],
   "optExpl": [
-   "Falsch: Wiederverwendung vermeidet Duplikation, senkt aber nicht die Kopplung. Im Gegenteil: Alle 40 Nutzer hängen nun am selben Baustein, und Änderungen an ihm betreffen sie alle.",
-   "Richtig: Viele Abhängige vertragen keine häufigen Vertragsänderungen. Eine stabile, versionierte Schnittstelle erlaubt Weiterentwicklung, ohne alle Nutzer gleichzeitig zur Anpassung zu zwingen.",
-   "Falsch: Viel genutzte, stabile Bausteine sollten eher abstrakt sein (Stable-Abstractions-Gedanke). So lassen sie sich erweitern, ohne sie selbst zu ändern; eine konkrete Implementierung wäre schwer anpassbar.",
-   "Falsch: Generalisieren ohne konkreten Bedarf verstößt gegen YAGNI. Man errät dabei oft die falschen Variationspunkte und erhöht die Komplexität, ohne dass künftige Nutzer davon profitieren.",
-   "Richtig: Um viele Nutzer zu bedienen, braucht ein Baustein Konfiguration, Varianten und Erweiterungspunkte. Diese Allgemeinheit kostet Komplexität – ein bekannter Preis starker Wiederverwendung.",
-   "Richtig: Jeder Nutzer ist eine eingehende (afferente) Abhängigkeit. Bei 40 Nutzern ist die afferente Kopplung hoch, was die Bibliothek stabil im Sinne von schwer änderbar macht."
+   "Falsch: Viele Nutzer (hohe afferente Kopplung) machen einen Baustein stabil im Sinne von schwer änderbar. Instabil macht viele ausgehende Abhängigkeiten.",
+   "Richtig: Weniger Duplikate bedeuten nicht weniger Kopplung. Alle Nutzer hängen nun am selben Baustein, und Änderungen an ihm betreffen sie gemeinsam.",
+   "Richtig: Um unterschiedliche Nutzer zu bedienen, braucht ein Baustein Konfiguration, Varianten und Erweiterungspunkte. Diese Allgemeinheit kostet Komplexität.",
+   "Falsch: Vertauscht. Dass viele Bausteine ihn nutzen, ist eingehende (afferente) Kopplung. Efferent zählt die Abhängigkeiten, die der Baustein selbst nach außen hat.",
+   "Falsch: Gerade viel genutzte, stabile Bausteine sollten eher abstrakt sein, damit man sie erweitern kann, ohne sie zu ändern. Konkrete Implementierung erschwert Anpassungen bei vielen Nutzern.",
+   "Richtig: Jede Änderung an Schnittstelle oder Vertrag erfordert Anpassungen oder Abstimmung bei allen Nutzern. Deshalb sollte die Schnittstelle stabil und versioniert sein."
   ],
-  "explanation": "Starke Wiederverwendung erhöht die afferente Kopplung und meist die Allgemeinheit und Komplexität; sie verlangt stabile, versionierte Schnittstellen. Fallen: „weniger Duplikate = weniger Kopplung“ verwechselt DRY mit Entkopplung, und vorsorgliches Generalisieren verstößt gegen YAGNI."
+  "explanation": "Starke Wiederverwendung erhöht die afferente Kopplung, verlangt stabile Schnittstellen und führt meist zu allgemeineren, komplexeren Bausteinen. Weniger Duplikate sind nicht gleichbedeutend mit weniger Kopplung. Fallen: efferent und afferent vertauschen, stabil mit unproblematisch verwechseln, konkret statt abstrakt."
  },
  {
   "id": "k12",
@@ -2762,34 +2778,39 @@ const QUESTIONS = [
   ],
   "rows": [
    {
-    "text": "Ein Baustein, von dem fast alle anderen abhängen und der sich häufig ändert.",
-    "cat": 1
-   },
-   {
-    "text": "Eine Schnittstelle, die interne Datenstrukturen 1:1 nach außen abbildet.",
-    "cat": 1
-   },
-   {
-    "text": "Jeder Baustein hat einen klar umrissenen fachlichen Zweck.",
+    "text": "Ein viel genutzter Baustein, dessen Schnittstelle versioniert ist und selten geändert wird.",
     "cat": 0
    },
    {
-    "text": "Abhängigkeiten zeigen nur in eine Richtung und bilden keine Zyklen.",
+    "text": "Eine Abstraktionsschicht, die nur einen Aufrufer hat und nie ausgetauscht wird.",
+    "cat": 1
+   },
+   {
+    "text": "Ein zentraler Baustein, von dem fast alle anderen abhängen und der sich häufig ändert.",
+    "cat": 1
+   },
+   {
+    "text": "Eine Schnittstelle, die in Fachbegriffen statt in internen Datenstrukturen formuliert ist.",
     "cat": 0
    },
    {
-    "text": "Zwei Bausteine, die sich gegenseitig direkt aufrufen.",
+    "text": "Technische Hilfsfunktionen ohne erkennbaren Zusammenhang sind in einem Baustein „Util“ gebündelt.",
     "cat": 1
+   },
+   {
+    "text": "Abhängigkeiten verlaufen entlang einer Schichtung nur nach unten.",
+    "cat": 0
    }
   ],
   "rowExpl": [
-   "Ein zentraler, häufig geänderter Baustein verbreitet jede Änderung auf fast alle abhängigen Bausteine. Das macht Änderungen aufwendig und riskant und schadet der Wartbarkeit.",
-   "Werden interne Datenstrukturen 1:1 nach außen abgebildet, verletzt das das Geheimnisprinzip: Nutzer hängen an Interna, und jede interne Änderung schlägt nach außen durch. Das schadet der Wartbarkeit.",
-   "Ein klarer fachlicher Zweck je Baustein bedeutet hohe Kohäsion. Änderungen bleiben lokal und der Baustein ist leichter zu verstehen, das fördert die Wartbarkeit.",
-   "Abhängigkeiten in nur einer Richtung ohne Zyklen halten Änderungen und Tests beherrschbar, weil Bausteine einzeln verstanden und geprüft werden können. Das fördert die Wartbarkeit.",
-   "Gegenseitige Direktaufrufe bilden einen Zyklus: Die beiden Bausteine lassen sich nur gemeinsam ändern und testen. Das schadet der Wartbarkeit und ist das Gegenteil zyklenfreier Abhängigkeiten."
+   "Auch ein stark abhängiger Baustein ist beherrschbar, wenn seine Schnittstelle stabil und versioniert ist. Änderungen erreichen die Nutzer kontrolliert und selten, das fördert die Wartbarkeit.",
+   "Eine Schicht ohne Variationsbedarf fügt Typen und Indirektion hinzu, ohne Änderungen zu erleichtern. Sie erschwert Verständnis und Nachvollziehbarkeit und schadet der Wartbarkeit.",
+   "Jede Änderung eines zentralen, stark genutzten Bausteins wirkt auf fast alle Nutzer. Häufige Änderungen an genau dieser Stelle machen das System änderungsanfällig, das schadet.",
+   "Fachbegriffe in der Schnittstelle verbergen interne Strukturen (Information Hiding). Interne Änderungen schlagen so nicht nach außen durch, das fördert die Wartbarkeit.",
+   "Ein Sammelbaustein ohne inneren Zusammenhang hat niedrige Kohäsion. Änderungen betreffen unvorhersehbar viele Nutzer, und der Baustein wächst unkontrolliert, das schadet.",
+   "Eine Abhängigkeitsrichtung ohne Zyklen erlaubt es, Bausteine einzeln zu verstehen, zu ändern und zu testen. Das fördert die Wartbarkeit."
   ],
-  "explanation": "Ein häufig geänderter Baustein, von dem fast alle abhängen, verbreitet Änderungen breit (schadet). Nach außen abgebildete Interna verletzen das Geheimnisprinzip (schadet), und gegenseitige Direktaufrufe bilden einen Zyklus (schadet). Klarer Zweck je Baustein bedeutet hohe Kohäsion (fördert). Abhängigkeiten ohne Zyklen halten Änderungen und Tests beherrschbar (fördert)."
+  "explanation": "Stabile, versionierte Schnittstellen, fachlich formulierte Schnittstellen und zyklenfreie, gerichtete Abhängigkeiten fördern die Wartbarkeit. Ein häufig geänderter Zentralbaustein, Sammelbausteine mit niedriger Kohäsion und Abstraktion ohne Variationsbedarf schaden. Falle: Viele Nutzer allein sind kein Problem, entscheidend ist die Änderungsrate."
  },
  {
   "id": "c3q42",
@@ -2797,23 +2818,25 @@ const QUESTIONS = [
   "lz": "LZ 03-03",
   "r": "R1",
   "type": "single",
-  "q": "Für ein neues Versicherungssystem stehen fachliche und technische Strukturierung an. Welches Vorgehen ist am ehesten zu empfehlen?",
+  "q": "Welche Aussage zum Verhältnis von fachlicher und technischer Strukturierung eines Systems trifft am ehesten zu?",
   "options": [
-   "Fachlich schneiden, die Technik darauf ausrichten.",
-   "Erst Frameworks und Schichten wählen, dann die Fachlichkeit einpassen.",
-   "Fachkomponenten jeweils einer einzelnen Schicht zuordnen.",
-   "Die Bausteine nach dem vorhandenen Datenbankschema schneiden."
+   "Jeder fachliche Baustein gehört in genau eine technische Schicht; die fachliche Aufteilung folgt der Schichtung.",
+   "Eine rein technische Aufteilung (Oberfläche, Logik, Daten) minimiert die Kopplung bei fachlichen Änderungen, weil Fachlichkeit je Schicht gebündelt liegt.",
+   "Fachliche Bausteine verlaufen häufig quer zu technischen Schichten, sodass ein fachlicher Baustein Anteile mehrerer Schichten enthalten kann.",
+   "Bei fachlichem Schnitt entfallen technische Strukturierungen wie Schichten, weil die Fachlichkeit die Struktur vollständig vorgibt.",
+   "Die Bausteine sollten sich am vorhandenen Datenbankschema orientieren, weil dieses die Fachlichkeit bereits abbildet."
   ],
   "correct": [
-   0
+   2
   ],
   "optExpl": [
-   "Richtig: Der fachliche Schnitt folgt dem Problemraum und ist meist langlebiger als jede Technologie. Wird die Technik daran ausgerichtet und davon getrennt, bleibt die Fachlogik testbar und die Technik austauschbar.",
-   "Falsch: Technik-first zwingt die Fachlichkeit in technische Grenzen, die mit dem Problem nichts zu tun haben. Fachliche Änderungen, etwa an der Tarifberechnung, verteilen sich dann über viele Bausteine.",
-   "Falsch: Fachkomponenten verlaufen quer zu den Schichten: „Vertrag“ braucht UI-, Logik- und Persistenzanteile. Wer jede Fachkomponente genau einer Schicht zuordnet, zerreißt die Fachlichkeit oder vermischt beide Strukturierungen.",
-   "Falsch: Ein gewachsenes Datenbankschema spiegelt oft historische und technische Entscheidungen wider. Ein Schnitt nach Tabellen klingt fachlich, ergibt aber datengetriebene statt verantwortungsorientierte Bausteine."
+   "Falsch: Fachliche Bausteine reichen typischerweise durch mehrere Schichten. Die Schichtung ist eine technische Gliederung und bildet die Fachlichkeit nicht ab.",
+   "Falsch: Eine fachliche Änderung berührt dann meist alle Schichten. Fachlicher Schnitt bündelt zusammengehörige Änderungen in einem Baustein.",
+   "Richtig: Beide Gliederungen stehen orthogonal. Typisch sind fachliche Schnitte, innerhalb derer technische Schichten oder Strukturen bei Bedarf wiederkehren.",
+   "Falsch: Technische Anforderungen und Qualitäten erfordern weiterhin technische Strukturentscheidungen. Fachlich und technisch ergänzen sich.",
+   "Falsch: Das Datenbankschema ist ein technisches Artefakt und bildet fachliche Zusammenhänge oft nur teilweise ab."
   ],
-  "explanation": "Fachliches und Technisches werden getrennt, der Schnitt erfolgt fachlich und die Technik dient der Fachlichkeit. Fallen: Technik-first, die Gleichsetzung von Fachkomponenten mit Schichten und ein Schnitt nach Tabellen, der nur fachlich klingt."
+  "explanation": "Fachlicher Schnitt und technische Schichtung stehen orthogonal: Fachliche Bausteine gehen oft durch mehrere Schichten, technische Strukturen bleiben trotzdem nötig. Fallen: Gleichsetzen von Fachbausteinen mit Schichten und Schnitt nach Datenbankschema."
  },
  {
   "id": "c3q43",
@@ -2822,23 +2845,25 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Ein Architekt verweist beim Zerlegen auf die „Millersche Zahl“ (7±2). Was lässt sich daraus am ehesten ableiten?",
+  "q": "Wofür wird die Millersche Zahl (7±2) beim Zerlegen eines Systems am ehesten als Argument herangezogen?",
   "options": [
-   "Ein Baustein sollte etwa 7±2 Operationen anbieten.",
-   "Je Zerlegungsebene nur überschaubar viele Elemente.",
+   "Ein System sollte höchstens 7±2 Bausteine enthalten.",
+   "Eine Schnittstelle sollte höchstens 7±2 Operationen anbieten.",
+   "Je Zerlegungs- bzw. Darstellungsebene sollten nur überschaubar viele Elemente vorkommen; sie ist ein Argument für hierarchische Zerlegung.",
    "Ein Entwurfsteam sollte höchstens 7±2 Personen umfassen.",
-   "Ein System sollte höchstens 7±2 Module enthalten."
+   "Ein Baustein mit mehr als neun Unterbausteinen ist nachweislich fehlerhaft entworfen."
   ],
   "correct": [
-   1
+   2
   ],
   "optExpl": [
-   "Falsch: Miller trifft keine Aussage über Schnittstellenoperationen. Seine Beobachtung betrifft die begrenzte Kapazität des Kurzzeitgedächtnisses; Schnittstellen schneidet man nach fachlichem Zweck.",
-   "Richtig: Menschen erfassen nur etwa 7±2 Informationseinheiten gleichzeitig. Pro Zerlegungsebene sollten deshalb überschaubar viele Elemente stehen; werden es mehr, gruppiert man hierarchisch.",
-   "Falsch: Hier wird die Zahl auf Teamgrößen übertragen. Miller bezieht sich auf gleichzeitig fassbare Informationseinheiten, nicht auf Organisationsfragen wie die Größe von Entwurfsteams.",
-   "Falsch: Es ist keine Obergrenze für das Gesamtsystem, sondern eine Faustregel pro Darstellungsebene. Hierarchisch gegliedert kann ein System sehr viele Module enthalten und trotzdem verständlich bleiben."
+   "Falsch: Die Zahl begrenzt nicht das Gesamtsystem. Durch hierarchische Zerlegung kann ein System insgesamt viel mehr Bausteine enthalten.",
+   "Falsch: Die Zahl betrifft die Überschaubarkeit je Betrachtungsebene, keine Obergrenze für Schnittstellenoperationen.",
+   "Richtig: Das Kurzzeitgedächtnis erfasst nur wenige Elemente gleichzeitig; daher gliedert man hierarchisch. Es ist eine Faustregel, kein harter Grenzwert.",
+   "Falsch: Die Zahl stammt aus der Kognitionspsychologie und betrifft Elemente im Kurzzeitgedächtnis, nicht die Teamgröße.",
+   "Falsch: Es handelt sich um eine Faustregel, die selbst nicht als universell gilt. Mehr Unterbausteine können begründet sein."
   ],
-  "explanation": "7±2 ist eine kognitive Faustregel je Darstellungs- bzw. Zerlegungsebene und damit ein Argument für hierarchische Zerlegung. Falle: die Zahl als harte Grenze für Module im Gesamtsystem, Teamgrößen oder Schnittstellenoperationen lesen."
+  "explanation": "Die Millersche Zahl (7±2) ist eine Faustregel zur Überschaubarkeit je Ebene und ein Argument für hierarchische Zerlegung. Sie ist keine harte Grenze für Module, Operationen oder Teamgröße."
  },
  {
   "id": "c3q44",
@@ -2846,29 +2871,29 @@ const QUESTIONS = [
   "lz": "LZ 03-05",
   "r": "R2",
   "type": "multi",
-  "q": "Ein Team beginnt den Entwurf eines neuen Systems, obwohl die Anforderungen noch nicht abschließend geklärt sind. Welche Aussagen zum Vorgehen treffen zu?",
+  "q": "Welche Aussagen zum Wechselspiel von Entwurf und Anforderungen treffen zu?",
   "options": [
-   "Feedback ist erst sinnvoll, wenn der Entwurf stabil ist.",
-   "Entwurf und Anforderungsklärung beeinflussen sich gegenseitig.",
-   "Feedback kann schon zu einem unfertigen Entwurf eingeholt werden und reduziert so das Risiko.",
-   "Entscheidungen werden revidiert, wenn sich Anforderungen ändern; neue technische Erkenntnisse sind dafür kein Grund.",
-   "Neue Erkenntnisse sind ein legitimer Grund, getroffene Entscheidungen zu revidieren.",
-   "Ein Referenzmodell ersetzt eigene Abwägungen weitgehend."
+   "Entwurfsentscheidungen können Rückfragen an die Anforderungen auslösen und diese verändern.",
+   "Feedback zu einem Entwurf ist erst belastbar, wenn alle Qualitätsanforderungen quantifiziert vorliegen.",
+   "Auch ein unvollständiger Entwurf eignet sich für Feedback, wenn die offenen Punkte benannt sind.",
+   "Eine Referenzarchitektur senkt den Klärungsbedarf bei den Anforderungen, weil sie bewährte Entscheidungen bereits enthält.",
+   "Neue technische Erkenntnisse können Entscheidungen revidieren lassen, auch wenn sich die Anforderungen nicht geändert haben.",
+   "Änderungen der Anforderungen nach Entwurfsbeginn zeigen, dass die Anforderungsanalyse unzureichend war."
   ],
   "correct": [
-   1,
+   0,
    2,
    4
   ],
   "optExpl": [
-   "Falsch: Gerade frühes Feedback, z. B. über Prototypen, Spikes oder Reviews, deckt falsche Annahmen auf, solange Korrekturen noch günstig sind. Wer bis zur Stabilität wartet, zementiert womöglich Fehler, die später teuer werden.",
-   "Richtig: Entwurfsideen werfen neue Fragen an die Anforderungen auf, und geklärte Anforderungen verändern den Entwurf. Beides verläuft iterativ und verzahnt – das Curriculum betont dieses Wechselspiel ausdrücklich.",
-   "Richtig: Frühe Rückmeldung, etwa durch Reviews oder Prototypen, deckt falsche Annahmen auf, solange Korrekturen günstig sind. Das senkt das Risiko von Entscheidungen unter Unsicherheit.",
-   "Falsch: Auch neue Erkenntnisse ohne geänderte Anforderungen, etwa aus Prototypen, Lasttests oder Erfahrungen mit einer Technologie, können eine Entscheidung kippen. Entscheidungen beruhen auf Annahmen, und die können sich als falsch erweisen.",
-   "Richtig: Entscheidungen beruhen auf Annahmen. Zeigen Prototypen, Messungen oder Erfahrungen, dass sie nicht tragen, ist eine Revision die richtige Konsequenz.",
-   "Falsch: Ein Referenzmodell oder eine Referenzarchitektur ist ein nützlicher Ausgangspunkt. Ob es zu den konkreten Anforderungen und Randbedingungen passt, muss man trotzdem selbst prüfen und abwägen."
+   "Richtig: Entwurf und Anforderungsklärung beeinflussen sich gegenseitig. Entwurfsideen decken Lücken oder Konflikte in den Anforderungen auf, und geklärte Anforderungen verändern den Entwurf.",
+   "Falsch: Auch qualitative oder vorläufige Qualitätsanforderungen erlauben sinnvolles Feedback, etwa zu Szenarien oder Risiken. Auf Quantifizierung zu warten verzögert die Rückmeldung gerade dort, wo sie am meisten hilft.",
+   "Richtig: Wenn klar ist, was noch offen ist, lässt sich auch zu einem unfertigen Entwurf gezielt Feedback einholen. Das senkt das Risiko, auf falschen Annahmen weiterzubauen.",
+   "Falsch: Eine Referenzarchitektur ersetzt die Anforderungsklärung nicht. Ob sie zu Qualitätszielen und Randbedingungen passt, lässt sich nur mit den Anforderungen beurteilen.",
+   "Richtig: Entscheidungen beruhen auf Annahmen. Zeigen Prototypen, Messungen oder Erfahrungen, dass sie nicht tragen, ist eine Revision berechtigt, auch ohne geänderte Anforderungen.",
+   "Falsch: Anforderungen ändern sich in der Praxis auch bei guter Analyse, etwa durch Marktveränderungen oder neues Wissen. Ein Entwurf muss damit rechnen und Änderungen aufnehmen können."
   ],
-  "explanation": "Architekturentwurf ist iterativ: Entwurf und Anforderungen beeinflussen sich gegenseitig, Feedback kommt früh, und neue Erkenntnisse sind ein legitimer Grund für Revisionen. Fallen: auf einen stabilen Entwurf warten, Revisionen nur bei geänderten Anforderungen zulassen und annehmen, ein Referenzmodell nehme das eigene Abwägen ab."
+  "explanation": "Architekturentwurf ist iterativ: Entwurf und Anforderungen beeinflussen sich, Feedback ist schon zu Unfertigem sinnvoll, und neue Erkenntnisse sind ein legitimer Revisionsgrund. Fallen: Quantifizierung als Voraussetzung für Feedback, Referenzarchitektur als Ersatz für Klärung, Anforderungsänderungen als Analysefehler."
  },
  {
   "id": "c3q45",
@@ -2876,26 +2901,29 @@ const QUESTIONS = [
   "lz": "LZ 03-06",
   "r": "R1",
   "type": "multi",
-  "q": "In einem Review heißt es: „Wir brauchen lose Kopplung.“ Welche Aussagen ordnen dieses Ziel zutreffend ein?",
+  "q": "Welche Aussagen zum Ziel „lose Kopplung“ treffen zu?",
   "options": [
-   "Ideal ist ein System ohne Abhängigkeiten.",
-   "So lose wie möglich, so eng wie fachlich nötig.",
-   "Sie ist ein anderer Name für hohe Kohäsion.",
-   "Sie entsteht durch Verteilung auf mehrere Server.",
-   "Sie erleichtert das isolierte Testen von Bausteinen."
+   "Lose Kopplung und hohe Kohäsion sind zwei Bezeichnungen für dasselbe Entwurfsziel.",
+   "Lose Kopplung kann Kosten verursachen, etwa durch zusätzliche Indirektion und schwerer nachvollziehbare Abläufe.",
+   "Lose Kopplung wird erreicht, indem Bausteine auf getrennten Servern betrieben werden.",
+   "Lose Kopplung heißt, dass Bausteine möglichst wenig voneinander wissen müssen, nicht dass sie keine Beziehung haben.",
+   "Lose Kopplung erleichtert das Testen von Bausteinen in Isolation.",
+   "Jede zusätzliche Entkopplung verbessert die Änderbarkeit, ohne andere Qualitätsmerkmale zu beeinträchtigen."
   ],
   "correct": [
    1,
+   3,
    4
   ],
   "optExpl": [
-   "Falsch: Ohne Abhängigkeiten könnten Bausteine nicht zusammenarbeiten, und das System erbrächte keine Gesamtfunktion. Das Ideal ist angemessene, nicht fehlende Kopplung.",
-   "Richtig: Ohne Abhängigkeiten gäbe es keine Zusammenarbeit. Ziel ist deshalb eine Kopplung, die so lose wie möglich und so eng wie fachlich nötig ist – also funktional ausreichend und bewusst gewählt.",
-   "Falsch: Verwandt, aber verschieden: Kopplung betrifft die Beziehungen zwischen Bausteinen, Kohäsion den Zusammenhalt innerhalb eines Bausteins. Hohe Kohäsion begünstigt zwar lose Kopplung, ist aber ein eigenes Kriterium.",
-   "Falsch: Verteilung auf mehrere Server ändert die fachliche Abhängigkeit nicht. Sie fügt sogar neue Kopplungsarten hinzu, etwa über Netzwerk, Verfügbarkeit und Datenformate – ein „verteilter Monolith“ ist eng gekoppelt.",
-   "Richtig: Ein Baustein mit wenigen Abhängigkeiten lässt sich leicht isoliert testen, weil diese wenigen Abhängigkeiten durch Test-Doubles wie Mocks oder Stubs ersetzt werden können."
+   "Falsch: Kopplung betrifft Beziehungen zwischen Bausteinen, Kohäsion den Zusammenhalt innerhalb eines Bausteins. Beide begünstigen sich häufig, sind aber getrennte Kriterien.",
+   "Richtig: Entkopplung durch Schnittstellen, Vermittler oder Events kostet Aufwand, erzeugt Indirektion und macht Abläufe schwerer nachvollziehbar. Der Nutzen muss die Kosten rechtfertigen.",
+   "Falsch: Physische Verteilung ändert nichts an der fachlichen Abhängigkeit und führt zusätzliche Kopplung ein, etwa über Netzwerk, Verfügbarkeit und Datenformate.",
+   "Richtig: Ohne Beziehungen gäbe es keine Zusammenarbeit. Lose Kopplung begrenzt, was Bausteine voneinander kennen und annehmen müssen.",
+   "Richtig: Wenige, gut definierte Abhängigkeiten lassen sich im Test durch Testdoubles ersetzen, sodass ein Baustein isoliert geprüft werden kann.",
+   "Falsch: Zusätzliche Entkopplung geht meist zulasten von Einfachheit, Nachvollziehbarkeit oder Performance. Sie ist ein Zielkonflikt, kein Selbstzweck."
   ],
-  "explanation": "Lose Kopplung heißt funktional ausreichend, nicht null: so lose wie möglich, so eng wie nötig. Sie erleichtert Änderungen und isolierte Tests. Fallen: Verwechslung mit Kohäsion oder die Annahme, physische Verteilung entkopple automatisch."
+  "explanation": "Lose Kopplung heißt: wenig gegenseitiges Wissen, nicht keine Beziehung. Sie erleichtert Änderung und isoliertes Testen, kostet aber Indirektion und Nachvollziehbarkeit. Fallen: Verwechslung mit Kohäsion, physische Verteilung als Entkopplung, Entkopplung ohne Gegenwirkung."
  },
  {
   "id": "c3q46",
@@ -2911,34 +2939,39 @@ const QUESTIONS = [
   ],
   "rows": [
    {
-    "text": "Ableitung von einer konkreten Basisklasse.",
+    "text": "Zwei Bausteine tauschen Daten über eine gemeinsam genutzte Datenbanktabelle aus.",
     "cat": 0
    },
    {
-    "text": "Delegation an ein Objekt hinter einer Schnittstelle.",
+    "text": "Ein Baustein erhält die benötigte Abhängigkeit als Schnittstelle von außen übergeben.",
     "cat": 1
    },
    {
-    "text": "Direkter Zugriff auf die Datenbanktabellen eines anderen Bausteins.",
+    "text": "Ein Baustein instanziiert eine konkrete Klasse eines anderen Bausteins selbst.",
     "cat": 0
    },
    {
-    "text": "Aufruf über eine schmale, stabile Schnittstelle.",
+    "text": "Zwei Dienste tauschen Daten über ein versioniertes Nachrichtenformat aus, ohne gemeinsame Klassen zu nutzen.",
     "cat": 1
    },
    {
-    "text": "Annahme einer festen Aufrufreihenfolge zwischen zwei Bausteinen (zeitliche Kopplung).",
+    "text": "Ein Baustein funktioniert nur, wenn ein anderer vorher initialisiert wurde.",
     "cat": 0
+   },
+   {
+    "text": "Ein Baustein nutzt von einem anderen nur eine Operation einer schmalen, selbst definierten Schnittstelle.",
+    "cat": 1
    }
   ],
   "rowExpl": [
-   "Implementierungsvererbung bindet die Unterklasse an die Interna der Basisklasse. Änderungen dort wirken direkt durch, das ist enge Kopplung und keine lose über eine Schnittstelle.",
-   "Der Aufrufer kennt nur die Schnittstelle, nicht die konkrete Implementierung. Er verlangt wenig Wissen über das Objekt dahinter und ist deshalb lose gekoppelt.",
-   "Der Zugriff auf fremde Datenstrukturen bindet an Interna des anderen Bausteins. Jede Änderung am Schema schlägt durch, das ist enge Kopplung und keine lose.",
-   "Eine schmale, stabile Schnittstelle begrenzt, was beide Seiten voneinander wissen müssen. Änderungen dahinter bleiben unsichtbar, deshalb ist die Kopplung eher lose.",
-   "Die Annahme einer festen Aufrufreihenfolge bindet an zeitliches Verhalten des anderen Bausteins. Das ist zeitliche Kopplung und damit eng, auch wenn im Code keine direkte Abhängigkeit sichtbar ist."
+   "Eine gemeinsame Tabelle macht das Schema zur geteilten Schnittstelle. Jede Schemaänderung wirkt auf beide Bausteine, und Interna sind nicht verborgen. Das ist enge Kopplung.",
+   "Der Baustein kennt nur die Schnittstelle, nicht die konkrete Implementierung (Dependency Injection). Die Kopplung bleibt auf den Vertrag begrenzt und ist eher lose.",
+   "Die Erzeugung einer konkreten Klasse bindet an deren Typ und Konstruktor. Das ist die Kopplungsart „Erzeugung“ und eher eng, auch wenn sie nur an einer Stelle steht.",
+   "Das versionierte Nachrichtenformat ist der einzige gemeinsame Vertrag, Klassen und Interna werden nicht geteilt. Das ist eher lose, wenn auch nicht frei von Abhängigkeit.",
+   "Die Annahme einer Initialisierungsreihenfolge ist zeitliche Kopplung. Sie ist im Code oft nicht sichtbar und bindet an das zeitliche Verhalten des anderen Bausteins.",
+   "Eine schmale, selbst definierte Schnittstelle begrenzt, was der Baustein vom anderen wissen muss, und lässt sich leicht austauschen. Das ist eher lose Kopplung."
   ],
-  "explanation": "Implementierungsvererbung, Zugriff auf fremde Datenstrukturen und Annahmen über Aufrufreihenfolgen koppeln eng, weil sie an Interna oder an zeitliches Verhalten binden. Delegation hinter einer Schnittstelle und Aufrufe über schmale, stabile Schnittstellen verlangen wenig Wissen übereinander und koppeln lose."
+  "explanation": "Enge Kopplung entsteht durch geteilte Interna (gemeinsames Schema), Erzeugung konkreter Klassen und zeitliche Annahmen. Lose Kopplung entsteht, wenn Bausteine nur einen schmalen, expliziten Vertrag teilen. Falle: Eine einzige Instanziierung oder zeitliche Annahme wirkt harmlos, ist aber eine echte Abhängigkeit."
  },
  {
   "id": "c3q47",
@@ -2946,65 +2979,14 @@ const QUESTIONS = [
   "lz": "LZ 03-06",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Team ersetzt direkte Methodenaufrufe durch Nachrichten über einen Broker. Was gilt für diese dynamische Kopplung?",
+  "q": "Direkte Methodenaufrufe werden durch Nachrichten über einen Broker ersetzt. Welche Aussagen zur Kopplung treffen zu?",
   "options": [
-   "Sender und Empfänger sind nun fachlich unabhängig.",
-   "Formatänderungen sind Sache des Brokers.",
-   "Die fachliche Abhängigkeit bleibt bestehen.",
-   "Sie ist in statischen Codeanalysen schwerer zu sehen.",
-   "Die Kopplung sinkt, weil kein Import mehr nötig ist."
-  ],
-  "correct": [
-   2,
-   3
-  ],
-  "optExpl": [
-   "Falsch: Der Broker entkoppelt zeitlich und technisch, aber nicht fachlich. Format und Bedeutung der Nachricht bleiben eine gemeinsame Abhängigkeit: Ein Empfänger, der Bestellungen verarbeitet, braucht weiterhin die erwarteten Bestelldaten.",
-   "Falsch: Ändert der Sender das Nachrichtenformat, bricht der Empfänger trotzdem. Der Broker leitet Nachrichten nur weiter und übersetzt sie nicht; die Formatabhängigkeit besteht weiter zwischen Sender und Empfänger.",
-   "Richtig: Wer bestimmte Daten oder Reaktionen erwartet, hängt weiter vom anderen ab – egal, ob die Abhängigkeit zur Compile- oder zur Laufzeit aufgelöst wird. Dynamische Kopplung ändert den Mechanismus, nicht die fachliche Beziehung.",
-   "Richtig: Die Abhängigkeit entsteht erst zur Laufzeit über Nachrichten, Topics oder Konfiguration und taucht in Importen nicht auf. Statische Analysewerkzeuge übersehen sie daher leicht; sie muss explizit dokumentiert werden.",
-   "Falsch: Fehlende Importe beseitigen nur die statische Sicht auf die Abhängigkeit. Dynamisch statt statisch gekoppelt zu sein senkt die Kopplung nicht notwendigerweise, sondern macht sie oft nur unsichtbarer."
-  ],
-  "explanation": "Dynamische Kopplung über einen Broker verlagert Abhängigkeiten in die Laufzeit und versteckt sie vor statischer Analyse, statt sie zwingend zu verringern. Fallen: „Ereignisbasiert = entkoppelt“ stimmt nur zeitlich und technisch; fachliche und Formatabhängigkeiten bleiben."
- },
- {
-  "id": "c3q48",
-  "chapter": 3,
-  "lz": "LZ 03-06",
-  "r": "R1",
-  "type": "single",
-  "q": "Baustein A wird von zwölf anderen genutzt und nutzt selbst keinen. Was trifft auf A am ehesten zu?",
-  "options": [
-   "A ist instabil, da er von vielen abhängt.",
-   "A gilt als ausgereift und weitgehend fehlerfrei.",
-   "A sollte möglichst konkret implementiert sein.",
-   "A ist stabil: Änderungen an A sind riskant."
-  ],
-  "correct": [
-   3
-  ],
-  "optExpl": [
-   "Falsch: Afferent und efferent sind vertauscht: A nutzt keinen anderen Baustein, hat also keine ausgehenden (efferenten) Abhängigkeiten. Instabil machen gerade viele ausgehende Abhängigkeiten, nicht viele Nutzer.",
-   "Falsch: „Stabil“ ist hier eine Kopplungsaussage, keine Qualitätsaussage. Die Metrik sagt nichts über Reife oder Fehlerfreiheit; ein viel genutzter Baustein kann trotzdem voller Fehler sein.",
-   "Falsch: Viel genutzte, stabile Bausteine sollten eher abstrakt sein, damit man sie erweitern kann, ohne sie zu ändern. Eine konkrete Implementierung erschwert notwendige Anpassungen bei zwölf Nutzern.",
-   "Richtig: Zwölf eingehende (afferente) Abhängigkeiten bedeuten: Jede Änderung an A kann zwölf Nutzer treffen. „Stabil“ meint hier schwer änderbar, weshalb Änderungen an A riskant sind."
-  ],
-  "explanation": "Afferent heißt eingehend: Viele Nutzer machen einen Baustein stabil im Sinne von schwer änderbar, weshalb er eher abstrakt sein sollte. Fallen: afferent und efferent vertauschen oder „stabil“ als „ausgereift und fehlerfrei“ lesen."
- },
- {
-  "id": "c3q49",
-  "chapter": 3,
-  "lz": "LZ 03-10",
-  "r": "R1",
-  "type": "multi",
-  "q": "In einem Projekt stellen die Teams fest, dass Fehlerbehandlung, Protokollierung und Zugriffsschutz in jedem Baustein anders gelöst sind. Die Architektin schlägt vor, dafür Querschnittskonzepte zu erarbeiten. Welche Aussagen zu Querschnittskonzepten treffen laut Curriculum zu?",
-  "options": [
-   "Energieeffizienz kann Gegenstand eines Querschnittskonzepts sein.",
-   "Sie sind erst nötig, wenn die meisten Bausteine betroffen sind.",
-   "Man legt sie fest, nachdem die Bausteine fertig sind.",
-   "Sie können systemübergreifend wiederverwendet werden.",
-   "Ein Rabatt, der auf vielen Seiten erscheint, ist eines.",
-   "Querschnittskonzepte beeinflussen sich gegenseitig."
+   "Sender und Empfänger müssen nicht mehr gleichzeitig verfügbar sein, bleiben aber über das Nachrichtenformat gekoppelt.",
+   "Der Broker übernimmt die Verantwortung für Änderungen des Nachrichtenformats, sodass Empfänger davon unberührt bleiben.",
+   "Da der Sender die Empfänger nicht mehr kennt, kann er Nachrichten ohne Abstimmung semantisch ändern.",
+   "Die Abhängigkeit wird in statischen Abhängigkeitsanalysen des Codes schlechter sichtbar.",
+   "Die Kopplung wechselt von statisch zu dynamisch und sinkt damit.",
+   "Der Broker als zusätzliche Komponente führt eine neue Laufzeitabhängigkeit ein."
   ],
   "correct": [
    0,
@@ -3012,14 +2994,70 @@ const QUESTIONS = [
    5
   ],
   "optExpl": [
-   "Richtig: Das Curriculum nennt Energieeffizienz ausdrücklich als mögliches Thema eines Querschnittskonzepts, neben Persistenz, Kommunikation, GUI, Fehlerbehandlung und Nebenläufigkeit. Gerade weil es leicht übersehen wird, ist es eine beliebte Prüfungsfrage.",
-   "Falsch: Ein Konzept lohnt sich, sobald mehrere oder viele Bausteine ein Thema einheitlich lösen sollen. Wer wartet, bis wirklich alle betroffen sind, erntet Wildwuchs mit vielen unterschiedlichen Einzellösungen.",
-   "Falsch: Querschnittskonzepte sollte man früh festlegen. Später finden sich bereits uneinheitliche Einzellösungen in den Bausteinen, und die nachträgliche Vereinheitlichung wird teuer.",
-   "Richtig: Das Curriculum hält fest, dass Querschnittskonzepte über Systemgrenzen hinweg wiederverwendbar sein können. Beispiel: Ein unternehmensweites Logging- oder Security-Konzept gilt für mehrere Systeme.",
-   "Falsch: Eine fachliche Einzelaufgabe wird nicht zum Querschnittsthema, nur weil ihr Ergebnis an mehreren Stellen angezeigt wird. Die Rabattberechnung gehört in einen Fachbaustein; querschnittlich ist ein technisches Thema wie Fehlerbehandlung.",
-   "Richtig: Querschnittskonzepte hängen zusammen und beeinflussen sich gegenseitig. Beispiel: Sicherheit, Fehlerbehandlung und Protokollierung – was darf in einer Fehlermeldung oder im Log stehen, ohne vertrauliche Daten preiszugeben?"
+   "Richtig: Der Broker entkoppelt zeitlich (asynchrone Zustellung). Format und Bedeutung der Nachricht bleiben jedoch eine gemeinsame Abhängigkeit von Sender und Empfänger.",
+   "Falsch: Ein Broker leitet Nachrichten weiter, übersetzt sie aber in der Regel nicht. Ändert der Sender das Format, bricht der Empfänger trotzdem.",
+   "Falsch: Auch ohne direkte Kenntnis hängen Empfänger von der Bedeutung der Nachricht ab. Semantische Änderungen müssen daher abgestimmt oder abwärtskompatibel erfolgen.",
+   "Richtig: Die Beziehung entsteht erst zur Laufzeit über Topics, Konfiguration oder Nachrichtenformate und fehlt in Importen und Aufrufgraphen. Sie muss deshalb explizit dokumentiert werden.",
+   "Falsch: Dynamische Kopplung ist nicht automatisch geringer. Sie ist oft nur weniger sichtbar, die fachliche Abhängigkeit besteht fort.",
+   "Richtig: Der Broker ist ein zusätzlicher Baustein, dessen Verfügbarkeit und Konfiguration nun für die Kommunikation vorausgesetzt werden. Das ist eine zusätzliche Laufzeitabhängigkeit."
   ],
-  "explanation": "Querschnittskonzepte lösen Themen, die viele Bausteine betreffen, einheitlich – auch Energieeffizienz; sie beeinflussen sich gegenseitig und sind systemübergreifend wiederverwendbar. Fallen: zu spät festlegen und fachliche Einzelaufgaben als Querschnitt einordnen."
+  "explanation": "Ein Broker entkoppelt zeitlich und technisch, verlagert Abhängigkeiten aber in die Laufzeit und versteckt sie vor statischer Analyse; fachliche und Formatabhängigkeiten bleiben, zusätzlich entsteht eine Abhängigkeit vom Broker. Falle: „dynamisch“ mit „lose“ gleichsetzen."
+ },
+ {
+  "id": "c3q48",
+  "chapter": 3,
+  "lz": "LZ 03-06",
+  "r": "R1",
+  "type": "single",
+  "q": "Baustein A hat zwölf eingehende und keine ausgehenden Abhängigkeiten. Welche Aussage trifft am ehesten zu?",
+  "options": [
+   "A ist instabil, weil sich seine Schnittstelle wegen der vielen Nutzer häufig ändern muss.",
+   "A hat eine hohe efferente Kopplung, weil er von vielen genutzt wird.",
+   "A ist im Sinne der Stabilitätsmetrik stabil: Änderungen an seiner Schnittstelle sind aufwendig, weil sie zwölf Nutzer betreffen.",
+   "A ist stabil, das heißt ausgereift und ausreichend getestet.",
+   "A sollte möglichst konkret implementiert sein, damit Änderungen auf A beschränkt bleiben."
+  ],
+  "correct": [
+   2
+  ],
+  "optExpl": [
+   "Falsch: Instabilität entsteht durch viele ausgehende Abhängigkeiten. A hat keine und zwölf Nutzer, die sich eher gegen häufige Änderungen sperren.",
+   "Falsch: Vertauscht. Eingehende Abhängigkeiten bilden die afferente Kopplung. A hat keine ausgehenden (efferenten) Abhängigkeiten.",
+   "Richtig: Viele eingehende und keine ausgehenden Abhängigkeiten bedeuten maximale Stabilität im Sinne von schwer änderbar. Jede Schnittstellenänderung wirkt auf alle Nutzer.",
+   "Falsch: „Stabil“ ist hier eine Aussage über die Kopplungsstruktur, nicht über Qualität oder Reife. Ein viel genutzter Baustein kann trotzdem fehlerhaft sein.",
+   "Falsch: Gerade stabile Bausteine sollten eher abstrakt sein, damit sie erweiterbar bleiben, ohne geändert zu werden. Konkret implementiert erschweren sie notwendige Änderungen bei zwölf Nutzern."
+  ],
+  "explanation": "Afferent heißt eingehend: Viele Nutzer machen einen Baustein stabil im Sinne von schwer änderbar, weshalb er eher abstrakt sein sollte. Fallen: afferent und efferent vertauschen, „stabil“ als ausgereift lesen, konkrete statt abstrakte Gestaltung wählen."
+ },
+ {
+  "id": "c3q49",
+  "chapter": 3,
+  "lz": "LZ 03-10",
+  "r": "R1",
+  "type": "multi",
+  "q": "Welche Aussagen zu Querschnittskonzepten treffen zu?",
+  "options": [
+   "Querschnittskonzepte stehen nicht isoliert, Entscheidungen in einem wirken auf andere.",
+   "Querschnittskonzepte sollten erst festgelegt werden, wenn die ersten Bausteine implementiert sind, damit sie reale Anforderungen abbilden.",
+   "Querschnittskonzepte verringern zwangsläufig die Kopplung zwischen den betroffenen Bausteinen.",
+   "Ein fachliches Ergebnis, das an mehreren Stellen angezeigt wird, ist ein Querschnittskonzept.",
+   "Ein erarbeitetes Konzept lässt sich in anderen Systemen wiederverwenden.",
+   "Energieeffizienz kann Gegenstand eines Querschnittskonzepts sein."
+  ],
+  "correct": [
+   0,
+   4,
+   5
+  ],
+  "optExpl": [
+   "Richtig: Beispiel: Die Wahl asynchroner Kommunikation beeinflusst Fehlerbehandlung, Persistenz und GUI.",
+   "Falsch: Späte Festlegung führt zu uneinheitlichen Lösungen und teurem Nacharbeiten. Konzepte werden früh abgestimmt und iterativ verfeinert.",
+   "Falsch: Sie fördern Konsistenz, können aber neue gemeinsame Abhängigkeiten schaffen und die Kopplung sogar erhöhen.",
+   "Falsch: Mehrfache Verwendung eines Ergebnisses macht keine übergreifende Regel; ein Querschnittskonzept regelt, wie viele Bausteine einen Aspekt umsetzen.",
+   "Richtig: Konzepte sind unabhängig vom konkreten fachlichen Kontext und können zwischen Systemen übertragen werden.",
+   "Richtig: Sie betrifft Kommunikation, GUI und Nebenläufigkeit gleichermaßen und braucht übergreifende Regeln."
+  ],
+  "explanation": "Querschnittskonzepte regeln wiederkehrende Aspekte einheitlich, hängen voneinander ab und sind projektübergreifend wiederverwendbar. Sie sollten früh festgelegt werden, verringern nicht automatisch die Kopplung, und ein fachliches Ergebnis, das an mehreren Stellen erscheint, macht noch kein Querschnittskonzept."
  },
  {
   "id": "c3q50",
@@ -3028,23 +3066,23 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Ein Team wählt für den Produktkatalog einen BASE-orientierten Datenspeicher statt eines ACID-Systems. Was bedeutet das am ehesten?",
+  "q": "Was bedeutet die Wahl eines BASE-orientierten Datenspeichers statt eines ACID-Systems am ehesten?",
   "options": [
-   "Strengere Transaktionsgarantien als mit ACID.",
-   "Verfügbarkeit vor sofortiger Konsistenz aller Replikate.",
-   "Datenverlust wird zugunsten der Verfügbarkeit toleriert.",
-   "Der Wechsel von NoSQL auf eine relationale Datenbank."
+   "BASE verzichtet auf Dauerhaftigkeit, sodass bestätigte Schreibvorgänge verloren gehen dürfen.",
+   "BASE ist das Konsistenzmodell relationaler Datenbanken, ACID das der NoSQL-Systeme.",
+   "Die Anwendung muss zeitweise inkonsistente Lesewerte tolerieren, dafür bleibt der Speicher auch bei Knotenausfällen verfügbar.",
+   "BASE bietet gegenüber ACID strengere Isolation, besonders bei verteilten Transaktionen."
   ],
   "correct": [
-   1
+   2
   ],
   "optExpl": [
-   "Falsch: Umgekehrt: ACID bietet die strikteren Garantien wie Atomarität, Konsistenz, Isolation und Dauerhaftigkeit. BASE lockert diese bewusst zugunsten von Verfügbarkeit und Skalierbarkeit.",
-   "Richtig: BASE (Basically Available, Soft state, Eventually consistent) nimmt kurzzeitig abweichende Lesestände zwischen Replikaten in Kauf, um verfügbar zu bleiben. Für einen Produktkatalog ist das meist vertretbar.",
-   "Falsch: Eventual consistency bedeutet verzögerte, nicht verlorene Konsistenz: Replikate gleichen sich später an. Geschriebene Daten gehen dadurch nicht verloren, sie sind nur kurz nicht überall sichtbar.",
-   "Falsch: Vertauscht: ACID ist typisch für relationale Datenbanken, BASE häufig für verteilte NoSQL-Speicher. Die Entscheidung für BASE deutet also eher in Richtung NoSQL."
+   "Falsch: Nicht Dauerhaftigkeit wird gelockert, sondern die Konsistenz zwischen Replikaten. Persistente Speicherung bleibt Ziel.",
+   "Falsch: Begriffe vertauscht: ACID prägt klassische relationale Systeme, BASE viele verteilte NoSQL-Speicher.",
+   "Richtig: Replikate gleichen sich erst nach einiger Zeit an (eventual consistency). Verfügbarkeit hat Vorrang vor sofortiger Konsistenz.",
+   "Falsch: BASE lockert Konsistenz- und Isolationsgarantien zugunsten von Verfügbarkeit und Skalierbarkeit."
   ],
-  "explanation": "ACID steht für strikte Transaktionskonsistenz, BASE für Verfügbarkeit mit schlussendlicher Konsistenz der Replikate. Fallen: „eventually consistent“ als Datenverlust deuten oder die typische Zuordnung relational/ACID und NoSQL/BASE vertauschen."
+  "explanation": "BASE (basically available, soft state, eventually consistent) stellt Verfügbarkeit über sofortige Konsistenz. Die Anwendung muss zeitweise inkonsistente Lesewerte tolerieren. BASE ist weder strenger als ACID noch an NoSQL gebunden, und es verzichtet nicht grundsätzlich auf Dauerhaftigkeit."
  },
  {
   "id": "c3q51",
@@ -3053,23 +3091,25 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Ein verteiltes Buchungssystem soll auch bei Netzwerkpartitionen funktionieren. Was folgt laut CAP-Theorem am ehesten?",
+  "q": "Was besagt das CAP-Theorem für ein verteiltes System?",
   "options": [
-   "Während einer Partition: Konsistenz oder Verfügbarkeit wählen.",
-   "Dauerhaft genau zwei der drei Eigenschaften festlegen.",
-   "Genug Redundanz sichert alle drei Eigenschaften zugleich.",
-   "Kosten, Verfügbarkeit und Performance abwägen."
+   "Tritt eine Netzwerkpartition auf, muss das System zwischen Konsistenz und Verfügbarkeit wählen.",
+   "CAP beschreibt den Zielkonflikt zwischen Latenz und Konsistenz auch im Normalbetrieb ohne Partition.",
+   "Mit ausreichender Replikation und Redundanz lassen sich alle drei Eigenschaften zugleich garantieren.",
+   "Konsistenz, Verfügbarkeit und Partitionstoleranz stehen dauerhaft in der Wahl von zwei Eigenschaften, unabhängig davon, ob eine Partition auftritt.",
+   "Ein verteiltes System kann Partitionstoleranz abwählen und erhält dann Konsistenz und Verfügbarkeit gleichzeitig."
   ],
   "correct": [
    0
   ],
   "optExpl": [
-   "Richtig: Tritt eine Netzwerkpartition auf, kann ein verteiltes System nicht zugleich alle Knoten konsistent halten und jede Anfrage beantworten. Man muss abwägen: Anfragen ablehnen (Konsistenz) oder mit möglicherweise veralteten Daten antworten (Verfügbarkeit).",
-   "Falsch: Die populäre Formel „wähle zwei aus drei“ ist irreführend. Die Abwägung wird erst bei einer Partition erzwungen; ohne Partition sind Konsistenz und Verfügbarkeit gemeinsam erreichbar.",
-   "Falsch: Redundanz hebt die Grenze nicht auf: Während einer Partition können die getrennten Teile sich nicht abstimmen, egal wie viele Replikate es gibt. Mehr Knoten können sogar mehr Partitionsmöglichkeiten schaffen.",
-   "Falsch: CAP steht für Consistency, Availability und Partition tolerance. Kosten und Performance gehören nicht dazu; die Abwägung zwischen Latenz und Konsistenz beschreibt eher die Erweiterung PACELC."
+   "Richtig: Entweder werden Anfragen abgelehnt (Konsistenz) oder mit eventuell veralteten Daten beantwortet (Verfügbarkeit). Ohne Partition entfällt der Konflikt.",
+   "Falsch: Das beschreibt eine Erweiterung (PACELC). CAP betrifft das Verhalten während einer Partition.",
+   "Falsch: Redundanz verringert Ausfälle, hebt aber den Zielkonflikt während einer Partition nicht auf.",
+   "Falsch: Der Konflikt besteht nur während einer Partition; im Normalbetrieb sind Konsistenz und Verfügbarkeit erreichbar.",
+   "Falsch: Partitionen treten im Netz unvermeidlich auf; Partitionstoleranz ist deshalb keine wählbare Eigenschaft."
   ],
-  "explanation": "Das CAP-Theorem erzwingt bei einer Netzwerkpartition die Wahl zwischen Konsistenz und Verfügbarkeit. Fallen: das vereinfachte „immer zwei aus drei“ – ohne Partition gibt es diesen Zwang nicht –, der Glaube, Redundanz löse das Problem, und falsche Buchstabenbedeutungen (R3)."
+  "explanation": "Netzwerkpartitionen lassen sich in verteilten Systemen nicht ausschließen. Tritt eine auf, muss man zwischen Konsistenz und Verfügbarkeit wählen; ohne Partition sind beide möglich. Typische Fallen: CA als reale Option, Redundanz als Lösung und die Verwechslung mit dem Zielkonflikt Latenz/Konsistenz (PACELC)."
  },
  {
   "id": "c3q52",
@@ -3077,23 +3117,23 @@ const QUESTIONS = [
   "lz": "LZ 03-08",
   "r": "R1",
   "type": "single",
-  "q": "In einer gelockerten Schichtenarchitektur ruft die UI direkt die Datenzugriffsschicht auf (Layer-Bridging). Was trifft am ehesten zu?",
+  "q": "Welche Aussage zum Überspringen einer Schicht (Layer Bridging) trifft zu?",
   "options": [
-   "Das ist ein Aufruf nach oben über einen Callback.",
-   "Der Aufruf macht die Fachschicht austauschbarer.",
-   "Erlaubt, erzeugt aber zusätzliche Abhängigkeiten.",
-   "Damit ist die Architektur nicht mehr geschichtet."
+   "Es ist nur in strikten Schichten zulässig, weil dort jede Schicht ihre Nachbarn kennt.",
+   "Es verletzt die Schichtung, weil dadurch Abhängigkeiten nach oben entstehen.",
+   "Es verbessert die Austauschbarkeit der Datenzugriffsschicht, weil die UI direkt mit ihr arbeitet.",
+   "In der offenen Variante zulässig; die höhere Schicht hängt dann von mehreren tieferen ab, was den Austausch der mittleren Schicht erschwert."
   ],
   "correct": [
-   2
+   3
   ],
   "optExpl": [
-   "Falsch: Layer-Bridging überspringt eine Zwischenschicht nach unten, hier die Fachschicht. Callbacks von unten nach oben sind ein anderer Mechanismus, um Aufrufe nach oben ohne direkte Abhängigkeit zu ermöglichen.",
-   "Falsch: Eher umgekehrt: Die Datenzugriffsschicht wird schwerer austauschbar, weil sie nun von zwei Schichten genutzt wird. Die Fachschicht wird umgangen, ihre Austauschbarkeit gewinnt dadurch nichts.",
-   "Richtig: Gelockerte Schichtung erlaubt das Überspringen von Schichten nach unten. Die UI hängt dann aber an zwei Schichten, was Abhängigkeiten erhöht und bewusst entschieden und dokumentiert werden sollte, z. B. für reine Lesezugriffe.",
-   "Falsch: Auch die gelockerte Variante ist eine Schichtenarchitektur. Verboten bleiben Aufrufe nach oben; das Überspringen nach unten ist gerade das Merkmal der gelockerten gegenüber der strikten Schichtung."
+   "Falsch: Vertauscht: Überspringen kennzeichnet die offene Variante; die strikte Variante verbietet es.",
+   "Falsch: Die Abhängigkeit zeigt weiter nach unten. Eine Verletzung läge bei Abhängigkeiten von unten nach oben vor.",
+   "Falsch: Je mehr Schichten die UI direkt kennt, desto stärker ist sie an die Datenzugriffsschicht gebunden; der Austausch wird eher schwerer.",
+   "Richtig: Das Überspringen spart Durchreichen und Aufwand, erzeugt aber zusätzliche Abhängigkeiten. Die übersprungene Schicht lässt sich nicht mehr unabhängig ändern."
   ],
-  "explanation": "Layer-Bridging = Überspringen einer Zwischenschicht nach unten; in der gelockerten Schichtenarchitektur erlaubt, aber mit zusätzlichen Abhängigkeiten. Fallen: Verwechslung mit Callbacks nach oben und die Annahme, die Architektur sei dadurch nicht mehr geschichtet."
+  "explanation": "Layer Bridging ist in der offenen (relaxed) Schichtung erlaubt und tauscht Einfachheit und Performance gegen zusätzliche Abhängigkeiten und geringere Austauschbarkeit. Falle: Es bleibt Schichtung, solange Abhängigkeiten nur nach unten zeigen."
  },
  {
   "id": "c3q53",
@@ -3101,29 +3141,29 @@ const QUESTIONS = [
   "lz": "LZ 03-08",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Team will eine streng geschichtete Architektur. Welche Regeln gehören idealtypisch dazu?",
+  "q": "Welche Aussagen gelten für eine strikte Schichtenarchitektur?",
   "options": [
-   "Eine Schicht darf die tieferen Schichten überspringen und direkt nutzen.",
-   "Ähnliches Abstraktionsniveau innerhalb einer Schicht.",
-   "Eine Schicht nutzt nur die direkt darunterliegende.",
-   "Zyklen auflösen, indem man die Bausteine auf Schichten verteilt.",
-   "Jede Schicht läuft in einem eigenen Prozess.",
-   "Keine Aufrufe von unten nach oben."
+   "Die Schichten werden nach Fachlichkeit geschnitten, z. B. Bestellung, Lager, Versand.",
+   "Eine Schicht nutzt nur die unmittelbar darunterliegende.",
+   "Zwischen den Schichten sind Abhängigkeiten in beide Richtungen zulässig, solange sie über Schnittstellen laufen.",
+   "Eine Schicht darf Schichten überspringen, wenn dadurch keine Zyklen entstehen.",
+   "Eine Schicht lässt sich ersetzen, ohne dass außer der direkt darüberliegenden weitere Schichten betroffen sind.",
+   "Die Einhaltung der Regeln lässt sich mit Werkzeugen zur Abhängigkeitsanalyse prüfen."
   ],
   "correct": [
    1,
-   2,
+   4,
    5
   ],
   "optExpl": [
-   "Falsch: Dass eine Schicht alle tieferen Schichten nutzen darf, beschreibt die gelockerte (offene) Schichtung. Bei strenger Schichtung ist das Überspringen ausdrücklich verboten, um die Austauschbarkeit einzelner Schichten zu sichern.",
-   "Richtig: Bausteine einer Schicht sollen auf vergleichbarer Abstraktionsebene liegen, z. B. fachliche Logik in der Domänenschicht, technische Details darunter. So hat jede Schicht eine klare, verständliche Rolle.",
-   "Richtig: Das ist der Kern der strikten Variante: Jede Schicht nutzt nur die unmittelbar darunterliegende, ohne Schichten zu überspringen. Dadurch lässt sich eine Schicht austauschen, ohne höhere Schichten anzupassen.",
-   "Falsch: Ein Zyklus verschwindet nicht durch Umverteilung: Die wechselseitige Abhängigkeit bleibt bestehen, und einer der Bausteine müsste dann eine höhere Schicht aufrufen – ein verbotener Aufruf nach oben. Zyklen löst man z. B. per Dependency Inversion auf.",
-   "Falsch: Schichten sind logische Strukturen; ob sie in einem oder mehreren Prozessen laufen, ist eine Frage der Verteilung (Tiers). Eine strenge Schichtung verlangt keine physische Trennung.",
-   "Richtig: Aufwärtsabhängigkeiten würden Zyklen erzeugen und die Schichtung aufheben. Benachrichtigungen nach oben laufen deshalb über Callbacks oder Ereignisse, deren Schnittstelle die tiefere Schicht definiert."
+   "Falsch: Das ist ein fachlicher Schnitt (vertikal). Schichten schneiden nach technischem Abstraktionsniveau (horizontal).",
+   "Richtig: Das ist die Kernregel der strikten Variante: Jede Schicht kennt nur die Schnittstelle der unmittelbar darunterliegenden.",
+   "Falsch: Abhängigkeiten im Code zeigen nur nach unten. Aufrufe nach oben sind nur über eine von der tieferen Schicht definierte Callback-Schnittstelle möglich.",
+   "Falsch: Überspringen ist das Merkmal der offenen Variante und hat mit Zyklen nichts zu tun; in der strikten Variante ist es ausgeschlossen.",
+   "Richtig: Weil nur die direkt darüberliegende Schicht von ihr abhängt, bleiben Änderungen bei erhaltener Schnittstelle begrenzt.",
+   "Richtig: Die Regeln sind formal (Richtung, Nachbarschaft) und deshalb mit Werkzeugen prüfbar, etwa als Architekturtests."
   ],
-  "explanation": "Strikt geschichtet heißt: Abhängigkeiten nur nach unten, nur zur direkt darunterliegenden Schicht, ähnliches Abstraktionsniveau innerhalb einer Schicht. Fallen: Die Nutzung aller tieferen Schichten ist die gelockerte Variante, Schichten sind keine Tiers, und Zyklen löst Umverteilen nicht."
+  "explanation": "Strikte Schichtung: technische, abstraktionsorientierte Schichten, Nutzung nur der direkt darunterliegenden Schicht, Abhängigkeiten nur nach unten. Fallen: fachlicher statt technischer Schnitt, Überspringen (offene Variante) und Abhängigkeit in beide Richtungen."
  },
  {
   "id": "c3q54",
@@ -3131,23 +3171,23 @@ const QUESTIONS = [
   "lz": "LZ 03-08",
   "r": "R1",
   "type": "single",
-  "q": "Ein System hat sieben strikt übereinanderliegende Schichten. Welcher Nachteil ist dafür am ehesten typisch?",
+  "q": "Welcher Nachteil ist für eine Architektur mit vielen strikt gestapelten Schichten am ehesten typisch?",
   "options": [
-   "Die Schichten müssen auf getrennten Servern betrieben werden.",
-   "Obere Schichten müssen Interna der unteren kennen.",
-   "Durchreichen kostet Latenz und erzeugt Boilerplate.",
-   "Ein fachlicher Schnitt ist nicht mehr möglich."
+   "Zyklische Abhängigkeiten zwischen den Schichten sind unvermeidlich.",
+   "Die Schichten lassen sich nicht mehr unabhängig testen.",
+   "Die Austauschbarkeit einzelner Schichten sinkt mit jeder zusätzlichen Schicht.",
+   "Einfache Anfragen werden durch alle Schichten durchgereicht, was Aufwand für Weiterleitung und Mapping erzeugt."
   ],
   "correct": [
-   2
+   3
   ],
   "optExpl": [
-   "Falsch: Schichten sind logisch, nicht physisch. Die Zuordnung zu Servern (Tiers) ist eine separate Verteilungsentscheidung; sieben Schichten können problemlos in einem einzigen Prozess laufen.",
-   "Falsch: Gerade nicht: Obere Schichten nutzen nur die Schnittstelle der direkt darunterliegenden Schicht. Das Verbergen der Interna ist ja der Vorteil strikter Schichtung.",
-   "Richtig: Bei strikter Schichtung muss jede Schicht Aufrufe weiterleiten, auch wenn sie nichts hinzufügt. Bei sieben Schichten kostet das spürbar Laufzeit und erzeugt viel gleichförmigen Durchreich-Code.",
-   "Falsch: Schichten lassen sich mit fachlichen Schnitten kombinieren, etwa eigene Schichten je Fachmodul oder vertikale Slices. Tiefe Schichtung verhindert einen fachlichen Schnitt also nicht."
+   "Falsch: Strikte Schichtung lässt Abhängigkeiten nur nach unten zu; Zyklen zwischen Schichten sind damit ausgeschlossen, nicht unvermeidlich.",
+   "Falsch: Weil jede Schicht nur die Schnittstelle der darunterliegenden kennt, lassen sie sich mit Testersatz isoliert testen.",
+   "Falsch: Mehr Schichten ändern die Austauschbarkeit der einzelnen Schicht nicht grundsätzlich; entscheidend ist die Schnittstelle. Der typische Preis ist Aufwand, nicht Starrheit.",
+   "Richtig: Jede strikte Schicht reicht Aufrufe weiter und wandelt ggf. Datenstrukturen um; das kostet Latenz und erzeugt Boilerplate-Code."
   ],
-  "explanation": "Tiefe strikte Schichtung kostet Latenz durch Durchreichen und erzeugt viel Weiterreich-Code, auch wenn Schichten nichts hinzufügen. Fallen: Schichten mit Servern (Tiers) gleichsetzen und übersehen, dass obere Schichten gerade keine Interna kennen müssen."
+  "explanation": "Viele strikte Schichten erhöhen Indirektion: Durchreichen und Umwandeln kosten Laufzeit und Code. Gewonnen werden Änderbarkeit und Verständlichkeit. Fallen: Zyklen, Testbarkeit und Austauschbarkeit leiden nicht typischerweise unter der Zahl der Schichten."
  },
  {
   "id": "c3q55",
@@ -3155,23 +3195,23 @@ const QUESTIONS = [
   "lz": "LZ 03-08",
   "r": "R1",
   "type": "single",
-  "q": "In einer Pipes-and-Filters-Verarbeitung unterscheidet man aktive und passive Filter. Worin liegt der Unterschied?",
+  "q": "Worin unterscheiden sich aktive und passive Filter bei Pipes and Filters?",
   "options": [
-   "Aktive Filter holen oder schieben Daten selbst.",
-   "Aktive Filter laufen sequenziell, passive parallel.",
-   "Aktive Filter transformieren, passive reichen durch.",
-   "Aktive Filter kennen ihre Nachbarfilter."
+   "Aktive Filter kennen ihre Nachbarfilter und rufen sie direkt auf; passive kommunizieren nur über Pipes.",
+   "Aktive Filter steuern den Datenfluss selbst (holen per Pull oder schieben per Push); passive werden von Pipe oder Nachbar aufgerufen.",
+   "Aktive Filter werden vom Datenstrom ausgelöst (Push), passive holen sich ihre Daten selbst (Pull).",
+   "Aktive Filter transformieren Daten, passive leiten sie nur unverändert weiter."
   ],
   "correct": [
-   0
+   1
   ],
   "optExpl": [
-   "Richtig: Aktive Filter treiben den Datentransport selbst an: Sie holen Daten aus der eingehenden Pipe (pull) oder schieben Ergebnisse weiter (push). Passive Filter werden dagegen von außen beliefert bzw. ausgelesen.",
-   "Falsch: Nebenläufigkeit hängt nicht an dieser Unterscheidung. Sowohl aktive als auch passive Filter können sequenziell oder nebenläufig betrieben werden; aktiv/passiv betrifft nur den Antrieb des Datenflusses.",
-   "Falsch: Beide Filterarten verarbeiten bzw. transformieren Daten – das ist der Zweck jedes Filters. Die Unterscheidung betrifft nicht die Verarbeitung, sondern wer den Datenfluss antreibt.",
-   "Falsch: Filter kennen einander grundsätzlich nicht; sie sind nur über Pipes verbunden. Das macht sie austauschbar und neu kombinierbar – unabhängig davon, ob sie aktiv oder passiv sind."
+   "Falsch: Auch aktive Filter kommunizieren über Pipes und kennen ihre Nachbarn nicht; das ist gerade der Zweck der Pipes.",
+   "Richtig: Der aktive Filter läuft mit eigenem Kontrollfluss und treibt den Datenfluss an. Ein passiver Filter wird aufgerufen, wenn Daten geschoben oder angefordert werden.",
+   "Falsch: Pull und Push sind keine Frage der Passivität: Ein aktiver Filter kann selbst holen (Pull) oder selbst schieben (Push). Die Zuordnung ist halb richtig, aber vertauscht.",
+   "Falsch: Beide Filterarten transformieren Daten. Der Unterschied liegt im Kontrollfluss, nicht in der Aufgabe."
   ],
-  "explanation": "Aktiv oder passiv beschreibt bei Pipes and Filters, wer den Datenfluss antreibt: Aktive Filter holen bzw. schieben Daten selbst, passive werden bedient. Fallen: Verwechslung mit Transformation, Parallelität oder Kenntnis der Nachbarfilter – Filter kennen einander nie."
+  "explanation": "Aktive Filter haben eigenen Kontrollfluss und treiben den Datenfluss (Pull oder Push); passive werden aufgerufen. Alle Filter transformieren und kennen ihre Nachbarn nur über Pipes. Falle: Pull/Push nicht mit aktiv/passiv gleichsetzen."
  },
  {
   "id": "c3q56",
@@ -3179,27 +3219,29 @@ const QUESTIONS = [
   "lz": "LZ 03-08",
   "r": "R1",
   "type": "multi",
-  "q": "Für einen nächtlichen Import (lesen, bereinigen, anreichern, speichern) wird Pipes and Filters erwogen. Was trifft zu?",
+  "q": "Welche Aussagen zu Pipes and Filters treffen zu?",
   "options": [
-   "Die Stufen können nebenläufig arbeiten.",
-   "Einzelne Filter lassen sich austauschen.",
-   "Auch für dialogorientierte Abläufe gut geeignet.",
-   "Gemeinsamer Zustand vereinfacht die Abstimmung der Filter.",
-   "Die Fehlerbehandlung ist anspruchsvoll."
+   "Die Stufen können nebenläufig arbeiten; die langsamste Stufe bestimmt den Durchsatz.",
+   "Ein Filter muss die Implementierung des vorherigen Filters kennen, um dessen Ausgabe zu interpretieren.",
+   "Zusätzliche Stufen erhöhen die Latenz einer einzelnen Verarbeitung nicht, solange sie nebenläufig arbeiten.",
+   "Die Fehlerbehandlung ist aufwendig, weil Fehler in einer Stufe folgende Stufen betreffen und Teilergebnisse schon weitergegeben sein können.",
+   "Das Muster eignet sich besonders, wenn späte Stufen frühe Stufen rückwirkend anpassen müssen.",
+   "Filter lassen sich austauschen und neu kombinieren, wenn sie sich auf dasselbe Datenformat an den Pipes stützen."
   ],
   "correct": [
    0,
-   1,
-   4
+   3,
+   5
   ],
   "optExpl": [
-   "Richtig: Da die Filter nur über Datenströme verbunden sind, kann jede Stufe arbeiten, sobald Daten anliegen. Während ein Datensatz angereichert wird, kann der nächste bereits bereinigt werden – das erlaubt Nebenläufigkeit.",
-   "Richtig: Filter kennen einander nicht und sind nur über Pipes mit einem vereinbarten Datenformat verbunden. Ein Schritt, etwa die Bereinigung, kann ersetzt werden, ohne die anderen zu ändern.",
-   "Falsch: Interaktive Abläufe mit Rückfragen und Verzweigungen passen schlecht zu einem gerichteten Datenstrom. Pipes and Filters eignet sich für Stapel- und Stromverarbeitung wie diesen Import, nicht für Dialoge.",
-   "Falsch: Pipes and Filters kommt gerade ohne gemeinsamen Zustand aus; das ist Stärke und Grenze zugleich. Gemeinsamer Zustand würde die Filter koppeln und ihre Austauschbarkeit und Nebenläufigkeit zerstören.",
-   "Richtig: Ein Filter kennt die Vorgeschichte der Daten nicht. Fehler sinnvoll zu melden, fehlerhafte Datensätze zuzuordnen oder Teilergebnisse zurückzurollen ist deshalb aufwendig."
+   "Richtig: Stufen können gleichzeitig verschiedene Datensätze verarbeiten. Wie in einer Fertigungsstraße begrenzt die langsamste Stufe den Durchsatz.",
+   "Falsch: Filter sind über das Pipe-Format gekoppelt und kennen die Nachbarn nicht; die Implementierung des Vorgängers ist verborgen.",
+   "Falsch: Jeder Datensatz durchläuft alle Stufen nacheinander; zusätzliche Stufen verlängern seine Durchlaufzeit, auch wenn der Durchsatz hoch bleibt.",
+   "Richtig: Rollback, Wiederholung und Konsistenz über mehrere Stufen sind schwierig, weil jede Stufe nur ihren Ausschnitt kennt.",
+   "Falsch: Rückkopplungen widersprechen der einseitigen Verkettung und machen Nebenläufigkeit und Fehlerbehandlung kompliziert; das Muster passt dafür schlecht.",
+   "Richtig: Ein einheitliches Datenformat an den Pipes macht Filter austauschbar, wiederverwendbar und neu kombinierbar."
   ],
-  "explanation": "Pipes and Filters bietet austauschbare, nebenläufig arbeitende Stufen, hat aber eine anspruchsvolle Fehlerbehandlung und keinen gemeinsamen Zustand. Fallen: Eignung für interaktive Abläufe annehmen und gemeinsamen Zustand für einen Vorteil halten."
+  "explanation": "Pipes and Filters: nebenläufig, austauschbar und kombinierbar durch ein einheitliches Pipe-Format; dafür aufwendige Fehlerbehandlung und höhere Latenz je Datensatz. Fallen: Durchsatz und Latenz verwechseln, Kenntnis der Nachbarn, Rückkopplung."
  },
  {
   "id": "c3q59",
@@ -3207,29 +3249,29 @@ const QUESTIONS = [
   "lz": "LZ 03-08",
   "r": "R1",
   "type": "multi",
-  "q": "Zwei Microservices eines Shops sollen Bestelldaten austauschen. Welche Gestaltungen entsprechen den Microservice-Prinzipien?",
+  "q": "Welche Aussagen zum Datenaustausch zwischen Microservices sind zutreffend?",
   "options": [
-   "Austausch über eine gemeinsam genutzte Datenbank.",
-   "Lose gekoppelt über technologieneutrale Schnittstellen.",
-   "Eine gemeinsame Bibliothek mit den Domänenobjekten beider Services, die beide direkt verwenden.",
-   "Jeder Service behält seine Daten und gibt sie nur über seine Schnittstelle heraus.",
-   "Ein einheitliches internes Persistenzformat für die Services.",
-   "Asynchrone Ereignisse nutzen, wenn der Aufrufer kein sofortiges Ergebnis braucht."
+   "Ein gemeinsames Datenbankschema koppelt die Services auch dann, wenn sie sonst nur über Schnittstellen kommunizieren.",
+   "Technologieneutrale Schnittstellen setzen voraus, dass alle Services dasselbe interne Persistenzformat verwenden.",
+   "Synchrone Aufrufe zwischen Services sind in diesem Stil unzulässig, weil sie die Unabhängigkeit der Services aufheben.",
+   "Jeder Service hält seine Daten selbst; andere Services greifen nur über dessen Schnittstelle darauf zu.",
+   "Asynchrone Ereignisse entkoppeln Services zeitlich, verlagern aber Aufwand in Konsistenzsicherung und Fehlerbehandlung.",
+   "Eine gemeinsam genutzte Bibliothek mit Domänenobjekten verringert die Kopplung, weil die Typen einheitlich definiert sind."
   ],
   "correct": [
-   1,
+   0,
    3,
-   5
+   4
   ],
   "optExpl": [
-   "Falsch: Eine gemeinsam genutzte Datenbank löst scheinbar Konsistenzprobleme, koppelt die Services aber eng über das Schema. Jede Schemaänderung betrifft alle, und die eigene Datenhaltung pro Service geht verloren.",
-   "Richtig: Lose gekoppelt über technologieneutrale Schnittstellen wie HTTP/REST oder Messaging bleiben die Services unabhängig deploybar und intern frei in der Technikwahl. Das ist ein Kernmerkmal des Microservice-Stils.",
-   "Falsch: Eine gemeinsame Domänenbibliothek koppelt die Services über Typen und Release-Zyklen. Änderungen daran erzwingen koordinierte Auslieferungen und heben die Unabhängigkeit auf.",
-   "Richtig: Wer seine Daten hinter der eigenen Schnittstelle hält, kann Schema und Technologie unabhängig ändern. Das ist ein Kernprinzip der Muster.",
-   "Falsch: Interne Formate wie das Persistenzschema sind Sache des jeweiligen Services und sollen frei wählbar bleiben. Vereinheitlicht wird höchstens der Vertrag der Schnittstelle – sonst koppelt man die Services über ihre Interna.",
-   "Richtig: Asynchrone Ereignisse vermeiden zeitliche Kopplung und Ausfallketten. Wo kein sofortiges Ergebnis nötig ist, sind sie eine passende Form des Austauschs."
+   "Richtig: Eine Schemaänderung betrifft alle Nutzer, und Zugriffe am Vertrag vorbei sind möglich. Die Unabhängigkeit geht damit verloren.",
+   "Falsch: Der Vertrag der Schnittstelle wird vereinheitlicht, nicht das interne Format. Gemeinsame Interna würden die Services gerade koppeln.",
+   "Falsch: Synchrone Aufrufe sind erlaubt und verbreitet; sie erzeugen aber zeitliche Kopplung (Verfügbarkeit des Aufgerufenen) und sind deshalb ein Abwägungsthema, kein Verbot.",
+   "Richtig: Nur so können Schema und Persistenztechnologie eines Services geändert werden, ohne andere zu beeinträchtigen. Das ist ein Kernprinzip des Stils.",
+   "Richtig: Der Aufrufer muss nicht auf die Antwort warten; dafür ist nur eventuelle Konsistenz möglich und Duplikate oder Verlust müssen behandelt werden.",
+   "Falsch: Die Bibliothek koppelt die Services über Typen und Release-Zyklen; Änderungen erzwingen abgestimmte Auslieferungen. Einheitlichkeit ist hier kein Entkopplungsgewinn."
   ],
-  "explanation": "Microservices tauschen Daten lose gekoppelt über technologieneutrale Schnittstellen aus und behalten ihre eigene Datenhaltung. Fallen: Die gemeinsame Datenbank, einheitliche interne Formate und gemeinsam genutzte Domänenbibliotheken wirken praktisch, heben aber die Unabhängigkeit auf."
+  "explanation": "Microservices sollen unabhängig änderbar und deploybar bleiben. Jede Form gemeinsam genutzter Interna (Schema, Domänenbibliothek) koppelt die Services, auch wenn sie nach außen über Schnittstellen sprechen. Asynchrone Ereignisse entkoppeln zeitlich, verlagern aber Komplexität in Konsistenz und Fehlerbehandlung."
  },
  {
   "id": "k14",
@@ -3238,46 +3280,46 @@ const QUESTIONS = [
   "r": "R1",
   "type": "k",
   "points": 2,
-  "q": "Sie vergleichen zwei Pflichtmuster des Curriculums. Welchem Muster ist die Eigenschaft am ehesten zuzuordnen?",
+  "q": "Welchem der beiden Pflichtmuster ist die Aussage am ehesten zuzuordnen?",
   "categories": [
    "Schichtenarchitektur",
    "Pipes & Filter"
   ],
   "rows": [
    {
-    "text": "Einzelne Verarbeitungsschritte lassen sich gut parallelisieren.",
+    "text": "Ein Wechsel der Persistenztechnologie bleibt idealerweise auf eine Ebene begrenzt.",
+    "cat": 0
+   },
+   {
+    "text": "Einfache Anfragen durchlaufen oft Ebenen, die nur weiterreichen.",
+    "cat": 0
+   },
+   {
+    "text": "Ein zusätzlicher Verarbeitungsschritt lässt sich einfügen, ohne die übrigen Schritte zu ändern, solange das Datenformat passt.",
     "cat": 1
    },
    {
-    "text": "Fachliche Änderungen ziehen sich oft durch mehrere Ebenen.",
+    "text": "Die Abhängigkeiten verlaufen einseitig und richten sich nach der Abstraktionshöhe der Bausteine.",
     "cat": 0
    },
    {
-    "text": "Für interaktive, dialogorientierte Abläufe eher ungeeignet.",
+    "text": "Ein Wechsel des Datenformats zwischen zwei Schritten betrifft beide angrenzenden Filter.",
     "cat": 1
    },
    {
-    "text": "In der gelockerten Variante dürfen auch tiefer liegende Ebenen direkt genutzt werden.",
-    "cat": 0
-   },
-   {
-    "text": "Das Durchreichen von Aufrufen über mehrere Ebenen kostet Latenz.",
-    "cat": 0
-   },
-   {
-    "text": "Eine einheitliche Fehlerbehandlung über alle Schritte ist schwierig.",
+    "text": "Ein Fehler in einem mittleren Schritt lässt sich schwer an den Auslöser der Kette zurückmelden.",
     "cat": 1
    }
   ],
   "rowExpl": [
-   "Filter sind unabhängige Verarbeitungsschritte, die über Datenströme verbunden sind und deshalb gut parallel laufen können. Das ist eine Stärke von Pipes & Filter, nicht der Schichten.",
-   "In Schichten verteilt sich ein fachliches Konzept auf mehrere Ebenen, sodass eine fachliche Änderung oft jede davon berührt. Das ist ein typischer Nachteil der Schichtenarchitektur, nicht von Pipes & Filter.",
-   "Pipes & Filter sind auf durchlaufende Datenverarbeitung ausgelegt, nicht auf Dialoge mit Rückfragen. Für interaktive Abläufe sind sie eher ungeeignet, anders als eine Schichtenarchitektur.",
-   "Die gelockerte Schichtung erlaubt Zugriffe auch auf tiefer liegende Ebenen, nicht nur auf die direkt darunter. Das Konzept gibt es nur bei Schichten, Pipes & Filter kennen keine Ebenen.",
-   "Aufrufe werden Ebene für Ebene durchgereicht, jede Ebene kostet Zeit. Die Latenz entsteht hier durch das Durchreichen und nicht durch eine Pipeline, deshalb gehört sie zur Schichtenarchitektur.",
-   "Fehler können in jedem Schritt der Kette auftreten, und die Schritte sind unabhängig voneinander. Eine einheitliche Fehlerbehandlung ist darum schwierig, ein typischer Nachteil von Pipes & Filter."
+   "Die Kapselung technischer Belange je Ebene ist das Ziel der Schichtung. Bei Pipes und Filter gibt es keine Ebenen mit Technikverantwortung.",
+   "Das Durchreichen ist ein bekannter Nachteil strikter Schichtung. Filter in einer Pipeline tragen jeweils eine Verarbeitungsaufgabe.",
+   "Filter kennen weder Vorgänger noch Nachfolger, nur das Datenformat der Pipes. Bei Schichten verändert ein neuer Schritt Schnittstellen.",
+   "Höhere Ebenen nutzen tiefere, nie umgekehrt. Bei Pipes und Filter richtet sich die Abfolge nach dem Datenfluss.",
+   "Das Format der Pipe ist die einzige Schnittstelle zwischen Filtern. Bei Schichten sind Schnittstellen dienstorientiert, nicht datenstromorientiert.",
+   "Filter laufen entkoppelt, und es gibt keinen direkten Rückkanal. Bei Schichten kehren Fehler über den Aufrufpfad zurück."
   ],
-  "explanation": "Pipes & Filter: Schritte gut parallelisierbar, für interaktive Dialoge eher ungeeignet, einheitliche Fehlerbehandlung schwierig. Schichten: fachliche Änderungen ziehen sich durch mehrere Ebenen, Durchreichen kostet Latenz, gelockerte Variante erlaubt Zugriff auf tiefere Ebenen. Falle: Latenz klingt nach Pipeline, entsteht hier aber durchs Durchreichen."
+  "explanation": "Schichten ordnen nach Abstraktionsebene mit einseitiger Abhängigkeit; die typischen Schwächen sind Durchreichen und querschnittliche Fachänderungen. Pipes und Filter strukturieren nach Verarbeitungsschritten; die typischen Schwächen sind das Datenformat zwischen Schritten und die Fehlerrückmeldung."
  },
  {
   "id": "k15",
@@ -3286,36 +3328,46 @@ const QUESTIONS = [
   "r": "R1",
   "type": "k",
   "points": 2,
-  "q": "Ein Team sammelt Kandidaten für übergreifende Konzepte. Handelt es sich um ein Querschnittskonzept oder nicht?",
+  "q": "Handelt es sich um ein Querschnittskonzept oder nicht?",
   "categories": [
    "Querschnittskonzept",
    "Kein Querschnittskonzept"
   ],
   "rows": [
    {
-    "text": "Der Export eines Monatsberichts als CSV-Datei.",
+    "text": "Die IBAN-Prüfung im Zahlungsbaustein.",
     "cat": 1
    },
    {
-    "text": "Einheitlicher Umgang mit Nebenläufigkeit und gleichzeitigen Zugriffen.",
+    "text": "Ein Algorithmus zur Rabattberechnung, den mehrere Dialoge aufrufen.",
+    "cat": 1
+   },
+   {
+    "text": "Vorgaben, wie alle Bausteine Konfigurationswerte laden und überschreiben.",
     "cat": 0
    },
    {
-    "text": "Die Rabattberechnung, deren Ergebnis an mehreren Stellen angezeigt wird.",
+    "text": "Festlegung, wie Bausteine Transaktionsgrenzen setzen und Daten persistieren.",
+    "cat": 0
+   },
+   {
+    "text": "Das Datenmodell eines Kunden, das mehrere Bausteine lesen.",
     "cat": 1
    },
    {
-    "text": "Einheitliche Regeln zur Energieeffizienz, z. B. zum Schonen des Akkus mobiler Clients.",
+    "text": "Vorgaben zur Mehrsprachigkeit von Texten und Formaten in allen Dialogen.",
     "cat": 0
    }
   ],
   "rowExpl": [
-   "Der CSV-Export eines Monatsberichts ist eine einzelne fachliche Funktion und betrifft nicht viele Bausteine einheitlich. Deshalb ist er kein Querschnittskonzept.",
-   "Nebenläufigkeit betrifft viele Bausteine und braucht einheitliche Regeln. Das Curriculum nennt sie ausdrücklich als Querschnittsthema, daher ist sie ein Querschnittskonzept.",
-   "Die Rabattberechnung ist eine fachliche Einzelfunktion. Dass ihr Ergebnis an mehreren Stellen angezeigt wird, macht sie nicht zum Querschnittskonzept, deshalb gehört sie nicht hierher.",
-   "Energieeffizienz, etwa das Schonen des Akkus, betrifft viele Bausteine und braucht einheitliche Regeln. Das Curriculum nennt sie ausdrücklich als Querschnittsthema, daher ist sie ein Querschnittskonzept."
+   "Fachliche Validierung mit lokalem Geltungsbereich, gehört zu genau einem Baustein.",
+   "Fachliche Funktion mit klarem Zuhause in einem Baustein; sie wird nur genutzt, nicht von vielen Bausteinen selbst umgesetzt.",
+   "Betrifft viele Bausteine gleichermaßen und braucht einheitliche Regeln.",
+   "Persistenz ist ein klassisches Querschnittsthema mit Wechselwirkungen zu Fehlerbehandlung und Nebenläufigkeit.",
+   "Gemeinsames Fachmodell, aber keine Regel dafür, wie ein Aspekt in allen Bausteinen umzusetzen ist.",
+   "Internationalisierung betrifft jeden Baustein mit Ausgaben und muss einheitlich gelöst werden."
   ],
-  "explanation": "Querschnittskonzepte regeln Themen, die viele Bausteine einheitlich betreffen. Das Curriculum nennt unter anderem Nebenläufigkeit und Energieeffizienz ausdrücklich als Querschnittsthemen; CSV-Export und Rabattberechnung sind dagegen fachliche Einzelfunktionen und stehen nicht in dieser Liste. Falle: Die Rabattberechnung wird nicht zum Querschnittskonzept, nur weil ihr Ergebnis an mehreren Stellen erscheint."
+  "explanation": "Ein Querschnittskonzept regelt, wie viele Bausteine einen Aspekt einheitlich umsetzen. Fachliche Funktionen, Daten und Regeln mit klarem Zuhause sind keine, auch wenn mehrere Bausteine sie nutzen oder anzeigen."
  },
  {
   "id": "c3q60",
@@ -3323,26 +3375,29 @@ const QUESTIONS = [
   "lz": "LZ 03-05",
   "r": "R1",
   "type": "multi",
-  "q": "Ob eine neue Messaging-Technologie die Lastanforderungen trägt, ist unklar. Welche Aussagen zu kurzen Feedback-Schleifen treffen hier zu?",
+  "q": "Ob eine Technologie die Lastanforderungen erfüllt, ist unklar. Welche Aussagen zu Prototypen als Feedback-Instrument treffen zu?",
   "options": [
-   "Feedback erst nach fertigem Gesamtentwurf einholen.",
-   "Ein Wegwerf-Prototyp kann die Annahme gezielt prüfen.",
-   "Der Prototyp ersetzt eine spätere Architekturbewertung.",
-   "Der Prototyp sollte das Grundgerüst des Produktivcodes werden.",
-   "Iterationen erhöhen die Prognostizierbarkeit."
+   "Ein Wegwerf-Prototyp sollte nach erfolgreichem Test schrittweise zum Produktivcode ausgebaut werden, um Doppelarbeit zu vermeiden.",
+   "Der Prototyp belegt die Machbarkeit einer Entscheidung, ersetzt aber keine Bewertung der Gesamtarchitektur.",
+   "Der Aufwand für einen Prototyp ist gerechtfertigt, wenn die Entscheidung schwer umkehrbar und die Unsicherheit hoch ist.",
+   "Lastprototypen sind nur aussagekräftig, wenn sie mit vollständiger Produktivfunktionalität gebaut werden.",
+   "Besteht der Prototyp den Lasttest, ist garantiert, dass die Technologie im Gesamtsystem die Qualitätsziele erfüllt.",
+   "Ein Prototyp liefert belastbare Aussagen nur für die untersuchte Frage unter den gewählten Randbedingungen."
   ],
   "correct": [
    1,
-   4
+   2,
+   5
   ],
   "optExpl": [
-   "Falsch: Gerade bei unsicheren Entscheidungen wie einer neuen Messaging-Technologie gehört Feedback an den Anfang. Erst nach dem Gesamtentwurf entdeckte Fehler sind teuer, weil darauf bereits viele weitere Entscheidungen aufbauen.",
-   "Richtig: Ein Wegwerf-Prototyp darf bewusst nur eine Frage klären – hier: trägt die Technologie die Last? – und wird danach verworfen. So erhält man schnell belastbare Fakten, statt sich auf Herstellerangaben zu verlassen.",
-   "Falsch: Ein Prototyp beantwortet eine Einzelfrage unter vereinfachten Bedingungen. Die Bewertung der Gesamtarchitektur gegen alle Qualitätsziele, etwa per Szenarien, bleibt trotzdem nötig.",
-   "Falsch: Ein Wegwerf-Prototyp ist auf schnelle Erkenntnis optimiert, nicht auf Wartbarkeit oder Robustheit. Ihn zum Grundgerüst des Produktivcodes zu machen, schleppt bewusste Abkürzungen ins Produkt.",
-   "Richtig: Jede Iteration liefert Fakten statt Vermutungen, etwa Messwerte oder Nutzerfeedback. Laut Curriculum senken kurze Iterationen das Risiko und verbessern Vorhersagen über Aufwand und Machbarkeit."
+   "Falsch: Ein Wegwerf-Prototyp ist auf schnelle Erkenntnis optimiert, nicht auf Wartbarkeit und Robustheit. Ihn zum Produktivcode auszubauen, schleppt bewusste Abkürzungen ins Produkt.",
+   "Richtig: Der Prototyp zeigt, dass eine Entscheidung grundsätzlich trägt. Ob die Gesamtarchitektur alle Qualitätsziele erfüllt, bleibt davon unberührt und wird separat bewertet, etwa mit Szenarien.",
+   "Richtig: Prototypen kosten Zeit. Sie lohnen sich dort, wo ein Irrtum teuer wäre und Wissen fehlt, also bei schwer umkehrbaren, unsicheren Entscheidungen.",
+   "Falsch: Ein Lastprototyp soll gerade nur die kritische Frage isolieren. Mit vollständiger Funktionalität wäre er kein schnelles Feedback mehr, sondern bereits ein Teil der Umsetzung.",
+   "Falsch: Der Prototyp prüft eine Einzelfrage unter vereinfachten Bedingungen. Zusammenspiel mit anderen Bausteinen, Betriebsumgebung und andere Qualitätsziele können weiterhin Probleme zeigen.",
+   "Richtig: Die Aussagekraft ist an Fragestellung und Randbedingungen des Prototyps gebunden. Was nicht untersucht wurde, etwa realistische Datenmengen oder Netzwerkbedingungen, bleibt unbelegt."
   ],
-  "explanation": "Kurze Feedback-Schleifen prüfen unsichere Annahmen früh, z. B. per Wegwerf-Prototyp, und erhöhen die Prognostizierbarkeit. Fallen: Feedback erst am Ende einholen, Wegwerf-Prototypen in Produktion übernehmen oder sie als Ersatz für eine Architekturbewertung sehen."
+  "explanation": "Prototypen liefern früh Fakten zu einer gezielten Frage, vor allem bei schwer umkehrbaren, unsicheren Entscheidungen. Ihre Aussage ist begrenzt und ersetzt keine Gesamtbewertung. Fallen: Wegwerf-Prototyp zum Produkt machen, Vollständigkeit verlangen oder Garantien ableiten."
  },
  {
   "id": "c3q61",
@@ -3351,23 +3406,23 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Ein Team arbeitet nach dem Ansatz „evolutionäre Architektur“. Was kennzeichnet ihn am ehesten?",
+  "q": "Welche Aussage zur evolutionären Architektur trifft am ehesten zu?",
   "options": [
-   "Fitnessfunktionen machen Architekturreviews überflüssig.",
-   "Qualitätsziele ergeben sich erst aus den Fitnessfunktionen.",
-   "Automatisierte Prüfungen sichern Qualitäten bei Änderungen.",
-   "Eine Checkliste, die das Team vor Releases abarbeitet."
+   "Fitness-Funktionen machen manuelle Architekturreviews und Stakeholder-Feedback entbehrlich.",
+   "Die Qualitätsziele ergeben sich erst aus den Fitness-Funktionen, die das Team formuliert.",
+   "Die Architektur wird zu Beginn vollständig festgelegt und danach über Fitness-Funktionen gegen Änderungen abgesichert.",
+   "Die Architektur entwickelt sich schrittweise weiter; automatisierte Prüfungen (Fitness-Funktionen) sichern dabei wichtige Qualitäten bei Änderungen."
   ],
   "correct": [
-   2
+   3
   ],
   "optExpl": [
-   "Falsch: Fitnessfunktionen ergänzen Reviews, ersetzen sie aber nicht. Schwer messbare Qualitäten, Trade-offs und neue Entscheidungen brauchen weiterhin menschliche Bewertung, etwa in einem szenariobasierten Review.",
-   "Falsch: Umgekehrt: Fitnessfunktionen werden aus vorhandenen Qualitätszielen abgeleitet. Erst wenn klar ist, was wichtig ist (z. B. Antwortzeit unter 200 ms), kann man eine automatisierte Prüfung dafür bauen.",
-   "Richtig: Fitnessfunktionen prüfen laufend, etwa in der Build-Pipeline, ob wichtige Qualitätsmerkmale erhalten bleiben – z. B. Abhängigkeitsregeln oder Lasttests. So kann sich die Architektur schrittweise weiterentwickeln, ohne unbemerkt zu erodieren.",
-   "Falsch: Kennzeichnend ist gerade die Automatisierung und kontinuierliche Ausführung. Eine manuelle Checkliste vor dem Release wäre ein Review-Hilfsmittel und fängt Verschlechterungen erst spät ab."
+   "Falsch: Fitness-Funktionen prüfen nur das automatisiert Messbare. Reviews und Feedback bleiben für nicht automatisierbare Aspekte nötig.",
+   "Falsch: Die Reihenfolge ist umgekehrt: Aus den Qualitätszielen werden Fitness-Funktionen abgeleitet, die deren Einhaltung prüfen.",
+   "Falsch: Evolutionäre Architektur wächst schrittweise; Fitness-Funktionen sichern Qualitäten während der Weiterentwicklung, nicht einen eingefrorenen Anfangsentwurf.",
+   "Richtig: Schrittweise Entwicklung wird mit automatisierten, wiederholbaren Prüfungen kombiniert, die Abweichungen von Qualitätszielen früh sichtbar machen."
   ],
-  "explanation": "Evolutionäre Architektur entwickelt sich schrittweise weiter und sichert wichtige Qualitäten mit automatisierten Fitnessfunktionen bei jeder Änderung (R3-Thema). Fallen: Fitnessfunktionen ersetzen keine Reviews, folgen aus den Qualitätszielen statt sie zu definieren und sind keine manuelle Checkliste."
+  "explanation": "Evolutionäre Architektur = schrittweise Weiterentwicklung + automatisierte Prüfungen (Fitness-Funktionen) für wichtige Qualitäten. Fallen: Fitness-Funktionen als Ersatz für Reviews oder als Quelle der Qualitätsziele, Ansatz mit Big-Design-Up-Front verwechseln."
  },
  {
   "id": "c3q62",
@@ -3375,26 +3430,29 @@ const QUESTIONS = [
   "lz": "LZ 03-05",
   "r": "R2",
   "type": "multi",
-  "q": "Ein Projekt plant die Reihenfolge seiner Architekturentscheidungen. Welche Aussagen zu Feedback und Risiko treffen zu?",
+  "q": "Welche Aussagen zu Feedback und Risiko bei der Reihenfolge von Architekturentscheidungen treffen zu?",
   "options": [
-   "Durchstiche lohnen sich in Großprojekten, in kleinen kaum.",
-   "Riskante Entscheidungen früh durch Feedback absichern.",
-   "Feedback erst einholen, wenn der Entwurf stabil ist.",
-   "Zuerst die gut verstandenen Teile umsetzen.",
-   "Feedback systematisch organisieren, nicht zufällig."
+   "Das Risiko einer Entscheidung bemisst sich allein an der Wahrscheinlichkeit, dass sie sich als falsch herausstellt.",
+   "Entscheidungen mit hohem Risiko und geringer Umkehrbarkeit sollten früh durch Feedback abgesichert werden.",
+   "Feedback von Stakeholdern betrifft Anforderungen, nicht Entscheidungen zur Lösungsstruktur.",
+   "Eine Entscheidung mit großer Tragweite für viele andere Entscheidungen sollte vor lokalen Detailentscheidungen getroffen werden.",
+   "Ein Durchstich kann Feedback zu mehreren Entscheidungen gleichzeitig liefern.",
+   "Beginnt man mit den risikoärmsten Entscheidungen, sinkt das Gesamtrisiko, weil früh Fortschritt sichtbar wird."
   ],
   "correct": [
    1,
+   3,
    4
   ],
   "optExpl": [
-   "Falsch: Auch kleine Projekte haben unsichere Entscheidungen, etwa eine neue Bibliothek oder eine unbekannte Schnittstelle. Ein Durchstich ist oft schon mit wenig Aufwand möglich und senkt das Risiko früh.",
-   "Richtig: Feedback ist ein Werkzeug des Risikomanagements: Das Unsicherste wird zuerst geprüft, etwa per Prototyp oder Durchstich. Erweist sich eine Entscheidung als falsch, ist Umsteuern früh noch billig.",
-   "Falsch: Gerade instabile, unsichere Entwürfe brauchen früh Rückmeldung. Wartet man, bis der Entwurf stabil ist, sind Fehlentscheidungen bereits verbaut und Korrekturen deutlich teurer.",
-   "Falsch: Gut verstandene Teile zuerst umzusetzen, erzeugt schnell sichtbaren Fortschritt, schiebt aber die Risiken nach hinten. Dort sind Überraschungen am teuersten, weil schon viel darauf aufbaut.",
-   "Richtig: Das Curriculum fordert, Rückmeldung systematisch einzuholen: geplante Reviews, Demos, Prototypen und Messwerte. Zufälliges Feedback deckt Risiken nur lückenhaft und zu spät auf."
+   "Falsch: Risiko ergibt sich aus Eintrittswahrscheinlichkeit und Schadensausmaß. Eine unwahrscheinliche, aber sehr teure Fehlentscheidung kann riskanter sein als eine wahrscheinliche, billig korrigierbare.",
+   "Richtig: Hohes Schadensausmaß und schwere Korrigierbarkeit rechtfertigen frühes Feedback, etwa per Prototyp. Wird die Entscheidung früh bestätigt oder revidiert, bleibt Umsteuern billig.",
+   "Falsch: Stakeholder können auch Lösungsansätze bewerten, etwa Auswirkungen auf Betrieb, Kosten oder Bedienbarkeit. Rückmeldung zu Entscheidungen ist gerade ein Ziel von Reviews und Demos.",
+   "Richtig: Je mehr Folgeentscheidungen von einer Entscheidung abhängen, desto teurer ist ihre spätere Änderung. Solche Entscheidungen gehören früh geklärt, lokale Details lassen sich später anpassen.",
+   "Richtig: Ein vertikaler Durchstich durch alle Schichten prüft das Zusammenspiel mehrerer Entscheidungen, etwa zu Technologie, Schnittstellen und Deployment, auf einmal.",
+   "Falsch: Mit dem Einfachen zu beginnen erzeugt Fortschritt, schiebt aber die unsicheren Entscheidungen nach hinten. Dort sind Überraschungen am teuersten, weil schon viel darauf aufbaut."
   ],
-  "explanation": "Architekturentscheidungen werden nach Risiko geordnet: Das Unsicherste zuerst, abgesichert durch frühes und systematisch organisiertes Feedback. Fallen: „Einfaches zuerst“ wirkt effizient, verschiebt aber teure Überraschungen ans Ende, und Durchstiche lohnen sich auch in kleinen Projekten."
+  "explanation": "Entscheidungen werden nach Risiko (Wahrscheinlichkeit und Schaden), Tragweite und Umkehrbarkeit geordnet; frühes, gezieltes Feedback, etwa über Durchstiche, sichert die riskanten ab. Fallen: Risiko nur als Wahrscheinlichkeit sehen, Stakeholder-Feedback auf Anforderungen begrenzen, Einfaches zuerst."
  },
  {
   "id": "c3q63",
@@ -3402,29 +3460,29 @@ const QUESTIONS = [
   "lz": "LZ 03-07",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Team entwirft die Schnittstelle eines Zahlungsbausteins. Welche Eigenschaften nennt das Curriculum als wünschenswert?",
+  "q": "Welche Aussagen zum Entwurf von Schnittstellen treffen zu?",
   "options": [
-   "Bildet die internen Datenstrukturen 1:1 ab.",
-   "Der Vertrag beschränkt sich auf die Signaturen.",
-   "Schwer zu missbrauchen.",
-   "Funktional vollständig aus Sicht der Nutzer.",
-   "Möglichst viele Operationen für künftige Nutzer.",
-   "Leicht zu erlernen und zu erweitern."
+   "Die Schnittstelle sollte die interne Datenhaltung abbilden, weil sich Implementierungsänderungen dann leichter nachvollziehen lassen.",
+   "Die Schnittstelle sollte aus Sicht ihrer Nutzer funktional vollständig sein, ohne Interna des Bausteins offenzulegen.",
+   "Eine Schnittstelle ist ausreichend beschrieben, wenn Operationen, Parameter und Rückgabetypen spezifiziert sind.",
+   "Falsche Verwendung sollte schon durch Namensgebung, Typen und Vorbedingungen erschwert werden.",
+   "Wer Erweiterbarkeit anstrebt, nimmt vorsorglich Operationen für denkbare künftige Anwendungsfälle auf.",
+   "Leichte Erweiterbarkeit bedeutet, dass Funktionen ergänzt werden können, ohne bestehende Nutzer anzupassen."
   ],
   "correct": [
-   2,
+   1,
    3,
    5
   ],
   "optExpl": [
-   "Falsch: Bildet die Schnittstelle die internen Datenstrukturen 1:1 ab, sind die Nutzer an die Implementierung gekoppelt. Jede interne Änderung schlägt dann auf alle Aufrufer durch, und der Baustein ist nicht mehr austauschbar.",
-   "Falsch: Zum Vertrag gehören neben den Signaturen auch Semantik, Vor- und Nachbedingungen und das Fehlerverhalten. Beispiel: Was passiert bei doppelter Zahlung oder unzureichender Deckung?",
-   "Richtig: Eine gute Schnittstelle macht falsche Nutzung schwer, etwa durch klare Typen wie „Betrag mit Währung“ statt einer nackten Zahl und eindeutige Semantik. Das Curriculum nennt diese Eigenschaft ausdrücklich.",
-   "Richtig: Die Nutzer sollen über die Schnittstelle alles erreichen können, was sie für ihre Aufgabe brauchen. Gemessen wird das an ihrem tatsächlichen Bedarf, nicht an allen denkbaren Fällen.",
-   "Falsch: Vollständigkeit bezieht sich auf den Bedarf der Nutzer, nicht auf Vorrat. Operationen für hypothetische künftige Nutzer vergrößern die Schnittstelle unnötig und erschweren Lernen und Pflege (YAGNI).",
-   "Richtig: Das Curriculum nennt leicht zu erlernen, zu benutzen und zu erweitern als wünschenswerte Eigenschaften von Schnittstellen. Eine verständliche Schnittstelle senkt Einarbeitungsaufwand und Fehlbenutzung."
+   "Falsch: Das koppelt Nutzer an die Implementierung; jede Änderung der Datenhaltung schlägt auf die Schnittstelle durch. Eine Schnittstelle soll aus Nutzersicht geschnitten sein.",
+   "Richtig: Nutzer sollen ihre Aufgabe mit der Schnittstelle erledigen können, ohne Interna zu kennen. Vollständigkeit bezieht sich auf die Nutzersicht, nicht auf die interne Struktur.",
+   "Falsch: Signaturen beschreiben nur die Syntax. Semantik, Fehlerverhalten, Vorbedingungen und zugesicherte Qualitäten gehören ebenfalls zum Vertrag.",
+   "Richtig: Schwer zu missbrauchen heißt, Fehlbedienung durch den Entwurf zu erschweren, etwa durch sprechende Namen, enge Typen und geprüfte Vorbedingungen.",
+   "Falsch: Vorsorgliche Operationen vergrößern die Schnittstelle, erschweren das Erlernen und müssen später gepflegt werden. Erweiterbarkeit heißt, später ergänzen zu können, nicht alles vorab anzubieten.",
+   "Richtig: Erweiterbar im Sinne der Schnittstelle meint abwärtskompatible Ergänzungen, sodass bestehende Nutzer unverändert weiterarbeiten."
   ],
-  "explanation": "Wünschenswert sind Schnittstellen, die leicht zu erlernen, zu nutzen und zu erweitern, schwer zu missbrauchen und aus Nutzersicht funktional vollständig sind. Fallen: „vollständig“ mit Operationen auf Vorrat verwechseln und den Vertrag auf Signaturen reduzieren."
+  "explanation": "Gute Schnittstellen sind leicht erlernbar, schwer zu missbrauchen, aus Nutzersicht funktional vollständig und abwärtskompatibel erweiterbar. Fallen: Abbild der internen Struktur, Beschreibung nur der Signaturen und Operationen auf Vorrat."
  },
  {
   "id": "c3q64",
@@ -3433,23 +3491,25 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "single",
-  "q": "Ein Frontend lädt Kundendaten über ein entferntes API. Welcher Trade-off der Schnittstellengranularität trifft am ehesten zu?",
+  "q": "Welche Aussage zur Granularität von Schnittstellen trifft zu?",
   "options": [
-   "Fein ist flexibel, erzeugt aber viele teure Aufrufe.",
-   "Feingranulare Schnittstellen koppeln loser.",
-   "Granularität ist lokal wie remote gleich wichtig.",
-   "Die Granularität folgt den internen Datenstrukturen."
+   "Feingranulare Schnittstellen senken die Kopplung, weil jede Operation nur wenig Wissen über die Implementierung voraussetzt.",
+   "Feingranulare Schnittstellen eignen sich vor allem für entfernte, grobgranulare für lokale Aufrufe.",
+   "Grobgranulare Schnittstellen sparen bei entfernten Aufrufen Roundtrips, können Nutzer aber mit nicht benötigten Daten belasten.",
+   "Die passende Granularität hängt nicht von den Anwendungsfällen ab, solange die Schnittstelle funktional vollständig ist.",
+   "Bei lokalen Aufrufen ist die Granularität aus Performancesicht ebenso kritisch wie bei entfernten."
   ],
   "correct": [
-   0
+   2
   ],
   "optExpl": [
-   "Richtig: Feingranulare Operationen sind vielseitig kombinierbar, führen bei entfernten Aufrufen aber zu vielen Roundtrips mit jeweils Netzwerklatenz. Grobe Operationen bündeln Daten effizient, sind dafür starrer.",
-   "Falsch: Viele kleine Operationen binden den Aufrufer oft an Abläufe und Reihenfolgen des Anbieters. Er muss wissen, welche Aufrufe in welcher Folge nötig sind; das ist eher stärkere als losere Kopplung.",
-   "Falsch: Bei lokalen Aufrufen im selben Prozess ist der Overhead pro Aufruf gering. Remote kostet jeder Aufruf Latenz und Serialisierung, deshalb ist die Granularität dort deutlich wichtiger.",
-   "Falsch: Die Granularität richtet sich nach Nutzung und Kommunikationsweg. Interne Datenstrukturen nach außen abzubilden koppelt die Nutzer an die Implementierung und verletzt das Geheimnisprinzip."
+   "Falsch: Viele kleine Operationen erhöhen die Zahl der Abhängigkeiten und erzwingen oft Aufrufreihenfolgen (zeitliche Kopplung). Die Kopplung sinkt dadurch nicht.",
+   "Falsch: Vertauscht: Entfernte Aufrufe sind teuer und sprechen für grobe Granularität; lokal sind feine Aufrufe meist unproblematisch.",
+   "Richtig: Ein gröberer Aufruf bündelt mehrere Schritte und spart Netzwerklatenz. Der Preis sind größere Nachrichten und weniger Flexibilität für Nutzer, die nur einen Teil brauchen.",
+   "Falsch: Vollständigkeit legt die Granularität nicht fest. Wie viele Aufrufe ein Anwendungsfall braucht und wie teuer sie sind, bestimmt, ob fein oder grob sinnvoll ist.",
+   "Falsch: Lokale Aufrufe kosten nur Nanosekunden bis Mikrosekunden; entfernte enthalten Netzwerklatenz, Serialisierung und mögliche Ausfälle. Lokal und entfernt verhalten sich nicht gleich."
   ],
-  "explanation": "Feingranulare Schnittstellen sind flexibel, aber remote wegen vieler Roundtrips teuer; grobgranulare sind effizient, aber starrer. Fallen: Granularität unabhängig vom Kommunikationsweg bewerten, feine Schnittstellen pauschal für lose gekoppelt halten oder Interna abbilden."
+  "explanation": "Granularität ist ein Zielkonflikt: fein = flexibel, aber viele (bei entfernten Aufrufen teure) Aufrufe; grob = weniger Roundtrips, aber größere Nachrichten und weniger Flexibilität. Falle: Lokale und entfernte Aufrufe sind nicht gleichzusetzen."
  },
  {
   "id": "c3q65",
@@ -3457,29 +3517,29 @@ const QUESTIONS = [
   "lz": "LZ 03-07",
   "r": "R2",
   "type": "multi",
-  "q": "Eine öffentliche REST-Schnittstelle wird von unbekannt vielen Partnern genutzt. Welche Aussagen zur Weiterentwicklung treffen zu?",
+  "q": "Welche Aussagen zur Weiterentwicklung einer öffentlichen Schnittstelle mit unbekannt vielen Nutzern treffen zu?",
   "options": [
-   "Externe Schnittstellen brauchen mehr Stabilität als interne.",
-   "Ein Feld umzubenennen ist rückwärtskompatibel.",
-   "Streng senden, tolerant empfangen.",
-   "Tolerant empfangen heißt: Eingaben ungeprüft annehmen.",
-   "Versionierung ist bei externen Schnittstellen nötig, bei internen verzichtbar.",
-   "Ein neues optionales Feld ist meist rückwärtskompatibel."
+   "Inkompatible Änderungen lassen sich über eine angekündigte Übergangszeit mit parallel verfügbarer alter Version planbar machen.",
+   "Das Robustheitsprinzip verlangt, auch beim Senden tolerant zu sein, damit Empfänger möglichst alles verarbeiten können.",
+   "Ohne Versionierung sind Änderungen vertretbar, wenn sie im Änderungsprotokoll veröffentlicht werden.",
+   "Externe Schnittstellen brauchen mehr Stabilität als interne, weil Nutzer nicht koordiniert angepasst werden können.",
+   "Eine Schnittstelle gilt als stabil, wenn ihre Signaturen gleich bleiben, auch wenn sich das Verhalten ändert.",
+   "Tolerantes Empfangen erleichtert die Weiterentwicklung, kann aber Fehler verdecken und Verträge aufweichen."
   ],
   "correct": [
    0,
-   2,
+   3,
    5
   ],
   "optExpl": [
-   "Richtig: Laut Curriculum haben externe Schnittstellen mehr und oft unbekannte Nutzer, die man nicht koordiniert mitziehen kann. Sie brauchen daher mehr Stabilität, Formalität und Versionierung als interne Schnittstellen.",
-   "Falsch: Nutzer, die den alten Feldnamen erwarten, brechen beim Umbenennen. Das ist eine inkompatible Änderung und braucht eine neue Version oder eine Übergangsphase, in der beide Namen geliefert werden.",
-   "Richtig: So lautet Postels Robustheitsprinzip, das das Curriculum im Kontext „Erwarte Fehler“ nennt: Selbst strikt spezifikationskonform senden, bei Eingaben aber tolerant gegenüber unerwarteten Abweichungen wie zusätzlichen Feldern sein.",
-   "Falsch: Das Robustheitsprinzip erlaubt Toleranz gegenüber harmlosen Abweichungen, etwa unbekannten Feldern. Es ersetzt aber keine Validierung: Ungeprüfte Eingaben gefährden Korrektheit und Sicherheit.",
-   "Falsch: Auch interne Schnittstellen, z. B. zwischen Teams, brauchen Versionierung, wenn die Nutzer nicht gleichzeitig mitziehen können. Entscheidend ist die Koordinierbarkeit der Nutzer, nicht nur die Grenze intern/extern.",
-   "Richtig: Bestehende Nutzer können ein neues optionales Feld ignorieren, besonders wenn sie tolerant empfangen. Additive Änderungen brechen sie daher in der Regel nicht und sind der bevorzugte Weg, Schnittstellen weiterzuentwickeln."
+   "Richtig: Eine Deprecation-Phase mit paralleler Version macht Inkompatibilitäten planbar, weil Nutzer in ihrem eigenen Takt umstellen können.",
+   "Falsch: Vertauscht: Das Prinzip lautet, beim Senden streng und beim Empfangen tolerant zu sein. Tolerantes Senden würde Empfängern uneindeutige Daten zumuten.",
+   "Falsch: Ein Änderungsprotokoll zwingt unbekannte Nutzer nicht, es zu lesen. Ohne Versionierung brechen inkompatible Änderungen deren Systeme unvorhersehbar.",
+   "Richtig: Bei externen Nutzern fehlt die Möglichkeit, Anpassungen abzustimmen und gleichzeitig auszurollen. Deshalb sind Stabilität, formelle Beschreibung und Versionierung dort wichtiger als intern.",
+   "Falsch: Verhalten und Zusicherungen sind Teil des Vertrags. Ändert sich das Verhalten, ist die Schnittstelle für Nutzer nicht stabil, auch wenn der Compiler nichts bemerkt.",
+   "Richtig: Tolerante Empfänger überstehen neue Felder oder Werte. Der Preis: Fehler und Abweichungen werden nicht erkannt, und die Schnittstelle wird faktisch ungenauer."
   ],
-  "explanation": "Externe Schnittstellen entwickelt man additiv oder versioniert weiter und folgt dem Robustheitsprinzip „streng senden, tolerant empfangen“. Fallen: Toleranz mit fehlender Validierung verwechseln, Umbenennungen für kompatibel halten und Versionierung auf externe Schnittstellen beschränken."
+  "explanation": "Externe Schnittstellen verlangen höhere Stabilität, formelle Beschreibung und Versionierung; Übergangsfristen machen Brüche planbar. Tolerantes Empfangen hilft, hat aber Nebenwirkungen. Fallen: Stabilität ist mehr als gleiche Signaturen, und streng gesendet wird, tolerant empfangen."
  },
  {
   "id": "c3q66",
@@ -3487,26 +3547,26 @@ const QUESTIONS = [
   "lz": "LZ 03-01",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Bestellsystem soll hochverfügbar sein. Welche Aussagen zum architektonischen Vorgehen treffen zu?",
+  "q": "Welche Aussagen zu architektonischen Maßnahmen für hohe Verfügbarkeit treffen zu?",
   "options": [
-   "Redundante App-Instanzen; die Datenbank ist dafür egal.",
-   "Die Kosten der Redundanz bewusst abwägen.",
-   "Vor allem ausführliche Tests vor dem Go-live.",
-   "Microservices begrenzen Ausfälle von selbst.",
-   "Gezielte Taktiken wie Redundanz und Failover wählen."
+   "Mehrere Instanzen der Anwendung genügen, sobald der vorgeschaltete Lastverteiler selbst redundant ausgelegt ist.",
+   "Redundanz verbessert die Verfügbarkeit, erhöht aber Betriebskosten und Komplexität, etwa durch die Synchronisation von Daten.",
+   "Regelmäßige Sicherungen der Datenbank beseitigen deren Rolle als Single Point of Failure.",
+   "Ein automatisches Failover wirkt nur, wenn Ausfälle zuverlässig erkannt werden und die übernehmende Instanz Zugriff auf den benötigten Zustand bzw. die Daten hat.",
+   "Die Aufteilung in mehrere verteilte Dienste verbessert die Verfügbarkeit, weil die Ausfallwahrscheinlichkeit des Gesamtsystems dadurch sinkt."
   ],
   "correct": [
    1,
-   4
+   3
   ],
   "optExpl": [
-   "Falsch: Redundante App-Instanzen helfen wenig, wenn alle an einer einzelnen Datenbank hängen: Sie bleibt ein Single Point of Failure. Für Hochverfügbarkeit müssen auch geteilte Komponenten wie Datenbank oder Netzwerk betrachtet werden.",
-   "Richtig: Jede Maßnahme hat einen Preis: Redundanz erhöht Infrastrukturkosten, Betriebsaufwand und Komplexität, etwa bei der Datensynchronisation. Diese Kosten müssen bewusst gegen den Nutzen der höheren Verfügbarkeit abgewogen werden.",
-   "Falsch: Tests decken Fehler auf, machen das System aber nicht ausfallsicher. Verfügbarkeit ist eine Struktureigenschaft, die durch Entwurfsentscheidungen wie Redundanz entsteht; Tests prüfen sie nur.",
-   "Falsch: Ein Stil allein liefert keine Qualität: Ohne Timeouts, Circuit Breaker oder Bulkheads können sich Ausfälle über Service-Aufrufe sogar fortpflanzen. Fehlerisolation muss gezielt entworfen werden.",
-   "Richtig: Architekturentscheidungen sollen gezielt auf das Qualitätsziel einzahlen. Redundanz und Failover sind typische Taktiken für Verfügbarkeit: Fällt eine Instanz aus, übernimmt eine andere."
+   "Falsch: Eine gemeinsam genutzte Datenbank bleibt dann weiterhin ein Single Point of Failure. Für die Verfügbarkeit des Gesamtsystems müssen alle gemeinsam genutzten Komponenten betrachtet werden.",
+   "Richtig: Jede Taktik hat ihren Preis. Der Nutzen höherer Verfügbarkeit muss gegen Infrastrukturkosten, Betriebsaufwand und Architekturkomplexität abgewogen werden.",
+   "Falsch: Backups ermöglichen die Wiederherstellung nach einem Ausfall, halten das System während des Ausfalls aber nicht verfügbar. Dafür braucht es Redundanz und Failover.",
+   "Richtig: Failover ist keine isolierte Maßnahme: Ohne Fehlererkennung und verfügbare Daten bzw. Sitzungszustände nützt die zweite Instanz wenig.",
+   "Falsch: Hängt eine Funktion von mehreren Diensten in Reihe ab, sinkt die Gesamtverfügbarkeit eher. Ausfallisolation muss gezielt entworfen werden (z. B. Timeouts, Circuit Breaker)."
   ],
-  "explanation": "Verfügbarkeit entsteht durch gezielt gewählte Taktiken wie Redundanz und Failover, deren Kosten und Trade-offs man bewusst abwägt. Fallen: Ein Stil wie Microservices oder Tests allein liefern keine Verfügbarkeit, und geteilte Komponenten wie die Datenbank bleiben Single Points of Failure."
+  "explanation": "Verfügbarkeit entsteht durch gezielte Taktiken (Redundanz, Failover), die etwas kosten. Typische Fallen: nur die Anwendungsschicht redundant auslegen (die Datenbank bleibt Single Point of Failure), Backup mit Redundanz verwechseln und einem Architekturstil pauschal Ausfallsicherheit zuschreiben."
  },
  {
   "id": "c4q1",
@@ -4531,7 +4591,7 @@ const QUESTIONS = [
   "type": "single",
   "q": "Ein Team nutzt arc42 und überlegt, zusätzlich ADRs einzuführen. Worin unterscheiden sich beide bei Entscheidungen am ehesten?",
   "options": [
-   "ADRs dürfen nicht außerhalb von arc42 verwendet werden.",
+   "ADRs beschreiben Entscheidungen für Teilsysteme, arc42 nur systemweite Entscheidungen.",
    "arc42 bettet sie in die Gesamtdoku ein, ADRs sind Einzeldokumente.",
    "arc42 erfasst offene, ADRs nur getroffene Entscheidungen.",
    "ADRs halten Alternativen und Begründungen fest, arc42 nicht."
@@ -4540,12 +4600,12 @@ const QUESTIONS = [
    1
   ],
   "optExpl": [
-   "Falsch: ADRs sind ein eigenständiges Format und unabhängig von arc42 nutzbar, etwa als Markdown-Dateien im Repository. Man kann sie aber gut im arc42-Abschnitt zu Architekturentscheidungen referenzieren.",
+   "Falsch: arc42 (Abschnitt 9) kann Entscheidungen jeder Tragweite aufnehmen. Der Unterschied liegt in der Form: eingebettet in die Gesamtdoku versus Einzeldokument.",
    "Richtig: arc42 ordnet Entscheidungen in einem Abschnitt der Gesamtdokumentation ein. Ein ADR ist dagegen ein eigenständiges, kurzes Dokument je Entscheidung mit Status, Kontext und Konsequenzen – beides lässt sich kombinieren.",
    "Falsch: Beide halten vor allem getroffene Entscheidungen fest. Ein ADR kann zudem den Status „vorgeschlagen“ haben, erfasst also gerade auch noch offene Entscheidungen – die Zuordnung ist hier verdreht.",
    "Falsch: Auch arc42 sieht Begründungen und betrachtete Alternativen für Entscheidungen vor. ADRs sind nur eine andere, stärker formalisierte Form, dieselben Informationen festzuhalten."
   ],
-  "explanation": "arc42 bettet Entscheidungen in die Gesamtdokumentation ein, ADRs sind eigenständige Einzeldokumente mit Status; beides lässt sich kombinieren. Fallen: Begründungen und Alternativen gibt es in beiden, und ADRs sind nicht an arc42 gebunden."
+  "explanation": "arc42 bettet Entscheidungen in die Gesamtdokumentation ein, ADRs sind eigenständige Einzeldokumente mit Status; beides lässt sich kombinieren. Fallen: Begründungen und Alternativen gibt es in beiden, ADRs sind nicht an arc42 gebunden, und arc42 ist nicht auf systemweite Entscheidungen beschränkt."
  },
  {
   "id": "c4q34",
@@ -4562,7 +4622,7 @@ const QUESTIONS = [
    "Eine Aufwandsschätzung für die Umsetzung.",
    "Status (z. B. akzeptiert, abgelöst).",
    "Kontext.",
-   "Eine Zeiterfassung der Entscheidungsfindung je beteiligter Person."
+   "Eine Zuordnung der Verantwortlichen für die Umsetzung (RACI)."
   ],
   "correct": [
    0,
@@ -4579,9 +4639,9 @@ const QUESTIONS = [
    "Falsch: Aufwandsschätzungen gehören zur Projektplanung. Ein ADR hält fest, was warum entschieden wurde; Aufwand kann höchstens als Kontext oder Konsequenz anklingen, ist aber kein Nygard-Feld.",
    "Richtig: Der Status zeigt, ob eine Entscheidung vorgeschlagen, akzeptiert, verworfen oder durch eine neuere abgelöst ist. So erkennt man ohne Umschreiben, welche Entscheidungen aktuell gelten.",
    "Richtig: Der Kontext beschreibt das Problem und die Kräfte, etwa Anforderungen und Randbedingungen, die die Entscheidung auslösen. Er erklärt späteren Leser:innen, warum überhaupt entschieden werden musste.",
-   "Falsch: Ein ADR hält fest, was warum entschieden wurde, nicht wer wie viel Zeit investiert hat. Zeiterfassung gehört zur Projektsteuerung."
+   "Falsch: Nach Nygard bestehen ADRs aus Titel, Status, Kontext, Entscheidung und Konsequenzen. Eine Verantwortlichkeitsmatrix gehört nicht dazu."
   ],
-  "explanation": "Ein ADR nach Nygard enthält Titel, Status, Kontext, Entscheidung und Konsequenzen. Fallen: Eine Aufwandsschätzung gehört nicht hinein, und statt ein ADR mit Betriebserfahrungen fortzuschreiben, löst man es durch ein neues ab."
+  "explanation": "Ein ADR nach Nygard enthält Titel, Status, Kontext, Entscheidung und Konsequenzen. Fallen: Aufwandsschätzung und Verantwortlichkeitsmatrix gehören nicht hinein, und statt ein ADR mit Betriebserfahrungen fortzuschreiben, löst man es durch ein neues ab."
  },
  {
   "id": "c4q35",
@@ -4591,8 +4651,8 @@ const QUESTIONS = [
   "type": "single",
   "q": "Ihr Team bietet Partnerfirmen eine REST-API an und hat zusätzlich interne Schnittstellen zwischen Bausteinen. Was gilt für deren Dokumentation am ehesten?",
   "options": [
-   "Interne Schnittstellen beschreibt der Code hinreichend.",
-   "Interne Schnittstellen werden detaillierter beschrieben.",
+   "Interne und externe Schnittstellen werden gleich formell und versioniert dokumentiert.",
+   "Externe Schnittstellen werden erst nach der Implementierung aus dem Code dokumentiert.",
    "Eine OpenAPI-Spezifikation deckt Syntax und Semantik ab.",
    "Externe werden meist früher, formeller und versioniert dokumentiert."
   ],
@@ -4600,12 +4660,12 @@ const QUESTIONS = [
    3
   ],
   "optExpl": [
-   "Falsch: Der Code zeigt nur Signaturen, nicht Zusicherungen, Fehlerverhalten oder Qualitätseigenschaften. Auch interne Schnittstellen brauchen daher eine angemessene, wenn auch weniger formale Beschreibung.",
-   "Falsch: Es ist umgekehrt: Externe Schnittstellen haben mehr und oft unbekannte Nutzer, die nicht einfach nachfragen können. Sie brauchen daher mehr Formalität und Detail als interne Schnittstellen.",
+   "Falsch: Der Aufwand richtet sich nach Nutzerkreis und Änderungskosten. Bei internen Schnittstellen sind Abstimmung im Team und eine schlankere Beschreibung meist ausreichend; Formalität und Versionierung lohnen sich vor allem bei externen.",
+   "Falsch: Partner bauen auf die Schnittstelle auf, bevor die Implementierung steht, und können nicht in den Code schauen. Externe Schnittstellen werden deshalb meist früher als Vertrag festgelegt, nicht nachträglich aus dem Code abgeleitet.",
    "Falsch: OpenAPI beschreibt vor allem die Syntax: Endpunkte, Parameter, Datentypen. Bedeutung, Vor- und Nachbedingungen, Fehlerverhalten und Qualitätszusicherungen müssen zusätzlich festgehalten werden.",
    "Richtig: Externe Schnittstellen sind Verträge mit Dritten und nach Veröffentlichung schwer zu ändern. Sie werden daher meist früher, formeller und versioniert dokumentiert, damit Partner verlässlich darauf aufbauen können."
   ],
-  "explanation": "Externe Schnittstellen sind Verträge mit Dritten und werden früher, formeller und versioniert dokumentiert; interne brauchen eine angemessene, schlankere Beschreibung. Fallen: Code oder OpenAPI decken nur die Syntax ab, nicht Semantik und Fehlerverhalten, und interne Schnittstellen sind nicht detaillierter zu beschreiben."
+  "explanation": "Externe Schnittstellen sind Verträge mit Dritten und werden früher, formeller und versioniert dokumentiert; interne brauchen eine angemessene, schlankere Beschreibung. Fallen: gleiche Formalität für alle Schnittstellen, nachträgliche Dokumentation aus dem Code und die Annahme, OpenAPI decke auch die Semantik ab."
  },
  {
   "id": "c4q36",
@@ -4620,7 +4680,7 @@ const QUESTIONS = [
    "Erst nach Abschluss der Implementierung dokumentieren.",
    "Zentral an einer Stelle beschreiben, z. B. in arc42 Abschnitt 8.",
    "Anlass, Regeln, Begründung und ein Beispiel festhalten.",
-   "Damit wird die Laufzeitsicht für Fehlerfälle überflüssig."
+   "Als Teil der Verteilungssicht beschreiben, da Fehler und Logs auf den Knoten entstehen."
   ],
   "correct": [
    0,
@@ -4633,9 +4693,9 @@ const QUESTIONS = [
    "Falsch: Ein Querschnittskonzept soll die einheitliche Umsetzung leiten. Wird es erst nach der Implementierung dokumentiert, kommt es zu spät – bis dahin hat jedes Team eigene Varianten gebaut.",
    "Richtig: Zentral dokumentiert, etwa in arc42 Abschnitt 8, wird das Konzept in vielen Bausteinen einheitlich umgesetzt. Bausteine können darauf verweisen, statt es zu wiederholen.",
    "Richtig: Wer Anlass, Regeln, Begründung und ein Beispiel festhält, ermöglicht Lesern, nicht nur die Regel zu kennen, sondern auch zu verstehen, warum und wie sie anzuwenden ist – auch in nicht vorhergesehenen Fällen.",
-   "Falsch: Konzepte ergänzen die Sichten, ersetzen sie aber nicht. Ein architekturrelevantes Fehlerszenario, etwa der Ausfall eines Fremdsystems, kann weiterhin in die Laufzeitsicht gehören."
+   "Falsch: Die Verteilungssicht zeigt Knoten und Infrastruktur. Ein Konzept für Fehlerbehandlung und Logging gilt bausteinübergreifend und gehört zu den querschnittlichen Konzepten."
   ],
-  "explanation": "Querschnittskonzepte wie Fehlerbehandlung werden zentral (z. B. arc42 Abschnitt 8) mit Anlass, Regeln, Begründung und Beispiel dokumentiert und zusätzlich über Beispielcode vermittelt. Fallen: pro Baustein separat beschreiben, erst nachträglich dokumentieren oder die Laufzeitsicht für überflüssig halten."
+  "explanation": "Querschnittskonzepte wie Fehlerbehandlung werden zentral (z. B. arc42 Abschnitt 8) mit Anlass, Regeln, Begründung und Beispiel dokumentiert und zusätzlich über Beispielcode vermittelt. Fallen: pro Baustein separat beschreiben, erst nachträglich dokumentieren oder das Konzept der Verteilungssicht zuordnen."
  },
  {
   "id": "c5q2",
@@ -4759,7 +4819,7 @@ const QUESTIONS = [
   "q": "Eine Metrik-Auswertung zeigt für ein Modul eine sehr hohe Kopplung. Was drückt dieser Befund am ehesten aus?",
   "options": [
    "Starken fachlichen Zusammenhalt innerhalb des Moduls.",
-   "Niedrige Kohäsion – beides ist dieselbe Eigenschaft.",
+   "Häufige Fehler im Modul, die sich unmittelbar aus dem Kopplungswert ablesen lassen.",
    "Viele Abhängigkeiten; Änderungen pflanzen sich leicht fort.",
    "Viele Verzweigungen im Kontrollfluss des Moduls."
   ],
@@ -4768,11 +4828,11 @@ const QUESTIONS = [
   ],
   "optExpl": [
    "Falsch: Starker fachlicher Zusammenhalt innerhalb des Moduls ist hohe Kohäsion – eine Eigenschaft im Inneren des Moduls, die sogar erwünscht ist. Hohe Kopplung beschreibt dagegen die Beziehungen nach außen.",
-   "Falsch: Beides tritt oft gemeinsam auf, ist aber verschieden: Kopplung betrifft Beziehungen zwischen Modulen, Kohäsion den Zusammenhalt im Modul. Man misst sie getrennt und kann sie nicht gleichsetzen.",
+   "Falsch: Kopplung zeigt Abhängigkeiten zu anderen Modulen, nicht die Zahl der Fehler. Hohe Kopplung erhöht das Risiko, dass sich Änderungen und Fehler fortpflanzen; die Fehlerhäufung selbst ist eine eigene Information, etwa aus dem Ticketsystem.",
    "Richtig: Kopplung misst die Abhängigkeiten zu anderen Modulen, etwa über afferente und efferente Beziehungen. Viele davon erschweren isoliertes Ändern, Testen und Austauschen, weil sich Änderungen leicht fortpflanzen.",
    "Falsch: Die Zahl der Verzweigungen im Kontrollfluss misst die zyklomatische Komplexität. Sie beschreibt die innere Komplexität eines Moduls und sagt nichts über seine Abhängigkeiten zu anderen Modulen aus."
   ],
-  "explanation": "Hohe Kopplung bedeutet viele Abhängigkeiten zu anderen Modulen, sodass sich Änderungen leicht fortpflanzen. Fallen: Kohäsion (Zusammenhalt im Modul) und zyklomatische Komplexität (Verzweigungen im Kontrollfluss) sind eigene Metriken und nicht dasselbe wie Kopplung."
+  "explanation": "Hohe Kopplung bedeutet viele Abhängigkeiten zu anderen Modulen, sodass sich Änderungen leicht fortpflanzen. Fallen: Kohäsion (Zusammenhalt im Modul) und zyklomatische Komplexität (Verzweigungen im Kontrollfluss) sind eigene Metriken, und die Fehlerzahl liest man nicht aus der Kopplung ab."
  },
  {
   "id": "c5q8",
@@ -4841,7 +4901,7 @@ const QUESTIONS = [
   "options": [
    "Quantitativ, da Kopplung und Komplexität erhoben werden.",
    "Formal wie eine Inspektion, mit unabhängigem Moderator.",
-   "Setzt Code voraus, da Modelle zu abstrakt sind.",
+   "Statisch und werkzeuggestützt: Ein Analysewerkzeug prüft das Modell automatisch auf Regelverstöße.",
    "Qualitativ; auch ohne Implementierung am Entwurf möglich."
   ],
   "correct": [
@@ -4850,10 +4910,10 @@ const QUESTIONS = [
   "optExpl": [
    "Falsch: Metriken wie Kopplung oder Komplexität können in ein Review einfließen, das Urteil entsteht aber durch Experteneinschätzung. Ein Walkthrough bleibt daher ein qualitatives Verfahren.",
    "Falsch: Beim Walkthrough führt der Autor selbst durch den Entwurf und erläutert ihn. Er ist weniger formal als eine Inspektion, die feste Rollen, Checklisten und einen unabhängigen Moderator vorsieht.",
-   "Falsch: Reviews arbeiten gerade auch mit Dokumentation und Entwurfsmodellen, die das Curriculum als Informationsquellen der Bewertung nennt. Code ist keine Voraussetzung.",
+   "Falsch: Ein Walkthrough ist ein manuelles Verfahren, bei dem Menschen den Entwurf gemeinsam durchgehen. Werkzeuggestützte statische Analysen prüfen dagegen Code oder Modelle automatisch auf Regeln.",
    "Richtig: Fachleute gehen Entwurf und Modelle gemeinsam durch und beurteilen sie anhand der Qualitätsziele. Das ist qualitativ und schon vor der Implementierung möglich, wenn Korrekturen noch günstig sind."
   ],
-  "explanation": "Ein Walkthrough ist eine qualitative, expertengestützte Durchsicht, bei der der Autor durch den Entwurf führt; er ist schon vor der Implementierung möglich. Fallen: Einfließende Metriken machen ihn nicht quantitativ, und er ist weniger formal als eine moderierte Inspektion."
+  "explanation": "Ein Walkthrough ist eine qualitative, expertengestützte Durchsicht, bei der der Autor durch den Entwurf führt; er ist schon vor der Implementierung möglich. Fallen: Einfließende Metriken machen ihn nicht quantitativ, er ist weniger formal als eine moderierte Inspektion und er ist keine automatische Werkzeugprüfung."
  },
  {
   "id": "c5q11",
@@ -4927,7 +4987,7 @@ const QUESTIONS = [
    "Werte sind sprachunabhängig zwischen Systemen vergleichbar.",
    "Metrikwerte brauchen Kontext und Interpretation.",
    "Manche Qualitäten lassen sich nur teilweise messen.",
-   "Quelltext-Metriken liegen schon vor der Implementierung vor."
+   "Metriken zeigen, wo ein Problem liegt, und erklären zugleich dessen Ursache."
   ],
   "correct": [
    0,
@@ -4939,9 +4999,9 @@ const QUESTIONS = [
    "Falsch: Gerade das ist heikel: Programmiersprache, Domäne, Werkzeug und Systemkontext beeinflussen Metrikwerte stark. Ein direkter Vergleich zwischen Systemen trügt daher leicht; sinnvoller ist der Trend innerhalb eines Systems.",
    "Richtig: Ein Schwellenwert allein ist keine Bewertung. Ob ein Wert problematisch ist, hängt vom Baustein und seiner Rolle ab – eine hohe Komplexität kann in einem Parser angemessen, in einem einfachen Controller dagegen ein Warnsignal sein.",
    "Richtig: Qualitäten wie Wartbarkeit oder Sicherheit bilden Metriken nur ausschnittsweise ab. Qualitative Verfahren wie Reviews oder szenariobasierte Bewertung bleiben nötig, um ein vollständiges Bild zu erhalten.",
-   "Falsch: Quelltextmetriken wie Kopplung oder zyklomatische Komplexität setzen vorhandenen Code voraus. Früh im Entwurf helfen eher qualitative Verfahren, etwa szenariobasierte Bewertungen oder Reviews von Entwürfen."
+   "Falsch: Metriken liefern Hinweise auf auffällige Stellen, etwa hohe Kopplung oder Komplexität. Warum der Wert so ist und ob es ein Problem ist, klären erst Interpretation und weitere Analyse."
   ],
-  "explanation": "Metriken brauchen Kontext und Interpretation, bilden Qualitäten nur teilweise ab und verlieren als Zielvorgabe ihre Aussagekraft (Goodhart’s Law). Fallen: Systemübergreifende Vergleiche sind heikel, und Quelltextmetriken setzen vorhandenen Code voraus – im frühen Entwurf helfen qualitative Verfahren."
+  "explanation": "Metriken brauchen Kontext und Interpretation, bilden Qualitäten nur teilweise ab und verlieren als Zielvorgabe ihre Aussagekraft (Goodhart’s Law). Fallen: Systemübergreifende Vergleiche sind heikel, und Metriken zeigen Auffälligkeiten, erklären aber nicht deren Ursache."
  },
  {
   "id": "c5q14",
@@ -5032,7 +5092,7 @@ const QUESTIONS = [
    "Es fehlt der Maßstab für die Bewertung.",
    "Bewertbar sind Ziele, die als Metrik vorliegen; qualitative Ziele nicht.",
    "Der Bewertungsumfang folgt aus den funktionalen Anforderungen.",
-   "Erst Qualitätsziele legen die Technologien fest.",
+   "Ohne Qualitätsziele kann keine Konformitätsprüfung des Codes stattfinden.",
    "Ohne Priorität fehlt der Fokus auf das Wichtigste."
   ],
   "correct": [
@@ -5043,10 +5103,10 @@ const QUESTIONS = [
    "Richtig: Architekturentscheidungen lassen sich nur gegen Ziele bewerten. Ohne Qualitätsziele bleibt offen, was „gut“ bedeutet – ein Review könnte dann nur Meinungen sammeln, aber keine Risiken oder Abweichungen begründet feststellen.",
    "Falsch: Ziele müssen nicht als Metrik vorliegen, um bewertbar zu sein. Qualitative Verfahren wie szenariobasierte Bewertung arbeiten mit konkreten Szenarien und Experteneinschätzung statt mit Kennzahlen.",
    "Falsch: Funktionale Anforderungen sind wichtig, prägen eine Architektur aber weniger stark als Qualitätsziele. Maßstab einer Architekturbewertung sind vor allem die Qualitätsziele und die daraus abgeleiteten Szenarien.",
-   "Falsch: Qualitätsziele beeinflussen Entscheidungen, schreiben aber keine Technologien vor – eine Technologie wäre bereits Teil der Lösung. Außerdem erklärt das nicht, warum ihr Fehlen speziell für das Review ein Problem ist.",
+   "Falsch: Die Konformitätsprüfung vergleicht den Code mit Entwurf und Architekturentscheidungen, nicht mit den Qualitätszielen. Sie ist auch ohne priorisierte Ziele möglich; das Problem fehlender Ziele liegt im fehlenden Bewertungsmaßstab.",
    "Richtig: Die Zeit für eine Bewertung ist begrenzt. Die Priorisierung lenkt sie auf die wichtigsten und riskantesten Qualitätsziele; ohne sie wird alles gleich behandelt, und Wesentliches geht im Detail unter."
   ],
-  "explanation": "Priorisierte Qualitätsziele sind Maßstab und Fokus jeder Architekturbewertung. Fallen: Sie müssen nicht als Metriken vorliegen, funktionale Anforderungen ersetzen sie nicht als Maßstab, und sie legen keine Technologien fest."
+  "explanation": "Priorisierte Qualitätsziele sind Maßstab und Fokus jeder Architekturbewertung. Fallen: Sie müssen nicht als Metriken vorliegen, funktionale Anforderungen ersetzen sie nicht als Maßstab, und die Konformitätsprüfung des Codes hängt nicht von ihnen ab."
  },
  {
   "id": "c5q16",
@@ -5185,7 +5245,7 @@ const QUESTIONS = [
   "type": "multi",
   "q": "In einem langlaufenden System weicht die umgesetzte Struktur zunehmend von der dokumentierten Soll-Architektur ab. Welche Aussagen treffen zu?",
   "options": [
-   "Regelmäßige Framework-Updates beheben die Ursache.",
+   "Mit einer Metrikauswertung der Komplexität lässt sich Erosion zuverlässig nachweisen.",
    "Die geplanten Qualitäten sind nicht mehr verlässlich zu erwarten.",
    "Die Abweichung ist unproblematisch, solange die Tests bestehen.",
    "Man spricht von Architekturerosion.",
@@ -5200,7 +5260,7 @@ const QUESTIONS = [
    6
   ],
   "optExpl": [
-   "Falsch: Veraltete Technik ist ein anderes Problem als Erosion. Erosion betrifft Struktur und Abhängigkeiten im Code, etwa verbotene Zugriffe zwischen Bausteinen – ein Framework-Update korrigiert davon nichts.",
+   "Falsch: Komplexitätsmetriken zeigen die innere Struktur einzelner Bausteine, nicht die Abweichung von der Soll-Architektur. Erosion macht man über Konformitätsprüfungen sichtbar, etwa Abhängigkeitsanalysen oder Reviews.",
    "Richtig: Die Qualitätseigenschaften wurden für die Soll-Struktur entworfen, etwa Austauschbarkeit durch klare Schichten. Weicht der Code davon ab, gilt diese Planung nicht mehr sicher, und Qualitätsziele können unbemerkt verfehlt werden.",
    "Falsch: Tests prüfen Verhalten, nicht die Einhaltung der Struktur. Eine erodierte Architektur kann alle Tests bestehen und trotzdem Qualitäten wie Änderbarkeit oder Austauschbarkeit untergraben.",
    "Richtig: Das schleichende Auseinanderlaufen von Soll- und Ist-Architektur heißt Architekturerosion. Ohne bewusstes Gegensteuern, etwa durch Refactoring, nimmt sie mit der Zeit zu.",
@@ -5208,7 +5268,7 @@ const QUESTIONS = [
    "Richtig: Toolgestützte Abhängigkeitsanalysen zeigen, wo der Code verbotene Abhängigkeiten enthält, etwa Aufrufe an der Schichtung vorbei. Laut Curriculum sind sie ein Mittel der Konformitätsprüfung.",
    "Richtig: Konformität mit Architekturentscheidungen zu bewerten ist ein eigenes Lernziel. Regelmäßige Prüfungen, manuell im Review oder toolgestützt, machen Erosion früh sichtbar."
   ],
-  "explanation": "Die zunehmende Soll-Ist-Abweichung ist Architekturerosion; sie gefährdet die geplanten Qualitäten und wird per Konformitätsprüfung, etwa Abhängigkeitsanalyse, sichtbar. Fallen: Doku-Anpassung oder Framework-Updates beheben sie nicht, und bestehende Tests sagen nichts über die Struktur."
+  "explanation": "Die zunehmende Soll-Ist-Abweichung ist Architekturerosion; sie gefährdet die geplanten Qualitäten und wird per Konformitätsprüfung, etwa Abhängigkeitsanalyse, sichtbar. Fallen: Doku-Anpassung beseitigt sie nicht, Komplexitätsmetriken weisen sie nicht nach, und bestehende Tests sagen nichts über die Struktur."
  },
  {
   "id": "c5q26",
@@ -5501,7 +5561,7 @@ const QUESTIONS = [
   "r": "R1",
   "type": "k",
   "points": 2,
-  "q": "Ordnen Sie jede Anforderung eines Buchungssystems zu: beschreibt sie, WAS das System tut, oder WIE GUT?",
+  "q": "Ordnen Sie jede Anforderung eines Buchungssystems zu: funktionale Anforderung oder Qualitätsanforderung?",
   "categories": [
    "Funktionale Anforderung",
    "Qualitätsanforderung"
@@ -5544,46 +5604,46 @@ const QUESTIONS = [
   "r": "R1",
   "type": "k",
   "points": 2,
-  "q": "Aussagen zu den Pflichtmustern Schichten, Pipes & Filter und Microservices – richtig oder falsch?",
+  "q": "Richtig oder falsch? Aussagen zu den Pflichtmustern Schichten, Pipes & Filter und Microservices.",
   "categories": [
    "Richtig",
    "Falsch"
   ],
   "rows": [
    {
-    "text": "In gelockerter Schichtung darf eine Schicht auch nicht direkt darunterliegende nutzen.",
+    "text": "Microservices erhöhen gegenüber einem Monolithen typischerweise den Aufwand für Betrieb und Monitoring.",
     "cat": 0
    },
    {
-    "text": "Die Phasen eines Compilers sind ein typisches Beispiel für Pipes & Filter.",
+    "text": "In Pipes und Filter ruft jeder Filter seinen Nachfolger direkt auf.",
+    "cat": 1
+   },
+   {
+    "text": "Weil Microservices unabhängig deploybar sind, dürfen Schnittstellenverträge ohne Abstimmung geändert werden.",
+    "cat": 1
+   },
+   {
+    "text": "Die strikte Schichtung erlaubt auch Aufrufe auf höhere Schichten, die gelockerte nur auf tiefere.",
+    "cat": 1
+   },
+   {
+    "text": "In gelockerter Schichtung dürfen Schichten auch nicht direkt benachbarte tiefere Schichten nutzen, nicht aber höhere.",
     "cat": 0
    },
    {
-    "text": "Microservices teilen sich üblicherweise eine gemeinsame Datenbank.",
-    "cat": 1
-   },
-   {
-    "text": "Microservices werden vorrangig nach technischen Schichten geschnitten.",
-    "cat": 1
-   },
-   {
-    "text": "Microservices erhöhen gegenüber einem Monolithen meist Betriebskomplexität und -kosten.",
+    "text": "Ein modularer Monolith kann klare interne Bausteingrenzen haben und trotzdem als ein Deployment-Artefakt laufen.",
     "cat": 0
-   },
-   {
-    "text": "Ein modularer Monolith lässt sich intern nicht klar in Bausteine gliedern.",
-    "cat": 1
    }
   ],
   "rowExpl": [
-   "Gelockerte Schichtung erlaubt Zugriffe auch auf tiefere, nicht direkt darunterliegende Schichten. Die Aussage stimmt, nur bei strenger Schichtung wäre sie falsch.",
-   "Ein Compiler verarbeitet den Quelltext in aufeinanderfolgenden Phasen, die über Datenströme verbunden sind. Das ist ein klassisches Beispiel für Pipes & Filter, die Aussage ist richtig.",
-   "Microservices haben üblicherweise eigene Datenhaltung statt einer gemeinsamen Datenbank. Gemeinsame Datenbank würde sie eng koppeln, deshalb ist die Aussage falsch.",
-   "Microservices werden fachlich geschnitten, nicht nach technischen Schichten. Ein Schnitt nach Schichten widerspricht diesem Ansatz, daher ist die Aussage falsch.",
-   "Viele eigenständige Dienste müssen betrieben, überwacht und ausgeliefert werden. Das erhöht gegenüber einem Monolithen meist Betriebskomplexität und -kosten, die Aussage stimmt.",
-   "Auch ein Monolith kann intern sauber modular in Bausteine gegliedert sein. Die Aussage ist deshalb falsch; „Monolith“ heißt nicht „unstrukturiert“."
+   "Viele Deployment-Einheiten erfordern Automatisierung, Tracing und verteiltes Logging.",
+   "Filter kennen ihre Nachbarn nicht; die Verbindung läuft über Pipes bzw. den Datenstrom.",
+   "Unabhängiges Deployment setzt kompatible Verträge voraus; inkompatible Änderungen erzwingen koordinierte Anpassung der Konsumenten.",
+   "Aufrufe nach oben sind in beiden Varianten nicht vorgesehen. Der Unterschied liegt im Überspringen tieferer Schichten.",
+   "Genau das unterscheidet die gelockerte von der strikten Variante.",
+   "Modularität betrifft die interne Struktur, Deployment die Auslieferung. Beides ist unabhängig voneinander wählbar."
   ],
-  "explanation": "Gelockerte Schichtung erlaubt Zugriffe auch auf tiefere Schichten, und Compiler-Phasen sind ein klassisches Pipes-and-Filters-Beispiel. Microservices sind fachlich geschnitten, haben eigene Datenhaltung statt gemeinsamer Datenbank und erhöhen die Betriebskomplexität. Falle: Auch ein Monolith kann intern sauber modular gegliedert sein."
+  "explanation": "Typische Fallen: gelockerte Schichtung erlaubt nur das Überspringen nach unten, Filter kennen ihre Nachbarn nicht, und unabhängiges Deployment macht Vertragsabstimmung nicht überflüssig."
  },
  {
   "id": "k22",
@@ -5599,29 +5659,34 @@ const QUESTIONS = [
   ],
   "rows": [
    {
-    "text": "Die Sortierung der Produktliste nach Preis.",
+    "text": "Wie Berechtigungen geprüft werden, wenn mehrere Bausteine geschützte Daten anbieten.",
+    "cat": 0
+   },
+   {
+    "text": "Wie die Rabattregeln für Neukunden berechnet werden.",
     "cat": 1
    },
    {
-    "text": "Wie Bausteine miteinander kommunizieren, etwa Formate und Protokolle.",
+    "text": "Wie Konfigurationswerte je Umgebung bereitgestellt werden.",
     "cat": 0
    },
    {
-    "text": "Was in Fehlermeldungen und Logs stehen darf, ohne Sicherheitsregeln zu verletzen.",
-    "cat": 0
+    "text": "Welche Felder die Kundenmaske für die Adresserfassung enthält.",
+    "cat": 1
    },
    {
-    "text": "Wie fachliche Objekte gespeichert und wieder geladen werden.",
+    "text": "Wie Fehler einheitlich erfasst, protokolliert und gemeldet werden.",
     "cat": 0
    }
   ],
   "rowExpl": [
-   "Die Sortierung der Produktliste nach Preis ist eine lokale Aufgabe eines einzelnen Bausteins. Dass das Ergebnis an vielen Stellen sichtbar ist, macht sie nicht zum Querschnittsthema.",
-   "Kommunikation mit Formaten und Protokollen betrifft alle Bausteine, die miteinander sprechen. Sie braucht einheitliche Regeln und ist deshalb ein Querschnittsthema.",
-   "Das Zusammenspiel von Sicherheit, Fehlermeldungen und Logging betrifft viele Bausteine und braucht einheitliche Regeln. Es ist damit ein Querschnittsthema und keine lokale Einzelaufgabe.",
-   "Persistenz fachlicher Objekte betrifft viele Bausteine, die Daten speichern und laden, und braucht einheitliche Regeln. Sie ist deshalb ein Querschnittsthema und keine lokale Einzelaufgabe."
+   "Berechtigungsprüfung stellt sich in jedem Baustein mit geschützten Daten. Das ist ein Querschnittsthema.",
+   "Das ist eine fachliche Regel, die in einem Baustein umgesetzt wird. Sie betrifft nicht viele Bausteine und ist daher kein Querschnittsthema.",
+   "Fast jeder Baustein liest Konfigurationswerte. Das ist ein Querschnittsthema.",
+   "Das betrifft eine einzelne Oberfläche und kein übergreifendes Problem. Das ist kein Querschnittsthema.",
+   "Fehler treten in allen Bausteinen auf und sollen einheitlich behandelt werden. Das ist ein Querschnittsthema."
   ],
-  "explanation": "Querschnittsthemen sind Kommunikation mit Formaten und Protokollen, Persistenz fachlicher Objekte und das Zusammenspiel von Sicherheit, Fehlermeldungen und Logging – sie betreffen viele Bausteine. Die Sortierung der Produktliste nach Preis ist eine lokale Aufgabe eines einzelnen Bausteins. Falle: Sichtbarkeit an vielen Stellen macht nichts zum Querschnitt."
+  "explanation": "Ein Querschnittsthema betrifft viele Bausteine gleichzeitig und braucht eine übergreifende Regelung. Fachregeln oder Details einzelner Oberflächen liegen dagegen in einem Baustein."
  },
  {
   "id": "k23",
@@ -5630,46 +5695,46 @@ const QUESTIONS = [
   "r": "R1",
   "type": "k",
   "points": 2,
-  "q": "Sie beginnen den Entwurf einer neuen Architektur. Wie sinnvoll ist das jeweilige Vorgehen?",
+  "q": "Beurteilen Sie das Vorgehen beim Architekturentwurf. Wie sinnvoll ist es?",
   "categories": [
    "Sinnvoll",
    "Nicht sinnvoll"
   ],
   "rows": [
    {
-    "text": "Konsequenzen für den Quellcode ableiten, z. B. Paketstruktur und Aufrufregeln.",
+    "text": "Bausteine mit neuer, kaum erprobter Technologie früher und tiefer verfeinern als einfache Bausteine.",
     "cat": 0
    },
    {
-    "text": "Einen Baustein erst als Blackbox beschreiben und bei Bedarf als Whitebox öffnen.",
-    "cat": 0
-   },
-   {
-    "text": "Die Technologie festlegen, bevor die Qualitätsanforderungen geklärt sind.",
+    "text": "Den Baustein-Zuschnitt an der bestehenden Teamstruktur ausrichten und Qualitätsanforderungen nur nachrangig berücksichtigen.",
     "cat": 1
    },
    {
-    "text": "Fachlogik und Technik in getrennte Bausteine legen.",
+    "text": "Die Verfeinerung eines Bausteins beenden, sobald Teams ihn anhand seiner Blackbox-Beschreibung umsetzen können.",
     "cat": 0
    },
    {
-    "text": "Alle Bausteine sofort bis zur untersten Ebene als Whitebox ausarbeiten.",
+    "text": "Für alle Bausteine zunächst die Whitebox bis zur untersten Ebene ausarbeiten, bevor Risiken bewertet werden.",
     "cat": 1
    },
    {
-    "text": "Risiken von Architekturentscheidungen früh identifizieren.",
+    "text": "Aus der gewählten Schichtung Paketstruktur und Aufrufregeln für den Quellcode ableiten.",
     "cat": 0
+   },
+   {
+    "text": "Die Datenbank- und Frameworkwahl festlegen, bevor die priorisierten Qualitätsziele geklärt sind.",
+    "cat": 1
    }
   ],
   "rowExpl": [
-   "Eine Architektur wirkt erst, wenn sie den Code prägt. Aus ihr abgeleitete Konsequenzen wie Paketstruktur und Aufrufregeln machen sie im Quellcode umsetzbar und prüfbar, das ist sinnvoll.",
-   "Die Blackbox-Beschreibung hält die Sicht schlank und beschränkt sich auf Zweck und Schnittstelle. Nur bei Bedarf wird der Baustein als Whitebox geöffnet, das ist sinnvoll.",
-   "Qualitätsanforderungen treiben die Technologieauswahl. Wer die Technologie vorher festlegt, entscheidet ohne Grundlage und riskiert Anforderungen zu verfehlen, daher nicht sinnvoll.",
-   "Die Trennung von Fachlogik und Technik hält die fachlichen Bausteine unabhängig von technischen Änderungen und erleichtert Verständnis und Änderung. Das ist sinnvoll.",
-   "Verfeinert wird nur dort, wo es nötig ist. Alles sofort bis zur untersten Ebene als Whitebox auszuarbeiten kostet Aufwand ohne Nutzen und ist deshalb nicht sinnvoll.",
-   "Risiken von Entscheidungen früh zu erkennen erlaubt, rechtzeitig gegenzusteuern, solange Änderungen noch günstig sind. Das ist sinnvoll."
+   "Sinnvoll: Die Verfeinerungstiefe richtet sich nach Risiko und Komplexität. Unsichere Teile will man früh verstehen. Gleichmäßige Tiefe wäre dagegen nicht sinnvoll.",
+   "Nicht sinnvoll: Die Zerlegung wird mit Qualitätsanforderungen und Fachlichkeit begründet. Teamstrukturen sind ein Faktor, aber kein Ersatz für die Begründung.",
+   "Sinnvoll: Abbruchkriterium ist die Umsetzbarkeit. Weiteres Verfeinern erzeugt Aufwand ohne Nutzen.",
+   "Nicht sinnvoll: Das verursacht Aufwand an unkritischen Stellen und verschiebt die Risikobewertung. Risiken werden früh bewertet, die Verfeinerung gezielt gesteuert.",
+   "Sinnvoll: Architekturentscheidungen haben Konsequenzen für den Code, die man ableiten und prüfbar machen sollte.",
+   "Nicht sinnvoll: Technologieentscheidungen sollen den Qualitätszielen dienen. Wer sie vorher festlegt, riskiert Entscheidungen ohne Begründung."
   ],
-  "explanation": "Sinnvoll sind: Konsequenzen für den Code wie Paketstruktur und Aufrufregeln ableiten, Bausteine erst als Blackbox beschreiben und bei Bedarf öffnen, Fachlogik und Technik trennen sowie Risiken früh identifizieren. Nicht sinnvoll: Technologie festlegen, bevor die Qualitätsanforderungen geklärt sind, denn diese treiben die Auswahl. Falle: Verfeinert wird nur bei Bedarf, nicht flächendeckend bis zur untersten Ebene als Whitebox."
+  "explanation": "Sinnvoll sind risikoorientierte Verfeinerung, Abbruch bei Umsetzbarkeit und das Ableiten von Code-Konsequenzen. Nicht sinnvoll: gleichmäßig tiefes Ausarbeiten, Zerlegung nach Teamstruktur statt Anforderungen und Technologiewahl vor den Qualitätszielen."
  },
  {
   "id": "k24",
@@ -5807,46 +5872,46 @@ const QUESTIONS = [
   "r": "R1",
   "type": "k",
   "points": 2,
-  "q": "Sie entwerfen die Schnittstelle eines Zahlungsbausteins, den auch externe Partner nutzen. Ist die Eigenschaft wünschenswert?",
+  "q": "Ist die Änderung an einer veröffentlichten Schnittstelle für bestehende Nutzer in der Regel abwärtskompatibel?",
   "categories": [
-   "Wünschenswert",
-   "Nicht wünschenswert"
+   "Abwärtskompatibel",
+   "Nicht abwärtskompatibel"
   ],
   "rows": [
    {
-    "text": "Schwer falsch zu benutzen.",
+    "text": "Ein neues optionales Feld in einer Antwort ergänzen.",
     "cat": 0
    },
    {
-    "text": "Bildet die interne Datenstruktur 1:1 ab, damit Nutzer flexibel zugreifen können.",
+    "text": "Den Wertebereich eines Eingabeparameters einschränken.",
     "cat": 1
    },
    {
-    "text": "Funktional vollständig aus Sicht der nutzenden Bausteine.",
+    "text": "Den Wertebereich eines Eingabeparameters erweitern.",
     "cat": 0
    },
    {
-    "text": "Stabiler, formeller und versionierter als eine rein interne Schnittstelle.",
-    "cat": 0
-   },
-   {
-    "text": "Wird ohne neue Version geändert, sobald die Implementierung es erfordert.",
+    "text": "Ein bestehendes Antwortfeld bei gleicher Bedeutung umbenennen.",
     "cat": 1
    },
    {
-    "text": "Leicht erweiterbar, ohne bestehende Nutzer anpassen zu müssen.",
+    "text": "Einen neuen Parameter ohne Standardwert zur Pflicht machen.",
+    "cat": 1
+   },
+   {
+    "text": "Eine zusätzliche Operation anbieten.",
     "cat": 0
    }
   ],
   "rowExpl": [
-   "Eine Schnittstelle, die schwer falsch zu benutzen ist, verhindert Fehler der Nutzer schon beim Entwurf. Das ist gerade bei externen Partnern wünschenswert.",
-   "Wer interne Datenstrukturen 1:1 abbildet, wirkt flexibel, koppelt Nutzer aber an die Implementierung. Jede interne Änderung schlägt dann nach außen durch, deshalb nicht wünschenswert.",
-   "Aus Sicht der nutzenden Bausteine müssen alle benötigten Funktionen verfügbar sein, sonst weichen Nutzer auf Umwege aus. Funktionale Vollständigkeit ist daher wünschenswert.",
-   "Externe Partner können nicht kurzfristig angepasst werden und verlassen sich auf die Schnittstelle. Sie braucht daher mehr Stabilität, Formalität und Versionierung als eine interne. Das ist wünschenswert.",
-   "Eine Änderung ohne neue Version bricht bestehende Partner, denn diese können sich nicht auf einen festen Vertrag verlassen. Das ist nicht wünschenswert; Änderungen gehören versioniert.",
-   "Wenn sich die Schnittstelle erweitern lässt, ohne dass bestehende Nutzer angepasst werden müssen, bleibt sie für Partner stabil und trotzdem weiterentwickelbar. Das ist wünschenswert."
+   "Bestehende Nutzer ignorieren das unbekannte Feld (toleranter Empfang) und arbeiten unverändert weiter. Inkompatibel wäre erst das Entfernen oder Umdeuten vorhandener Felder.",
+   "Bisher gültige Aufrufe können nun abgelehnt werden. Wer Eingaben aus dem früheren Bereich sendet, wird abgewiesen; deshalb ist das Einschränken inkompatibel.",
+   "Alle bisher gültigen Eingaben bleiben gültig; es kommen nur weitere hinzu. Bestehende Nutzer merken nichts, deshalb kompatibel.",
+   "Nutzer lesen das Feld unter dem alten Namen; die Bedeutung bleibt gleich, aber der Name gehört zur Syntax des Vertrags. Das Umbenennen bricht bestehende Nutzer.",
+   "Bestehende Aufrufe enthalten den neuen Parameter nicht und schlagen daher fehl. Mit Standardwert wäre die Änderung kompatibel, ohne nicht.",
+   "Bestehende Nutzer rufen die neue Operation nicht auf und bleiben unberührt. Das Erweitern einer Schnittstelle um Neues ist typischerweise kompatibel."
   ],
-  "explanation": "Wünschenswert sind Schnittstellen, die schwer falsch zu benutzen, funktional vollständig und leicht erweiterbar sind; externe Schnittstellen brauchen zusätzlich mehr Stabilität, Formalität und Versionierung. Fallen: 1:1 abgebildete Interna wirken flexibel, koppeln Nutzer aber an die Implementierung, und Änderungen ohne neue Version brechen Partner."
+  "explanation": "Kompatibel sind Änderungen, die bisher gültige Aufrufe und gelesene Daten unverändert lassen (Ergänzen, Erweitern). Inkompatibel sind Einschränken, Umbenennen, Entfernen und neue Pflichtangaben. Falle: Gleiche Bedeutung genügt nicht – auch Namen und Eingabebereiche gehören zum Vertrag."
  },
  {
   "id": "c3q67",
@@ -5854,26 +5919,26 @@ const QUESTIONS = [
   "lz": "LZ 03-06",
   "r": "R1",
   "type": "multi",
-  "q": "Eine Analyse zeigt zwischen Rechnungs- und Kundenmodul sehr enge Kopplung. Welche Folgen sind typisch?",
+  "q": "Zwischen Rechnungs- und Kundenmodul besteht sehr enge Kopplung. Welche Aussagen treffen zu?",
   "options": [
-   "Die Kohäsion beider Module steigt.",
-   "Parallele Entwicklung durch zwei Teams wird leichter.",
-   "Änderungen am einen Modul erzwingen Änderungen am anderen.",
-   "Die Module lassen sich schlecht isoliert testen.",
-   "Die Performance verschlechtert sich zwangsläufig."
+   "Enge Kopplung zwischen Modulen bedeutet, dass die Kohäsion innerhalb der Module niedrig ist.",
+   "Eine Änderung in einem der Module kann Anpassungen im anderen nach sich ziehen.",
+   "Zwei Teams können die Module trotzdem ohne Abstimmung parallel weiterentwickeln, solange die Schnittstelle dokumentiert ist.",
+   "Enge Kopplung kann gerechtfertigt sein, wenn beide Module fachlich eng zusammengehören und meist gemeinsam geändert werden.",
+   "Enge Kopplung führt zu schlechterer Laufzeitperformance."
   ],
   "correct": [
-   2,
+   1,
    3
   ],
   "optExpl": [
-   "Falsch: Kohäsion betrifft den Zusammenhalt innerhalb eines Moduls, Kopplung die Abhängigkeiten zwischen Modulen. Enge Kopplung zwischen zwei Modulen deutet eher auf einen schlechten Schnitt hin, bei dem Zusammengehöriges getrennt wurde.",
-   "Falsch: Eng gekoppelte Module erfordern ständige Abstimmung zwischen den Teams, weil Änderungen des einen das andere betreffen. Parallele Arbeit wird dadurch schwerer, nicht leichter (vgl. Conway’s Law).",
-   "Richtig: Jede Abhängigkeit ist ein Weg, über den sich Änderungen ausbreiten. Ändert sich etwa die Kundenstruktur, muss bei enger Kopplung auch das Rechnungsmodul angepasst werden – das senkt die Änderbarkeit.",
-   "Richtig: Für einen Test des einen Moduls müssen viele Abhängigkeiten des anderen ersetzt oder mitgestartet werden. Isoliertes Testen wird dadurch aufwendig, und Tests werden langsamer und fragiler.",
-   "Falsch: Kopplung ist vor allem ein Wartbarkeitsthema. Ein Performanceverlust folgt daraus nicht zwangsläufig; lokal eng gekoppelte Aufrufe können sogar schneller sein als lose gekoppelte über ein Netzwerk."
+   "Falsch: Kopplung und Kohäsion sind unabhängige Kriterien. Zwei in sich stimmige Module können trotzdem eng gekoppelt sein.",
+   "Richtig: Jede Abhängigkeit ist ein Weg, über den sich Änderungen ausbreiten. Ändert sich etwa die Kundenstruktur, kann auch das Rechnungsmodul betroffen sein.",
+   "Falsch: Dokumentation nimmt die Abhängigkeit nicht weg. Ändert sich das eine Modul, ist das andere betroffen, deshalb bleibt Abstimmung zwischen den Teams nötig.",
+   "Richtig: Gehören die Module fachlich eng zusammen und werden meist gemeinsam geändert, ist enge Kopplung unproblematischer. Eventuell ist dann sogar ein gemeinsamer Baustein der bessere Schnitt.",
+   "Falsch: Kopplung ist vor allem ein Wartbarkeitsthema. Eng gekoppelte lokale Aufrufe können sogar schneller sein als lose gekoppelte Aufrufe über ein Netzwerk."
   ],
-  "explanation": "Enge Kopplung breitet Änderungen über Modulgrenzen aus und erschwert isoliertes Testen sowie parallele Arbeit von Teams. Fallen: Kopplung mit Kohäsion verwechseln oder pauschal Performancefolgen annehmen – Kopplung betrifft vor allem die Wartbarkeit."
+  "explanation": "Enge Kopplung breitet Änderungen über Modulgrenzen aus und erfordert Abstimmung; sie ist aber nicht per se falsch, wenn Module fachlich zusammengehören. Fallen: Kopplung mit Kohäsion gleichsetzen, Dokumentation als Entkopplung sehen, Kopplung mit Performance verwechseln."
  },
  {
   "id": "c3q68",
@@ -5881,29 +5946,27 @@ const QUESTIONS = [
   "lz": "LZ 03-04",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Baustein legt seine Implementierungsdetails offen (kein Information Hiding). Welche Folgen sind am ehesten zu erwarten?",
+  "q": "Welche Folgen sind zu erwarten, wenn ein Baustein seine Implementierungsdetails offenlegt?",
   "options": [
-   "Die Kopplung sinkt, weil Nutzer weniger Umwege brauchen.",
-   "Änderungen ziehen Anpassungen in mehr Bausteinen nach sich.",
-   "Die Implementierung lässt sich schwerer austauschen.",
-   "Die Testbarkeit verbessert sich, weil Tests interne Zustände direkt prüfen können.",
-   "Die Laufzeit-Performance sinkt durch die direkten Zugriffe.",
-   "Nutzer binden sich an Details, die nie zugesichert wurden."
+   "Die Kopplung bleibt unverändert, solange Nutzer die Details nur lesen und nicht verändern.",
+   "Nutzer können sich auf Details verlassen, die nie zugesichert wurden.",
+   "Der Baustein lässt sich leichter ersetzen, weil Nutzer seine Interna kennen.",
+   "Tests gegen Interna werden einfacher, brechen aber bei jeder internen Änderung.",
+   "Die Schnittstelle des Bausteins wird breiter und damit schwerer stabil zu halten."
   ],
   "correct": [
    1,
-   2,
-   5
+   3,
+   4
   ],
   "optExpl": [
-   "Falsch: Direkter Zugriff auf Interna erhöht die Kopplung: Weniger Indirektion heißt hier mehr Abhängigkeit von Details. Nutzer sparen zwar Umwege, hängen dafür aber an allem, was offenliegt.",
-   "Richtig: Weil viele Nutzer an Interna hängen, bleibt eine Änderung nicht mehr lokal. Wird z. B. eine Datenstruktur umgebaut, müssen alle Bausteine angepasst werden, die direkt darauf zugreifen.",
-   "Richtig: Nutzer hängen von Details ab, die bei einem Austausch der Implementierung wegfallen würden. Ein Austausch erfordert dann Änderungen bei allen Nutzern statt nur hinter einer stabilen Schnittstelle.",
-   "Falsch: Tests, die interne Zustände direkt prüfen, binden sich an Details und brechen bei jeder Änderung der Implementierung. Information Hiding fördert die Testbarkeit über stabile Schnittstellen.",
-   "Falsch: Wenn überhaupt, sind direkte Zugriffe eher schneller, weil Indirektionen entfallen. Das Problem fehlenden Information Hidings ist die Änderbarkeit, nicht die Laufzeit-Performance.",
-   "Richtig: Was offenliegt, wird genutzt – auch ohne Vertrag (vgl. Hyrum's Law). Nutzer verlassen sich auf nie zugesicherte Details, und spätere Änderungen daran brechen diese Nutzer."
+   "Falsch: Schon lesender Zugriff erzeugt eine Abhängigkeit von Details. Ändert sich die Struktur, brechen die lesenden Nutzer ebenso.",
+   "Richtig: Nutzer verwenden, was sichtbar ist, auch ohne Zusicherung. Spätere interne Änderungen brechen dann scheinbar unbeteiligte Nutzer.",
+   "Falsch: Gerade weil Nutzer von den Interna abhängen, muss ein Ersatz diese Details nachbilden. Der Austausch wird dadurch schwerer.",
+   "Richtig: Direkter Zugriff auf Interna erleichtert das Prüfen, bindet die Tests aber an die Implementierung. Sie werden bei Refactorings zerbrechlich.",
+   "Richtig: Alles, was offengelegt ist, wird faktisch Teil der Schnittstelle. Je mehr dazugehört, desto weniger kann der Baustein ohne Folgen für Nutzer geändert werden."
   ],
-  "explanation": "Ohne Information Hiding steigt die Kopplung: Nutzer binden sich an nicht zugesicherte Details, Änderungen bleiben nicht lokal und Implementierungen sind schwer austauschbar. Fallen: Direkter Zugriff verbessert die Testbarkeit nicht nachhaltig, und die Performance ist nicht das eigentliche Problem."
+  "explanation": "Ohne Information Hiding wird jede Implementierungseinzelheit faktisch zur Schnittstelle: Nutzer binden sich daran, Änderungen und Austausch werden teurer, Tests werden zerbrechlicher. Fallen: lesenden Zugriff als unkritisch sehen und Offenheit als Erleichterung für den Austausch."
  },
  {
   "id": "c3q69",
@@ -5911,26 +5974,29 @@ const QUESTIONS = [
   "lz": "LZ 03-04",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Baustein „Utils“ enthält Datumsformatierung, PDF-Export und Rabattlogik. Was folgt aus dieser geringen Kohäsion?",
+  "q": "Ein Baustein „Utils“ bündelt Datumsformatierung, PDF-Export und Rabattlogik. Welche Aussagen dazu treffen zu?",
   "options": [
-   "Er ist besonders gut wiederverwendbar.",
-   "Er ändert sich aus mehreren unabhängigen Gründen.",
-   "Seine Kopplung zu anderen Bausteinen sinkt.",
-   "Er hat eher weniger Abhängigkeiten.",
-   "Er ist schwerer zu verstehen und zu testen."
+   "Er hat mehrere voneinander unabhängige Änderungsgründe.",
+   "Kohäsion misst die Abhängigkeiten zwischen Bausteinen, daher ist hier die Kopplung das eigentliche Problem.",
+   "Nutzer koppeln sich auch an Funktionen, die sie nicht brauchen.",
+   "Seine breite Verwendbarkeit gleicht die geringe Kohäsion aus.",
+   "Geringe Kohäsion bedeutet, dass der Baustein viele Abhängigkeiten zu anderen Bausteinen hat.",
+   "Eine Aufteilung erhöht die Kohäsion der Teile, kann aber die Zahl der Bausteine und Schnittstellen erhöhen."
   ],
   "correct": [
-   1,
-   4
+   0,
+   2,
+   5
   ],
   "optExpl": [
-   "Falsch: Wer nur die Datumsformatierung braucht, holt PDF-Export und Rabattlogik samt deren Abhängigkeiten mit ins Haus. Viele Funktionen in einem Baustein machen Wiederverwendung daher schwerer, nicht leichter.",
-   "Richtig: Jeder Belang hat eigene Änderungsgründe: neues Datumsformat, neue PDF-Bibliothek, geänderte Rabattregeln. Jede dieser Änderungen trifft den ganzen Baustein und alle, die ihn nutzen – ein Verstoß gegen das Single-Responsibility-Prinzip.",
-   "Falsch: Dass vieles an einer Stelle liegt, wirkt lokal übersichtlich, doch die Zahl ein- und ausgehender Abhängigkeiten steigt. Viele Bausteine hängen vom Utils-Baustein ab, und er selbst hängt von vielen Bibliotheken ab.",
-   "Falsch: Eher umgekehrt: Jeder Belang bringt eigene ausgehende Abhängigkeiten mit, etwa eine PDF-Bibliothek oder das Preismodell. Ein unzusammenhängender Baustein sammelt so die Abhängigkeiten aller seiner Teile.",
-   "Richtig: Ohne klaren Zweck muss man viele unzusammenhängende Teile durchdringen, um den Baustein zu verstehen. Tests brauchen entsprechend viele verschiedene Ausgangssituationen und Testdaten."
+   "Richtig: Fachliche Rabattregeln, Dokumentformat und Datumsdarstellung ändern sich aus verschiedenen Anlässen. Ein Baustein, der sich aus mehreren Gründen ändert, hat geringe Kohäsion.",
+   "Falsch: Kohäsion misst den Zusammenhalt innerhalb eines Bausteins; Abhängigkeiten zwischen Bausteinen betreffen die Kopplung. Hier ist die Kohäsion gering.",
+   "Richtig: Wer nur die Datumsformatierung braucht, hängt vom ganzen Baustein ab und ist von Änderungen an PDF-Export und Rabattlogik betroffen.",
+   "Falsch: Breite Verwendung erhöht eher den Schaden: Jede Änderung wirkt auf viele Nutzer. Kohäsion lässt sich nicht durch Wiederverwendung kompensieren.",
+   "Falsch: Das verwechselt Kohäsion mit Kopplung. Ein Baustein kann gering kohäsiv sein und trotzdem wenige Abhängigkeiten haben.",
+   "Richtig: Kleinere, fokussierte Bausteine sind kohäsiver. Dem stehen mehr Bausteine und Schnittstellen gegenüber, die gepflegt werden müssen."
   ],
-  "explanation": "Geringe Kohäsion bedeutet mehrere unabhängige Änderungsgründe, schlechtere Verständlichkeit und Testbarkeit sowie mehr statt weniger Abhängigkeiten. Falle: „Viele Funktionen an einer Stelle = gut wiederverwendbar und lose gekoppelt“ – das Gegenteil ist der Fall."
+  "explanation": "Geringe Kohäsion heißt: Ein Baustein bündelt Unzusammengehöriges und ändert sich aus mehreren Gründen; seine Nutzer koppeln sich an Unnötiges. Fallen: Kohäsion mit Kopplung vertauschen und Wiederverwendbarkeit als Ausgleich sehen."
  },
  {
   "id": "c3q70",
@@ -5938,26 +6004,27 @@ const QUESTIONS = [
   "lz": "LZ 03-04",
   "r": "R1",
   "type": "multi",
-  "q": "In einem Altsystem stecken SQL-Abfragen direkt im UI-Code. Welche Folgen hat diese Missachtung der Trennung der Belange?",
+  "q": "SQL-Abfragen stehen direkt im UI-Code. Welche Aussagen dazu treffen zu?",
   "options": [
-   "Es verletzt vor allem das Liskov-Prinzip.",
-   "Die Folgen bleiben auf den UI-Baustein beschränkt.",
-   "Der Performancegewinn rechtfertigt das meist.",
-   "Ein Datenbankwechsel betrifft auch die Oberfläche.",
-   "Die Logik ist ohne UI kaum testbar."
+   "Der Verstoß betrifft die Kohäsion des UI-Bausteins, nicht seine Kopplung.",
+   "Ein Wechsel des Datenbankschemas erzwingt Änderungen am UI-Baustein.",
+   "Die Logik ist ohne Datenbank kaum testbar.",
+   "Das Problem tritt erst auf, wenn mehrere Oberflächen dieselben Abfragen verwenden.",
+   "Ein eigener Persistenzbaustein kann Laufzeitkosten verursachen, was gegen die Änderbarkeit abzuwägen ist."
   ],
   "correct": [
-   3,
+   1,
+   2,
    4
   ],
   "optExpl": [
-   "Falsch: LSP betrifft die verhaltenskonforme Ersetzbarkeit von Subtypen und hat mit SQL im UI nichts zu tun. Vermischte Belange wie Darstellung und Persistenz verletzen das Prinzip der Trennung der Belange (Separation of Concerns).",
-   "Falsch: Die Folgen bleiben nicht lokal: Das Datenbankschema ist nun direkt mit der Oberfläche gekoppelt. Schemaänderungen strahlen auf die UI aus und UI-Änderungen können Datenzugriffe brechen.",
-   "Falsch: Ein möglicher kleiner Performancegewinn durch weniger Indirektion wiegt die schlechtere Änderbarkeit und Testbarkeit selten auf. Zudem lässt sich Performanz meist auch mit sauberer Trennung erreichen.",
-   "Richtig: Weil Persistenz und UI vermischt sind, zieht ein Technikwechsel, etwa ein anderes Datenbanksystem oder SQL-Dialekt, Änderungen in der Oberfläche nach sich. Mit getrennter Datenzugriffsschicht bliebe er lokal.",
-   "Richtig: Fach- und Persistenzlogik lassen sich nicht getrennt von der Oberfläche prüfen. Tests müssen über die UI laufen, was sie langsam, fragil und aufwendig macht."
+   "Falsch: Der UI-Baustein bündelt Unzusammengehöriges (geringe Kohäsion) und hängt zusätzlich direkt an Datenbankschema und -technik (enge Kopplung). Beides ist betroffen.",
+   "Richtig: Ohne Trennung der Belange hängt die Oberfläche am Schema. Änderungen an der Persistenz wirken direkt auf den UI-Code.",
+   "Richtig: Wer UI-Logik prüfen will, braucht dann die Datenbank mit. Getrennte Bausteine erlaubten Tests mit Testdoubles.",
+   "Falsch: Die Kopplung an die Datenbank besteht schon bei einer einzigen Oberfläche. Mehrere Oberflächen verschärfen sie nur durch zusätzliche Duplikation.",
+   "Richtig: Zusätzliche Indirektion kann Performance kosten. Das ist ein echter Zielkonflikt, der aber meist kein Grund ist, SQL in die Oberfläche zu legen."
   ],
-  "explanation": "Vermischte Belange koppeln Persistenz und Oberfläche: Ein Datenbankwechsel trifft auch die UI, und die Logik ist ohne UI kaum testbar. Fallen: Die Folgen auf einen Baustein begrenzt sehen, einen Performancegewinn als Rechtfertigung nehmen oder fälschlich LSP statt Separation of Concerns nennen."
+  "explanation": "Fehlende Trennung der Belange koppelt Oberfläche an Datenbank und erschwert Tests; eine Trennung kostet etwas Laufzeit und Aufwand, was abzuwägen ist. Fallen: nur Kohäsion oder nur Kopplung zu sehen und das Problem erst bei Mehrfachverwendung zu vermuten."
  },
  {
   "id": "c3q71",
@@ -5966,30 +6033,27 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "multi",
-  "q": "Welche Aussagen zum DRY-Prinzip und zu seiner Verletzung (dieselbe Entscheidung/Logik ist mehrfach dupliziert) treffen zu?",
+  "q": "Welche Aussagen zu den Folgen duplizierter Entscheidungen oder Logik (Verletzung von DRY) treffen zu?",
   "options": [
-   "Die Bausteine mit den Kopien sind dadurch statisch stärker gekoppelt, was eine Abhängigkeitsanalyse zuverlässig anzeigt.",
-   "Das Problem betrifft nur duplizierte Logik, nicht duplizierte Konstanten oder Konfigurationswerte.",
-   "Es entsteht das Risiko, dass Kopien auseinanderlaufen (Inkonsistenz).",
-   "Gleich aussehender Code darf dupliziert bleiben, wenn die Kopien fachlich verschiedenes Wissen darstellen und sich unabhängig ändern sollen.",
-   "Es entsteht eine versteckte (logische) Kopplung: Die Kopien müssen gemeinsam geändert werden, obwohl kein Baustein vom anderen abhängt.",
-   "Eine Änderung muss an mehreren Stellen konsistent nachgezogen werden."
+   "Es entsteht logische Kopplung: Die Kopien müssen gemeinsam geändert werden, obwohl kein Baustein vom anderen abhängt.",
+   "Das Problem betrifft duplizierte Logik, nicht aber duplizierte Konstanten oder Konfigurationswerte.",
+   "Ähnlicher Code, der fachlich Unterschiedliches abbildet, darf getrennt bleiben, wenn beide sich unabhängig ändern sollen.",
+   "Statische Abhängigkeitsanalysen zeigen die Kopplung zwischen den Kopien zuverlässig an.",
+   "Das Risiko inkonsistenter Änderungen wächst mit der Zahl der Kopien."
   ],
   "correct": [
+   0,
    2,
-   3,
-   4,
-   5
+   4
   ],
   "optExpl": [
-   "Falsch: Gerade nicht: Die Kopien hängen im Code nicht voneinander ab, daher zeigt eine statische Abhängigkeitsanalyse nichts. Die Kopplung ist logisch und damit versteckt.",
-   "Falsch: DRY bezieht sich auf jedes duplizierte Wissen, nicht nur auf Logik. Auch doppelt gepflegte Konstanten oder Konfigurationswerte laufen auseinander, wenn nur eine Stelle angepasst wird.",
-   "Richtig: Werden Kopien unabhängig geändert, verhalten sie sich irgendwann unterschiedlich – etwa wenn ein Rabatt an zwei Stellen verschieden berechnet wird. Solche Inkonsistenzen sind schwer zu finden.",
-   "Richtig: DRY bezieht sich auf Wissen, nicht auf Textgleichheit. Zufällig gleicher Code, der fachlich Verschiedenes bedeutet, würde durch Zusammenlegen erst gekoppelt und könnte sich nicht mehr unabhängig entwickeln.",
-   "Richtig: Die Kopien sind über das gemeinsame Wissen verbunden, auch wenn im Code keine Abhängigkeit sichtbar ist. Ändert sich die Regel, müssen alle Kopien gemeinsam geändert werden.",
-   "Richtig: Dieselbe Entscheidung steckt an mehreren Stellen, also muss jede Änderung überall nachgezogen werden. Wer eine Stelle übersieht, erzeugt widersprüchliches Verhalten im System."
+   "Richtig: Die Abhängigkeit steckt in der gemeinsamen Entscheidung, nicht in einem Aufruf. Sie ist im Code nicht als Abhängigkeit sichtbar und wird leicht übersehen.",
+   "Falsch: DRY gilt für jede Form von Wissen. Ein mehrfach festgehaltener Grenzwert kann ebenso auseinanderlaufen wie kopierte Logik.",
+   "Richtig: Zufällige Ähnlichkeit ist keine Duplikation von Wissen. Wer sie zusammenführt, koppelt unabhängige Änderungsgründe.",
+   "Falsch: Zwischen den Kopien existiert keine statische Abhängigkeit. Gerade deshalb bleibt die logische Kopplung in solchen Analysen unsichtbar.",
+   "Richtig: Jede Änderung muss an allen Stellen nachgezogen werden. Je mehr Kopien existieren, desto wahrscheinlicher wird, dass eine vergessen wird."
   ],
-  "explanation": "Verletztes DRY erzwingt mehrfache Änderungen, riskiert Inkonsistenz und erzeugt eine unsichtbare logische Kopplung – für Logik ebenso wie für Konstanten. Fallen: Statische Analysen zeigen diese Kopplung nicht, und DRY meint Wissen, nicht gleich aussehenden Code."
+  "explanation": "Duplizierte Entscheidungen erzeugen verdeckte, logische Kopplung und Inkonsistenzrisiko. Fallen: nur Logik betrachten, statische Analysen für zuverlässig halten und Ähnliches blind zusammenführen."
  },
  {
   "id": "c3q72",
@@ -5997,26 +6061,27 @@ const QUESTIONS = [
   "lz": "LZ 03-08",
   "r": "R1",
   "type": "multi",
-  "q": "In einer als strikt geplanten Schichtenarchitektur findet ein Review Schichtsprünge und Aufrufe nach oben. Was trifft zu?",
+  "q": "In einer als strikt geplanten Schichtenarchitektur finden sich Schichtsprünge und Aufrufe nach oben. Was trifft zu?",
   "options": [
-   "Vereinzelte Abweichungen sind unkritisch.",
-   "Nun liegt einfach eine gelockerte Schichtung vor.",
-   "Die Implementierung weicht vom Entwurf ab (Erosion).",
-   "Die Schichten sind schwerer austauschbar.",
-   "Aufrufe nach oben sind über Callbacks verboten."
+   "Benachrichtigungen nach oben lassen sich über Callbacks oder Ereignisse realisieren, ohne die Schichtung zu verletzen.",
+   "Die Implementierung weicht vom geplanten Entwurf ab (Erosion); eine Konformitätsprüfung kann das aufdecken.",
+   "Aufrufe nach oben erzeugen zyklische Abhängigkeiten zwischen Schichten und mindern deren Austauschbarkeit.",
+   "Schichtsprünge erhöhen die Kopplung, beeinträchtigen aber die Austauschbarkeit einzelner Schichten nicht.",
+   "Damit liegt faktisch eine gelockerte Schichtung vor, in der auch Aufrufe nach oben erlaubt sind."
   ],
   "correct": [
-   2,
-   3
+   0,
+   1,
+   2
   ],
   "optExpl": [
-   "Falsch: Auch einzelne Ausnahmen erzeugen zusätzliche Abhängigkeiten und sind oft der Anfang schleichender Erosion. Sie sollten bewusst entschieden und dokumentiert werden, statt pauschal als unkritisch zu gelten.",
-   "Falsch: Gelockerte Schichtung erlaubt nur das Überspringen von Schichten nach unten. Aufrufe nach oben verletzen auch die gelockerte Variante – das Umdeuten verschleiert lediglich die Abweichung vom Entwurf.",
-   "Richtig: Unbeabsichtigte Abweichungen der Implementierung vom geplanten Entwurf sind ein typisches Zeichen von Architekturerosion. Die strikte Schichtung existiert nur noch auf dem Papier.",
-   "Richtig: Durch Schichtsprünge und Aufwärtsaufrufe hängen mehr Schichten voneinander ab. Eine Schicht lässt sich dann nicht mehr einfach austauschen oder isoliert testen, weil mehr Nachbarn betroffen sind.",
-   "Falsch: Ein Callback über eine Schnittstelle, die die untere Schicht definiert, kehrt die Abhängigkeit um und ist zulässig. Zur Laufzeit fließt der Aufruf nach oben, die Quellcode-Abhängigkeit zeigt aber weiterhin nach unten."
+   "Richtig: Die untere Schicht kennt nur eine von ihr definierte abstrakte Schnittstelle, nicht die konkrete obere Schicht. Die Abhängigkeitsrichtung bleibt nach unten.",
+   "Richtig: Soll-Ist-Abweichungen sind der Kern von Architekturerosion. Statische Analyse oder Regeln im Build machen sie sichtbar.",
+   "Richtig: Kennt eine untere Schicht die obere, lässt sie sich nicht mehr unabhängig verstehen, testen oder ersetzen.",
+   "Falsch: Wer eine Schicht überspringt, hängt von Details tieferer Schichten ab. Diese lassen sich dann nicht mehr austauschen, ohne auch die überspringenden Schichten anzupassen.",
+   "Falsch: Die gelockerte Schichtung erlaubt nur das Überspringen darunterliegender Schichten, nicht Aufrufe nach oben. Diese bleiben in jeder Variante eine Verletzung."
   ],
-  "explanation": "Ungeplante Schichtsprünge und Aufwärtsaufrufe sind Architekturerosion und verschlechtern die Austauschbarkeit der Schichten. Fallen: das als „gelockerte Schichtung“ umdeuten, obwohl Aufrufe nach oben auch dort verboten sind, und Callbacks pauschal verbieten."
+  "explanation": "Strikte Schichtung erlaubt nur Zugriffe auf die direkt darunterliegende Schicht. Schichtsprünge gehören zur gelockerten Variante, Aufrufe nach oben sind in keiner Variante vorgesehen. Die Abweichung vom Entwurf ist Erosion und per Konformitätsprüfung erkennbar. Rückmeldungen nach oben bleiben über Callbacks oder Ereignisse konform möglich."
  },
  {
   "id": "c1q30",
@@ -6057,7 +6122,7 @@ const QUESTIONS = [
    "Dem Management die Architektur über detaillierte UML-Diagramme erläutern.",
    "Mit dem IT-Betrieb Deployment und Betreibbarkeit abstimmen.",
    "Mit QS und Test die Prüfbarkeit der Qualitätsziele abstimmen.",
-   "Die Abstimmung mit den Fachbereichen anstelle des PO übernehmen.",
+   "Mit dem IT-Betrieb festlegen, welche fachlichen Funktionen das System anbietet.",
    "Mit PO und Anforderungsanalyse die fachlichen Ziele klären."
   ],
   "correct": [
@@ -6069,10 +6134,10 @@ const QUESTIONS = [
    "Falsch: Das ist nicht zielgruppengerecht: Das Management braucht eher Überblick, Risiken, Kosten und Konsequenzen von Entscheidungen. Detaillierte UML-Diagramme richten sich an Entwickler:innen und überfordern andere Zielgruppen.",
    "Richtig: Der IT-Betrieb ist laut Curriculum ausdrücklich Partner, vor allem bei Informationssystemen. Gemeinsam werden etwa Deployment, Monitoring, Skalierung und Betreibbarkeit abgestimmt, damit das System im Betrieb funktioniert.",
    "Richtig: Qualitätssicherung und Test nennt das Curriculum als Stakeholder. Qualitätsziele müssen überprüfbar sein; gemeinsam klärt man, wie etwa Performanz- oder Sicherheitsanforderungen getestet werden.",
-   "Falsch: Architekt:innen ergänzen andere Rollen, ersetzen sie aber nicht. Die fachliche Abstimmung mit den Fachbereichen bleibt beim Product Owner; Architekt:innen unterstützen mit technischer Einschätzung.",
+   "Falsch: Die fachlichen Funktionen klären Product Owner und Anforderungsanalyse mit der Fachseite. Der IT-Betrieb bringt Anforderungen zu Deployment und Betreibbarkeit ein, nicht den fachlichen Funktionsumfang.",
    "Richtig: Produktmanagement und Anforderungsanalyse liefern das „Was“. Architekt:innen klären mit ihnen fachliche Ziele, Prioritäten und Qualitätsanforderungen, um daraus tragfähige Architekturentscheidungen abzuleiten."
   ],
-  "explanation": "Architekt:innen arbeiten zielgruppengerecht mit PO und Anforderungsanalyse, IT-Betrieb sowie QS und Test zusammen. Fallen: Sie ersetzen keine anderen Rollen wie den PO und überfordern das Management nicht mit detaillierten UML-Diagrammen."
+  "explanation": "Architekt:innen arbeiten zielgruppengerecht mit PO und Anforderungsanalyse, IT-Betrieb sowie QS und Test zusammen. Fallen: Sie überfordern das Management nicht mit detaillierten UML-Diagrammen, und der fachliche Funktionsumfang wird mit PO und Anforderungsanalyse geklärt, nicht mit dem IT-Betrieb."
  },
  {
   "id": "c1q34",
@@ -6143,30 +6208,29 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "multi",
-  "q": "Welche der folgenden sind Architekturmuster bzw. Entwurfsansätze?",
+  "q": "Welche der folgenden Begriffe bezeichnen Architekturmuster bzw. Entwurfsansätze?",
   "options": [
-   "Ports and Adapters (Hexagonal).",
-   "Domain-Driven Design (DDD).",
-   "arc42 – ein Architekturstil, der die Bausteine eines Systems in zwölf Bereiche gliedert.",
-   "C4 – ein Architekturmuster mit den vier Schichten Context, Container, Component und Code.",
-   "Microservices.",
-   "Pipes und Filter."
+   "Pipes und Filter",
+   "Domain-Driven Design (DDD)",
+   "ATAM",
+   "Ports and Adapters (Hexagonale Architektur)",
+   "C4",
+   "arc42"
   ],
   "correct": [
    0,
    1,
-   4,
-   5
+   3
   ],
   "optExpl": [
-   "Richtig: Ports and Adapters ist ein verbreitetes Architekturmuster: Die Fachlogik steht im Zentrum, Technik wie UI oder Datenbank wird über austauschbare Adapter an Ports angebunden. Es strukturiert also direkt das System.",
-   "Richtig: DDD ist ein Entwurfsansatz, der die Fachdomäne ins Zentrum stellt. Mit Bounded Contexts und Ubiquitous Language liefert er Kriterien für fachliche Schnitte und beeinflusst so die Systemstruktur.",
-   "Falsch: arc42 ist eine Vorlage für Architekturdokumentation mit zwölf Abschnitten. Sie gliedert die Doku, nicht das System, und sagt nichts darüber, wie Bausteine strukturiert werden sollen.",
-   "Falsch: C4 ist ein Modell für Architekturdiagramme mit vier Zoomstufen, kein Strukturmuster. Context, Container, Component und Code sind Detailstufen der Darstellung, keine Schichten des Systems.",
-   "Richtig: Microservices sind ein Architekturmuster: kleine, unabhängig deploybare Dienste, die je einen fachlichen Bereich verantworten. Sie bestimmen Zerlegung, Kommunikation und Verteilung des Systems.",
-   "Richtig: Pipes und Filter ist ein klassisches Architekturmuster: Verarbeitungsschritte (Filter) werden über Datenströme (Pipes) verkettet, etwa in Batch-Verarbeitung oder Compilern. Filter lassen sich einzeln austauschen und kombinieren."
+   "Richtig: Muster, das Verarbeitung in unabhängige Schritte zerlegt, die über Datenströme verbunden sind.",
+   "Richtig: Entwurfsansatz, der die Struktur an fachlichen Kontexten und einem gemeinsamen Modell ausrichtet.",
+   "Falsch: Methode zur Bewertung von Architekturen anhand von Qualitätsszenarien; kein Entwurfsmuster.",
+   "Richtig: Muster, das den fachlichen Kern über Ports von technischen Adaptern trennt.",
+   "Falsch: Modell zur Darstellung von Architektur auf vier Detailebenen; kein Strukturmuster und keine Schichtung des Systems.",
+   "Falsch: Vorlage zur Dokumentation von Architekturen; sie schreibt keine Struktur des Systems vor."
   ],
-  "explanation": "Pipes und Filter, Microservices, Ports and Adapters sowie DDD sind Architekturmuster bzw. Entwurfsansätze, die die Systemstruktur prägen. Falle: C4 (Diagramm-Modell) und arc42 (Doku-Vorlage) sind Hilfsmittel der Dokumentation – trotz „vier Ebenen“ bzw. „zwölf Bereichen“ keine Strukturmuster."
+  "explanation": "Muster und Ansätze (Pipes und Filter, Ports and Adapters, DDD) beschreiben, wie ein System strukturiert wird. arc42, C4 und ATAM unterstützen dagegen Dokumentation, Darstellung bzw. Bewertung, geben aber keine Systemstruktur vor."
  },
  {
   "id": "c3q74",
@@ -6177,28 +6241,27 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Welche der folgenden Ansätze zur Architekturentwicklung nennt das CPSA-F-Curriculum?",
   "options": [
-   "Code first: Struktur aus dem Quellcode ableiten.",
-   "Domain-Driven Design.",
+   "Feature-Driven Architecture: die Struktur wird aus einzelnen Features abgeleitet.",
+   "Globale Analyse: Einflussfaktoren systematisch analysieren und Lösungsstrategien ableiten.",
    "Sichtenbasierte Architekturentwicklung.",
-   "Top-down-Entwurf.",
-   "Bottom-up-Entwurf.",
-   "Technologiegetriebener Entwurf (Framework zuerst)."
+   "Code first: die Struktur aus dem entstehenden Quellcode ableiten.",
+   "Technologiegetriebener Entwurf: zuerst das Framework festlegen, dann die Struktur ableiten.",
+   "Evolutionäre Architektur."
   ],
   "correct": [
    1,
    2,
-   3,
-   4
+   5
   ],
   "optExpl": [
-   "Falsch: Klingt nach Bottom-up, ist es aber nicht: Bottom-up setzt vorhandene Bausteine bewusst zu Strukturen zusammen. Die Architektur nur nachträglich aus Code abzulesen, ist kein Entwurfsansatz.",
-   "Richtig: Domain-Driven Design ist im Curriculum als (R3-)Ansatz genannt: Die Struktur folgt der Fachdomäne, etwa über Bounded Contexts und eine gemeinsame Fachsprache.",
-   "Richtig: Sichtenbasierte Architekturentwicklung ist ein R1-Vorgehen: Die Architektur wird über Kontext-, Baustein-, Laufzeit- und Verteilungssicht schrittweise erarbeitet.",
-   "Richtig: Top-down bedeutet, vom Groben ins Feine zu zerlegen, etwa vom Gesamtsystem über Subsysteme bis zu einzelnen Bausteinen. Das Curriculum nennt es als R1-Vorgehen.",
-   "Richtig: Bottom-up bildet aus vorhandenen Details oder Komponenten größere Strukturen, etwa beim Einsatz bestehender Bibliotheken. Auch dieses Vorgehen ist im Curriculum R1.",
-   "Falsch: Technologiegetriebener Entwurf kommt in der Praxis vor, ist aber kein Ansatz des Curriculums. Die Technologie soll den Anforderungen folgen, nicht die Struktur vorgeben."
+   "Falsch: Ein derartiger Ansatz wird im Curriculum nicht genannt. Fachlich ausgerichtet ist dort Domain-Driven Design.",
+   "Richtig: Die Globale Analyse gehört zu den im Curriculum genannten weiteren Ansätzen.",
+   "Richtig: Die Architektur wird über mehrere Sichten erarbeitet, z. B. nach Kruchtens 4+1-Modell.",
+   "Falsch: Das Curriculum nennt keinen Code-first-Ansatz. Die Struktur wird entworfen, nicht erst aus dem Code abgeleitet.",
+   "Falsch: Das wird nicht als Ansatz genannt. Technologien sind Randbedingungen oder Entscheidungen, aber kein eigener Entwurfsansatz.",
+   "Richtig: Die Architektur wächst schrittweise, wobei automatisierte Prüfungen Qualitäten absichern."
   ],
-  "explanation": "Das Curriculum nennt Top-down, Bottom-up und sichtenbasiertes Vorgehen (R1) sowie u. a. Domain-Driven Design, evolutionäre Architektur und globale Analyse (R3). Fallen: „Framework zuerst“ und „Code first“ klingen praxisnah, sind aber keine Entwurfsansätze des Curriculums."
+  "explanation": "Das Curriculum nennt u. a. Top-down, Bottom-up, sichtenbasiert, Domain-Driven Design, evolutionäre Architektur, Globale Analyse und modellbasierten Entwurf. „Code first“, „technologiegetrieben“ oder „Feature-Driven Architecture“ sind keine Curriculum-Ansätze."
  },
  {
   "id": "c3q75",
@@ -6206,26 +6269,29 @@ const QUESTIONS = [
   "lz": "LZ 03-08",
   "r": "R1",
   "type": "multi",
-  "q": "Für eine Verwaltungsanwendung wird eine Schichtenarchitektur vorgeschlagen. Welche Vorteile lassen sich damit am ehesten begründen?",
+  "q": "Welche Vorteile lassen sich für eine Schichtenarchitektur begründen?",
   "options": [
-   "Schichten skalieren unabhängig voneinander.",
-   "Trennung der Belange über die Schichten.",
-   "Fachliche Änderungen bleiben in einer Schicht.",
-   "Wenig Latenz durch kurze Aufrufwege.",
-   "Einzelne Schichten sind austauschbar."
+   "Die gerichtete Abhängigkeit nach unten (ohne Zyklen) erleichtert das Verständnis des Systems.",
+   "Fachliche Änderungen bleiben in der Regel auf eine Schicht beschränkt.",
+   "Jede Schicht lässt sich unabhängig von den anderen skalieren.",
+   "Eine Schicht kann ersetzt werden, solange ihre Schnittstelle zur darüberliegenden Schicht erhalten bleibt.",
+   "Die Antwortzeit verbessert sich, weil jede Schicht Zwischenergebnisse für die darüberliegende vorverarbeitet.",
+   "Darstellung, Fachlogik und Datenzugriff lassen sich getrennt entwickeln und testen."
   ],
   "correct": [
-   1,
-   4
+   0,
+   3,
+   5
   ],
   "optExpl": [
-   "Falsch: Unabhängige Skalierung ist ein Merkmal von Microservices oder verteilten Diensten. Schichten sind logische Strukturierungseinheiten, keine Betriebseinheiten, und werden meist gemeinsam deployt und skaliert.",
-   "Richtig: Oberfläche, Fachlogik und Datenzugriff liegen in getrennten Schichten mit jeweils eigener Verantwortung. Diese Trennung der Belange macht das System verständlicher und ist ein Kernvorteil des Musters.",
-   "Falsch: Gerade nicht: Ein neues Fachfeld, etwa ein zusätzliches Attribut am Antrag, zieht sich oft durch UI, Logik und Persistenz. Fachliche Änderungen betreffen in Schichtenarchitekturen typischerweise mehrere Schichten.",
-   "Falsch: Das Durchreichen von Aufrufen durch mehrere Schichten kostet eher Latenz und Overhead. Kurze Aufrufwege sind also kein Vorteil, sondern im Gegenteil ein bekannter Nachteil des Musters.",
-   "Richtig: Solange die Schnittstelle zur darüberliegenden Schicht gleich bleibt, kann eine Schicht ersetzt werden. Beispiel: Die Datenzugriffsschicht wird von einer relationalen auf eine dokumentenorientierte Datenbank umgestellt."
+   "Richtig: Zyklenfreie Abhängigkeiten erlauben es, Schichten von unten nach oben zu verstehen und zu testen.",
+   "Falsch: Schichten schneiden nach technischen Belangen. Ein neues Fachattribut berührt typischerweise UI, Logik und Persistenz.",
+   "Falsch: Schichten sind zunächst logische Strukturen. Unabhängige Skalierung erfordert getrennte Deployment-Einheiten, wie sie z. B. Microservices bieten.",
+   "Richtig: Die obere Schicht kennt nur die Schnittstelle der unteren, nicht deren Realisierung. Damit ist der Austausch möglich.",
+   "Falsch: Schichtung ist keine Performance-Maßnahme; das Durchreichen über mehrere Schichten kostet eher Laufzeit.",
+   "Richtig: Trennung der Belange ist das Hauptmotiv der Schichtung; über definierte Schnittstellen lassen sich Schichten isoliert prüfen."
   ],
-  "explanation": "Schichten bringen vor allem Trennung der Belange und Austauschbarkeit einzelner Schichten. Fallen: Vorteile anderer Muster wie unabhängige Skalierung unterstellen, lokale fachliche Änderungen erwarten oder geringe Latenz annehmen, obwohl das Durchreichen eher kostet."
+  "explanation": "Schichten trennen Belange nach Abstraktionsebene und geben eine gerichtete Abhängigkeit vor. Das fördert Verständlichkeit und Austauschbarkeit. Nicht begründbar sind Aussagen zu fachlicher Änderungslokalität und unabhängiger Skalierung: Fachliche Änderungen ziehen sich oft durch alle Schichten, und Schichten sind zunächst logische, nicht deploybare Einheiten."
  },
  {
   "id": "c3q76",
@@ -6233,26 +6299,26 @@ const QUESTIONS = [
   "lz": "LZ 03-08",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Team erwägt, die strikte Schichtung seines Systems beizubehalten. Welche Nachteile oder Grenzen sollte es kennen?",
+  "q": "Welche Nachteile oder Grenzen hat eine strikte Schichtung?",
   "options": [
-   "Ein neues Fachattribut betrifft oft alle Schichten.",
-   "Schichten können nicht ausgetauscht werden.",
-   "Die Schichten müssen als eigene Deployments laufen.",
-   "Zwischenschichten reichen Aufrufe oft nur weiter.",
-   "Sie lässt sich nicht mit Microservices kombinieren."
+   "Strikte Schichtung führt zwangsläufig zu zyklischen Abhängigkeiten zwischen benachbarten Schichten.",
+   "Zwischenschichten leiten Aufrufe häufig nur weiter und erzeugen Aufwand ohne eigene Funktion.",
+   "Durch die Bindung jeder Schicht an ihre Nachbarschicht kann keine Schicht ausgetauscht werden.",
+   "Die Schichten müssen als getrennte Prozesse oder Deployments betrieben werden.",
+   "Ein neues fachliches Attribut muss typischerweise durch alle Schichten gereicht werden."
   ],
   "correct": [
-   0,
-   3
+   1,
+   4
   ],
   "optExpl": [
-   "Richtig: Fachliche Änderungen verlaufen quer zu technischen Schichten. Ein neues Attribut muss oft in UI, Logik, Persistenz und Datenbank ergänzt werden, was Änderungen breit streut.",
-   "Falsch: Austauschbarkeit ist gerade ein Vorteil der Schichtung: Solange die Schnittstelle stabil bleibt, lässt sich etwa die Persistenzschicht ersetzen, ohne höhere Schichten anzupassen.",
-   "Falsch: Schichten sind eine logische Struktur. Ob sie gemeinsam in einem Artefakt oder getrennt deployt werden, ist eine eigene Verteilungsentscheidung und keine Pflicht der Schichtung.",
-   "Richtig: Bei strikter Schichtung darf nur die direkt darunterliegende Schicht genutzt werden. Zwischenschichten ohne eigene Logik reichen Aufrufe dann nur weiter, was Boilerplate, Latenz und Pflegeaufwand kostet.",
-   "Falsch: Muster lassen sich kombinieren: Ein einzelner Microservice kann intern durchaus geschichtet sein. Schichten und Microservices schließen sich also nicht aus."
+   "Falsch: Strikte Schichtung erlaubt nur Abhängigkeiten nach unten und ist damit zyklenfrei. Zyklen entstehen erst durch Verstöße (Aufrufe nach oben).",
+   "Richtig: In der strikten Variante darf eine Schicht nur die direkt darunterliegende nutzen; einfache Zugriffe durchlaufen deshalb jede Schicht.",
+   "Falsch: Gerade die Bindung nur über definierte Schnittstellen macht den Austausch möglich. Das ist ein Vorteil, kein Nachteil der Schichtung.",
+   "Falsch: Schichten sind logische Strukturen und können in einem einzigen Prozess laufen. Eine Verteilung ist eine eigene Entscheidung.",
+   "Richtig: Schichten schneiden nach technischen Belangen, nicht nach Fachlichkeit. Fachliche Änderungen sind deshalb nicht lokal."
   ],
-  "explanation": "Strikte Schichtung hat Grenzen: Fachliche Änderungen ziehen sich durch mehrere Schichten, und Zwischenschichten reichen Aufrufe oft nur weiter. Fallen: Austauschbarkeit ist ein Vorteil, Schichten sind logisch statt Deployment-Einheiten und lassen sich mit Microservices kombinieren."
+  "explanation": "Nachteile strikter Schichtung: Änderungen mit fachlichem Bezug durchlaufen alle Schichten, Zwischenschichten reichen Aufrufe oft nur durch. Schichten bleiben dennoch austauschbar, sie sind nicht zwingend getrennt deploybar und die Schichtung lässt sich mit anderen Stilen kombinieren, auch ohne zyklische Abhängigkeiten."
  },
  {
   "id": "c4q38",
@@ -6299,7 +6365,7 @@ const QUESTIONS = [
   ],
   "rows": [
    {
-    "text": "Sie verantworten Budget, Termine und Personal des Projekts.",
+    "text": "Sie legen die fachlichen Anforderungen verbindlich fest, ohne sie zu hinterfragen.",
     "cat": 1
    },
    {
@@ -6324,14 +6390,14 @@ const QUESTIONS = [
    }
   ],
   "rowExpl": [
-   "Budget, Termine und Personal liegen bei der Projektleitung. Architekt:innen liefern dafür Einschätzungen, übernehmen aber nicht die Verantwortung, deshalb ist die Aussage falsch.",
+   "Anforderungen und Randbedingungen zu hinterfragen gehört laut Curriculum zu den Aufgaben der Architekt:innen. Die fachlichen Anforderungen verantwortet die Fachseite (z. B. der Product Owner), deshalb ist die Aussage falsch.",
    "Architekt:innen zeigen Stakeholdern die Konsequenzen ihrer Entscheidungen auf, damit diese informiert mitentscheiden können. Das gehört zu ihren Aufgaben, die Aussage ist richtig.",
    "Zur Verantwortung gehört, dass Code und Architektur zusammenpassen, sonst driftet die Architektur vom Gebauten weg. Die Aussage ist deshalb richtig.",
    "Das fachliche Backlog priorisiert der Product Owner. Architekt:innen bringen architekturrelevante Aspekte ein, setzen aber nicht die fachlichen Prioritäten. Die Aussage ist falsch.",
    "Architektur ist iterativ, und Architekt:innen erkennen selbst, wann eine weitere Iteration nötig ist. Sie warten dafür nicht auf Vorgaben, die Aussage ist richtig.",
    "Zielkonflikte zwischen Qualitätszielen werden mit den Stakeholdern entschieden und nicht von Architekt:innen allein. Die Aussage ist deshalb falsch."
   ],
-  "explanation": "Architekt:innen zeigen Konsequenzen ihrer Entscheidungen auf, prüfen die Konsistenz von Code und Architektur und erkennen selbst, wann eine weitere Iteration nötig ist. Fallen: Budget, Termine und Personal liegen bei der Projektleitung, das Backlog beim Product Owner, und Zielkonflikte werden mit den Stakeholdern entschieden."
+  "explanation": "Architekt:innen zeigen Konsequenzen ihrer Entscheidungen auf, prüfen die Konsistenz von Code und Architektur und erkennen selbst, wann eine weitere Iteration nötig ist. Fallen: Anforderungen werden hinterfragt statt verbindlich festgelegt, das Backlog priorisiert der Product Owner, und Zielkonflikte werden mit den Stakeholdern entschieden."
  },
  {
   "id": "k30",
@@ -6390,7 +6456,7 @@ const QUESTIONS = [
   ],
   "rows": [
    {
-    "text": "Ohne vollständig dokumentierte Architektur ist keine Analyse möglich.",
+    "text": "Vor der Implementierung lässt sich durch eine Analyse bereits nachweisen, dass die Qualitätsziele erreicht werden.",
     "cat": 1
    },
    {
@@ -6415,14 +6481,14 @@ const QUESTIONS = [
    }
   ],
   "rowExpl": [
-   "Eine vollständig dokumentierte Architektur ist keine Voraussetzung. Auch Skizzen, Code und Interviews reichen als Grundlage, deshalb ist die Aussage falsch.",
+   "Falsch: Vor der Implementierung kann eine Analyse nur Risiken im Entwurf aufdecken und einschätzen, ob die Anforderungen voraussichtlich erfüllt werden. Ein Nachweis der Zielerreichung ist erst am umgesetzten System möglich. Die Aussage ist deshalb falsch.",
    "Ein Ziel der Analyse ist zu prüfen, ob die Implementierung zu den getroffenen Architekturentscheidungen passt. Die Aussage ist deshalb richtig.",
    "Eine Analyse bewertet immer anhand eines Maßstabs, und das sind die priorisierten Qualitätsziele bzw. Anforderungen. Die Aussage ist deshalb richtig.",
    "Eine Analyse ist schon vor der Implementierung sinnvoll, etwa an Entwürfen, und nicht erst mit lauffähigem Code. Die Aussage ist deshalb falsch.",
    "Eine Architekturanalyse lohnt sich in allen Phasen: vor, während und nach der Implementierung. Die Aussage ist deshalb richtig.",
    "Die Analyse prüft auch, ob architekturrelevante Anliegen der Stakeholder berücksichtigt sind. Die Aussage ist deshalb richtig."
   ],
-  "explanation": "Architekturanalyse ist vor, während und nach der Implementierung sinnvoll (richtig), also nicht erst mit lauffähigem Code (falsch). Sie misst an priorisierten Qualitätszielen (richtig), prüft die Konformität der Implementierung zu den Entscheidungen (richtig) und ob architekturrelevante Stakeholder-Anliegen berücksichtigt sind (richtig). Falle: Eine vollständig dokumentierte Architektur ist keine Voraussetzung, auch Skizzen, Code und Interviews reichen."
+  "explanation": "Architekturanalyse ist vor, während und nach der Implementierung sinnvoll (richtig), also nicht erst mit lauffähigem Code (falsch). Sie misst an priorisierten Qualitätszielen (richtig), prüft die Konformität der Implementierung zu den Entscheidungen (richtig) und ob architekturrelevante Stakeholder-Anliegen berücksichtigt sind (richtig). Falle: Vor der Implementierung zeigt sie Risiken und Erfüllungswahrscheinlichkeit, aber keinen Nachweis der Zielerreichung."
  },
  {
   "id": "k32",
@@ -6438,39 +6504,39 @@ const QUESTIONS = [
   ],
   "rows": [
    {
-    "text": "Lose Kopplung heißt: so wenige Abhängigkeiten wie möglich, so viele wie nötig.",
+    "text": "Hohe Kohäsion kann die Zahl der Abhängigkeiten zwischen Bausteinen senken, weil zusammengehörige Aufgaben nicht über Bausteingrenzen verteilt werden.",
     "cat": 0
    },
    {
-    "text": "Information Hiding verbirgt Entscheidungen, die sich wahrscheinlich ändern.",
+    "text": "Lose Kopplung wird erreicht, indem Abhängigkeiten zwischen Bausteinen vollständig vermieden werden.",
+    "cat": 1
+   },
+   {
+    "text": "Abstraktion und Information Hiding sind dasselbe Prinzip unter verschiedenen Namen.",
+    "cat": 1
+   },
+   {
+    "text": "Wie streng ein Prinzip angewendet wird, hängt von Anforderungen und Qualitätszielen ab.",
     "cat": 0
    },
    {
-    "text": "Hohe Kohäsion bedeutet, dass Bausteine untereinander viele Abhängigkeiten haben.",
+    "text": "Ein Modulschnitt nach technischen Schichten stellt hohe fachliche Kohäsion sicher.",
     "cat": 1
    },
    {
-    "text": "Entwurfsprinzipien wendet man unabhängig von den konkreten Anforderungen an.",
-    "cat": 1
-   },
-   {
-    "text": "Kapselung ist ein Mittel, um Information Hiding umzusetzen.",
+    "text": "Kopplung zwischen zwei Bausteinen kann auch ohne direkte Aufrufe bestehen, etwa über gemeinsame Datenformate.",
     "cat": 0
-   },
-   {
-    "text": "Information Hiding bedeutet, Informationen vor den Stakeholdern des Projekts geheim zu halten.",
-    "cat": 1
    }
   ],
   "rowExpl": [
-   "Lose Kopplung heißt nicht „keine“ Abhängigkeiten, sondern so wenige wie möglich und so viele wie nötig. Die Formulierung trifft das Prinzip, deshalb ist die Aussage richtig.",
-   "Information Hiding verbirgt Entscheidungen, die sich wahrscheinlich ändern, hinter einer stabilen Schnittstelle. Änderungen bleiben dadurch lokal, die Aussage ist richtig.",
-   "Kohäsion meint den Zusammenhalt innerhalb eines Bausteins, nicht Abhängigkeiten zwischen Bausteinen. Viele Abhängigkeiten untereinander wären hohe Kopplung, deshalb ist die Aussage falsch.",
-   "Prinzipien wendet man abhängig von den konkreten Anforderungen an und wägt sie gegeneinander ab. Eine Anwendung unabhängig davon ist kein sinnvolles Vorgehen, daher ist die Aussage falsch.",
-   "Kapselung ist das Mittel, mit dem Information Hiding umgesetzt wird: Innere Details sind nur über die Schnittstelle erreichbar. Die Aussage ist deshalb richtig.",
-   "Information Hiding hat nichts mit Geheimhaltung gegenüber Stakeholdern zu tun. Verborgen werden änderungswahrscheinliche Entscheidungen hinter einer stabilen Schnittstelle; die Aussage ist daher falsch."
+   "Was zusammengehört, kommuniziert intern statt über Bausteingrenzen. Eine hohe Kohäsion hilft daher meist, Abhängigkeiten zwischen Bausteinen zu verringern; die Aussage ist richtig.",
+   "Bausteine müssen zusammenarbeiten, also sind Abhängigkeiten notwendig. Lose Kopplung heißt, sie auf das Nötige zu begrenzen; die Aussage ist falsch.",
+   "Abstraktion bildet zweckmäßige Verallgemeinerungen, Information Hiding verbirgt änderungswahrscheinliche Entscheidungen. Sie ergänzen sich, sind aber nicht identisch; die Aussage ist falsch.",
+   "Prinzipien sind Abwägungshilfen und keine Checkliste. Sie werden im Kontext der Anforderungen gewichtet; die Aussage ist richtig.",
+   "Ein Schichtenschnitt verteilt fachlich Zusammengehöriges auf mehrere Module. Fachliche Kohäsion erfordert einen fachlich orientierten Schnitt; die Aussage ist falsch.",
+   "Gemeinsame Annahmen über Datenformate oder Strukturen binden Bausteine aneinander, auch ohne Aufruf. Kopplung geht über Aufrufbeziehungen hinaus; die Aussage ist richtig."
   ],
-  "explanation": "Richtig: Lose Kopplung heißt so wenige Abhängigkeiten wie möglich, so viele wie nötig; Information Hiding verbirgt änderungswahrscheinliche Entscheidungen; Kapselung ist das Mittel dazu. Falsch: Kohäsion meint Zusammenhalt innerhalb eines Bausteins, Prinzipien wendet man abhängig von Anforderungen an, und Information Hiding heißt nicht, Informationen vor Stakeholdern geheim zu halten, sondern änderungswahrscheinliche Entscheidungen hinter einer stabilen Schnittstelle zu verbergen."
+  "explanation": "Richtig: Hohe Kohäsion senkt tendenziell Abhängigkeiten zwischen Bausteinen, Prinzipien werden anforderungsabhängig gewichtet, und Kopplung besteht auch ohne Aufrufe. Falsch: Lose Kopplung heißt nicht abhängigkeitsfrei, Abstraktion und Information Hiding sind verschiedene Prinzipien, und ein Schichtenschnitt sichert keine fachliche Kohäsion."
  },
  {
   "id": "k33",
@@ -6521,30 +6587,29 @@ const QUESTIONS = [
   "lz": "LZ 03-05",
   "r": "R1",
   "type": "multi",
-  "q": "Die Anforderungen stehen zu Projektbeginn noch nicht vollständig fest. Was ist beim Architekturentwurf am ehesten sinnvoll?",
+  "q": "Die Anforderungen sind unvollständig. Welche Aussagen zum Umgang mit Architekturentscheidungen treffen zu?",
   "options": [
-   "Tragende Entscheidungen zurückstellen, bis die Anforderungen feststehen.",
-   "Schwer umkehrbare Entscheidungen so spät wie verantwortbar treffen.",
-   "Erweiterungspunkte vorsorglich überall vorsehen.",
-   "Annahmen explizit festhalten und später überprüfen.",
-   "Die riskantesten Annahmen früh mit Prototypen prüfen.",
-   "Iterativ vorgehen und die Architektur mit dem Wissen weiterentwickeln."
+   "Schwer umkehrbare Entscheidungen sollten so spät wie verantwortbar getroffen werden.",
+   "Unbestätigte Annahmen gehören nicht in die Architekturdokumentation, da sie nur gesicherte Fakten enthalten soll.",
+   "Je größer die Unsicherheit, desto detaillierter sollte der Entwurf vorab ausgearbeitet werden.",
+   "Eine Entscheidung zu verschieben ist selbst eine Entscheidung, die Risiken birgt, etwa Verzögerungen oder unbeabsichtigte Festlegungen.",
+   "Besonders riskante Annahmen werden am besten erst geprüft, wenn der Gesamtentwurf steht.",
+   "Flexibilität an Stellen, an denen Änderungen erwartet werden, ist sinnvoll; pauschale Flexibilität erhöht Komplexität ohne Nutzen."
   ],
   "correct": [
-   1,
+   0,
    3,
-   4,
    5
   ],
   "optExpl": [
-   "Falsch: Vollständige Anforderungen gibt es selten, und auf sie zu warten blockiert das Projekt. „So spät wie verantwortbar“ heißt nicht „erst wenn alles feststeht“ – sonst wächst die Struktur ungesteuert.",
-   "Richtig: Beim Last Responsible Moment trifft man schwer umkehrbare Entscheidungen erst dann, wenn mehr Wissen vorliegt, aber bevor das Warten selbst schadet. So sinkt das Risiko, sich früh falsch festzulegen.",
-   "Falsch: Flexibilität auf Vorrat erzeugt Komplexität für Anforderungen, die vielleicht nie kommen (YAGNI). Erweiterungspunkte sollte man gezielt dort vorsehen, wo Änderungen wahrscheinlich sind.",
-   "Richtig: Fehlt Wissen, muss man Annahmen treffen. Explizit festgehaltene Annahmen lassen sich gezielt überprüfen, und betroffene Entscheidungen können rechtzeitig angepasst werden, wenn sich eine Annahme als falsch erweist.",
-   "Richtig: Prototypen liefern früh Rückmeldung genau dort, wo eine falsche Annahme am teuersten wäre. So wird Unsicherheit gezielt dort reduziert, wo das Risiko am größten ist.",
-   "Richtig: Bei unsicheren Anforderungen wächst die Architektur mit dem Wissen und wird in jeder Iteration überprüft. Neue Erkenntnisse fließen so kontinuierlich in die Entscheidungen ein."
+   "Richtig: Je später eine schwer umkehrbare Entscheidung fällt, desto mehr Wissen liegt vor. „Verantwortbar“ heißt, dass das Warten selbst noch keinen Schaden verursacht.",
+   "Falsch: Gerade bei Unsicherheit sind explizit festgehaltene Annahmen wichtig, weil sie überprüft werden können und zeigen, welche Entscheidungen bei Änderung der Annahme neu zu bewerten sind.",
+   "Falsch: Ein detaillierter Vorab-Entwurf beruht auf demselben unvollständigen Wissen und muss bei Klärung der Anforderungen oft verworfen werden. Unsicherheit wird besser iterativ abgebaut.",
+   "Richtig: Wer nicht entscheidet, trifft de facto auch eine Entscheidung. Teams legen sich dann implizit fest, oder Folgearbeiten verzögern sich. Aufschieben ist ein Abwägungsergebnis, kein risikofreier Zustand.",
+   "Falsch: Gerade riskante Annahmen sollten früh, etwa per Prototyp oder Durchstich, geprüft werden. Nach dem Gesamtentwurf sind Korrekturen teuer.",
+   "Richtig: Erweiterungspunkte dort, wo Änderungen wahrscheinlich sind, begrenzen Änderungskosten. Flexibilität auf Vorrat erzeugt dagegen Komplexität für Anforderungen, die vielleicht nie kommen."
   ],
-  "explanation": "Bei unvollständigen Anforderungen: iterativ arbeiten, Annahmen festhalten, riskante Annahmen früh per Prototyp prüfen und schwer umkehrbare Entscheidungen zum Last Responsible Moment treffen. Fallen: alles vorsorglich flexibel machen – oder auf vollständige Anforderungen warten."
+  "explanation": "Bei unvollständigen Anforderungen gilt: schwer Umkehrbares spät, aber nicht zu spät entscheiden, Annahmen explizit festhalten, Risiken früh prüfen und Flexibilität gezielt einsetzen. Fallen: Vorab-Detaillierung, Annahmen verschweigen, Aufschieben als risikofrei ansehen."
  },
  {
   "id": "c2q29",
@@ -6606,29 +6671,29 @@ const QUESTIONS = [
   "lz": "LZ 03-06",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Baustein ruft das API eines externen Kartendienstes an vielen Stellen direkt auf. Welche Folgen sind typisch?",
+  "q": "Ein Baustein nutzt das API eines externen Kartendienstes an vielen Stellen direkt. Welche Aussagen treffen zu?",
   "options": [
-   "Die afferente Kopplung des Bausteins steigt.",
-   "Ausfälle des Dienstes wirken direkt zurück.",
-   "API-Änderungen des Anbieters erzwingen eigene Änderungen.",
-   "Ein SLA des Anbieters macht die Einbindung unkritisch.",
-   "Die Kopplung besteht nur zur Laufzeit.",
-   "Ein Anbieterwechsel wird aufwendig."
+   "Ausfälle des Dienstes können sich auf den Baustein auswirken, auch wenn das API unverändert bleibt.",
+   "Die afferente Kopplung des Bausteins steigt durch die Nutzung des Dienstes.",
+   "Ein SLA des Anbieters schützt vor den Auswirkungen von API-Änderungen.",
+   "Verteilte direkte Aufrufe erhöhen den Aufwand eines Anbieterwechsels, weil jede Aufrufstelle betroffen ist.",
+   "Die Abhängigkeit ist efferent und erhöht die Instabilität des Bausteins.",
+   "Da der Dienst remote aufgerufen wird, besteht die Kopplung nur zur Laufzeit."
   ],
   "correct": [
-   1,
-   2,
-   5
+   0,
+   3,
+   4
   ],
   "optExpl": [
-   "Falsch: Die Abhängigkeit geht vom Baustein zum Kartendienst, ist also ausgehend (efferent). Afferente Kopplung zählt dagegen, wie viele andere Bausteine von diesem Baustein abhängen – die Begriffe werden hier vertauscht.",
-   "Richtig: Ohne Abfederung durch Timeout, Fallback oder Circuit Breaker schlägt ein Ausfall des Fremddienstes direkt auf die eigene Funktion durch. Bei vielen direkten Aufrufstellen ist das System an vielen Stellen verwundbar.",
-   "Richtig: Der Baustein hängt an einem extern kontrollierten, volatilen Element. Ändert der Anbieter sein API oder kündigt eine Version ab, muss der eigene Code nachziehen – und zwar an jeder Aufrufstelle.",
-   "Falsch: Ein SLA deckt höchstens Verfügbarkeit und Reaktionszeiten ab, nicht API-Änderungen, Versionswechsel oder Abkündigungen. Die strukturelle Kopplung an den Anbieter bleibt bestehen.",
-   "Falsch: Auch zur Entwicklungszeit hängt der Code an Datentypen, Bibliotheken und Aufrufkonventionen des Anbieters. Die Kopplung zeigt sich also schon beim Kompilieren und Testen, nicht erst zur Laufzeit.",
-   "Richtig: Ist das fremde API im Code verstreut, muss bei einem Anbieterwechsel jede Aufrufstelle angepasst werden. Ein Adapter bzw. eine Anti-Corruption Layer würde das an einer Stelle bündeln."
+   "Richtig: Verfügbarkeit und Antwortzeit des Dienstes wirken direkt auf den Baustein zurück, sofern sie nicht durch Timeouts oder Fallbacks abgefedert werden.",
+   "Falsch: Die Abhängigkeit geht vom Baustein zum Dienst und ist damit ausgehend (efferent). Afferent zählt, wie viele andere Bausteine von diesem Baustein abhängen.",
+   "Falsch: Ein SLA deckt höchstens Verfügbarkeit und Reaktionszeiten ab, nicht API-Änderungen, Versionswechsel oder Abkündigungen. Die strukturelle Kopplung bleibt.",
+   "Richtig: Ist das fremde API im Code verstreut, muss bei einem Wechsel jede Aufrufstelle angepasst werden. Eine Kapselung an einer Stelle würde den Aufwand bündeln.",
+   "Richtig: Ausgehende Abhängigkeiten zu einem fremdkontrollierten, volatilen Element erhöhen die Instabilität im Sinne der Stabilitätsmetrik: Der Baustein muss auf Änderungen des Dienstes reagieren.",
+   "Falsch: Auch zur Entwicklungszeit hängt der Code an Datentypen, Bibliotheken und Aufrufkonventionen des Anbieters. Die Kopplung zeigt sich schon beim Kompilieren und Testen."
   ],
-  "explanation": "Direkt und verstreut eingebundene Fremddienste koppeln das System an ein volatiles, fremdkontrolliertes Element: Ausfälle, API-Änderungen und Anbieterwechsel schlagen durch. Fallen: ein SLA für die Lösung halten, afferent und efferent vertauschen oder die Kopplung nur zur Laufzeit sehen."
+  "explanation": "Direkt und verstreut eingebundene Fremddienste koppeln den Baustein efferent an ein fremdkontrolliertes, volatiles Element: Ausfälle, API-Änderungen und Anbieterwechsel schlagen durch. Fallen: SLA als Lösung, afferent mit efferent verwechseln, Kopplung nur zur Laufzeit sehen."
  },
  {
   "id": "c3q78",
@@ -6636,23 +6701,25 @@ const QUESTIONS = [
   "lz": "LZ 03-08",
   "r": "R1",
   "type": "single",
-  "q": "Die Entwicklung will Microservices, der Betrieb einen Monolithen. Wie geht man mit dem Zielkonflikt am ehesten um?",
+  "q": "Entwicklung bevorzugt Microservices, Betrieb einen Monolithen. Wie sollte man mit diesem Zielkonflikt am ehesten umgehen?",
   "options": [
-   "Mit Microservices starten, später ggf. zusammenführen.",
-   "Der Entwicklung folgen, da sie das System baut.",
-   "Dem Betrieb folgen, da er die meisten Kosten trägt.",
-   "Qualitätsziele explizit machen, danach entscheiden."
+   "Einen Teil der Funktionen als Services und den Rest als Monolith bauen, damit beide Seiten zufrieden sind.",
+   "Die Gruppe entscheiden lassen, die das System langfristig betreibt, da sie die Folgen der Entscheidung trägt.",
+   "Entscheidung aus den priorisierten Qualitätszielen und Randbedingungen ableiten und samt Konsequenzen dokumentieren.",
+   "Per Abstimmung der betroffenen Gruppen entscheiden, da alle Stakeholder gleichberechtigt sind.",
+   "Mit Microservices starten, weil sich Betriebsprobleme später beheben lassen, während ein Monolith schwer zu zerlegen ist."
   ],
   "correct": [
-   3
+   2
   ],
   "optExpl": [
-   "Falsch: Verteilte Services wieder zusammenzuführen ist meist aufwendiger, als einen modularen Monolithen später entlang klarer Modulgrenzen aufzuteilen. Der Konflikt wird so nicht gelöst, sondern vertagt.",
-   "Falsch: Die Perspektive einer einzelnen Gruppe entscheidet nicht. Maßgeblich sind die Anforderungen aller Stakeholder, auch des Betriebs, der das System langfristig betreiben muss.",
-   "Falsch: Kostenanteile sind ein legitimes Argument, ersetzen aber nicht die Abwägung aller Qualitätsziele. Auch Änderbarkeit und unabhängige Auslieferung können geschäftlich wichtig sein.",
-   "Richtig: Der Konflikt wird über explizite, priorisierte Qualitätsziele und deren Trade-offs gelöst. Ein modularer Monolith kann dabei ein tragfähiger Kompromiss sein, der sich später aufteilen lässt."
+   "Falsch: Ein Hybrid kann sinnvoll sein, aber nur als Ergebnis einer Abwägung. Als reiner Kompromiss vereint er die Betriebs- und Konsistenzkosten beider Stile.",
+   "Falsch: Auch Betrieb ist nur ein Stakeholder. Die Entscheidung muss sich an Qualitätszielen und Randbedingungen orientieren, nicht an der Rolle.",
+   "Richtig: Erst die Qualitätsziele (z. B. unabhängiges Deployment, Betriebsaufwand) machen die Optionen vergleichbar. Dokumentation schafft Nachvollziehbarkeit.",
+   "Falsch: Stakeholder-Interessen haben unterschiedliches Gewicht für die Qualitätsziele. Ein Votum ersetzt die fachliche Abwägung nicht.",
+   "Falsch: Das beantwortet den Zielkonflikt nicht, sondern ordnet ihn einer Seite zu. Betriebskosten verteilter Systeme fallen sofort an und sind nicht beliebig nachbesserbar."
   ],
-  "explanation": "Zielkonflikte zwischen Stakeholdern löst man über explizite Qualitätsziele und bewusste Trade-offs, etwa mit einem modularen Monolithen als Kompromiss. Falle: ein plausibles Einzelargument wie Kosten oder „wer baut, entscheidet“ als Begründung für eine Seite ausgeben."
+  "explanation": "Stilfragen wie Monolith versus Microservices sind Abwägungen, keine Mehrheits- oder Reihenfolgeentscheidungen. Man leitet sie aus priorisierten Qualitätszielen und Randbedingungen ab und dokumentiert Entscheidung samt Konsequenzen. Typische Falle: Standpunkte einer Gruppe oder ein Mischkompromiss ohne Zielbezug."
  },
  {
   "id": "c5q28",
@@ -6691,46 +6758,46 @@ const QUESTIONS = [
   "r": "R1",
   "type": "k",
   "points": 2,
-  "q": "Sie beschreiben den Baustein „Tarifrechner“. Gehört die Angabe in die Blackbox-Beschreibung (Außensicht) oder die Whitebox-Beschreibung (Innensicht)?",
+  "q": "Sie beschreiben den Baustein „Tarifrechner“. Gehört die Angabe in die Blackbox- oder in die Whitebox-Beschreibung?",
   "categories": [
-   "Blackbox (Außensicht)",
-   "Whitebox (Innensicht)"
+   "Blackbox",
+   "Whitebox"
   ],
   "rows": [
    {
-    "text": "Zugesicherte Qualitäten wie die maximale Antwortzeit.",
+    "text": "Die zugesicherte Antwortzeit von höchstens zwei Sekunden je Anfrage.",
     "cat": 0
    },
    {
-    "text": "Die Verantwortung des Bausteins in einem Satz.",
+    "text": "Die Reihenfolge der Aufrufe zwischen den inneren Bausteinen bei einer Tarifberechnung.",
+    "cat": 1
+   },
+   {
+    "text": "Das Verhalten der angebotenen Operation bei einem Timeout des benötigten Zahlungsdienstes.",
     "cat": 0
    },
    {
-    "text": "Die enthaltenen Unterbausteine und ihre Beziehungen.",
+    "text": "Welcher Unterbaustein die angebotene Operation „berechne Tarif“ realisiert.",
     "cat": 1
    },
    {
-    "text": "Das Zusammenspiel der inneren Bausteine bei einer Anfrage.",
+    "text": "Der Grund, warum Tariflogik und Rabattberechnung in getrennte Unterbausteine gelegt wurden.",
     "cat": 1
    },
    {
-    "text": "Wie die äußeren Schnittstellen auf innere Bausteine abgebildet werden.",
-    "cat": 1
-   },
-   {
-    "text": "Die benötigten Schnittstellen zu anderen Bausteinen.",
+    "text": "Die Eingabe- und Ausgabeformate der angebotenen Operationen.",
     "cat": 0
    }
   ],
   "rowExpl": [
-   "Zugesicherte Qualitäten wie die maximale Antwortzeit sind Außensicht: Nutzer des Bausteins verlassen sich darauf. Wie sie intern erreicht werden, wäre Whitebox.",
-   "Die Verantwortung in einem Satz sagt, was der Baustein leistet, ohne seinen Aufbau zu erklären. Das ist Außensicht und gehört damit in die Blackbox.",
-   "Unterbausteine und ihre Beziehungen beschreiben den inneren Aufbau. Das ist Innensicht und gehört in die Whitebox, nicht in die Außenbeschreibung.",
-   "Das Zusammenspiel der inneren Bausteine bei einer Anfrage zeigt, wie intern gearbeitet wird. Das ist Innensicht, also Whitebox, und nichts, was Nutzer des Bausteins wissen müssen.",
-   "Welcher innere Baustein eine äußere Schnittstelle realisiert, ist schon Innensicht. Deshalb gehört diese Abbildung in die Whitebox, auch wenn es um äußere Schnittstellen geht.",
-   "Die benötigten Schnittstellen zu anderen Bausteinen gehören zum nach außen sichtbaren Vertrag des Bausteins. Das ist Außensicht, also Blackbox, auch wenn sie nach „innen“ klingen."
+   "Blackbox: Zugesicherte Eigenschaften sind Teil des Vertrags nach außen. Wie sie intern erreicht werden, wäre Whitebox.",
+   "Whitebox: Das Zusammenspiel der inneren Bausteine ist Innensicht und für Nutzer des Bausteins nicht nötig.",
+   "Blackbox: Das Fehlerverhalten an der Schnittstelle ist Teil des Vertrags nach außen, auch wenn es mit einem inneren Vorgang zusammenhängt.",
+   "Whitebox: Die Abbildung der äußeren Schnittstelle auf einen inneren Baustein ist Innensicht, obwohl es um eine äußere Schnittstelle geht.",
+   "Whitebox: Begründungen der Zerlegung erklären die Innensicht. Nutzer des Bausteins benötigen sie nicht.",
+   "Blackbox: Die Schnittstellenspezifikation ist die Außensicht des Bausteins."
   ],
-  "explanation": "Zur Blackbox gehören Verantwortung, zugesicherte Qualitäten wie die Antwortzeit und die benötigten Schnittstellen. Unterbausteine, ihr Zusammenspiel bei einer Anfrage und die Abbildung äußerer Schnittstellen auf innere Bausteine sind Whitebox. Falle: Welcher innere Baustein eine Schnittstelle realisiert, ist schon Innensicht."
+  "explanation": "Blackbox: alles, worauf sich Nutzer verlassen (Verantwortung, Schnittstellen samt Formaten und Fehlerverhalten, Zusicherungen). Whitebox: wie das intern geleistet wird (Aufbau, Zusammenspiel, Abbildung der Schnittstellen, Begründung). Falle: Fehlerverhalten und Schnittstellenabbildung sind leicht zu verwechseln."
  },
  {
   "id": "k35",
@@ -6778,27 +6845,27 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Welche Angaben gehören vorrangig in die Blackbox-Beschreibung eines Bausteins?",
   "options": [
-   "Die enthaltenen Unterbausteine und ihre Beziehungen.",
-   "Die benötigten Schnittstellen nach außen.",
-   "Verantwortlichkeit und zugesicherte Eigenschaften.",
-   "Die Zuordnung zu Ausführungsknoten.",
    "Die angebotenen Schnittstellen.",
-   "Die intern verwendeten Algorithmen."
+   "Wichtige Schnittstellen zwischen den Unterbausteinen.",
+   "Die benötigten Schnittstellen zu anderen Bausteinen.",
+   "Die Wahl der Algorithmen und Datenstrukturen im Inneren.",
+   "Die Verantwortlichkeit des Bausteins.",
+   "Die Aufteilung des Bausteins in Unterbausteine samt Begründung."
   ],
   "correct": [
-   1,
+   0,
    2,
    4
   ],
   "optExpl": [
-   "Falsch: Die innere Zerlegung in Unterbausteine und deren Beziehungen ist genau das, was erst die Whitebox-Sicht zeigt. Die Blackbox verbirgt diese Interna bewusst, damit Nutzer sie nicht kennen müssen.",
-   "Richtig: Auch benötigte Schnittstellen, also Abhängigkeiten nach außen, sind von außen sichtbar und für Nutzer relevant. Wer den Baustein einsetzt, muss wissen, was er dafür bereitstellen muss.",
-   "Richtig: Verantwortlichkeit und zugesicherte Eigenschaften legen fest, wofür und unter welchen Bedingungen man den Baustein nutzt, etwa Aufgabe, Antwortzeit oder Verfügbarkeit. Sie bilden den Vertrag nach außen.",
-   "Falsch: Die Zuordnung zu Ausführungsknoten gehört in die Verteilungssicht. Die Blackbox der Bausteinsicht beschreibt den Baustein logisch, unabhängig davon, wo er später läuft.",
-   "Richtig: Was der Baustein nach außen bereitstellt, ist der Kern der Blackbox-Beschreibung. Über die angebotenen Schnittstellen nutzen andere den Baustein, ohne seine Interna zu kennen.",
-   "Falsch: Intern verwendete Algorithmen sind Whitebox-Inhalt bzw. Implementierungsdetail und bleiben in der Blackbox verborgen. So lassen sie sich ändern, ohne Nutzer des Bausteins zu beeinflussen."
+   "Richtig: Sie sind der Vertrag nach außen, auf den sich Nutzer des Bausteins verlassen.",
+   "Falsch: Schnittstellen zwischen inneren Bausteinen beschreiben die Innensicht und gehören in die Whitebox.",
+   "Richtig: Auch benötigte Schnittstellen sind Teil der Außensicht, denn sie zeigen, wovon der Baustein abhängt. Das Innere bleibt trotzdem verborgen.",
+   "Falsch: Das ist ein Implementierungsdetail der Innensicht. Die Blackbox sagt, was der Baustein leistet, nicht wie.",
+   "Richtig: Sie beschreibt kurz, wofür der Baustein zuständig ist, ohne seinen Aufbau zu erklären.",
+   "Falsch: Zerlegung und Begründung gehören zur Whitebox, also zum Innenleben."
   ],
-  "explanation": "Die Blackbox beschreibt angebotene und benötigte Schnittstellen, Verantwortlichkeit und zugesicherte Eigenschaften. Fallen: Die Knotenzuordnung gehört in die Verteilungssicht, Unterbausteine und Algorithmen in die Whitebox."
+  "explanation": "Blackbox: Verantwortung, angebotene und benötigte Schnittstellen (und Zusicherungen). Whitebox: Unterbausteine, ihr Zusammenspiel, Schnittstellen dazwischen und Begründung. Falle: benötigte Schnittstellen gehören zur Außensicht."
  },
  {
   "id": "c4q40",
@@ -6810,25 +6877,25 @@ const QUESTIONS = [
   "options": [
    "Die enthaltenen Unterbausteine und ihre Beziehungen.",
    "Die Klassenstruktur der Unterbausteine bis zur Methodenebene.",
-   "Wichtige Schnittstellen zwischen den Unterbausteinen.",
    "Die Zuordnung der Unterbausteine zu Servern.",
-   "Terminplan und Personenzuordnung je Unterbaustein.",
+   "Wichtige Schnittstellen zwischen den Unterbausteinen.",
+   "Die Zuständigkeit der Teams, die die Unterbausteine umsetzen.",
    "Eine Begründung für die gewählte Zerlegung."
   ],
   "correct": [
    0,
-   2,
+   3,
    5
   ],
   "optExpl": [
-   "Richtig: Das ist der Kern einer Whitebox. Genau dafür öffnet man einen Baustein: um seinen inneren Aufbau zu zeigen.",
-   "Falsch: Das wäre Detailentwurf. Die Whitebox beschreibt Bausteine und ihre Beziehungen auf Architekturebene; feinere Ebenen entstehen durch weitere Verfeinerung.",
-   "Richtig: Die internen Schnittstellen zeigen, wie die Unterbausteine zusammenarbeiten. Wichtige gehören in die Whitebox-Beschreibung, ggf. mit Verweis auf Details.",
-   "Falsch: Auf welchen Knoten bzw. Servern etwas läuft, zeigt die Verteilungssicht. Die Whitebox in der Bausteinsicht beschreibt den statischen Aufbau, unabhängig von der Infrastruktur.",
-   "Falsch: Das sind Informationen des Projektmanagements, kein Bestandteil der Architekturbeschreibung des Bausteins.",
-   "Richtig: Die Whitebox erklärt auch, warum der Baustein so geschnitten wurde. Das macht die Struktur nachvollziehbar und später überprüfbar."
+   "Richtig: Das ist der Kern der Innensicht: aus welchen Bausteinen der Baustein besteht und wie sie zusammenspielen.",
+   "Falsch: Das ist Implementierungsdetail. Die Whitebox endet auf Bausteinebene; feinere Details gehören in die nächste Verfeinerung oder den Code.",
+   "Falsch: Verteilungsentscheidungen gehören in die Verteilungssicht, nicht in die Beschreibung der inneren Bausteinstruktur.",
+   "Richtig: Die Schnittstellen der inneren Bausteine zeigen, wie sie zusammenarbeiten, und sind Teil der Innensicht.",
+   "Falsch: Organisatorische Zuordnungen gehören nicht in die Strukturbeschreibung des Bausteins.",
+   "Richtig: Gründe für Zerlegung und Alternativen machen die Innensicht nachvollziehbar und überprüfbar."
   ],
-  "explanation": "Eine Whitebox zeigt Unterbausteine, ihre Beziehungen, wichtige interne Schnittstellen und die Begründung der Zerlegung. Fallen: Die Zuordnung zu Servern gehört in die Verteilungssicht, Klassenstrukturen bis zur Methodenebene sind Detailentwurf, Termine und Personen Projektmanagement."
+  "explanation": "Whitebox: Unterbausteine, Beziehungen, wichtige Schnittstellen dazwischen und Begründung der Zerlegung. Nicht dazu: Klassen/Methoden, Verteilung auf Server, organisatorische Zuordnungen."
  },
  {
   "id": "c2q31",
@@ -6840,7 +6907,7 @@ const QUESTIONS = [
   "options": [
    "Es gilt nur für verteilte Systeme wie Microservices.",
    "Es verpflichtet dazu, Teams nach der Architektur zu schneiden.",
-   "In kleinen Teams spielt es für den Systemschnitt keine Rolle.",
+   "Es besagt, dass die Organisationsstruktur durch die Systemarchitektur bestimmt wird.",
    "Wenig kommunizierende Teams erzeugen tendenziell Systemgrenzen.",
    "Das Curriculum ordnet es den organisatorischen Randbedingungen zu."
   ],
@@ -6851,11 +6918,11 @@ const QUESTIONS = [
   "optExpl": [
    "Falsch: Conways Gesetz betrifft jede Systemstruktur, nicht nur verteilte Systeme. Auch die Module eines Monolithen spiegeln häufig die Kommunikationsstruktur der Teams wider, die sie bauen.",
    "Falsch: Conways Gesetz ist eine Beobachtung, keine Vorschrift. Man kann es bewusst nutzen, etwa mit dem Inverse Conway Maneuver, ist aber nicht verpflichtet, Teams nach der Architektur zu schneiden.",
-   "Falsch: Auch kleine Organisationen haben Kommunikationsstrukturen, die sich im System niederschlagen – nur weniger auffällig. Schon zwei Entwicklerinnen, die kaum miteinander reden, erzeugen eher eine Schnittstelle zwischen ihren Teilen.",
+   "Falsch: Die Wirkrichtung ist vertauscht. Nach Conway spiegelt die Systemstruktur die Kommunikationsstruktur der Organisation, nicht umgekehrt. Die bewusste Gegenrichtung ist das Inverse Conway Maneuver.",
    "Richtig: Wo Teams kaum miteinander kommunizieren, entstehen bevorzugt Schnittstellen und Systemgrenzen zwischen ihren Teilen. Das ist der Kern der Beobachtung: Systemstruktur folgt Kommunikationsstruktur.",
    "Richtig: Conway steht im Curriculum bei den organisatorischen Randbedingungen, also bei der Struktur von Teams und Auftraggebenden. Es ist keine technische Randbedingung, beeinflusst aber den Systemschnitt."
   ],
-  "explanation": "Conways Gesetz ist eine organisatorische Randbedingung: Kommunikationsgrenzen zwischen Teams werden tendenziell zu Systemgrenzen. Fallen: Es gilt unabhängig von Organisationsgröße und Architekturstil und ist eine Beobachtung, keine Pflicht zum Teamschnitt."
+  "explanation": "Conways Gesetz ist eine organisatorische Randbedingung: Kommunikationsgrenzen zwischen Teams werden tendenziell zu Systemgrenzen. Fallen: Es gilt unabhängig vom Architekturstil, ist eine Beobachtung statt einer Pflicht zum Teamschnitt, und die Wirkrichtung geht von der Organisation zum System."
  },
  {
   "id": "c3q79",
@@ -6864,26 +6931,28 @@ const QUESTIONS = [
   "r": "R3",
   "extra": true,
   "type": "multi",
-  "q": "Ein System nutzt ein externes Versand-API mit häufigen Änderungen und schwankender Verfügbarkeit. Was hält die Folgen beherrschbar?",
+  "q": "Welche Maßnahmen begrenzen die Folgen häufiger Änderungen und schwankender Verfügbarkeit eines externen API?",
   "options": [
-   "Das API hinter einer eigenen Abstraktion kapseln.",
-   "Jeder nutzende Baustein erhält einen eigenen Adapter.",
-   "Die API-Version bewusst nicht festlegen.",
-   "Timeout, Retry und Circuit Breaker einsetzen.",
-   "Die Datentypen des Anbieters im Fachmodell nutzen."
+   "Das Fachmodell an die Datenstrukturen des Anbieters anlehnen, um Übersetzungsaufwand zu sparen.",
+   "Das API an einer Stelle hinter einer eigenen Schnittstelle kapseln, die in Begriffen des eigenen Fachmodells formuliert ist.",
+   "Jede nutzende Komponente erhält einen eigenen, auf ihren Bedarf zugeschnittenen Client für das API.",
+   "Aufrufe mit Timeout und Circuit Breaker absichern.",
+   "Fehlgeschlagene Aufrufe sofort und wiederholt erneut senden, um Ausfälle zu überbrücken.",
+   "Immer die jeweils neueste API-Version des Anbieters verwenden, um Kompatibilitätsprobleme zu vermeiden."
   ],
   "correct": [
-   0,
+   1,
    3
   ],
   "optExpl": [
-   "Richtig: Ein Adapter bzw. Anti-Corruption-Layer bündelt die Abhängigkeit vom externen API an einer Stelle. Ändert der Anbieter seine Schnittstelle, muss nur diese Abstraktion angepasst werden.",
-   "Falsch: Verstreute Adapter verteilen die Abhängigkeit wieder über das System. Eine Änderung des Anbieters muss dann an vielen Stellen nachgezogen werden, was die Kapselung zunichtemacht.",
-   "Falsch: Ohne festgelegte Version schlägt jede Änderung des Anbieters ungeplant durch. Versionen pinnt man bewusst und migriert kontrolliert, etwa nach Tests gegen die neue Version.",
-   "Richtig: Timeouts begrenzen Wartezeiten, Retries überbrücken kurze Störungen, und ein Circuit Breaker stoppt Aufrufe an einen ausgefallenen Dienst. Zusammen verhindern sie Ausfallketten.",
-   "Falsch: Fremde Datentypen im Fachmodell ziehen die Strukturen und Änderungen des Anbieters ins eigene System. Ein Anti-Corruption-Layer übersetzt sie gerade in das eigene Modell."
+   "Falsch: Das zieht Strukturen und Änderungen des Anbieters ins eigene Modell. Ein Anti-Corruption-Layer übersetzt dagegen bewusst in das eigene Modell.",
+   "Richtig: Ein Adapter oder Anti-Corruption-Layer bündelt die Abhängigkeit an einer Stelle. Ändert der Anbieter sein API, muss nur diese Abstraktion angepasst werden.",
+   "Falsch: Mehrere bedarfsgerechte Clients verteilen die Abhängigkeit wieder über das System. Änderungen des Anbieters müssen dann an vielen Stellen nachgezogen werden.",
+   "Richtig: Timeouts begrenzen Wartezeiten, und ein Circuit Breaker stoppt Aufrufe an einen ausgefallenen Dienst. Beides verhindert, dass sich Ausfälle in das eigene System fortpflanzen.",
+   "Falsch: Sofortige, ungebremste Wiederholungen können den bereits gestörten Dienst zusätzlich überlasten und die eigenen Ressourcen binden. Retries brauchen Begrenzung und Wartezeit.",
+   "Falsch: Automatisches Verwenden der neuesten Version lässt Änderungen des Anbieters ungeplant durchschlagen. Versionen werden bewusst festgelegt und kontrolliert migriert."
   ],
-  "explanation": "Volatile externe Dienste kapselt man zentral hinter einer eigenen Abstraktion (Adapter, Anti-Corruption-Layer) und sichert schwankende Verfügbarkeit mit Resilienzmustern wie Timeout, Retry und Circuit Breaker ab. Fallen: verstreute Adapter, ungepinnte Versionen und Fremdtypen im Fachmodell."
+  "explanation": "Volatile externe Dienste kapselt man zentral hinter einer eigenen Abstraktion und sichert schwankende Verfügbarkeit mit Resilienzmustern wie Timeout und Circuit Breaker. Fallen: Fremdmodell übernehmen, Abhängigkeit verteilen, ungebremste Retries, automatische Versionswechsel."
  },
  {
   "id": "c2q32",
@@ -7003,8 +7072,8 @@ const QUESTIONS = [
   "options": [
    "Knoten führt aus (z. B. VM), Artefakt wird verteilt (z. B. JAR).",
    "Ein Artefakt ist ein Baustein, der Knoten die ausführende Komponente.",
-   "Knoten sind nur physische Hardware, VMs zählen zu Artefakten.",
-   "Ein Knoten ist eine deploybare Datei, ein Artefakt der Rechner."
+   "Knoten sind physische Hardware, VMs und Container zählen zu den Artefakten.",
+   "Ein Knoten gehört zu genau einem Artefakt, ein Artefakt kann mehrere Knoten umfassen."
   ],
   "correct": [
    0
@@ -7012,10 +7081,10 @@ const QUESTIONS = [
   "optExpl": [
    "Richtig: Knoten sind Ausführungsumgebungen wie Server, VMs oder Container-Laufzeiten. Artefakte sind die ausgelieferten Einheiten, etwa JAR-Dateien, Container-Images oder Konfigurationsdateien, die auf Knoten installiert werden.",
    "Falsch: Bausteine werden auf Artefakte abgebildet, sind aber nicht dasselbe: Ein Artefakt kann mehrere Bausteine enthalten. Ein Knoten ist Infrastruktur, keine Softwarekomponente.",
-   "Falsch: Knoten können physisch oder virtuell sein, etwa VMs oder Container-Laufzeitumgebungen. Eine VM führt Software aus und ist damit ein Knoten, kein Artefakt.",
-   "Falsch: Die Begriffe sind vertauscht: Der Knoten führt aus, das Artefakt ist die deploybare Datei, die darauf ausgeliefert und installiert wird."
+   "Falsch: Knoten können physisch oder virtuell sein; VMs und Container-Laufzeitumgebungen führen Software aus und sind daher Knoten, keine Artefakte.",
+   "Falsch: Die Zuordnung ist umgekehrt gedacht: Ein Knoten kann mehrere Artefakte ausführen, und ein Artefakt kann auf mehreren Knoten installiert sein, etwa bei redundanten Instanzen."
   ],
-  "explanation": "Knoten sind physische oder virtuelle Ausführungsumgebungen (Server, VM, Container), Artefakte die darauf verteilten Einheiten (JAR, Image, Konfiguration). Fallen: Artefakt mit Baustein gleichsetzen, VMs nicht als Knoten zählen oder die Begriffe vertauschen."
+  "explanation": "Knoten sind physische oder virtuelle Ausführungsumgebungen (Server, VM, Container), Artefakte die darauf verteilten Einheiten (JAR, Image, Konfiguration). Fallen: Artefakt mit Baustein gleichsetzen, VMs und Container nicht als Knoten zählen oder die Zuordnung zwischen Knoten und Artefakten falsch herum denken."
  },
  {
   "id": "k36",
@@ -7024,46 +7093,46 @@ const QUESTIONS = [
   "r": "R1",
   "type": "k",
   "points": 2,
-  "q": "Ein Start-up plant sein erstes Produkt. Spricht der Aspekt eher für einen (modularen) Monolithen oder eher für Microservices?",
+  "q": "Welcher Aspekt spricht eher für einen (modularen) Monolithen, welcher eher für Microservices?",
   "categories": [
    "Eher Monolith",
    "Eher Microservices"
   ],
   "rows": [
    {
-    "text": "Mehrere Teams sollen ihre Teile unabhängig voneinander releasen.",
-    "cat": 1
-   },
-   {
-    "text": "Die fachlichen Grenzen sind noch unklar und verschieben sich häufig.",
+    "text": "Das Domänenwissen ist gering, und die Bausteingrenzen werden sich voraussichtlich mehrfach verschieben.",
     "cat": 0
    },
    {
-    "text": "Ein Teilbereich soll bewusst eine andere Technologie nutzen dürfen.",
-    "cat": 1
-   },
-   {
-    "text": "Sofortige Transaktionskonsistenz über den gesamten Datenbestand ist zwingend.",
+    "text": "Änderungen über mehrere Fachbereiche hinweg müssen in einer atomaren Transaktion konsistent sein.",
     "cat": 0
    },
    {
-    "text": "Ein kleines Team soll mit geringer Betriebskomplexität auskommen.",
-    "cat": 0
+    "text": "Ein Teilsystem profitiert von einer Sprache und Datenhaltung, die für den Rest nicht passen.",
+    "cat": 1
    },
    {
-    "text": "Ein Teilbereich muss bei Lastspitzen unabhängig vom Rest skaliert werden.",
+    "text": "Ein Teilsystem hat ein stark abweichendes Lastprofil gegenüber dem Rest.",
     "cat": 1
+   },
+   {
+    "text": "Fachbereiche wollen mit eigenem Release-Rhythmus ausliefern, ohne sich abzustimmen.",
+    "cat": 1
+   },
+   {
+    "text": "Das Team hat wenig Erfahrung mit verteilten Systemen und Betriebsautomatisierung.",
+    "cat": 0
    }
   ],
   "rowExpl": [
-   "Unabhängiges Releasen durch mehrere Teams setzt klar getrennte, einzeln auslieferbare Dienste voraus. Das spricht für Microservices; ein Monolith wird als Ganzes ausgeliefert.",
-   "Bei unklaren, sich verschiebenden fachlichen Grenzen sind Änderungen innerhalb eines (modularen) Monolithen billiger. Dienstgrenzen, die später falsch liegen, wären teuer zu korrigieren.",
-   "Wer einen Teilbereich bewusst mit anderer Technologie bauen will, braucht eigenständige Dienste. Das spricht für Microservices, weil ein Monolith meist eine gemeinsame Technologie voraussetzt.",
-   "Zwingende sofortige Transaktionskonsistenz über alle Daten ist in einem Monolithen mit gemeinsamem Datenbestand einfacher. Verteilte Dienste machen sie schwieriger, deshalb eher Monolith.",
-   "Ein kleines Team hat wenig Betriebskapazität. Ein Monolith hält die Betriebskomplexität gering, viele verteilte Dienste würden sie erhöhen, daher spricht das eher für den Monolithen.",
-   "Wenn ein Teilbereich bei Lastspitzen unabhängig vom Rest skaliert werden muss, braucht er einen eigenen Dienst. Das spricht für Microservices; ein Monolith skaliert nur als Ganzes."
+   "Fehlgeschnittene Services sind teurer zu korrigieren als Modulgrenzen in einem Monolithen.",
+   "Eine gemeinsame Datenhaltung erlaubt ACID-Transaktionen; über Servicegrenzen hinweg ist nur eventuelle Konsistenz realistisch.",
+   "Technologieneutrale Schnittstellen erlauben eine Technologiewahl je Service.",
+   "Separat deploybare Services können gezielt skaliert werden, statt das ganze System zu vervielfachen.",
+   "Unabhängiges Deployment ist ein Kernnutzen von Microservices.",
+   "Microservices verlagern Komplexität in Betrieb und Verteilung; ohne Erfahrung überwiegen die Risiken."
   ],
-  "explanation": "Unabhängiges Releasen mehrerer Teams, Technologievielfalt und separates Skalieren bei Lastspitzen sprechen für Microservices. Unklare, sich verschiebende fachliche Grenzen, zwingende Transaktionskonsistenz und ein kleines Team mit wenig Betriebskapazität sprechen eher für einen modularen Monolithen."
+  "explanation": "Microservices lohnen sich bei Bedarf an unabhängigem Deployment, Skalierung oder Technologiefreiheit und bei stabilen fachlichen Grenzen. Unklare Grenzen, geringe Erfahrung mit verteilten Systemen und atomare Konsistenz sprechen eher für einen modularen Monolithen."
  },
  {
   "id": "c3q80",
@@ -7071,29 +7140,29 @@ const QUESTIONS = [
   "lz": "LZ 03-05",
   "r": "R2",
   "type": "multi",
-  "q": "Ein Team muss früh entscheiden, wie es ein unbekanntes Fremdsystem anbindet. Welche Maßnahmen senken das Risiko dieser Architekturentscheidung?",
+  "q": "Welche Maßnahmen reduzieren das Risiko einer frühen Entscheidung zur Anbindung eines unbekannten Fremdsystems?",
   "options": [
-   "Die Anbindung früh in einem Prototyp erproben.",
-   "Die Entscheidung aufschieben, bis die Anforderungen feststehen.",
-   "Annahmen in kurzen Iterationen überprüfen und anpassen.",
-   "Die Architektur erst ausarbeiten, dann Feedback einholen.",
-   "Im Projektplan einen pauschalen Zeitpuffer einplanen.",
-   "Stakeholder gezielt in Demos und Reviews einbinden."
+   "Annahmen über das Fremdsystem ausdrücklich festhalten und gezielt per Durchstich überprüfen.",
+   "Die Schnittstellenspezifikation des Anbieters vollständig durcharbeiten und darauf den Entwurf aufbauen.",
+   "Das Fremdsystem von Beginn an in allen Bausteinen direkt nutzen, um schnell Erfahrungen zu sammeln.",
+   "Mit Stakeholdern und Anbietervertretern früh Rückmeldung zu ersten Entwurfsideen einholen.",
+   "Einen pauschalen Zeitpuffer einplanen, damit sinkt das Risiko der Entscheidung selbst.",
+   "Die Festlegung einer schwer umkehrbaren Anbindungsart erst nach Prüfung der Annahmen treffen."
   ],
   "correct": [
    0,
-   2,
+   3,
    5
   ],
   "optExpl": [
-   "Richtig: Ein Prototyp oder Durchstich liefert Fakten statt Vermutungen. Er zeigt früh, ob Schnittstelle, Performance und Fehlerverhalten des Fremdsystems tragen – genau so senken Iterationen das Risiko einer Entscheidung unter Unsicherheit.",
-   "Falsch: Ein pauschaler Aufschub bis „alle Anforderungen feststehen“ ist selten möglich und liefert keine neuen Fakten über das Fremdsystem. Das Risiko sinkt durch Erproben und Rückmeldung, nicht durch Warten.",
-   "Richtig: Iteratives Vorgehen prüft Annahmen früh und erhöht die Prognostizierbarkeit, weil jede Iteration Fakten liefert. Falsche Annahmen lassen sich so günstig korrigieren, bevor sie sich in der Architektur verfestigen.",
-   "Falsch: Das ist die klassische Falle. Wer erst alles ausarbeitet, holt Feedback zu spät, wenn Korrekturen teuer sind. Gerade bei unsicheren Entscheidungen gehört Feedback an den Anfang – es ist ein Werkzeug des Risikomanagements.",
-   "Falsch: Ein Zeitpuffer mildert Terminrisiken im Projekt, ändert aber nichts am Risiko der Architekturentscheidung selbst. Er ersetzt keine Überprüfung der Annahmen am Fremdsystem.",
-   "Richtig: Systematisch eingeholtes Feedback – geplante Reviews, Demos, Prototypen mit Stakeholdern – deckt Missverständnisse und Fehlannahmen früh auf. Das Curriculum nennt das ausdrücklich: Rückmeldungen nicht dem Zufall überlassen."
+   "Richtig: Ausdrücklich benannte Annahmen können gezielt geprüft werden, etwa durch einen Durchstich durch die Anbindung. So werden Vermutungen früh durch Fakten ersetzt.",
+   "Falsch: Eine Spezifikation beschreibt, wie das Fremdsystem sein soll, nicht zwingend, wie es sich real verhält. Sie ersetzt keine praktische Erprobung von Performance, Fehlerverhalten und Eigenheiten.",
+   "Falsch: Eine breite direkte Nutzung bindet das System früh an Annahmen, die noch nicht geprüft sind. Erfahrung sollte im begrenzten Rahmen gesammelt werden, bevor die Abhängigkeit im System verteilt wird.",
+   "Richtig: Rückmeldung von Stakeholdern und Anbieter deckt Missverständnisse und Fehlannahmen auf, solange der Entwurf noch änderbar ist. Das Curriculum fordert, Feedback systematisch zu organisieren.",
+   "Falsch: Ein Puffer mildert Terminrisiken, ändert aber nichts an der Wahrscheinlichkeit oder den Folgen einer Fehlentscheidung bei der Anbindung. Er ersetzt keine Prüfung der Annahmen.",
+   "Richtig: Schwer umkehrbare Entscheidungen werden so spät wie verantwortbar getroffen, nachdem die entscheidenden Annahmen geprüft wurden. So sinkt das Risiko, sich falsch festzulegen."
   ],
-  "explanation": "Das Risiko einer Architekturentscheidung unter Unsicherheit sinkt durch Prototypen, kurze Iterationen und gezielt organisiertes Feedback, weil Annahmen früh durch Fakten ersetzt werden. Fallen: Entscheidungen bis zur Vollständigkeit aufschieben, erst fertig ausarbeiten und dann fragen oder einen Zeitpuffer als Antwort auf ein Entscheidungsrisiko verstehen."
+  "explanation": "Das Risiko einer Entscheidung unter Unsicherheit sinkt, wenn Annahmen explizit gemacht und früh geprüft werden, Feedback systematisch eingeholt wird und Unumkehrbares erst nach der Prüfung festgelegt wird. Fallen: Spezifikation als Ersatz für Erprobung, breite Frühnutzung, Zeitpuffer als Risikoreduktion der Entscheidung."
  },
  {
   "id": "c3q81",
@@ -7101,31 +7170,29 @@ const QUESTIONS = [
   "lz": "LZ 03-01",
   "r": "R1",
   "type": "multi",
-  "q": "Für ein Buchungsportal ist die Änderbarkeit das wichtigste Qualitätsziel: Neue Zahlungsanbieter sollen innerhalb weniger Tage angebunden werden können. Gleichzeitig darf die Antwortzeit der Buchung nicht spürbar leiden. Welche Vorgehensweisen sind sinnvoll?",
+  "q": "Die Änderbarkeit hat hohe Priorität (neue Zahlungsanbieter sollen schnell anbindbar sein), die Antwortzeit darf aber nicht spürbar leiden. Welche Aussagen treffen zu?",
   "options": [
-   "Anbieterspezifische Details hinter einer gemeinsamen Schnittstelle kapseln (ein Adapter je Anbieter).",
-   "Die Anbieterlogik direkt an den Stellen einbauen, wo sie gebraucht wird, um Aufrufe über Zwischenschichten zu sparen.",
-   "Anbieterauswahl und -konfiguration außerhalb des Fachcodes halten (Konfiguration statt Verzweigungen im Code).",
-   "Den Zielkonflikt benennen: Zusätzliche Indirektion verbessert die Änderbarkeit, kann aber Antwortzeit kosten; die Antwortzeit gezielt anhand eines Szenarios prüfen.",
-   "Die Antwortzeit hat Vorrang; die Änderbarkeit wird zurückgestellt und später nachgerüstet.",
-   "Pro Anbieter eine eigene Kopie des Buchungsablaufs pflegen, damit sich Änderungen nicht gegenseitig beeinflussen.",
-   "Die Antwortzeit durch zusätzliche Server absichern; für die Änderbarkeit ist dann nichts weiter zu tun."
+   "Die Anbieterlogik direkt an den Verwendungsstellen einzubauen spart Indirektion und verbessert daher sowohl Laufzeit als auch Änderbarkeit.",
+   "Ein Adapter je Anbieter hinter einer gemeinsamen Schnittstelle verbessert die Änderbarkeit, kann aber durch zusätzliche Indirektion Laufzeit kosten.",
+   "Ob die Indirektion die Antwortzeitanforderung gefährdet, lässt sich anhand eines Szenarios oder Prototyps schon im Entwurf überprüfen.",
+   "Eine eigene Kopie des Buchungsablaufs pro Anbieter entkoppelt die Anbieter voneinander und verbessert dadurch die Änderbarkeit.",
+   "Die Auswahl und Konfiguration des Anbieters aus dem Fachcode herauszuhalten ermöglicht neue Anbieter ohne Änderung der Fachlogik, verlagert aber Fehlermöglichkeiten in die Konfiguration.",
+   "Weil die Antwortzeit ein hartes Kriterium ist, wird die Änderbarkeit zunächst zurückgestellt und bei Bedarf nachgerüstet."
   ],
   "correct": [
-   0,
+   1,
    2,
-   3
+   4
   ],
   "optExpl": [
-   "Richtig: Ein neuer Anbieter erfordert dann nur einen neuen Adapter, die übrigen Bausteine bleiben unverändert. Das verbessert die Änderbarkeit gezielt dort, wo sie gefordert ist.",
-   "Falsch: Das spart zwar Laufzeit, verstreut aber die Anbieterdetails über das System. Jeder neue Anbieter erzwingt dann Änderungen an vielen Stellen, und das wichtigste Qualitätsziel wird verfehlt.",
-   "Richtig: Wenn neue Anbieter über Konfiguration hinzukommen, bleibt der erprobte Fachcode unangetastet. Das verkürzt die Anbindung und senkt das Änderungsrisiko.",
-   "Richtig: Architekturentscheidungen verbessern meist eine Qualität auf Kosten einer anderen. Wer den Konflikt benennt und die kritische Qualität gezielt überprüft, kann Abwägung und Risiko gegenüber Stakeholdern begründen.",
-   "Falsch: Die Aufgabenstellung nennt die Änderbarkeit als wichtigstes Ziel. Sie später nachzurüsten bedeutet in der Regel teure Eingriffe in bereits gewachsene Strukturen.",
-   "Falsch: Kopien entkoppeln scheinbar, vervielfachen aber den Pflegeaufwand: Jede Änderung am Buchungsablauf muss in allen Kopien nachgezogen werden. Das verschlechtert die Änderbarkeit.",
-   "Falsch: Zusätzliche Hardware kann die Antwortzeit stützen, sagt aber nichts über die Änderbarkeit aus. Beide Qualitäten brauchen eigene Entscheidungen."
+   "Falsch: Die Laufzeit profitiert, die Änderbarkeit aber nicht: Anbieterdetails verteilen sich über das System, und jeder neue Anbieter erfordert Änderungen an vielen Stellen.",
+   "Richtig: Ein neuer Anbieter erfordert nur einen neuen Adapter. Der Preis ist zusätzliche Indirektion, die sich auf die Antwortzeit auswirken kann.",
+   "Richtig: Gerade bei Zielkonflikten wird die gefährdete Qualität früh gezielt geprüft, statt auf Erkenntnisse aus dem Produktivbetrieb zu warten.",
+   "Falsch: Die Anbieter sind zwar entkoppelt, aber jede Änderung am Buchungsablauf muss in allen Kopien nachgezogen werden. Das verschlechtert die Änderbarkeit.",
+   "Richtig: Konfiguration statt Verzweigungen im Code hält erprobten Fachcode stabil. Die Kehrseite sind zusätzliche Fehlerquellen und Testaufwand bei der Konfiguration.",
+   "Falsch: Änderbarkeit ist hier das priorisierte Qualitätsziel. Eine nachträgliche Umstellung der Struktur ist teuer; die Antwortzeit sollte stattdessen gezielt abgesichert werden."
   ],
-  "explanation": "Wer ein Qualitätsziel erreichen will, wählt gezielt Entscheidungen dafür (Kapselung, Konfiguration) und schätzt ein, welche andere Qualität sie kosten kann. Fallen: Streuen der Anbieterlogik, Kopien des Ablaufs, Zurückstellen des Hauptziels oder Hardware als Antwort auf ein Strukturproblem."
+  "explanation": "Zielkonflikt: Indirektion und Konfiguration verbessern die Änderbarkeit und kosten Laufzeit bzw. Testbarkeit. Die gefährdete Qualität wird gezielt (Szenario, Prototyp) geprüft. Fallen: Duplikation als „Entkopplung“ verkaufen und die priorisierte Qualität zurückstellen."
  },
  {
   "id": "k37",
@@ -7134,41 +7201,41 @@ const QUESTIONS = [
   "r": "R1",
   "type": "k",
   "points": 2,
-  "q": "Verbessert die jeweilige Entscheidung vor allem die Änderbarkeit oder die Leistungseffizienz?",
+  "q": "Verbessert die jeweilige Entscheidung vor allem die Änderbarkeit oder die Testbarkeit?",
   "categories": [
    "Verbessert vor allem die Änderbarkeit",
-   "Verbessert vor allem die Leistungseffizienz"
+   "Verbessert vor allem die Testbarkeit"
   ],
   "rows": [
    {
-    "text": "Fachliche Logik in austauschbare Module mit stabilen Schnittstellen schneiden.",
+    "text": "Geschäftsregeln aus dem Code in eine konfigurierbare Regeltabelle auslagern.",
     "cat": 0
    },
    {
-    "text": "Häufig gelesene Daten im Hauptspeicher zwischenspeichern.",
+    "text": "Die Systemzeit über eine austauschbare Uhr-Schnittstelle beziehen statt direkt aus dem Betriebssystem.",
     "cat": 1
    },
    {
-    "text": "Konfigurierbare Regeln statt fest codierter Verzweigungen verwenden.",
+    "text": "Entscheidungen, die sich wahrscheinlich ändern, hinter einer stabilen Schnittstelle verbergen.",
     "cat": 0
    },
    {
-    "text": "Rechenintensive Berichte vorab berechnen statt bei jeder Anfrage.",
+    "text": "Zwischenergebnisse eines Bausteins über eine Beobachtungsschnittstelle zugänglich machen, damit Tests sie prüfen können.",
     "cat": 1
    },
    {
-    "text": "Abhängigkeiten über Schnittstellen statt über konkrete Klassen herstellen.",
+    "text": "Schichten so schneiden, dass ein Austausch der Persistenztechnologie nur die Datenzugriffsschicht betrifft.",
     "cat": 0
    }
   ],
   "rowExpl": [
-   "Ein Schnitt in austauschbare Module mit stabilen Schnittstellen hält Änderungen lokal. Das verbessert die Änderbarkeit, nicht primär die Laufzeit; zusätzliche Indirektion kann sogar Laufzeit kosten.",
-   "Häufig gelesene Daten im Hauptspeicher zu halten spart wiederholte teure Zugriffe. Das verbessert die Leistungseffizienz, kostet aber Komplexität und birgt Konsistenzrisiko.",
-   "Konfigurierbare Regeln lassen sich ändern, ohne den Code anzufassen. Das erhöht die Änderbarkeit und zielt nicht auf die Laufzeit.",
-   "Vorab berechnete Berichte vermeiden Rechenaufwand bei jeder Anfrage. Das verbessert die Leistungseffizienz, erhöht aber die Komplexität und das Risiko veralteter Daten.",
-   "Abhängigkeiten über Schnittstellen statt konkrete Klassen erleichtern späteren Austausch von Implementierungen. Das verbessert die Änderbarkeit; die Indirektion kann Laufzeit kosten."
+   "Regeln lassen sich ändern, ohne Code anzufassen. Das verbessert die Änderbarkeit; Tests werden dadurch nicht einfacher, sondern müssen mehr Regelvarianten abdecken.",
+   "Im Test lässt sich eine feste Zeit einspeisen, zeitabhängiges Verhalten wird reproduzierbar prüfbar. Das verbessert die Testbarkeit; die Änderbarkeit profitiert nur nebenbei.",
+   "Änderungen bleiben auf einen Baustein begrenzt (Information Hiding). Das verbessert die Änderbarkeit, auch wenn Tests nebenbei davon profitieren können.",
+   "Tests können Zustände prüfen, die sonst verborgen blieben. Das verbessert die Testbarkeit (Beobachtbarkeit) und trägt nichts zur Änderbarkeit bei.",
+   "Ein Technologiewechsel bleibt lokal. Das verbessert die Änderbarkeit; die Testbarkeit hängt davon ab, ob die Schicht zusätzlich austauschbar ist, das sagt die Maßnahme aber nicht."
   ],
-  "explanation": "Modulschnitt, Konfiguration und Abhängigkeiten über Schnittstellen erleichtern spätere Änderungen. Caching und Vorberechnung verbessern die Leistungseffizienz. Beide Gruppen haben einen Preis: Mehr Indirektion kann Laufzeit kosten, Caches und Vorberechnung erhöhen Komplexität und Konsistenzrisiko."
+  "explanation": "Änderbarkeit und Testbarkeit gehören beide zur Wartbarkeit und überschneiden sich, haben aber unterschiedliche Hebel: Änderungen lokal halten (Information Hiding, Konfiguration) gegenüber Prüfbarkeit herstellen (Kontrolle über Eingaben, Sicht auf Ergebnisse)."
  },
  {
   "id": "c3q82",
@@ -7176,29 +7243,27 @@ const QUESTIONS = [
   "lz": "LZ 03-01",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Online-Banking-Portal verlangt künftig bei jeder Anmeldung eine Zwei-Faktor-Authentifizierung. Welche Aussagen zu den Auswirkungen dieser Entscheidung auf die Qualitäten treffen zu?",
+  "q": "Ein Online-Banking-Portal führt für jede Anmeldung eine Zwei-Faktor-Authentifizierung ein. Welche Aussagen zur Wirkung auf die Qualitäten treffen zu?",
   "options": [
-   "Die Entscheidung wirkt sich auf die Sicherheit aus, andere Qualitäten bleiben unberührt.",
-   "Die Sicherheit verbessert sich, weil gestohlene Passwörter allein nicht mehr ausreichen.",
-   "Die Benutzbarkeit kann leiden, weil jede Anmeldung einen zusätzlichen Schritt erfordert.",
-   "Die Entscheidung verbessert zugleich Sicherheit und Benutzbarkeit, weil Nutzer:innen sich sicherer fühlen.",
-   "Das Team sollte die Abwägung samt Alternativen (z. B. zusätzliche Prüfung nur bei auffälligen Anmeldungen) mit den Stakeholdern besprechen und festhalten.",
-   "Die Entscheidung betrifft vor allem die Portabilität des Systems."
+   "Die Benutzbarkeit leidet nur bei der erstmaligen Einrichtung; im laufenden Betrieb entsteht kein Mehraufwand.",
+   "Die Sicherheit verbessert sich, weil gestohlene Passwörter allein nicht mehr genügen; die Benutzbarkeit kann dafür leiden.",
+   "Die Wirkung auf andere Qualitäten wird erst betrachtet, wenn sich Nutzer:innen beschweren, da Sicherheit das priorisierte Ziel ist.",
+   "Die Verfügbarkeit des Portals kann betroffen sein, weil die Anmeldung nun vom Dienst für den zweiten Faktor (z. B. SMS oder App) abhängt.",
+   "Eine zusätzliche Prüfung nur bei auffälligen Anmeldungen ist eine Alternative mit anderem Kompromiss zwischen Sicherheit und Benutzbarkeit."
   ],
   "correct": [
    1,
-   2,
+   3,
    4
   ],
   "optExpl": [
-   "Falsch: Qualitäten beeinflussen sich gegenseitig. Das Curriculum nennt Sicherheit gegenüber Benutzbarkeit ausdrücklich als typische Abwägung.",
-   "Richtig: Ein zweiter Faktor erschwert den Missbrauch gestohlener Zugangsdaten deutlich. Das ist die beabsichtigte Verbesserung.",
-   "Richtig: Mehr Sicherheit bedeutet hier mehr Aufwand für Nutzer:innen. Das ist der klassische Zielkonflikt zwischen Sicherheit und Benutzbarkeit.",
-   "Falsch: Ein subjektives Sicherheitsgefühl ersetzt keinen messbaren Nutzen für die Benutzbarkeit. Der zusätzliche Schritt bleibt eine Hürde.",
-   "Richtig: Abwägungen zwischen Qualitäten sind Entscheidungen der Stakeholder, nicht allein der Architektur. Alternativen und ihre Folgen machen die Entscheidung nachvollziehbar.",
-   "Falsch: Portabilität hängt vom Verhältnis zu Plattformen und Umgebungen ab, nicht vom Anmeldeverfahren. Die relevanten Qualitäten sind Sicherheit und Benutzbarkeit."
+   "Falsch: Der zusätzliche Schritt fällt bei jeder Anmeldung an und belastet die Benutzbarkeit dauerhaft, nicht nur bei der Einrichtung.",
+   "Richtig: Der klassische Zielkonflikt zwischen Sicherheit und Benutzbarkeit: Die Maßnahme verbessert die eine und verschlechtert potenziell die andere Qualität.",
+   "Falsch: Auswirkungen auf andere Qualitäten gehören in die Entscheidung. Eine Priorisierung rechtfertigt keine spätere Bewertung, sondern bewusstes Abwägen.",
+   "Richtig: Eine zusätzliche Abhängigkeit kann zusätzliche Ausfallgründe schaffen. Auch Qualitäten, die nicht im Fokus stehen, können sich ändern.",
+   "Richtig: Alternativen mit unterschiedlichen Abwägungen gehören zur Entscheidung. Die gewählte Variante samt Gründen wird mit den Stakeholdern abgestimmt und festgehalten."
   ],
-  "explanation": "Eine Entscheidung verbessert meist eine Qualität und kostet eine andere. Hier steigt die Sicherheit, die Benutzbarkeit kann sinken; die Abwägung gehört samt Alternativen zu den Stakeholdern. Fallen: Entscheidungen isoliert sehen, einen Gewinn für beide Qualitäten annehmen oder die falsche Qualität betrachten."
+  "explanation": "Jede Entscheidung wirkt auf mehrere Qualitäten: Hier Sicherheit (+), Benutzbarkeit (−) und indirekt Verfügbarkeit (zusätzliche Abhängigkeit). Alternativen, Abwägung und Gründe werden mit Stakeholdern besprochen und festgehalten."
  },
  {
   "id": "c3q83",
@@ -7206,27 +7271,27 @@ const QUESTIONS = [
   "lz": "LZ 03-01",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Team will sein System über ein generisches, zur Laufzeit konfigurierbares Regelwerk sehr flexibel machen. Welche Aussagen zur Abwägung treffen zu?",
+  "q": "Ein System wird über ein generisches, zur Laufzeit konfigurierbares Regelwerk flexibel gemacht. Welche Aussagen zur Abwägung treffen zu?",
   "options": [
-   "Die Laufzeitflexibilität steigt, weil Regeln ohne neue Auslieferung geändert werden können.",
-   "Die Wartbarkeit kann sinken, weil Verhalten schwerer nachvollzogen und getestet werden kann.",
-   "Mehr Flexibilität macht das System in der Regel auch wartbarer.",
-   "Risiken wie Fehlkonfiguration und höherer Testaufwand sollten benannt und gegenüber den Stakeholdern kommuniziert werden.",
-   "Abwägungen zwischen Qualitäten betreffen sicherheitskritische Systeme; bei anderen Systemen sind sie vernachlässigbar."
+   "Flexibilität zur Laufzeit und Änderbarkeit des Quellcodes sind dieselbe Qualität; was eine verbessert, verbessert auch die andere.",
+   "Der Testaufwand steigt, weil die Zahl möglicher Regelkonfigurationen und ihrer Kombinationen wächst.",
+   "Der Umfang der Flexibilität sollte sich an konkreten Änderungsszenarien orientieren, sonst entsteht Komplexität für nie genutzte Flexibilität.",
+   "Fehlkonfiguration ist ein reines Betriebsthema und gehört nicht in die Architekturabwägung.",
+   "Das Verhalten ist schwerer nachvollziehbar, weil es nicht mehr allein aus dem Quellcode, sondern auch aus Konfigurationsdaten folgt."
   ],
   "correct": [
-   0,
    1,
-   3
+   2,
+   4
   ],
   "optExpl": [
-   "Richtig: Regeln lassen sich im Betrieb anpassen. Das ist der angestrebte Nutzen der Entscheidung.",
-   "Richtig: Das Curriculum nennt Laufzeitflexibilität gegenüber Wartbarkeit als typische Abwägung. Konfigurierbares Verhalten steckt nicht mehr im Code und ist schwerer zu überblicken.",
-   "Falsch: Qualitäten verbessern sich nicht automatisch gemeinsam. Gerade bei Flexibilität droht ein Verlust an Verständlichkeit und Testbarkeit.",
-   "Richtig: Zur Verantwortung gehört, mögliche Abwägungen und die zugehörigen Risiken zu identifizieren und zu kommunizieren, bevor die Entscheidung fällt.",
-   "Falsch: Zielkonflikte zwischen Qualitäten entstehen in jedem System, zum Beispiel zwischen Speicherbedarf und Leistungseffizienz oder Konfigurierbarkeit und Zuverlässigkeit."
+   "Falsch: Laufzeitflexibilität (Konfigurierbarkeit) und Modifizierbarkeit des Systems sind verschiedene Qualitäten. Ein generisches Regelwerk verbessert die erste und kann die zweite verschlechtern.",
+   "Richtig: Konfigurierbares Verhalten vergrößert den Raum der möglichen Zustände. Vollständiges Testen wird aufwendiger, Fehlkonfiguration ein reales Risiko.",
+   "Richtig: Spekulative Flexibilität kostet Nachvollziehbarkeit und Aufwand ohne Nutzen. Szenarien machen den Bedarf prüfbar.",
+   "Falsch: Die Konfigurierbarkeit ist eine Architekturentscheidung und schafft das Risiko der Fehlkonfiguration. Es gehört zu den Risiken, die benannt und kommuniziert werden.",
+   "Richtig: Die Logik verteilt sich auf Code und Regeldaten. Das verschlechtert die Analysierbarkeit und damit die Wartbarkeit."
   ],
-  "explanation": "Mehr Laufzeitflexibilität kann zulasten der Wartbarkeit gehen; Fehlkonfiguration und Testaufwand sind die zugehörigen Risiken, die man benennt und kommuniziert. Fallen: Qualitäten als unabhängig betrachten oder Abwägungen auf Sonderfälle beschränken."
+  "explanation": "Mehr Laufzeitflexibilität bedeutet oft weniger Nachvollziehbarkeit und höheren Testaufwand. Fallen: Flexibilität zur Laufzeit mit Änderbarkeit gleichsetzen und Risiken wie Fehlkonfiguration als „Betriebsthema“ aus der Abwägung auszuklammern."
  },
  {
   "id": "c3q84",
@@ -7237,11 +7302,11 @@ const QUESTIONS = [
   "q": "Für ein internes Auftragssystem gilt: 200 gleichzeitige Nutzer:innen, Antwortzeit unter 2 Sekunden bei der Auftragssuche, Betrieb im Konzernrechenzentrum mit festen Technologievorgaben, ein Team aus sechs Entwickler:innen. Was sollte ein Architekturvorschlag berücksichtigen, damit er geeignet ist, die Anforderungen zu erfüllen?",
   "options": [
    "Die Qualitätsanforderungen (z. B. Last und Antwortzeit) als Treiber für Entwurfsentscheidungen nutzen.",
-   "Den Entwurf an den aktuell beliebtesten Technologien ausrichten, damit er zukunftssicher wirkt.",
+   "Die Antwortzeit lässt sich durch stärkere Hardware sicherstellen; der Entwurf muss darauf nicht eingehen.",
    "Die Technologievorgaben des Rechenzentrums und die Teamgröße als Randbedingungen einbeziehen.",
    "Die funktionalen Anforderungen genügen; Last und Antwortzeit lassen sich nach der Implementierung optimieren.",
    "Einschätzen, ob und wie sicher die Ziele erreichbar sind, und Unsicheres früh prüfen (z. B. per Lasttest-Prototyp).",
-   "Die Technologievorgaben ignorieren, wenn das Team eine technisch elegantere Lösung kennt."
+   "Die Technologievorgaben als Empfehlung behandeln, wenn eine andere Lösung die Antwortzeit besser erfüllt."
   ],
   "correct": [
    0,
@@ -7250,13 +7315,13 @@ const QUESTIONS = [
   ],
   "optExpl": [
    "Richtig: Architekturaktivitäten sollen davon geleitet werden, spezifische Qualitäten zu erreichen. Last und Antwortzeit sind hier die messbaren Ziele.",
-   "Falsch: Beliebtheit ist kein Anforderungsbezug. Zudem engen die Technologievorgaben des Rechenzentrums die Auswahl ein.",
+   "Falsch: Hardware allein löst Strukturprobleme nicht (etwa ungeeignete Suche oder Datenzugriffe) und ist im Konzernrechenzentrum nicht frei wählbar. Antwortzeit ist ein Treiber des Entwurfs.",
    "Richtig: Randbedingungen begrenzen den Lösungsraum. Ein Entwurf, der Betriebsvorgaben oder Teamkapazität ignoriert, ist nicht umsetzbar.",
    "Falsch: Leistungsanforderungen prägen Struktur und Technologiewahl und lassen sich nachträglich nur begrenzt erreichen.",
    "Richtig: Ein Vorschlag ist geeignet, wenn er begründet erwarten lässt, die Anforderungen zu erfüllen. Frühe Prüfung macht aus Annahmen Fakten.",
-   "Falsch: Vorgaben sind Randbedingungen. Eine Abweichung ist eine Entscheidung, die man begründet und mit den Verantwortlichen klärt, nicht eine stille Ausnahme."
+   "Falsch: Vorgaben sind Randbedingungen. Ein Abweichungswunsch ist eine Entscheidung, die man begründet und mit den Verantwortlichen klärt, statt sie eigenmächtig als Empfehlung zu behandeln."
   ],
-  "explanation": "Ein geeigneter Entwurf folgt den Qualitätsanforderungen, respektiert Randbedingungen und prüft Unsicheres früh. Fallen: Trendtechnologie, Beschränkung auf Funktionales, späte Optimierung und das Ignorieren von Vorgaben."
+  "explanation": "Ein geeigneter Entwurf folgt den Qualitätsanforderungen, respektiert Randbedingungen und prüft Unsicheres früh. Fallen: Hardware als Allheilmittel, Beschränkung auf Funktionales, späte Optimierung und das eigenmächtige Abweichen von Vorgaben."
  },
  {
   "id": "c3q85",
@@ -7266,24 +7331,24 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Welche Aussagen zum qualitätsgetriebenen Architekturentwurf treffen zu?",
   "options": [
-   "Eine Qualität stellt sich ein, sobald bewährte Muster verwendet werden.",
-   "Architekturaktivitäten sollten sich daran orientieren, spezifische Qualitäten zu erreichen oder zu verbessern.",
-   "Die gewünschten Qualitäten werden erst nach der Implementierung festgelegt, wenn man das System kennt.",
-   "Für eine Entscheidung sollte eingeschätzt werden, welche Qualitäten sie verbessert und welche sie beeinträchtigen kann.",
-   "Qualitätsorientierter Entwurf ist bei kritischen Systemen nötig, bei gewöhnlichen Systemen verzichtbar."
+   "Der Einsatz eines Architekturmusters stellt die Qualitäten sicher, für die das Muster bekannt ist.",
+   "Eine Entscheidung kann eine Qualität verbessern und dabei eine andere beeinträchtigen; beides sollte eingeschätzt werden.",
+   "Eine Entscheidung ist gut begründet, wenn sie das wichtigste Qualitätsziel am stärksten verbessert; ihre Wirkung auf andere Qualitäten ist nachrangig.",
+   "Architektonische Aktivitäten wie Zerlegen oder Technologiewahl werden danach ausgerichtet, bestimmte Qualitäten zu erreichen oder zu verbessern.",
+   "Die Qualitätsanforderungen werden sinnvollerweise erst festgelegt, wenn die Architektur steht, um sie dann am Ergebnis zu messen."
   ],
   "correct": [
    1,
    3
   ],
   "optExpl": [
-   "Falsch: Muster sind ein Weg, bestimmte Qualitäten in einem Kontext zu erreichen, aber keine Garantie. Ob sie passen, hängt von Anforderungen und Kontext ab.",
-   "Richtig: So beschreibt es das Curriculum: Entwurf ohne Qualitätsbezug bleibt beliebig und lässt sich nicht begründen.",
-   "Falsch: Qualitätsziele steuern den Entwurf und müssen früh bekannt sein. Nachträgliches Festlegen verschiebt Risiken in eine Phase, in der Änderungen teuer sind.",
-   "Richtig: Entscheidungen haben Nebenwirkungen auf andere Qualitäten. Wer sie abschätzt, kann Abwägungen begründen.",
-   "Falsch: Jedes System hat Qualitätsanforderungen, auch wenn sie unausgesprochen bleiben. Bei nicht kritischen Systemen ist der Aufwand lediglich geringer."
+   "Falsch: Ein Muster unterstützt Qualitäten, garantiert sie aber nicht. Umsetzung, Kontext und Nebenwirkungen entscheiden über das Ergebnis.",
+   "Richtig: Entscheidungen haben Preis und Nutzen. Wer nur die Verbesserung betrachtet, übersieht Nebenwirkungen auf andere Qualitäten.",
+   "Falsch: Auch die Wirkung auf weniger wichtige Qualitäten muss bewertet werden, denn Mindestanforderungen an sie dürfen nicht unbemerkt verletzt werden.",
+   "Richtig: Architekturarbeit ist kein Selbstzweck, sondern wird durch die geforderten Qualitäten geleitet.",
+   "Falsch: Die Qualitätsanforderungen steuern den Entwurf und sind Grundlage seiner Bewertung. Sie nachträglich aus der Lösung abzuleiten kehrt die Logik um."
   ],
-  "explanation": "Entwurf soll Qualitäten gezielt erreichen oder verbessern und abschätzen, welche andere Qualität darunter leiden kann. Fallen: Muster als Garantie, spätes Festlegen der Ziele, Qualitätsorientierung als Sonderfall."
+  "explanation": "Qualitätsgetriebener Entwurf: Qualitäten leiten die Entscheidungen, jede Entscheidung wird auf Verbesserung und Beeinträchtigung geprüft. Fallen: Muster als Qualitätsgarantie und das alleinige Optimieren des Top-Ziels."
  },
  {
   "id": "c3q86",
@@ -7294,13 +7359,13 @@ const QUESTIONS = [
   "q": "Das Management fragt, warum die geplante hochverfügbare Variante des Systems deutlich teurer ist als die einfache. Welche Inhalte gehören in Ihre Antwort als Architekt:in?",
   "options": [
    "Welche Alternativen betrachtet wurden und warum die gewählte Variante gewählt wurde.",
-   "Technische Details auf Klassenebene, damit das Management die Komplexität selbst beurteilen kann.",
+   "Nur die Kosten; die Auswirkungen auf andere Qualitäten sind für das Management nicht relevant.",
    "Welche Qualität verbessert wird (Verfügbarkeit) und welche Kosten dafür entstehen.",
-   "Die Vorteile in den Vordergrund stellen, damit die Entscheidung nicht infrage gestellt wird.",
+   "Die Verfügbarkeitszahl der gewählten Variante; Alternativen sind nach der Entscheidung nicht mehr relevant.",
    "Welche anderen Qualitäten oder Anforderungen durch die Entscheidung beeinträchtigt werden können.",
-   "Die persönliche Vorliebe des Teams für die eingesetzten Technologien.",
+   "Dass die Variante dem Stand der Technik entspricht; weitere Begründung ist nicht nötig.",
    "Welche Risiken bestehen, falls Annahmen (z. B. zur erwarteten Last) nicht zutreffen.",
-   "Die Zusage, dass durch die Entscheidung keine Risiken mehr bestehen."
+   "Dass sich die Mehrkosten durch weniger Ausfälle bald wieder einsparen lassen."
   ],
   "correct": [
    0,
@@ -7310,15 +7375,15 @@ const QUESTIONS = [
   ],
   "optExpl": [
    "Richtig: Nachvollziehbare Entscheidungen nennen Alternativen und Gründe. So können Stakeholder die Abwägung selbst beurteilen.",
-   "Falsch: Zielgruppe ist das Management. Klassenebene verdeckt den Kern der Abwägung (Kosten gegen Verfügbarkeit) mehr, als dass sie ihn erklärt.",
+   "Falsch: Das Management trifft eine Abwägung und braucht auch die Nebenwirkungen. Wer nur Kosten nennt, blendet aus, was die Mehrkosten kaufen und was sie beeinträchtigen können.",
    "Richtig: Der Nutzen der Entscheidung muss dem Preis gegenübergestellt werden. Ohne diesen Bezug lässt sich der Mehrpreis nicht bewerten.",
-   "Falsch: Wer Nachteile verschweigt, verliert Vertrauen und entzieht Stakeholdern die Entscheidungsgrundlage. Abwägungen und Risiken gehören offen auf den Tisch.",
+   "Falsch: Ohne Alternativen lässt sich nicht beurteilen, ob der Preis angemessen ist. Gerade bei Rückfragen zur Entscheidung gehören Alternativen und Gründe dazu.",
    "Richtig: Redundanz kann etwa Betriebsaufwand und Komplexität erhöhen. Auch diese Nebenwirkungen gehören zur ehrlichen Abwägung.",
-   "Falsch: Vorlieben sind keine tragfähige Begründung. Entscheidungen werden über Anforderungen und Qualitäten begründet.",
+   "Falsch: „Stand der Technik“ ersetzt keine Begründung. Entscheidungen werden über Anforderungen, Qualitäten und Abwägungen begründet.",
    "Richtig: Entscheidungen beruhen auf Annahmen. Wer ihre Unsicherheit und die Folgen benennt, kommuniziert Risiken, wie es das Curriculum verlangt.",
-   "Falsch: Eine solche Zusage ist unseriös. Auch hochverfügbare Systeme haben Restrisiken, die man benennen und nicht wegversprechen sollte."
+   "Falsch: Eine solche Zusage ist ohne Belege unseriös. Der Nutzen hängt von Annahmen ab (z. B. Ausfallkosten), die man benennen, nicht als Versprechen formulieren sollte."
   ],
-  "explanation": "Gegenüber Stakeholdern kommuniziert man Alternativen, Nutzen, Preis, Nebenwirkungen und Risiken der Entscheidung. Fallen: Detailtiefe ohne Zielgruppenbezug, Schönfärberei, Vorlieben als Argument und Risikofreiheit als Versprechen."
+  "explanation": "Gegenüber Stakeholdern kommuniziert man Alternativen, Nutzen, Preis, Nebenwirkungen und Risiken der Entscheidung. Fallen: Kosten ohne Nutzen, fehlende Alternativen, „Stand der Technik“ als Begründung und Einsparversprechen ohne Beleg."
  },
  {
   "id": "c3q87",
@@ -7326,29 +7391,29 @@ const QUESTIONS = [
   "lz": "LZ 03-02",
   "r": "R1",
   "type": "multi",
-  "q": "Das Team hat für ein Logistiksystem die Bausteine Auftragsverwaltung, Routenplanung und Tourenabrechnung festgelegt. Die Routenplanung darf von der Auftragsverwaltung nur über eine Schnittstelle genutzt werden. Welche Konsequenzen hat das für den Quellcode?",
+  "q": "Die Auftragsverwaltung darf die Routenplanung ausschließlich über eine definierte Schnittstelle nutzen. Welche Aussagen zu den Konsequenzen für den Quellcode treffen zu?",
   "options": [
-   "Die Bausteingrenzen spiegeln sich in der Codestruktur wider (z. B. Module oder Pakete je Baustein).",
-   "Die Routenplanung darf intern auf Datenstrukturen der Auftragsverwaltung zugreifen, solange das Ergebnis stimmt.",
-   "Zugriffe der Auftragsverwaltung auf die Routenplanung laufen im Code nur über die vereinbarte Schnittstelle.",
-   "Die Entscheidung betrifft die Dokumentation; im Quellcode ändert sich nichts.",
-   "Verstöße gegen die Abhängigkeitsregel lassen sich im Code prüfen (z. B. mit Abhängigkeitsanalyse).",
-   "Die drei Bausteine müssen als jeweils eigenständig deploybare Dienste umgesetzt werden."
+   "Die Vorgabe wird in der Bausteinsicht dokumentiert; die Code-Struktur bleibt davon unberührt.",
+   "Die Bausteingrenzen spiegeln sich in der Code-Struktur wider, z. B. in Modulen oder Paketen je Baustein.",
+   "Jeder der Bausteine muss als eigenständig deploybarer Dienst umgesetzt werden.",
+   "Interne Klassen der Routenplanung sollten außerhalb ihres Bausteins nicht zugreifbar sein, soweit die Sprache dies erlaubt.",
+   "Verstöße gegen die Abhängigkeitsregel lassen sich automatisiert prüfen, z. B. durch Abhängigkeitsanalyse oder Architekturtests.",
+   "Die Routenplanung darf deshalb die Auftragsverwaltung in keiner Form aufrufen."
   ],
   "correct": [
-   0,
-   2,
+   1,
+   3,
    4
   ],
   "optExpl": [
-   "Richtig: Entscheidungen zur Systemzerlegung prägen den Code. Nur wenn die Struktur im Code erkennbar ist, bleibt die Architektur im Quellcode nachvollziehbar.",
-   "Falsch: Das umgeht die vereinbarte Schnittstelle und koppelt die Bausteine an interne Details. Spätere Änderungen an der Auftragsverwaltung treffen dann die Routenplanung unbemerkt.",
-   "Richtig: Die Regel gilt nur, wenn der Code sie einhält. Sie ist die direkte Konsequenz der Entscheidung für den Quellcode.",
-   "Falsch: Eine Architekturentscheidung, die sich nicht im Code niederschlägt, bleibt wirkungslos. Konsequenzen für den Quellcode zu erklären, gehört zur Entwurfsaufgabe.",
-   "Richtig: Konsistenz von Quellcode und Architektur zu prüfen gehört zu den Aufgaben von Architekt:innen. Eine klare Regel macht das möglich.",
-   "Falsch: Ein Baustein ist kein Verteilungsartefakt. Bausteine lassen sich auch innerhalb einer Anwendung trennen; die Verteilung ist eine eigene Entscheidung."
+   "Falsch: Eine Architekturvorgabe wirkt nur, wenn sie im Code umgesetzt ist. Die Bausteingrenzen sollen sich in der Struktur des Quellcodes widerspiegeln.",
+   "Richtig: Nur so sind Bausteingrenzen und Abhängigkeitsregeln im Code nachvollziehbar und durchsetzbar.",
+   "Falsch: Bausteingrenzen lassen sich auch innerhalb eines Deployments durch Module oder Pakete umsetzen. Verteilung ist eine eigene Entscheidung.",
+   "Richtig: Eingeschränkte Sichtbarkeit verhindert, dass die Schnittstelle am Code vorbei umgangen wird.",
+   "Richtig: Abhängigkeitsregeln sind im Code überprüfbar und können in den Build integriert werden.",
+   "Falsch: Geregelt ist nur die Richtung Auftragsverwaltung → Routenplanung. Rückmeldungen sind z. B. über Callbacks oder Ereignisse über eine Schnittstelle möglich."
   ],
-  "explanation": "Strukturentscheidungen wirken bis in den Quellcode: Bausteine werden zu Code-Struktur, Schnittstellenregeln zu prüfbaren Abhängigkeitsregeln. Fallen: interne Zugriffe an der Schnittstelle vorbei, Architektur als reine Dokumentation, Baustein gleich Verteilungsartefakt."
+  "explanation": "Architekturentscheidungen haben Konsequenzen für den Quellcode: Struktur (Module/Pakete), Sichtbarkeit, prüfbare Abhängigkeitsregeln. Fallen: nur dokumentieren, Bausteine mit Deployment-Einheiten gleichsetzen und eine Richtungsregel als Aufrufverbot in beide Richtungen lesen."
  },
  {
   "id": "c3q88",
@@ -7356,26 +7421,29 @@ const QUESTIONS = [
   "lz": "LZ 03-02",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Versicherer entwirft ein System zur Tarifberechnung. Das Team will die fachlichen Tarifregeln von technischen Aspekten wie Datenbankzugriff und Messaging trennen. Welche Aussagen begründen diese Trennung?",
+  "q": "Fachliche und technische Aspekte werden beim Entwurf getrennt. Welche Aussagen dazu treffen zu?",
   "options": [
-   "Fachliche Regeln lassen sich ändern und testen, ohne technische Infrastruktur anzufassen oder bereitzustellen.",
-   "Technische Bestandteile werden dadurch für das System überflüssig.",
-   "Technische Entscheidungen (z. B. das Datenbankprodukt) lassen sich später ändern, ohne die Fachlogik umzuschreiben.",
-   "Die Trennung lohnt sich erst bei verteilten Systemen, weil sie sonst Laufzeit kostet.",
-   "Fachliche und technische Teams können dadurch unabhängig arbeiten, ohne Schnittstellen abzustimmen."
+   "Die fachliche Logik lässt sich ohne technische Infrastruktur (Datenbank, Messaging) testen.",
+   "Die fachliche Architektur lässt sich vollständig festlegen, bevor technische Randbedingungen berücksichtigt werden.",
+   "Die Trennung verursacht zusätzlichen Aufwand, etwa für das Abbilden zwischen Fachobjekten und technischen Datenstrukturen.",
+   "Technische Entscheidungen können unabhängig von den Qualitätsanforderungen getroffen werden, da die Fachlogik davon entkoppelt ist.",
+   "Fachliche und technische Teams können unabhängig arbeiten und müssen dafür keine Schnittstellen abstimmen.",
+   "Fachlogik und Technik ändern sich aus unterschiedlichen Gründen und unterschiedlich oft."
   ],
   "correct": [
    0,
-   2
+   2,
+   5
   ],
   "optExpl": [
-   "Richtig: Fachlogik ohne Infrastrukturbezug ist leichter zu verstehen, zu ändern und isoliert zu testen.",
-   "Falsch: Die Trennung verlagert technische Aspekte in eigene Bausteine, sie schafft sie nicht ab. Datenbankzugriff und Messaging werden weiterhin gebraucht.",
-   "Richtig: Die Fachlogik hängt nicht von technischen Details ab, daher bleibt sie bei technischen Änderungen stabil.",
-   "Falsch: Die Trennung ist eine logische Strukturierung und nicht an Verteilung gebunden. Der Laufzeitaufwand ist meist gering gegenüber dem Gewinn an Änderbarkeit.",
-   "Falsch: Auch getrennte Bestandteile müssen über Schnittstellen zusammenarbeiten. Diese Schnittstellen müssen abgestimmt und stabil gehalten werden."
+   "Richtig: Bei sauberer Trennung braucht ein Test der Fachlogik keine technischen Komponenten.",
+   "Falsch: Technische Randbedingungen können den Lösungsraum einschränken. Beide Perspektiven hängen zusammen und werden abgestimmt.",
+   "Richtig: Die Trennung ist nicht kostenlos: Zusätzliche Schnittstellen und Mapping-Code sind der Preis für Testbarkeit und Austauschbarkeit.",
+   "Falsch: Technische Entscheidungen richten sich gerade nach Qualitätsanforderungen und Randbedingungen. Die Trennung schützt nur die Fachlogik vor ihren Details.",
+   "Falsch: Die Trennung setzt klare Schnittstellen voraus; ohne Abstimmung passen die Teile nicht zusammen.",
+   "Richtig: Das ist der Kern der Begründung: Getrennte Teile lassen sich unabhängig ändern, z. B. ein Datenbankprodukt tauschen, ohne die Fachlogik anzufassen."
   ],
-  "explanation": "Die Trennung fachlicher und technischer Bestandteile macht Fachlogik änderbar und testbar und erlaubt technische Änderungen ohne Eingriff in die Fachlogik. Fallen: Trennung als Abschaffung der Technik, als Frage der Verteilung oder als Ersatz für Schnittstellenabstimmung."
+  "explanation": "Begründung der Trennung: unterschiedliche Änderungsgründe, Testbarkeit der Fachlogik, Austauschbarkeit der Technik. Preis: zusätzliche Schnittstellen und Mapping. Fallen: die Trennung als Entkopplung von Qualitätsanforderungen oder von jeder Abstimmung missverstehen."
  },
  {
   "id": "c3q89",
@@ -7383,29 +7451,29 @@ const QUESTIONS = [
   "lz": "LZ 03-02",
   "r": "R1",
   "type": "multi",
-  "q": "Sie verfeinern die Architektur eines Warenwirtschaftssystems schrittweise vom Systemkontext über die erste Bausteinebene bis zu feineren Ebenen. Welche Aussagen zu diesem Vorgehen treffen zu?",
+  "q": "Welche Aussagen zur schrittweisen Verfeinerung vom Systemkontext über die Bausteinebenen treffen zu?",
   "options": [
-   "Auf jeder Ebene werden Bausteine zunächst als Blackbox beschrieben; bei Bedarf folgt ihre Whitebox auf der nächsten Ebene.",
-   "Die Bausteine werden unabhängig von Risiko und Komplexität auf dieselbe Tiefe verfeinert, damit die Dokumentation einheitlich wirkt.",
+   "Alle Bausteine werden auf dieselbe Tiefe verfeinert, damit die Dokumentation einheitlich bleibt.",
    "Riskante oder komplexe Bausteine werden früher und tiefer verfeinert als einfache.",
-   "Man beginnt bei den Klassen und fasst sie schrittweise zu größeren Bausteinen zusammen.",
-   "Die Verfeinerung kann enden, sobald Bausteine so klar spezifiziert sind, dass Teams sie umsetzen können.",
-   "Die Whitebox eines Bausteins ersetzt seine Blackbox-Beschreibung."
+   "Der Systemkontext ist die Whitebox des Systems, die erste Bausteinebene seine Blackbox.",
+   "Öffnet man einen Baustein als Whitebox, werden seine Unterbausteine nicht mehr als Blackbox beschrieben.",
+   "Jeder Baustein wird zunächst als Blackbox beschrieben und bei Bedarf auf der nächsten Ebene als Whitebox geöffnet.",
+   "Die Verfeinerung endet, sobald die Bausteine so klar spezifiziert sind, dass Teams sie umsetzen können."
   ],
   "correct": [
-   0,
-   2,
-   4
+   1,
+   4,
+   5
   ],
   "optExpl": [
-   "Richtig: So entsteht eine Hierarchie, in der jede Ebene verständlich bleibt. Die Blackbox-Beschreibung bleibt dabei erhalten.",
-   "Falsch: Gleiche Tiefe erzeugt Aufwand dort, wo er wenig bringt. Verfeinert wird so weit, wie es für Verständnis, Umsetzung und Risikobeherrschung nötig ist.",
-   "Richtig: Dort liegen die größten Unsicherheiten. Frühes Verfeinern macht Risiken sichtbar, solange Korrekturen noch günstig sind.",
-   "Falsch: Das ist ein Bottom-up-Vorgehen. Schrittweise Verfeinerung geht umgekehrt vom Groben zum Feinen.",
-   "Richtig: Ziel der Verfeinerung ist eine ausreichende Spezifikation, nicht maximale Detailtiefe.",
-   "Falsch: Beide Sichten ergänzen sich: Die Blackbox dient Nutzer:innen des Bausteins, die Whitebox erklärt sein Inneres."
+   "Falsch: Die Tiefe ist nicht einheitlich: Riskante oder komplexe Bausteine werden früher und tiefer verfeinert. Einheitliche Tiefe verschwendet Aufwand bei einfachen Teilen.",
+   "Richtig: Der Aufwand konzentriert sich dort, wo Unsicherheit und Risiko am größten sind.",
+   "Falsch: Vertauscht. Im Kontext ist das System eine Blackbox; die erste Bausteinebene ist seine Whitebox.",
+   "Falsch: Die Unterbausteine sind wieder Blackboxes und werden bei Bedarf auf der nächsten Ebene als Whitebox geöffnet.",
+   "Richtig: Dieses Wechselspiel von Blackbox und Whitebox bildet die schrittweise Verfeinerung.",
+   "Richtig: Abbruchkriterium ist die Umsetzbarkeit, nicht das Erreichen der Klassenebene."
   ],
-  "explanation": "Schrittweise Verfeinerung geht vom Groben zum Feinen, beschreibt Bausteine je Ebene als Blackbox und verfeinert nach Bedarf, vor allem bei Risiko und Komplexität. Fallen: gleiche Tiefe überall, Bottom-up als Verfeinerung, Whitebox statt Blackbox."
+  "explanation": "Verfeinert wird top-down und risikoorientiert: Kontext (System = Blackbox) → erste Ebene (Whitebox des Systems) → feinere Ebenen. Fallen: gleichmäßige Tiefe, Vertauschen von Blackbox/Whitebox auf den Ebenen, Verfeinern bis zur Klassenebene."
  },
  {
   "id": "c3q90",
@@ -7413,26 +7481,26 @@ const QUESTIONS = [
   "lz": "LZ 03-02",
   "r": "R1",
   "type": "multi",
-  "q": "Das Team wählt für ein System mit hohen Verfügbarkeitsanforderungen ein neues, kaum erprobtes Framework und eine einzelne zentrale Datenbank. Welche Aussagen zu den Risiken dieser Entscheidungen treffen zu?",
+  "q": "Für ein System mit hohen Verfügbarkeitsanforderungen werden ein kaum erprobtes Framework und eine einzelne zentrale Datenbank gewählt. Welche Aussagen zu den Risiken treffen zu?",
   "options": [
+   "Ein Single Point of Failure entsteht nur bei Hardware, nicht bei Softwarekomponenten wie einer Datenbank.",
    "Die zentrale Datenbank ist ein möglicher Single Point of Failure für die Verfügbarkeit.",
-   "Eine zentrale Datenbank vereinfacht den Betrieb und senkt dadurch die Verfügbarkeitsanforderungen.",
-   "Fehlende Erfahrung mit dem Framework kann zu unerwartetem Verhalten und Fehlern im Betrieb führen.",
-   "Das Framework betrifft die Entwicklungsgeschwindigkeit, nicht die Erreichung der Qualitätsanforderungen.",
-   "Risiken von Entscheidungen lassen sich erst im Betrieb bewerten und gehören daher nicht in den Entwurf."
+   "Fehlende Erfahrung mit dem Framework ist ein Projektrisiko, das die Erreichung der Qualitätsziele nicht berührt.",
+   "Eine zentrale Datenbank erleichtert Konsistenz und ist deshalb unter Verfügbarkeitsaspekten unkritisch.",
+   "Die Risiken werden bereits im Entwurf bewertet, bei wenig erprobter Technologie z. B. durch einen frühen Prototyp."
   ],
   "correct": [
-   0,
-   2
+   1,
+   4
   ],
   "optExpl": [
-   "Richtig: Fällt die einzelne Datenbank aus, steht das System. Das gefährdet direkt das geforderte Qualitätsziel.",
-   "Falsch: Einfacherer Betrieb ändert die Anforderungen nicht. Die Anforderung bleibt bestehen, und die Entscheidung erschwert ihre Erfüllung.",
-   "Richtig: Unreife Technologie erhöht die Wahrscheinlichkeit von Fehlern, die man erst spät bemerkt.",
-   "Falsch: Technologieentscheidungen wirken auf Qualitäten wie Verfügbarkeit, Leistung und Wartbarkeit. Sie sind keine reine Frage der Produktivität.",
-   "Falsch: Gerade im Entwurf sollen Risiken von Architekturentscheidungen identifiziert werden, solange man noch gegensteuern kann."
+   "Falsch: Jede zentrale Einzelkomponente, auch eine Datenbank oder ein Dienst, kann als Single Point of Failure die Verfügbarkeit begrenzen.",
+   "Richtig: Fällt sie aus, ist das System unabhängig von der Zahl der Anwendungsinstanzen nicht nutzbar.",
+   "Falsch: Unerwartetes Verhalten und Fehler im Betrieb können auch Qualitätsziele wie Verfügbarkeit gefährden. Es ist daher auch ein Architekturrisiko.",
+   "Falsch: Konsistenzvorteile ändern nichts an der Ausfallabhängigkeit. Hier ist ein bewusster Zielkonflikt zu bewerten.",
+   "Richtig: Risiken von Entscheidungen werden nicht erst im Betrieb entdeckt, sondern früh eingeschätzt und überprüft."
   ],
-  "explanation": "Im Entwurf werden Risiken der Entscheidungen identifiziert: Hier der Single Point of Failure und die mangelnde Erfahrung mit dem Framework. Fallen: Vereinfachung als Senkung der Anforderung, Technologie als reine Produktivitätsfrage, Risikobewertung erst im Betrieb."
+  "explanation": "Risiken werden im Entwurf bewertet. Typische Quellen: zentrale Einzelkomponenten (Single Point of Failure) und kaum erprobte Technologie. Fallen: SPOF nur als Hardwarethema sehen und Technologierisiken als reines Projektrisiko abtun."
  },
  {
   "id": "k38",
@@ -7441,41 +7509,41 @@ const QUESTIONS = [
   "r": "R1",
   "type": "k",
   "points": 2,
-  "q": "Ein Team zerlegt ein Bestellsystem. Ist der jeweilige Baustein vorrangig ein fachlicher oder ein technischer Bestandteil?",
+  "q": "Ein Team zerlegt ein Bestellsystem. Ist der jeweilige Baustein vorrangig fachlich oder technisch motiviert?",
   "categories": [
    "Fachlicher Bestandteil",
    "Technischer Bestandteil"
   ],
   "rows": [
    {
-    "text": "Rabattberechnung für Bestellungen.",
+    "text": "Mahnwesen mit Eskalationsstufen bei überfälligen Rechnungen.",
     "cat": 0
    },
    {
-    "text": "Datenzugriffsschicht, die Domänenobjekte auf Datenbanktabellen abbildet.",
+    "text": "Wiederholungs- und Dead-Letter-Behandlung für fehlgeschlagene Nachrichten.",
     "cat": 1
    },
    {
-    "text": "Lagerverwaltung mit Bestandsführung.",
+    "text": "Rechnungsstellung mit Steuerberechnung je Zielland.",
     "cat": 0
    },
    {
-    "text": "Adapter zur Anbindung eines Message-Brokers.",
+    "text": "Cache für häufig gelesene Produktdaten mit zeitlicher Gültigkeit.",
     "cat": 1
    },
    {
-    "text": "Warenkorb mit Regeln für Mengen und Preise.",
+    "text": "Bestandsführung mit Reservierung für Aktionsware.",
     "cat": 0
    }
   ],
   "rowExpl": [
-   "Rabattberechnung ist Fachlogik des Bestellwesens. Sie hängt vom Geschäft ab, nicht von Infrastruktur, und ist deshalb ein fachlicher Bestandteil.",
-   "Eine Datenzugriffsschicht, die Domänenobjekte auf Tabellen abbildet, löst ein Infrastrukturproblem. Sie ist technisch, auch wenn sie Fachobjekte transportiert.",
-   "Lagerverwaltung mit Bestandsführung bildet einen Geschäftsbereich ab und ist damit ein fachlicher Bestandteil, kein reiner Technikbaustein.",
-   "Ein Adapter zur Anbindung eines Message-Brokers kapselt Infrastruktur und enthält keine Fachlogik. Er ist ein technischer Bestandteil.",
-   "Ein Warenkorb mit Regeln für Mengen und Preise bildet Geschäftsregeln ab. Das macht ihn zu einem fachlichen Bestandteil und nicht zu einem technischen."
+   "Das Mahnwesen folgt Regeln der Fachdomäne und wird von Fachexperten beschrieben. Das ist ein fachlicher Baustein, auch wenn es technisch umgesetzt werden muss.",
+   "Das löst ein Problem der Technik (unzuverlässige Zustellung) und kommt in der Fachsprache nicht vor. Das ist ein technischer Baustein.",
+   "Steuerregeln und Rechnungsinhalte sind Fachwissen. Das ist ein fachlicher Baustein, das Ausgabeformat (z. B. PDF) wäre davon getrennt zu betrachten.",
+   "Ein Cache dient der Leistung, nicht einer Fachaufgabe. Das ist ein technischer Baustein, auch wenn er Fachdaten enthält.",
+   "Reservierungsregeln für Aktionsware ergeben sich aus dem Geschäft. Das ist ein fachlicher Baustein."
   ],
-  "explanation": "Rabatte, Lagerbestand und Warenkorbregeln sind fachliche Bestandteile; Datenzugriff und Broker-Adapter sind technisch. Die Trennung beider Arten macht Fachlogik änderbar und von Infrastrukturentscheidungen unabhängig."
+  "explanation": "Fachliche Bausteine entstehen aus der Domäne und sind in der Fachsprache beschreibbar; technische Bausteine lösen Probleme der Umsetzung. Dass ein Baustein Fachdaten enthält oder technisch realisiert wird, macht ihn noch nicht zum jeweils anderen."
  },
  {
   "id": "c4q42",
@@ -7548,7 +7616,7 @@ const QUESTIONS = [
    "In der Kontextsicht als Schnittstellen zu Nachbarsystemen und Benutzer:innen.",
    "In der Laufzeitsicht, weil Schnittstellen erst zur Laufzeit existieren.",
    "In der Bausteinsicht als angebotene und benötigte Schnittstellen der Bausteine.",
-   "In der Verteilungssicht ersetzen Schnittstellen die Knoten.",
+   "In der Kontextsicht als Schnittstellen zwischen den internen Bausteinen des Systems.",
    "In der Verteilungssicht als Kanäle und Protokolle zwischen Knoten.",
    "Schnittstellen werden außerhalb der Sichten in separaten Dokumenten beschrieben."
   ],
@@ -7561,11 +7629,11 @@ const QUESTIONS = [
    "Richtig: Die Kontextsicht zeigt die externen Schnittstellen des Systems. Sie ist der übliche Einstieg in die Schnittstellendokumentation.",
    "Falsch: Schnittstellen sind strukturelle Bestandteile und erscheinen in der Bausteinsicht. Die Laufzeitsicht zeigt, wie sie in Abläufen genutzt werden.",
    "Richtig: Dort wird sichtbar, welche Bausteine über welche Schnittstellen zusammenhängen.",
-   "Falsch: Die Verteilungssicht zeigt Knoten, Artefakte und Kanäle. Schnittstellen ersetzen dort nichts.",
+   "Falsch: Die Kontextsicht zeigt das System als Blackbox mit seinen Schnittstellen zur Umgebung. Interne Schnittstellen zwischen Bausteinen erscheinen in der Bausteinsicht.",
    "Richtig: Kanäle beschreiben, wie Knoten kommunizieren, z. B. über welches Protokoll. Das ergänzt die fachliche Schnittstelle um technische Aspekte.",
    "Falsch: Die Sichten zeigen Schnittstellen im Kontext der Architektur. Ausführliche Beschreibungen können zusätzlich separat stehen."
   ],
-  "explanation": "Schnittstellen erscheinen in der Kontextsicht (extern), der Bausteinsicht (angeboten/benötigt) und der Verteilungssicht (Kanäle, Protokolle). Fallen: Schnittstellen als reines Laufzeitthema, als Ersatz für Knoten oder nur in Separatdokumenten."
+  "explanation": "Schnittstellen erscheinen in der Kontextsicht (extern), der Bausteinsicht (angeboten/benötigt) und der Verteilungssicht (Kanäle, Protokolle). Fallen: Schnittstellen als reines Laufzeitthema, interne Schnittstellen in der Kontextsicht oder nur in Separatdokumenten."
  },
  {
   "id": "k39",
@@ -7621,9 +7689,9 @@ const QUESTIONS = [
    "Das Konzept einmal zentral beschreiben (Ziele, Lösungsansatz, Regeln) und aus den Bausteinbeschreibungen darauf verweisen.",
    "Persistenz in den Beschreibungen der einzelnen Bausteine erneut ausführlich beschreiben, damit sie für sich lesbar bleiben.",
    "Die Gründe für den gewählten Ansatz gegenüber Alternativen festhalten.",
-   "Die Datenbankprodukte und ihre Versionsnummern auflisten.",
+   "Das Konzept nur in der Beschreibung des Bausteins festhalten, der auf die Datenbank zugreift.",
    "Beschreiben, wie Bausteine das Konzept nutzen sollen (Regeln, Beispiele), damit es einheitlich angewendet wird.",
-   "Auf Dokumentation verzichten, weil der Quelltext die Persistenz ohnehin zeigt."
+   "Persistenz als eigenen Baustein modellieren und damit auf eine Konzeptbeschreibung verzichten."
   ],
   "correct": [
    0,
@@ -7634,11 +7702,11 @@ const QUESTIONS = [
    "Richtig: Ein Querschnittskonzept betrifft viele Bausteine und wird deshalb einmal beschrieben. Verweise vermeiden Wiederholung und Widersprüche.",
    "Falsch: Wiederholungen driften auseinander und erhöhen den Pflegeaufwand. Besser ist ein zentrales Konzept mit Verweisen.",
    "Richtig: Begründungen machen das Konzept nachvollziehbar und verhindern, dass später dieselbe Diskussion neu geführt wird.",
-   "Falsch: Das beschreibt Technologien, aber nicht das Konzept: Regeln, Muster und Begründungen fehlen.",
+   "Falsch: Persistenz betrifft mehrere Bausteine. Das Konzept gehört zentral beschrieben, damit alle es einheitlich anwenden können.",
    "Richtig: Ein Querschnittskonzept entfaltet seinen Wert durch einheitliche Anwendung. Regeln und Beispiele machen sie leichter.",
-   "Falsch: Der Code zeigt, wie etwas umgesetzt ist, nicht warum und nach welchen Regeln. Das Konzept lässt sich daraus nur mühsam rekonstruieren."
+   "Falsch: Ein Persistenzbaustein ersetzt nicht die Regeln, Gründe und Anwendungshinweise, die das Konzept für alle nutzenden Bausteine festlegt."
   ],
-  "explanation": "Querschnittskonzepte werden zentral dokumentiert (Lösungsansatz, Regeln, Begründung, Anwendung) und aus den Bausteinen referenziert. Fallen: Wiederholung in jedem Baustein, Technologielisten, Verzicht auf Dokumentation."
+  "explanation": "Querschnittskonzepte werden zentral dokumentiert (Lösungsansatz, Regeln, Begründung, Anwendung) und aus den Bausteinen referenziert. Fallen: Wiederholung in jedem Baustein, Ablage nur beim zugreifenden Baustein oder ein Persistenzbaustein statt eines Konzepts."
  },
  {
   "id": "k40",
@@ -7694,7 +7762,7 @@ const QUESTIONS = [
    "Als kurze Beschreibung mit Regeln und Beispielen für die Entwickler:innen, die das Konzept umsetzen.",
    "In Code-Kommentaren der Dialogklassen verteilen.",
    "Für Fachbereich und Product-Owner verständlich darstellen, was das Konzept für die Bedienung bedeutet.",
-   "Einmalig per E-Mail verschicken und danach nicht mehr pflegen.",
+   "Technisch für das Entwicklungsteam aufbereiten und die Darstellung für den Fachbereich weglassen, weil dieser das Konzept nicht umsetzt.",
    "Bei Änderungen am Konzept die betroffenen Teams informieren.",
    "Screenshots ohne erläuternde Regeln ablegen."
   ],
@@ -7707,11 +7775,11 @@ const QUESTIONS = [
    "Richtig: Entwickler:innen sind die Hauptzielgruppe der Umsetzungsregeln. Beispiele machen die Anwendung greifbar.",
    "Falsch: Verstreute Kommentare erzeugen keinen Überblick und werden von Beteiligten außerhalb des Codes nicht gefunden.",
    "Richtig: Auch Stakeholder außerhalb der Entwicklung sind vom Konzept betroffen. Zielgruppengerechte Kommunikation schafft Verständnis und Akzeptanz.",
-   "Falsch: Eine E-Mail ist kein auffindbarer Ort und veraltet unbemerkt. Das Konzept muss dauerhaft zugänglich und aktuell sein.",
+   "Falsch: Auch Fachbereich und Product-Owner sind von einem UI-Konzept betroffen und sollten verstehen, was es für die Bedienung bedeutet.",
    "Richtig: Querschnittskonzepte wirken auf viele Bausteine. Änderungen müssen deshalb dort ankommen, wo das Konzept angewendet wird.",
    "Falsch: Bilder zeigen ein Ergebnis, aber nicht, welche Regeln dahinterstehen und warum. Neue Dialoge lassen sich damit nicht einheitlich gestalten."
   ],
-  "explanation": "Ein Querschnittskonzept wird zielgruppengerecht dokumentiert und kommuniziert: Regeln und Beispiele für Entwicklung, verständliche Darstellung für Fachseite, Information bei Änderungen. Fallen: verstreute Kommentare, einmalige Mails, Bilder ohne Regeln."
+  "explanation": "Ein Querschnittskonzept wird zielgruppengerecht dokumentiert und kommuniziert: Regeln und Beispiele für Entwicklung, verständliche Darstellung für Fachseite, Information bei Änderungen. Fallen: verstreute Kommentare, Darstellung nur für die Entwicklung oder Bilder ohne Regeln."
  },
  {
   "id": "c4q47",
@@ -7760,7 +7828,7 @@ const QUESTIONS = [
    "Die Konsequenzen beider Varianten (Qualität, Abhängigkeiten, Risiken) aufzeigen und gegenüber Stakeholdern argumentieren.",
    "Die Entscheidung unabhängig von Projektleitung und Fachbereich treffen und das Ergebnis mitteilen.",
    "Die Umsetzung begleiten und prüfen, ob Quellcode und Architektur konsistent bleiben.",
-   "Die alleinige Gesamtverantwortung für Termine und Budget des Projekts übernehmen.",
+   "Die rechtliche Prüfung der Lizenzbedingungen der Standardsoftware verbindlich durchführen.",
    "Möglichkeiten für Rückmeldung aufzeigen, z. B. einen Prototyp mit Stakeholdern vor der Entscheidung."
   ],
   "correct": [
@@ -7774,10 +7842,10 @@ const QUESTIONS = [
    "Richtig: Konsequenzen von Architekturentscheidungen zu erkennen, aufzuzeigen und zu vertreten ist ausdrücklich Teil der Verantwortung.",
    "Falsch: Architekt:innen koordinieren ihre Verantwortung mit der Projektleitung und stimmen Verfeinerungen mit den Stakeholdern ab. Ein Alleingang widerspricht dem.",
    "Richtig: Das Begleiten der Umsetzung und das Prüfen der Konsistenz zwischen Code und Architektur gehören zu den Aufgaben, auch nach der Entscheidung.",
-   "Falsch: Termine, Budget und Personal verantwortet die Projektleitung bzw. – je nach Vorgehensmodell – andere Rollen. Architekt:innen stimmen sich mit ihnen ab, ersetzen sie aber nicht.",
+   "Falsch: Verbindliche Rechtsprüfung ist Sache von Rechtsabteilung bzw. Fachleuten. Architekt:innen können auf Lizenz- und Abhängigkeitsrisiken hinweisen, ersetzen die juristische Bewertung aber nicht.",
    "Richtig: Architekt:innen sollen die Notwendigkeit von Iterationen erkennen und Möglichkeiten für Rückmeldung aufzeigen. Ein Prototyp macht Annahmen überprüfbar."
   ],
-  "explanation": "Architekt:innen klären Anforderungen, zeigen Konsequenzen auf und argumentieren sie, begleiten die Umsetzung und ermöglichen Rückmeldung; die Gesamtverantwortung für Termine und Budget liegt bei der Projektleitung bzw. je nach Vorgehensmodell bei anderen Rollen. Fallen: Alleinentscheidung und Übernahme der Projektleitung."
+  "explanation": "Architekt:innen klären Anforderungen, zeigen Konsequenzen auf und argumentieren sie, begleiten die Umsetzung und ermöglichen Rückmeldung. Fallen: Alleinentscheidung und die Übernahme von Aufgaben anderer Rollen (hier die verbindliche Rechtsprüfung)."
  },
  {
   "id": "c1q42",
@@ -7788,11 +7856,11 @@ const QUESTIONS = [
   "q": "Die Projektleitung möchte zusagen, dass eine geplante Änderung bis zum Quartalsende umgesetzt wird. Aus Architektursicht gefährdet die Änderung zwei Qualitätsziele. Wie verhalten Sie sich als Architekt:in?",
   "options": [
    "Ich zeige die Konsequenzen für die beiden Qualitätsziele auf und argumentiere sie gegenüber der Projektleitung.",
-   "Ich gebe die Zusage, ohne die Folgen zu prüfen, um einen Konflikt zu vermeiden.",
+   "Ich vertraue der Machbarkeitseinschätzung des Teams und verzichte auf eine eigene Bewertung der Qualitätsziele.",
    "Ich lege Alternativen vor (z. B. Umfang reduzieren oder schrittweise umsetzen) und benenne deren Auswirkungen.",
    "Ich lehne die Änderung ab, weil Termine nicht Sache der Architektur sind.",
    "Ich schlage vor, die kritische Annahme früh durch einen Prototyp oder eine Messung zu prüfen.",
-   "Ich passe die Qualitätsziele stillschweigend an, damit der Termin hält."
+   "Ich entscheide selbst, welches der beiden Qualitätsziele zurückgestellt wird, und informiere die Projektleitung danach."
   ],
   "correct": [
    0,
@@ -7801,13 +7869,13 @@ const QUESTIONS = [
   ],
   "optExpl": [
    "Richtig: Konsequenzen von Entscheidungen aufzuzeigen und gegenüber Stakeholdern zu vertreten, ist Teil der Verantwortung.",
-   "Falsch: Das verschiebt Risiken in die Zukunft und lässt Stakeholder ohne Entscheidungsgrundlage. Probleme sollen benannt werden.",
+   "Falsch: Die Bewertung der Konsequenzen für die Qualitätsziele gehört zur Verantwortung der Architekt:innen. Ohne sie fehlt der Projektleitung die Entscheidungsgrundlage.",
    "Richtig: Alternativen mit Auswirkungen helfen der Projektleitung, eine fundierte Entscheidung zu treffen. Die Entscheidung über Termine bleibt dort.",
    "Falsch: Architekt:innen koordinieren ihre Verantwortung mit der Projektleitung. Pauschales Ablehnen verweigert diese Koordination.",
    "Richtig: Rückmeldung früh einzuholen reduziert Unsicherheit. Dann kann die Projektleitung auf Fakten statt auf Vermutungen bauen.",
-   "Falsch: Qualitätsziele sind mit den Stakeholdern abgestimmte Anforderungen. Sie lassen sich nicht still ändern; eine Änderung ist eine offene Entscheidung."
+   "Falsch: Qualitätsziele sind mit den Stakeholdern abgestimmte Anforderungen. Eine Priorisierung oder Änderung ist eine gemeinsame, offene Entscheidung und kein Alleingang."
   ],
-  "explanation": "Architekt:innen zeigen Konsequenzen auf, bieten Alternativen und frühe Rückmeldung an und koordinieren sich mit der Projektleitung. Fallen: Zusage ohne Prüfung, pauschale Ablehnung und stille Anpassung von Qualitätszielen."
+  "explanation": "Architekt:innen zeigen Konsequenzen auf, bieten Alternativen und frühe Rückmeldung an und koordinieren sich mit der Projektleitung. Fallen: Verzicht auf eigene Bewertung, pauschale Ablehnung und eigenmächtige Änderung von Qualitätszielen."
  },
  {
   "id": "c1q43",
@@ -7861,7 +7929,7 @@ const QUESTIONS = [
     "cat": 0
    },
    {
-    "text": "Gesamtterminplan und Projektbudget verantworten.",
+    "text": "Kapazitäten der Teams planen und Projektrisiken wie Terminverzug steuern.",
     "cat": 1
    },
    {
@@ -7872,10 +7940,10 @@ const QUESTIONS = [
   "rowExpl": [
    "Die Zerlegung des Systems und die Bausteinstruktur sind Strukturentscheidungen und damit Kernaufgabe der Architekt:innen. Die Projektleitung steuert das Projekt, nicht die Struktur.",
    "Querschnittsthemen wie Persistenz und Kommunikation betreffen viele Bausteine zugleich und sind Architekturentscheidungen. Die Projektleitung trifft sie nicht.",
-   "Gesamttermine und Budget liegen in der Gesamtverantwortung der Projektleitung. Architekt:innen arbeiten zu, tragen sie aber nicht, deshalb nicht deren Aufgabe.",
+   "Kapazitätsplanung und die Steuerung von Projektrisiken wie Terminverzug liegen in der Gesamtverantwortung der Projektleitung. Architekt:innen liefern Einschätzungen zu, tragen diese Verantwortung aber nicht.",
    "Die Konsistenz von Quellcode und Architektur zu prüfen, gehört zu den Aufgaben der Architekt:innen. Die Projektleitung verantwortet dies nicht, sie koordiniert sich nur mit ihnen."
   ],
-  "explanation": "Strukturentscheidungen, Querschnittsthemen und die Konsistenz von Code und Architektur gehören zu den Aufgaben der Architekt:innen. Die Gesamtverantwortung für Termine und Budget liegt bei der Projektleitung; beide koordinieren sich."
+  "explanation": "Strukturentscheidungen, Querschnittsthemen und die Konsistenz von Code und Architektur gehören zu den Aufgaben der Architekt:innen. Kapazitätsplanung und die Steuerung von Projektrisiken liegen bei der Projektleitung; beide koordinieren sich."
  },
  {
   "id": "k42",
@@ -7929,11 +7997,11 @@ const QUESTIONS = [
   "q": "Für ein neues Informationssystem sollen Betriebsvorgaben früh berücksichtigt werden. Wie arbeiten Sie als Architekt:in mit dem IT-Betrieb zusammen?",
   "options": [
    "Betriebsanforderungen wie Überwachung, Deployment und Ressourcenbedarf früh erfragen und im Entwurf berücksichtigen.",
-   "Betriebsfragen erst nach Fertigstellung des Systems klären.",
+   "Deployment-Fragen dem Entwicklungsteam überlassen und den Betrieb erst über das fertige Release informieren.",
    "Die Verteilungssicht gemeinsam abstimmen.",
    "Den Betrieb über die Zerlegung des Systems in Bausteine entscheiden lassen.",
    "Konsequenzen von Architekturentscheidungen für den Betrieb aufzeigen.",
-   "Betriebsanforderungen ignorieren, weil sie nicht Aufgabe der Architektur sind."
+   "Die Verteilungssicht allein festlegen und dem Betrieb das Ergebnis mitteilen."
   ],
   "correct": [
    0,
@@ -7942,13 +8010,13 @@ const QUESTIONS = [
   ],
   "optExpl": [
    "Richtig: Der IT-Betrieb ist Stakeholder mit eigenen Anliegen. Frühe Abstimmung vermeidet teure Nacharbeit.",
-   "Falsch: Dann sind Entscheidungen längst gefallen. Anforderungen des Betriebs lassen sich nachträglich nur teuer berücksichtigen.",
+   "Falsch: Der IT-Betrieb ist Stakeholder mit eigenen Anliegen und muss früh eingebunden werden. Eine späte Information führt zu teurer Nacharbeit.",
    "Richtig: Die Verteilungssicht zeigt Knoten und Kanäle der Betriebsumgebung. Sie ist eine ideale Gesprächsgrundlage mit dem Betrieb.",
    "Falsch: Strukturentscheidungen gehören zur Verantwortung der Architekt:innen. Der Betrieb liefert Anforderungen und Randbedingungen, entscheidet aber nicht über die Bausteinstruktur.",
    "Richtig: Der Betrieb muss das System laufen lassen. Er sollte früh wissen, was auf ihn zukommt.",
-   "Falsch: Betriebsanforderungen beeinflussen Architekturentscheidungen. Der IT-Betrieb ist laut Curriculum ein relevanter Stakeholder der Rolle."
+   "Falsch: Die Verteilungssicht bildet die Betriebsumgebung ab und sollte mit dem Betrieb gemeinsam abgestimmt werden, damit dessen Anforderungen und Randbedingungen einfließen."
   ],
-  "explanation": "Mit dem IT-Betrieb stimmen Architekt:innen Anforderungen, Verteilungssicht und Konsequenzen früh ab, entscheiden aber selbst über die Bausteinstruktur. Fallen: späte Klärung, Entscheidung durch den Betrieb, Ignorieren der Betriebsanforderungen."
+  "explanation": "Mit dem IT-Betrieb stimmen Architekt:innen Anforderungen, Verteilungssicht und Konsequenzen früh ab, entscheiden aber selbst über die Bausteinstruktur. Fallen: späte Information des Betriebs, Entscheidung der Bausteinstruktur durch den Betrieb, Verteilungssicht ohne Abstimmung."
  },
  {
   "id": "c1q45",
@@ -7959,9 +8027,9 @@ const QUESTIONS = [
   "q": "Ein Hersteller von Steuergeräten plant einen neuen Mikrocontroller. Welche Aussagen zur Zusammenarbeit der Software-Architekt:innen mit der Hardwareentwicklung treffen zu?",
   "options": [
    "Hardware-Randbedingungen wie Speicher und Rechenleistung sollten früh abgestimmt werden.",
-   "Die Hardware ist Sache der Hardwareentwicklung; die Softwarearchitektur kann unabhängig davon festgelegt werden.",
+   "Software-Architekt:innen entscheiden allein über die Hardwareauswahl, weil die Software die Anforderungen vorgibt.",
    "Architekt:innen sollten aufzeigen, welche Auswirkungen Hardwareentscheidungen auf die Software haben.",
-   "Die Zusammenarbeit mit der Hardwareentwicklung betrifft vor allem Informationssysteme in Rechenzentren.",
+   "Die Abstimmung mit der Hardwareentwicklung ist sinnvollerweise erst bei der Integration von Software und Hardware nötig.",
    "Die Hardwareentwicklung legt die Software-Bausteinstruktur fest."
   ],
   "correct": [
@@ -7970,12 +8038,12 @@ const QUESTIONS = [
   ],
   "optExpl": [
    "Richtig: Bei eingebetteten Systemen begrenzt die Hardware den Lösungsraum. Frühe Abstimmung verhindert böse Überraschungen.",
-   "Falsch: Gerade bei hardwarenahen Systemen beeinflussen sich Hardware und Software. Das Curriculum nennt Hardwareentwicklung ausdrücklich als Gegenüber.",
+   "Falsch: Die Hardwareentwicklung verantwortet die Hardware. Architekt:innen stimmen sich mit ihr ab und zeigen Auswirkungen auf, entscheiden aber nicht allein über die Hardware.",
    "Richtig: Konsequenzen von Entscheidungen aufzuzeigen und zu argumentieren ist Teil der Rolle, auch gegenüber der Hardwareentwicklung.",
-   "Falsch: Das Curriculum nennt die Hardwareentwicklung primär für eingebettete und hardwarenahe Systeme. Informationssysteme haben eher den IT-Betrieb als Gegenüber.",
+   "Falsch: Hardware-Randbedingungen begrenzen den Lösungsraum der Architektur und müssen früh abgestimmt werden. Bei der Integration sind Entscheidungen längst gefallen.",
    "Falsch: Die Struktur der Software gehört in die Verantwortung der Architekt:innen. Hardware liefert Randbedingungen, keine Bausteinstruktur."
   ],
-  "explanation": "Bei eingebetteten Systemen stimmen Architekt:innen Hardware-Randbedingungen früh ab und zeigen Auswirkungen von Hardwareentscheidungen auf die Software auf. Fallen: unabhängige Planung, Verwechslung mit dem IT-Betrieb, Hardware bestimmt Softwarestruktur."
+  "explanation": "Bei eingebetteten Systemen stimmen Architekt:innen Hardware-Randbedingungen früh ab und zeigen Auswirkungen von Hardwareentscheidungen auf die Software auf. Fallen: Entscheidung allein über die Hardware, späte Abstimmung erst bei der Integration, Hardware bestimmt Softwarestruktur."
  },
  {
   "id": "c1q46",
@@ -7986,9 +8054,9 @@ const QUESTIONS = [
   "q": "Das Produktmanagement fordert ein Feature, das einer Vorgabe des Architekturboards zur einheitlichen Technologieplattform widerspricht. Wie verhalten Sie sich als Architekt:in?",
   "options": [
    "Ich zeige die Konsequenzen der Optionen auf (Feature mit Abweichung, Feature innerhalb der Plattform, Verzicht).",
-   "Ich setze das Feature wortlos um, weil das Produktmanagement die Priorität bestimmt.",
+   "Ich passe die Vorgabe des Architekturboards selbst an, damit das Feature möglich wird.",
    "Soll abgewichen werden, begründe ich die Abweichung und stimme sie mit dem Architekturboard ab.",
-   "Ich ignoriere die Vorgabe stillschweigend, weil das Feature wichtiger ist.",
+   "Ich setze das Feature um und informiere das Architekturboard erst nach der Auslieferung.",
    "Ich suche Alternativen, die das Anliegen des Produktmanagements innerhalb der Plattform erfüllen.",
    "Ich lehne das Feature ab, weil das Architekturboard übergeordnet ist.",
    "Ich überlasse die Entscheidung dem Entwicklungsteam."
@@ -8000,14 +8068,14 @@ const QUESTIONS = [
   ],
   "optExpl": [
    "Richtig: Konsequenzen zu erkennen und zu vermitteln gehört zur Rolle und hilft beiden Seiten, fundiert zu entscheiden.",
-   "Falsch: Dann bleiben Konsequenzen und die Verletzung der Plattformvorgabe unbemerkt. Architekt:innen haben diese Folgen aufzuzeigen.",
+   "Falsch: Die Vorgabe gehört dem Architekturboard. Abweichungen oder Änderungen werden begründet und mit ihm abgestimmt, nicht eigenmächtig vorgenommen.",
    "Richtig: Das Architekturboard ist ein Gegenüber der Rolle. Eine bewusste, begründete Abweichung ist eine Entscheidung, keine stille Ausnahme.",
-   "Falsch: Vorgaben werden nicht still umgangen. Das untergräbt Vertrauen und die Plattformstrategie.",
+   "Falsch: Eine Abweichung muss vorher begründet und abgestimmt werden. Nachträgliche Information macht sie zu einer vollendeten Tatsache und untergräbt die Plattformstrategie.",
    "Richtig: Ein Anliegen lässt sich oft auf mehrere Arten erfüllen. Alternativen verbinden Fachziel und Vorgabe.",
    "Falsch: Pauschales Ablehnen entzieht sich der Abwägung. Gefragt ist, Anliegen zu verstehen und Optionen mit Folgen aufzuzeigen.",
    "Falsch: Die Abwägung betrifft Produkt und Plattform. Das Entwicklungsteam sollte sie nicht allein tragen; Architekt:innen vermitteln."
   ],
-  "explanation": "Zwischen Produktmanagement und Architekturboard zeigen Architekt:innen Konsequenzen und Alternativen auf und stimmen Abweichungen ab. Fallen: wortlose Umsetzung, stilles Ignorieren, pauschale Ablehnung, Delegation der Abwägung."
+  "explanation": "Zwischen Produktmanagement und Architekturboard zeigen Architekt:innen Konsequenzen und Alternativen auf und stimmen Abweichungen vorher ab. Fallen: eigenmächtige Änderung der Vorgabe, nachträgliche Information, pauschale Ablehnung, Delegation der Abwägung."
  },
  {
   "id": "c2q33",
@@ -8018,7 +8086,7 @@ const QUESTIONS = [
   "q": "In einem Workshop zur Architektur eines Terminbuchungssystems für Arztpraxen fällt der Satz: „Die Praxen haben natürlich alle schnelles Internet.“ Niemand widerspricht. Wie gehen Sie als Architekt:in damit um?",
   "options": [
    "Die Aussage als Annahme notieren, mit den Stakeholdern verifizieren und das Ergebnis dokumentieren.",
-   "Die Aussage gilt als geklärt, weil niemand widersprochen hat.",
+   "Die Aussage als Randbedingung dokumentieren, da sie aus dem Kreis der Stakeholder stammt.",
    "Prüfen, welche Entwurfsentscheidungen von der Annahme abhängen, und das Risiko bei Nichtzutreffen bewerten.",
    "Die Annahme implizit im Entwurf berücksichtigen (z. B. keine Offline-Funktion vorsehen) und später anpassen, falls es Beschwerden gibt.",
    "Dem Team offen sagen, dass die Annahme ungeprüft ist, damit alle denselben Kenntnisstand haben."
@@ -8030,12 +8098,12 @@ const QUESTIONS = [
   ],
   "optExpl": [
    "Richtig: Explizit gemachte Annahmen können geprüft werden. So wird aus einer Vermutung eine belegte Grundlage.",
-   "Falsch: Schweigen ist keine Bestätigung. Gerade stillschweigend akzeptierte Annahmen führen später zu Missverständnissen.",
+   "Falsch: Eine Randbedingung ist von außen vorgegeben. Eine Aussage aus dem Workshop, die niemand belegt hat, ist eine Annahme, auch wenn niemand widerspricht.",
    "Richtig: So lässt sich die Tragweite der Annahme beurteilen und entscheiden, wie viel Absicherung nötig ist.",
    "Falsch: Eine implizite Annahme bleibt für andere unsichtbar. Beschwerden treten dann erst auf, wenn Anpassungen teuer sind.",
    "Richtig: Implizite Annahmen bewirken Missverständnisse zwischen Beteiligten. Transparenz sorgt für einen gemeinsamen Stand."
   ],
-  "explanation": "Annahmen werden explizit dargestellt, überprüft und auf ihre Auswirkungen hin bewertet. Fallen: Schweigen als Bestätigung, implizite Berücksichtigung im Entwurf."
+  "explanation": "Annahmen werden explizit dargestellt, überprüft und auf ihre Auswirkungen hin bewertet. Fallen: Aussagen von Stakeholdern sind nicht automatisch Randbedingungen, und implizite Berücksichtigung im Entwurf macht die Annahme unsichtbar."
  },
  {
   "id": "c2q34",
@@ -8043,14 +8111,14 @@ const QUESTIONS = [
   "lz": "LZ 02-05",
   "r": "R1",
   "type": "multi",
-  "q": "Zwei Teams entwickeln getrennt voneinander Bausteine, die über eine Schnittstelle zusammenarbeiten sollen. Beide gehen davon aus, dass Zeitangaben stets in UTC übertragen werden, aber niemand hat das festgehalten. Welche Folgen sind typisch für solche impliziten Annahmen?",
+  "q": "Zwei Teams entwickeln getrennt voneinander Bausteine, die über eine Schnittstelle zusammenarbeiten sollen. Beide gehen davon aus, dass Zeitangaben einheitlich übertragen werden, aber niemand hat das Format (z. B. UTC oder Ortszeit) festgehalten. Welche Folgen sind typisch für solche impliziten Annahmen?",
   "options": [
    "Die Teams können unterschiedliche Annahmen treffen, ohne es zu merken.",
-   "Die Abstimmung wird dadurch beschleunigt, ohne dass Nachteile entstehen.",
+   "Weil beide Teams dasselbe annehmen, gilt die Annahme als abgesichert.",
    "Fehler zeigen sich oft erst bei der Integration oder im Betrieb, wenn die Korrektur teuer ist.",
-   "Bei kleinen Teams sind implizite Annahmen unproblematisch.",
+   "Die Annahme ist eine Randbedingung, da sie für beide Teams gleichermaßen gilt.",
    "Die Annahme sollte als Teil der Schnittstellenbeschreibung explizit festgehalten werden.",
-   "Dokumentierte Annahmen erhöhen den Aufwand ohne erkennbaren Nutzen."
+   "Solche Abweichungen fallen meist schon beim Entwurf der einzelnen Bausteine auf."
   ],
   "correct": [
    0,
@@ -8059,13 +8127,13 @@ const QUESTIONS = [
   ],
   "optExpl": [
    "Richtig: Was nicht niedergeschrieben ist, kann von jedem anders verstanden werden. Das ist die Ursache vieler Schnittstellenfehler.",
-   "Falsch: Kurzfristig spart es Zeit, die Rechnung folgt aber bei der Integration. Der Aufwand verschiebt sich nur nach hinten.",
+   "Falsch: Dass zwei Teams dasselbe unterstellen, bestätigt die Annahme nicht. Ohne Abstimmung bleibt sie ein ungesicherter Sachverhalt, der von beiden nur zufällig gleich oder gerade unterschiedlich verstanden wird.",
    "Richtig: Diskrepanzen bleiben lange unentdeckt, weil jedes Team für sich konsistent ist.",
-   "Falsch: Die Teamgröße schützt nicht vor unterschiedlichen Vorstellungen. Hier gibt es sogar zwei Teams mit getrennter Arbeit.",
+   "Falsch: Eine Randbedingung ist von außen vorgegeben. Eine Annahme wird nur unterstellt, auch wenn mehrere Beteiligte sie teilen; geteilt heißt nicht vorgegeben.",
    "Richtig: Eine explizite Aussage in der Schnittstellenbeschreibung macht die Vereinbarung prüfbar und für alle Beteiligten sichtbar.",
-   "Falsch: Der Aufwand ist gering, der Nutzen groß: Missverständnisse werden vermieden, bevor sie Kosten verursachen."
+   "Falsch: Jedes Team ist für sich konsistent, der Fehler liegt an der Schnittstelle. Er zeigt sich meist erst bei der Integration oder im Betrieb."
   ],
-  "explanation": "Implizite Annahmen führen zu unbemerkt abweichenden Vorstellungen und späten, teuren Fehlern; explizit festgehalten (z. B. in der Schnittstellenbeschreibung) werden sie prüfbar. Fallen: Zeitgewinn ohne Nachteil, Teamgröße als Schutz, Dokumentation als Overhead."
+  "explanation": "Implizite Annahmen führen zu unbemerkt abweichenden Vorstellungen und späten, teuren Fehlern; explizit festgehalten (z. B. in der Schnittstellenbeschreibung) werden sie prüfbar. Fallen: Geteilte Annahmen gelten nicht als gesichert oder vorgegeben, und Abweichungen fallen im Einzelbaustein nicht auf."
  },
  {
   "id": "k43",
@@ -8124,7 +8192,7 @@ const QUESTIONS = [
    "In Komponenten mit vielen bereits gefundenen Fehlern sind weitere Fehler wahrscheinlich.",
    "Akzeptanztests ersetzen Unit-Tests, weil sie das Gesamtsystem prüfen.",
    "Unit-Tests prüfen einzelne Bausteine isoliert, Akzeptanztests das Verhalten aus Sicht der Fachseite.",
-   "Wer sorgfältig programmiert, braucht keine automatisierten Tests."
+   "Automatisierte Tests weisen nach, dass die Qualitätsanforderungen an die Architektur erfüllt sind."
   ],
   "correct": [
    0,
@@ -8137,9 +8205,9 @@ const QUESTIONS = [
    "Richtig: Fehler häufen sich oft in bestimmten Teilen, etwa wegen Komplexität oder schlechter Struktur. Dort lohnt sich zusätzlicher Testaufwand.",
    "Falsch: Beide ergänzen sich. Unit-Tests finden Fehler früh und lokal, Akzeptanztests prüfen, ob das System die Anforderungen der Fachseite erfüllt.",
    "Richtig: Diese Unterscheidung nennt das Curriculum bei den Voraussetzungen: Unit- und Akzeptanztests als typische Testarten.",
-   "Falsch: Auch sorgfältige Entwickler:innen machen Fehler. Automatisierte Tests sichern das Verhalten bei späteren Änderungen ab."
+   "Falsch: Automatisierte Tests prüfen das Verhalten für konkrete Eingaben und zeigen Fehler auf. Ein Nachweis, dass Qualitätsanforderungen erfüllt sind, ist damit nicht möglich; dazu braucht es Analyse und Bewertung."
   ],
-  "explanation": "Testen zeigt Fehler, nicht Fehlerfreiheit; Fehler häufen sich in bestimmten Komponenten; Unit- und Akzeptanztests haben unterschiedliche Aufgaben. Fallen: Fehlerfreiheit durch Menge, Akzeptanztests als Ersatz, Verzicht durch Sorgfalt."
+  "explanation": "Testen zeigt Fehler, nicht Fehlerfreiheit; Fehler häufen sich in bestimmten Komponenten; Unit- und Akzeptanztests haben unterschiedliche Aufgaben. Fallen: Fehlerfreiheit durch Menge, Akzeptanztests als Ersatz, Tests als Nachweis der Qualitätsanforderungen."
  },
  {
   "id": "k44",
@@ -8191,27 +8259,29 @@ const QUESTIONS = [
   "r": "R2",
   "prereq": true,
   "type": "multi",
-  "q": "In einem Altsystem lesen und schreiben viele Klassen dieselben globalen Variablen. Bei Änderungen treten unerklärliche Fehler auf, und Unit-Tests schlagen je nach Reihenfolge fehl. Welche Aussagen zu den Problemen von globalem Zustand treffen zu?",
+  "q": "Welche Aussagen zu den Problemen von globalem Zustand treffen zu?",
   "options": [
-   "Jede Stelle kann den Zustand ändern, daher sind die Wirkungen einer Änderung schwer überschaubar.",
-   "Tests beeinflussen sich über den gemeinsamen Zustand und sind nicht mehr isoliert.",
-   "Globaler Zustand ist unproblematisch, solange die Variablen dokumentiert sind.",
+   "Die Probleme treten erst bei nebenläufigen Programmen auf.",
    "Abhängigkeiten sind versteckt, weil sie in keiner Signatur sichtbar werden.",
-   "Das Problem tritt erst bei nebenläufigen Programmen auf."
+   "Globaler Zustand erhöht die Kopplung, auch wenn die Bausteine sich nie gegenseitig aufrufen.",
+   "Eine sorgfältige Dokumentation der globalen Variablen beseitigt die Nachteile.",
+   "Global gelesene Konstanten haben dieselben Probleme wie veränderlicher globaler Zustand.",
+   "Tests können sich über den Zustand gegenseitig beeinflussen und sind dann nicht mehr isoliert."
   ],
   "correct": [
-   0,
    1,
-   3
+   2,
+   5
   ],
   "optExpl": [
-   "Richtig: Wer eine globale Variable ändert, muss alle Stellen kennen, die sie nutzen. Das macht Änderungen riskant.",
-   "Richtig: Der Zustand eines Tests bleibt für den nächsten sichtbar. Ergebnisse hängen dann von der Reihenfolge ab, wie in der Aufgabe beschrieben.",
-   "Falsch: Dokumentation macht die Abhängigkeiten bewusster, beseitigt sie aber nicht. Änderungen und Tests bleiben gekoppelt.",
-   "Richtig: Ein Aufruf zeigt nicht, welchen globalen Zustand er liest oder verändert. Die Kopplung ist dadurch unsichtbar.",
-   "Falsch: Nebenläufigkeit verschärft es, aber auch in rein sequentiellen Programmen erschwert globaler Zustand Verständnis, Änderungen und Tests."
+   "Falsch: Schon in sequenziellen Programmen sind Wirkungen schwer vorhersagbar, weil jede Stelle den Zustand ändern kann. Nebenläufigkeit verschärft das Problem nur.",
+   "Richtig: Eine Funktion liest oder ändert den Zustand, ohne dass das in Parametern oder Rückgabewerten erscheint. Das erschwert Verständnis und Test.",
+   "Richtig: Die Bausteine sind über den gemeinsamen Zustand verbunden: Eine Änderung durch einen wirkt auf alle anderen. Das ist Kopplung ohne sichtbaren Aufruf.",
+   "Falsch: Dokumentation macht die Abhängigkeiten sichtbar, entfernt sie aber nicht. Die Wechselwirkungen und die Abhängigkeit der Tests untereinander bleiben bestehen.",
+   "Falsch: Unveränderliche Werte können sich nicht durch andere Stellen ändern. Das Kernproblem, unkontrollierte Wirkungen durch Änderungen, entfällt.",
+   "Richtig: Das Ergebnis eines Tests hängt davon ab, was frühere Tests im Zustand hinterlassen haben, etwa bei wechselnder Reihenfolge."
   ],
-  "explanation": "Globaler Zustand verbirgt Abhängigkeiten, macht Änderungen schwer überschaubar und koppelt Tests. Fallen: Dokumentation als Lösung und die Beschränkung des Problems auf Nebenläufigkeit."
+  "explanation": "Globaler Zustand verbirgt Abhängigkeiten, koppelt Bausteine ohne sichtbare Aufrufe und macht Tests reihenfolgeabhängig. Fallen: Problem nur bei Nebenläufigkeit sehen, Dokumentation als Heilmittel und unveränderliche Werte mit veränderlichem Zustand gleichsetzen."
  },
  {
   "id": "k45",
@@ -8259,31 +8329,29 @@ const QUESTIONS = [
   "r": "R2",
   "prereq": true,
   "type": "multi",
-  "q": "Eine Anwendung ruft für Zahlungen einen entfernten Dienst auf. Das Team entwirft ihre Fehler- und Ausnahmebehandlung. Welche Aussagen zu einem guten Umgang mit Fehlern und Ausnahmen treffen zu?",
+  "q": "Welche Aussagen zu Fehler- und Ausnahmebehandlung bei Aufrufen entfernter Dienste treffen zu?",
   "options": [
-   "Fehler sollten dort behandelt werden, wo sinnvoll reagiert werden kann; sonst werden sie an den Aufrufer weitergegeben.",
-   "Ausnahmen sollten abgefangen und verschluckt werden, damit der Ablauf nicht unterbrochen wird.",
-   "Fehlermeldungen und Logs sollten genug Kontext enthalten, um die Ursache zu finden.",
-   "Fehler werden mit demselben generischen Text an Nutzer:innen weitergegeben, um Details zu verbergen.",
-   "Ein einheitliches Konzept legt fest, welche Fehlerarten es gibt und wie sie behandelt werden.",
-   "Ausnahmen eignen sich zur normalen Ablaufsteuerung, etwa zum Verlassen von Schleifen.",
-   "Fehlerbehandlung ist Sache der Implementierung und braucht keine Absprache im Team."
+   "Nutzermeldungen sollten die technische Fehlermeldung enthalten, damit der Support schneller helfen kann.",
+   "Wiederholungen fehlgeschlagener entfernter Aufrufe erfordern eine idempotente Operation oder die Abwehr doppelter Ausführung.",
+   "Ausnahmen für fachliche Normalfälle, etwa eine Suche ohne Treffer, sind ein bewährtes Mittel zur Ablaufsteuerung.",
+   "Ein einheitliches Konzept klassifiziert die Fehlerarten und legt je Art Vorgehen und Zuständigkeit fest.",
+   "Fehler sollten möglichst dort behandelt werden, wo sie entstehen, damit Aufrufer nicht damit konfrontiert werden.",
+   "Fehler sollten dort behandelt werden, wo sinnvoll auf sie reagiert werden kann, andernfalls an den Aufrufer weitergegeben."
   ],
   "correct": [
-   0,
-   2,
-   4
+   1,
+   3,
+   5
   ],
   "optExpl": [
-   "Richtig: Nur die Stelle mit genug Kontext kann entscheiden, ob wiederholt, ersetzt oder abgebrochen wird. Alle anderen leiten den Fehler weiter.",
-   "Falsch: Verschluckte Fehler bleiben unbemerkt und führen später zu schwer erklärbaren Folgefehlern.",
-   "Richtig: Ohne Kontext wie Auftrag, Eingabe oder beteiligter Dienst bleibt die Fehlersuche mühsam.",
-   "Falsch: Nutzer:innen brauchen eine passende Rückmeldung, Betreiber brauchen Details im Log. Ein einziger Text erfüllt keines von beidem.",
-   "Richtig: Fehlerbehandlung ist ein Querschnittsthema. Ein gemeinsames Konzept sorgt für vorhersagbares Verhalten über Bausteine hinweg.",
-   "Falsch: Ausnahmen stehen für außergewöhnliche Situationen. Als Ablaufsteuerung machen sie den Code schwer lesbar und langsam.",
-   "Falsch: Ohne Absprache behandelt jeder Baustein Fehler anders. Gerade das macht die Behandlung zum Architekturthema."
+   "Falsch: Technische Details gehören ins Log, mit einer Referenz (z. B. Fehler-ID) in der Nutzermeldung. Sie können sonst Sicherheitsrisiken offenlegen.",
+   "Richtig: Bei einem Timeout ist unklar, ob der Aufruf ausgeführt wurde. Ohne Idempotenz droht doppelte Wirkung, etwa eine doppelte Zahlung.",
+   "Falsch: Ausnahmen sind für Ausnahmesituationen gedacht; als Ablaufsteuerung machen sie den Kontrollfluss schwer nachvollziehbar und sind teuer.",
+   "Richtig: So reagieren alle Bausteine konsistent, und Fehler lassen sich systemweit protokollieren und auswerten.",
+   "Falsch: Oft kann nur der Aufrufer sinnvoll reagieren (Wiederholen, Alternativweg, Meldung). Behandlung am Entstehungsort verdeckt Fehler.",
+   "Richtig: Das verhindert sowohl Verschlucken als auch unnötige Propagation. Beim Weiterreichen werden Ausnahmen oft auf passende Abstraktionsebene übersetzt."
   ],
-  "explanation": "Fehler werden dort behandelt, wo sinnvoll reagiert werden kann, mit aussagekräftigem Kontext und nach einem einheitlichen Konzept. Fallen: Verschlucken, generische Texte, Ausnahmen als Ablaufsteuerung und fehlende Absprache."
+  "explanation": "Gute Fehlerbehandlung folgt einem einheitlichen Konzept (Fehlerarten, Zuständigkeiten), behandelt Fehler an der Stelle mit sinnvoller Reaktionsmöglichkeit und beachtet bei Wiederholungen die Idempotenz. Typische Fallen: Behandlung stets am Entstehungsort, Ausnahmen als Ablaufsteuerung und technische Details in Nutzermeldungen."
  },
  {
   "id": "c3q93",
@@ -8292,29 +8360,29 @@ const QUESTIONS = [
   "r": "R2",
   "prereq": true,
   "type": "multi",
-  "q": "Ein Team organisiert den Code eines wachsenden Systems in Paketen bzw. Namensräumen und diskutiert, wie sich Sichtbarkeit und Gültigkeitsbereiche (Scope) auf den Entwurf auswirken. Welche Aussagen treffen zu?",
+  "q": "Welche Aussagen zu Paketen bzw. Namensräumen, Sichtbarkeit und Gültigkeitsbereichen (Scope) im Entwurf treffen zu?",
   "options": [
-   "Pakete bzw. Namensräume gruppieren zusammengehörige Typen und vermeiden Namenskollisionen.",
-   "Pakete garantieren bereits eine saubere Architektur.",
-   "Ein enger gewählter Gültigkeitsbereich begrenzt, wo eine Variable unbeabsichtigt verwendet werden kann.",
-   "Variablen sollten möglichst global deklariert werden, damit sie überall verfügbar sind.",
-   "Nicht öffentlich sichtbare Typen eines Pakets lassen sich intern ändern, ohne andere Pakete zu beeinflussen.",
-   "Namensräume bestimmen, auf welchen Servern der Code läuft."
+   "Namensräume dienen primär der Laufzeitisolierung von Komponenten.",
+   "Eine Paketstruktur garantiert keine geringe Kopplung; auch zwischen Paketen sind Zyklen möglich.",
+   "Nicht öffentlich sichtbare Typen eines Pakets lassen sich ändern, ohne Nutzer außerhalb des Pakets zu beeinflussen.",
+   "Je mehr Typen eines Pakets öffentlich sind, desto stabiler ist seine Schnittstelle.",
+   "Ein Paketschnitt nach technischen Schichten stellt hohe fachliche Kohäsion sicher.",
+   "Ein enger gewählter Gültigkeitsbereich begrenzt, wo eine Variable unbeabsichtigt verwendet oder verändert werden kann."
   ],
   "correct": [
-   0,
+   1,
    2,
-   4
+   5
   ],
   "optExpl": [
-   "Richtig: Das ist ihre Grundfunktion. Sie bilden damit auch eine einfache Form der Modularisierung im Code.",
-   "Falsch: Pakete sind ein Mittel. Ohne Regeln für Abhängigkeiten zwischen ihnen können sie trotzdem zyklisch und eng gekoppelt sein.",
-   "Richtig: Je kleiner der Scope, desto weniger Stellen können eine Variable beeinflussen. Das erleichtert das Verständnis.",
-   "Falsch: Verfügbarkeit überall bedeutet Abhängigkeit überall. Globaler Zustand erschwert Änderungen und Tests.",
-   "Richtig: Sichtbarkeitsregeln setzen Information Hiding im Code um: Nur was öffentlich ist, bindet Nutzer.",
-   "Falsch: Namensräume ordnen Namen im Code. Die Zuordnung zu Servern ist eine Frage der Verteilung."
+   "Falsch: Namensräume ordnen Namen und vermeiden Kollisionen. Sie isolieren zur Laufzeit nichts; dafür sind Prozesse, Container oder Klassenlader zuständig.",
+   "Richtig: Pakete gruppieren nur. Ob Abhängigkeiten zwischen ihnen sauber gerichtet sind, hängt vom Entwurf ab und muss gesondert geprüft werden.",
+   "Richtig: Was außerhalb nicht sichtbar ist, kann dort nicht verwendet werden. Diese Typen gehören nicht zur Schnittstelle des Pakets und dürfen sich frei ändern.",
+   "Falsch: Alles Öffentliche ist Schnittstelle und muss stabil gehalten werden. Mehr öffentliche Typen bedeuten mehr Bindung und weniger Änderungsfreiheit.",
+   "Falsch: Ein Schichtenschnitt verteilt eine fachliche Funktion über mehrere Pakete. Fachliche Kohäsion erfordert eher einen fachlichen Schnitt.",
+   "Richtig: Je kleiner der Scope, desto weniger Stellen können auf die Variable zugreifen. Das reduziert unerwünschte Abhängigkeiten."
   ],
-  "explanation": "Pakete und Namensräume gruppieren und schützen Namen, enge Gültigkeitsbereiche begrenzen Wirkungen, und nicht öffentliche Typen lassen sich frei ändern. Fallen: Pakete als Garantie für Architektur, globale Variablen, Verwechslung mit Verteilung."
+  "explanation": "Pakete und Sichtbarkeit begrenzen die Angriffsfläche für Abhängigkeiten, garantieren aber keine gute Architektur. Fallen: Namensräume als Laufzeitisolation, öffentlich gleich stabil, Schichtenpakete gleich Kohäsion."
  },
  {
   "id": "k46",
@@ -8324,41 +8392,41 @@ const QUESTIONS = [
   "prereq": true,
   "type": "k",
   "points": 2,
-  "q": "Beschreibt die Aussage eher Call-by-Value oder Call-by-Reference?",
+  "q": "Welcher Parameterübergabe lässt sich die beschriebene Eigenschaft einer Schnittstelle am ehesten zuordnen?",
   "categories": [
    "Call-by-Value",
    "Call-by-Reference"
   ],
   "rows": [
    {
-    "text": "Die aufgerufene Funktion arbeitet auf einer Kopie des Arguments; Änderungen sind für den Aufrufer nicht sichtbar.",
+    "text": "Bei großen Objekten entsteht Kopieraufwand beim Aufruf.",
     "cat": 0
    },
    {
-    "text": "Die aufgerufene Funktion kann den Wert der Variablen des Aufrufers verändern.",
+    "text": "Der Aufrufer findet nach Rückkehr ein verändertes Objekt vor, obwohl es nicht als Rückgabewert geliefert wurde.",
     "cat": 1
    },
    {
-    "text": "Beim Aufruf wird nur ein Verweis auf die Variable übergeben, nicht ihr Wert.",
+    "text": "Änderungen des Parameters bleiben lokal, was die Schnittstelle leichter nachvollziehbar macht.",
+    "cat": 0
+   },
+   {
+    "text": "Zwei Aufrufer, die dasselbe Objekt übergeben, können sich über den Parameter gegenseitig beeinflussen.",
     "cat": 1
    },
    {
-    "text": "Eine Änderung des Parameters in der Funktion lässt die Originalvariable unberührt.",
-    "cat": 0
-   },
-   {
-    "text": "Der Wert wird beim Aufruf kopiert, bei großen Datenmengen kann das aufwendig sein.",
-    "cat": 0
+    "text": "Über Parameter lassen sich mehrere Ergebnisse an den Aufrufer zurückgeben.",
+    "cat": 1
    }
   ],
   "rowExpl": [
-   "Arbeitet die Funktion auf einer Kopie, bleiben Änderungen lokal und der Aufrufer sieht sie nicht. Das ist Call-by-Value; bei Call-by-Reference wäre das Original betroffen.",
-   "Kann die Funktion den Wert der Variablen des Aufrufers verändern, arbeitet sie am Original. Das ist Call-by-Reference, bei Call-by-Value bliebe die Variable unverändert.",
-   "Wird nur ein Verweis auf die Variable übergeben, greift die Funktion über diesen Verweis auf das Original zu. Das ist Call-by-Reference und keine Wertkopie.",
-   "Bleibt die Originalvariable bei Änderung des Parameters unberührt, wurde eine Kopie übergeben. Das ist Call-by-Value; bei einer Referenz wäre die Änderung sichtbar.",
-   "Der Wert wird beim Aufruf kopiert, was bei großen Datenmengen aufwendig sein kann. Dieser Kopieraufwand ist typisch für Call-by-Value, eine Referenz vermeidet ihn."
+   "Beim Übergeben des Werts wird eine Kopie erzeugt; bei großen Datenmengen kostet das Zeit und Speicher. Bei einer Referenz wird nur ein Verweis übergeben.",
+   "Das ist ein Seiteneffekt: Die Funktion arbeitet über die Referenz am Original des Aufrufers. Bei einer Kopie bliebe das Original unverändert.",
+   "Die Funktion arbeitet auf einer Kopie, das Original bleibt unberührt. Das macht Schnittstellen berechenbarer; bei Referenzen müssen Seiteneffekte beachtet und dokumentiert werden.",
+   "Beide halten einen Verweis auf dasselbe Objekt, Änderungen sind für alle sichtbar. Das ist ein verstecktes Risiko der Referenzübergabe; bei Kopien gäbe es diese gemeinsame Zustandsänderung nicht.",
+   "Nur wenn die Funktion das Original über eine Referenz ändern darf (Ausgabeparameter), kann sie so Ergebnisse zurückliefern. Bei einer Kopie wären die Änderungen für den Aufrufer unsichtbar."
   ],
-  "explanation": "Bei Call-by-Value erhält die Funktion eine Kopie, Änderungen bleiben lokal, und große Werte zu kopieren kann Aufwand bedeuten. Bei Call-by-Reference arbeitet die Funktion auf dem Original, Änderungen sind für den Aufrufer sichtbar. Das beeinflusst, wie Schnittstellen Seiteneffekte offenlegen."
+  "explanation": "Call-by-Value: Kopie, Änderungen bleiben lokal, Kopieraufwand bei großen Daten. Call-by-Reference: Verweis auf das Original, Seiteneffekte möglich, auch auf andere Nutzer desselben Objekts. Für Schnittstellen heißt das: Seiteneffekte explizit machen oder vermeiden."
  },
  {
   "id": "c1q47",
@@ -8397,7 +8465,7 @@ const QUESTIONS = [
   "q": "Welche Faktoren führen in der Praxis am häufigsten dazu, dass die umgesetzte Architektur von der geplanten abweicht? Wählen Sie die am besten passenden Antworten aus.",
   "options": [
    "Zeitdruck und Abkürzungen bei der Umsetzung.",
-   "Zu viele Architekturdiagramme in der Dokumentation.",
+   "Eine zu hohe Testabdeckung des Codes.",
    "Die Konformität von Code und Architektur wird nicht regelmäßig geprüft.",
    "Die Verwendung einer statisch getypten Programmiersprache.",
    "Entwickler:innen kennen die Architekturentscheidungen und ihre Gründe nicht.",
@@ -8410,13 +8478,13 @@ const QUESTIONS = [
   ],
   "optExpl": [
    "Richtig: Unter Druck wird die schnellste statt der vorgesehenen Lösung gewählt. So entstehen verbotene Abhängigkeiten, die sich ansammeln.",
-   "Falsch: Diagramme verursachen keine Abweichung im Code. Zu viele können die Pflege erschweren, sind aber nicht die typische Ursache.",
+   "Falsch: Eine hohe Testabdeckung verursacht keine Strukturabweichung. Sie sagt aber auch nichts über die Einhaltung der Architektur aus, weil Tests Verhalten prüfen und nicht die Struktur.",
    "Richtig: Ohne Prüfung bleiben Abweichungen unbemerkt und wachsen. Regelmäßige Konformitätsprüfungen machen sie früh sichtbar.",
    "Falsch: Statische Typisierung hilft eher, Strukturregeln zu prüfen. Sie ist keine typische Ursache für Erosion.",
    "Richtig: Wer Entscheidungen und Gründe nicht kennt, verletzt sie unbeabsichtigt, etwa bei Teamwechseln oder fehlender Dokumentation.",
    "Falsch: Reviews decken Abweichungen auf, statt sie zu verursachen. Der Aufwand kann stören, ist aber nicht die Ursache der Abweichung."
   ],
-  "explanation": "Abweichungen entstehen meist durch Zeitdruck, fehlende Konformitätsprüfung und unbekannte Entscheidungen. Fallen: Diagramme, Programmiersprache und Reviews sind keine typischen Ursachen."
+  "explanation": "Abweichungen entstehen meist durch Zeitdruck, fehlende Konformitätsprüfung und unbekannte Entscheidungen. Fallen: Testabdeckung, Programmiersprache und Reviews sind keine typischen Ursachen."
  },
  {
   "id": "c1q48",
@@ -8487,8 +8555,8 @@ const QUESTIONS = [
    "Ein Überblick über Kontext und Grobstruktur des Systems.",
    "Klassendiagramme aller Bausteine.",
    "Qualitätsziele sowie Konsequenzen und Kosten wichtiger Entscheidungen.",
-   "Quelltextauszüge der zentralen Klassen.",
-   "Konfigurationsparameter der Server im Detail."
+   "Detaillierte Sequenzdiagramme sämtlicher Laufzeitszenarien.",
+   "Die Verteilungssicht mit allen Servern, Netzen und Konfigurationsparametern."
   ],
   "correct": [
    0,
@@ -8498,10 +8566,10 @@ const QUESTIONS = [
    "Richtig: Das Management braucht den Gesamtzusammenhang, keine Details. Kontext und Grobstruktur geben ihn auf einer Seite.",
    "Falsch: Diese Detailtiefe richtet sich an Entwickler:innen. Für das Management verdeckt sie das Wesentliche.",
    "Richtig: Das Management entscheidet über Ressourcen und Prioritäten. Es braucht die Abwägungen hinter den Entscheidungen.",
-   "Falsch: Quelltext spricht Entwickler:innen an. Er eignet sich nicht, um Management Struktur und Entscheidungen zu vermitteln.",
-   "Falsch: Das ist Betriebsdetail. Der Betrieb braucht es, das Management nicht."
+   "Falsch: Laufzeitszenarien im Detail sind für Entwickler:innen relevant. Das Management braucht keine Ablaufdetails, sondern Überblick und Konsequenzen.",
+   "Falsch: Die Verteilungssicht ist vor allem für den Betrieb relevant. Für das Management ist dieser Detailgrad nicht nötig."
   ],
-  "explanation": "Dem Management vermittelt man Kontext, Grobstruktur, Qualitätsziele und die Konsequenzen wichtiger Entscheidungen. Fallen: Entwicklerdetails wie Klassen, Quelltext oder Serverkonfiguration."
+  "explanation": "Dem Management vermittelt man Kontext, Grobstruktur, Qualitätsziele und die Konsequenzen wichtiger Entscheidungen. Fallen: Entwicklerdetails wie Klassen oder Laufzeitszenarien und Betriebsdetails der Verteilung."
  },
  {
   "id": "c3q94",
@@ -8512,11 +8580,11 @@ const QUESTIONS = [
   "q": "Nach welchen Kriterien sollte ein Team ein System am ehesten in Bausteine zerlegen? Wählen Sie die am besten passenden Antworten aus.",
   "options": [
    "Fachliche Zusammengehörigkeit (hohe Kohäsion).",
-   "Gleiche Größe der Bausteine in Codezeilen.",
+   "Möglichst gleich große Bausteine, damit der Aufwand je Baustein vergleichbar bleibt.",
    "Wenige und klare Abhängigkeiten zwischen den Bausteinen.",
-   "Die Reihenfolge, in der die Klassen programmiert wurden.",
+   "Möglichst viele kleine Bausteine, damit jeder genau eine Aufgabe hat.",
    "Gemeinsame Änderungsgründe: Was sich aus demselben Grund ändert, gehört zusammen.",
-   "Alphabetische Ordnung der Bausteinnamen.",
+   "Die vorhandene Datenbankstruktur: eine Tabelle, ein Baustein.",
    "Der Zweck eines Bausteins lässt sich in einem Satz beschreiben."
   ],
   "correct": [
@@ -8527,14 +8595,14 @@ const QUESTIONS = [
   ],
   "optExpl": [
    "Richtig: Was fachlich zusammengehört, sollte im selben Baustein liegen (hohe Kohäsion). Das hält Änderungen lokal und macht Verantwortlichkeiten nachvollziehbar.",
-   "Falsch: Die Größe in Codezeilen ist kein Qualitätskriterium des Schnitts. Gleich große Teile können fachlich zerreißen, was zusammengehört, und erhöhen so Abhängigkeiten statt sie zu senken.",
+   "Falsch: Gleiche Größe ist ein Planungswunsch, kein Qualitätskriterium des Schnitts. Sie kann fachlich Zusammengehöriges zerreißen und dadurch Abhängigkeiten erhöhen.",
    "Richtig: Ein guter Schnitt hält Kopplung gering und Schnittstellen schmal. Wenige, klare Abhängigkeiten machen Bausteine verständlich und getrennt änderbar.",
-   "Falsch: Die Entstehungsgeschichte sagt nichts über Verantwortlichkeiten oder Abhängigkeiten aus. Ein historisch gewachsener Schnitt ist deshalb kein Maßstab für eine gute Zerlegung.",
+   "Falsch: Sehr feine Granularität erzeugt viele Schnittstellen und Abhängigkeiten. Ein guter Schnitt richtet sich nach Zusammengehörigkeit, nicht nach möglichst kleinen Teilen.",
    "Richtig: Das ist die Idee hinter Single Responsibility und Information Hiding: Was sich aus demselben Grund ändert, gehört zusammen, damit Änderungen auf einen Baustein begrenzt bleiben.",
-   "Falsch: Namen ordnen Listen, nicht Systeme. Die alphabetische Reihenfolge hat keinen Bezug zu Fachlichkeit, Kopplung oder Änderungsgründen und ist für den Schnitt ohne Aussagekraft.",
+   "Falsch: Das Datenmodell ist ein technischer Aspekt. Bausteine nach Tabellen zu schneiden trennt oft fachlich Zusammengehöriges und koppelt Bausteine über gemeinsame Daten.",
    "Richtig: Lässt sich der Zweck eines Bausteins in einem Satz beschreiben, deutet das auf eine klar umrissene Verantwortung hin. Ein diffuser Zweck weist dagegen auf einen unsauberen Schnitt hin."
   ],
-  "explanation": "Gute Bausteinschnitte folgen fachlicher Zusammengehörigkeit, geringer Kopplung, gemeinsamen Änderungsgründen und einem klaren Zweck. Fallen: Größe, Entstehungsreihenfolge, Alphabet."
+  "explanation": "Gute Bausteinschnitte folgen fachlicher Zusammengehörigkeit, geringer Kopplung, gemeinsamen Änderungsgründen und einem klaren Zweck. Fallen: Größe oder Anzahl der Bausteine als Ziel, Schnitt nach dem Datenbankschema."
  },
  {
   "id": "c4q49",
@@ -8547,9 +8615,9 @@ const QUESTIONS = [
    "Kontext und Bausteinübersicht des Systems.",
    "Eine Beschreibung aller Klassen und Methoden.",
    "Wichtige Entscheidungen mit Begründung.",
-   "Die Protokolle der Projektmeetings.",
+   "Eine chronologische Historie aller Architekturänderungen seit Projektbeginn.",
    "Querschnittskonzepte wie Fehlerbehandlung und Persistenz.",
-   "Die Zeiterfassung der Entwickler:innen."
+   "Die Konfigurationsparameter aller Umgebungen im Detail."
   ],
   "correct": [
    0,
@@ -8560,11 +8628,11 @@ const QUESTIONS = [
    "Richtig: Beides vermittelt schnell, wo das System steht und woraus es besteht. Das ist der übliche Einstieg.",
    "Falsch: Das ist zu detailliert und veraltet schnell. Einsteiger finden darin das Wesentliche nicht.",
    "Richtig: Das Warum lässt sich aus dem Code nicht lesen. Einsteiger vermeiden damit, getroffene Entscheidungen unbewusst zu kippen.",
-   "Falsch: Protokolle sind chronologisch und enthalten viel Nebensächliches. Sie ersetzen keine strukturierte Dokumentation.",
+   "Falsch: Eine Änderungshistorie ist als Nachschlagewerk nützlich, vermittelt Einsteigern aber keinen strukturierten Überblick über das heutige System.",
    "Richtig: Diese Regeln gelten in vielen Bausteinen. Wer sie kennt, schreibt von Anfang an passenden Code.",
-   "Falsch: Das ist Projektsteuerung, nicht Architektur. Für das Verständnis des Systems bringt es nichts."
+   "Falsch: Das sind Betriebsdetails, die schnell veralten. Für das Verständnis der Architektur in den ersten Wochen sind sie nachrangig."
   ],
-  "explanation": "Neueinsteiger profitieren von Kontext, Bausteinübersicht, begründeten Entscheidungen und Querschnittskonzepten. Fallen: Detailbeschreibungen, Meetingprotokolle, Zeiterfassung."
+  "explanation": "Neueinsteiger profitieren von Kontext, Bausteinübersicht, begründeten Entscheidungen und Querschnittskonzepten. Fallen: Detailbeschreibungen, Änderungshistorien und Umgebungsdetails liefern keinen strukturierten Überblick."
  },
  {
   "id": "c2q36",
@@ -8577,7 +8645,7 @@ const QUESTIONS = [
    "Für jede Lesart ein Szenario mit Kontext, Stimulus, Reaktion und Messung formulieren.",
    "„Robust“ in ein Antwortzeitziel übersetzen, weil sich das am leichtesten messen lässt.",
    "Mit den Stakeholdern klären, welche Lesart Priorität hat.",
-   "Die Anforderung unverändert übernehmen, weil sie als Qualitätsziel bereits klar ist.",
+   "Das Szenario nur für die Lesart formulieren, die das Entwicklungsteam für die wichtigste hält.",
    "Für jedes Szenario eine Analysemethode festlegen, z. B. einen Fehlerinjektionstest.",
    "Eine Technologie wie Container-Orchestrierung vorschreiben, die Robustheit sicherstellt."
   ],
@@ -8590,11 +8658,11 @@ const QUESTIONS = [
    "Richtig: So wird aus einem vagen Begriff ein prüfbares Kriterium. Jede Lesart bekommt ihr eigenes, messbares Szenario.",
    "Falsch: Leicht messbar heißt nicht passend. Antwortzeit ist eine andere Qualität als Robustheit und würde das eigentliche Anliegen verfehlen.",
    "Richtig: Nicht jede Lesart ist gleich wichtig. Die Priorisierung gehört zu den Stakeholdern und steuert den Entwurf.",
-   "Falsch: Der Workshop hat gezeigt, dass sie unterschiedlich verstanden wird. Unklare Anforderungen führen zu Streit bei der Abnahme.",
+   "Falsch: Die Gewichtung der Lesarten gehört zu den Stakeholdern, nicht zum Entwicklungsteam. Sonst entsteht ein Szenario, das am eigentlichen Anliegen vorbeigeht.",
    "Richtig: Das Curriculum verlangt, dass eine Anforderung ihre Analysemethode benennt. Erst dann ist klar, wie die Erfüllung belegt wird.",
    "Falsch: Eine Technologie ist eine Lösung, keine Anforderung. Sie macht Robustheit weder überprüfbar noch ausreichend."
   ],
-  "explanation": "Vage Qualitäten werden über Szenarien mit Kontext, Stimulus, Reaktion und Messung konkretisiert, priorisiert und mit einer Analysemethode versehen. Fallen: leicht Messbares statt Passendes, ungeklärte Übernahme, Technologie als Anforderung."
+  "explanation": "Vage Qualitäten werden über Szenarien mit Kontext, Stimulus, Reaktion und Messung konkretisiert, priorisiert und mit einer Analysemethode versehen. Fallen: leicht Messbares statt Passendes, Priorisierung durch das Team statt durch die Stakeholder, Technologie als Anforderung."
  },
  {
   "id": "c3q95",
@@ -8602,29 +8670,29 @@ const QUESTIONS = [
   "lz": "LZ 03-04",
   "r": "R2",
   "type": "multi",
-  "q": "In einem System, das drei Teams entwickeln, löst jedes Team die Anbindung externer Dienste anders: eigene Fehlerbehandlung, eigene Namensschemata und unterschiedliche Wiederholungsstrategien. Neue Entwickler:innen brauchen lange zur Einarbeitung, und das Fehlerverhalten ist schwer vorherzusagen. Welche Aussagen zur konzeptionellen Integrität treffen zu?",
+  "q": "Welche Aussagen zur konzeptionellen Integrität treffen zu?",
   "options": [
-   "Gleichartige Probleme sollten einheitlich gelöst werden (Einheitlichkeit, Konsistenz).",
-   "Konzeptionelle Integrität heißt, dass alle Teams dieselbe Technologie einsetzen.",
-   "Einheitliche Lösungen erleichtern die Einarbeitung und machen das Verhalten vorhersagbar.",
-   "Die Teams sollten bewusst unterschiedlich lösen, um Innovation zu fördern.",
-   "Ein gemeinsames Querschnittskonzept für die Anbindung externer Dienste ist ein geeigneter Weg.",
-   "Einheitlichkeit entsteht von selbst, wenn die Teams gut kommunizieren."
+   "Sie verlangt, dass alle Teams dieselbe Technologie einsetzen.",
+   "Einheitlichkeit kann Flexibilität kosten, weil auch Fälle einheitlich gelöst werden, für die eine andere Lösung besser wäre.",
+   "Sie stellt sich bei guter Kommunikation der Teams von selbst ein, ohne dass Vorgaben nötig sind.",
+   "Einheitliche Lösungen senken den Einarbeitungsaufwand und machen das Verhalten vorhersagbarer.",
+   "Sie gilt innerhalb eines Bausteins; zwischen Bausteinen ist Vielfalt erwünscht.",
+   "Ein Querschnittskonzept ist ein Mittel, um Einheitlichkeit herzustellen."
   ],
   "correct": [
-   0,
-   2,
-   4
+   1,
+   3,
+   5
   ],
   "optExpl": [
-   "Richtig: Das Curriculum beschreibt konzeptionelle Integrität als Einheitlichkeit von Lösungen für ähnliche Probleme.",
-   "Falsch: Es geht um einheitliche Lösungsansätze für ähnliche Probleme, nicht um eine einzige Technologie.",
-   "Richtig: Wer ein Muster einmal verstanden hat, erkennt es überall wieder. Genau das fehlt im beschriebenen System.",
-   "Falsch: Unterschiede ohne Grund erzeugen Aufwand und Unvorhersagbarkeit. Abweichungen sollten begründet sein, nicht Normalfall.",
-   "Richtig: Ein einmal beschriebenes Konzept mit Regeln und Beispielen sorgt für gleichartige Lösungen in allen Teams.",
-   "Falsch: Gute Kommunikation hilft, ersetzt aber keine ausdrückliche Vereinbarung. Ohne Konzept entstehen weiterhin eigene Lösungen."
+   "Falsch: Einheitlich ist die Lösung gleichartiger Probleme, nicht die Technologie. Auch mit unterschiedlichen Technologien lässt sich ein einheitliches Konzept umsetzen.",
+   "Richtig: Die Vorgabe eines Konzepts schränkt lokale Optimierung ein. Konsistenz wird gegen die jeweils beste Einzellösung abgewogen.",
+   "Falsch: Ohne vereinbarte Konzepte entscheiden Teams unabhängig und kommen zu unterschiedlichen Lösungen. Kommunikation hilft, ersetzt aber keine explizite Vereinbarung.",
+   "Richtig: Wer ein Muster einmal verstanden hat, erkennt es im ganzen System wieder. Das senkt auch den Aufwand der Fehleranalyse.",
+   "Falsch: Konzeptionelle Integrität betrifft das System als Ganzes. Gerade zwischen Bausteinen führen uneinheitliche Lösungen zu Verwirrung.",
+   "Richtig: Das Konzept legt fest, wie ein Problem überall im System gelöst wird, etwa Fehlerbehandlung oder Anbindung externer Dienste."
   ],
-  "explanation": "Konzeptionelle Integrität bedeutet einheitliche Lösungen für ähnliche Probleme; sie erleichtert Einarbeitung und macht Verhalten vorhersagbar und lässt sich über ein gemeinsames Konzept erreichen. Fallen: gleiche Technologie, gewollte Vielfalt, Einheitlichkeit von selbst."
+  "explanation": "Konzeptionelle Integrität heißt: Gleichartiges wird gleichartig gelöst, meist über Querschnittskonzepte; sie erleichtert Einarbeitung und Vorhersagbarkeit, kostet aber lokale Optimierungsfreiheit. Fallen: gleiche Technologie fordern, Einheitlichkeit entstehe von selbst, nur innerhalb von Bausteinen."
  },
  {
   "id": "c4q50",
@@ -8665,29 +8733,29 @@ const QUESTIONS = [
   "lz": "LZ 03-10",
   "r": "R1",
   "type": "multi",
-  "q": "Für eine mobile App soll der Akkuverbrauch gesenkt werden. Das Team stellt fest, dass Netzwerkzugriffe (Kommunikation), häufige Bildschirmaktualisierungen (GUI) und Hintergrundthreads (Nebenläufigkeit) den Verbrauch bestimmen. Welche Aussagen zum Vorgehen treffen zu?",
+  "q": "Welche Aussagen zu Energieeffizienz als Querschnittsthema einer mobilen App treffen zu?",
   "options": [
-   "Energieeffizienz ist ein Querschnittsthema, das mehrere Bausteine betrifft.",
-   "Energieeffizienz lässt sich in einem einzelnen Baustein lösen, ohne andere zu betreffen.",
-   "Die Querschnittskonzepte Kommunikation, GUI und Nebenläufigkeit beeinflussen sich gegenseitig und sollten gemeinsam betrachtet werden.",
-   "Energieeffizienz ist eine Frage der Hardware, die Software kaum beeinflusst.",
-   "Ein Konzept mit Regeln (z. B. Netzwerkzugriffe bündeln) lässt sich in weiteren Apps wiederverwenden.",
-   "Das Thema wird erst nach der Implementierung relevant."
+   "Entscheidungen zu Kommunikation, GUI und Nebenläufigkeit sind erst nach Messungen am fertigen Produkt sinnvoll.",
+   "Das Bündeln von Netzwerkzugriffen spart Energie, kann aber die Aktualität der Anzeige verschlechtern.",
+   "Energieeffizienz hängt allein von der Hardware ab; durch Optimierung im verbrauchsstärksten Baustein lässt sich nichts weiter erreichen.",
+   "Ein Regelwerk, etwa zum Bündeln von Netzwerkzugriffen, lässt sich in weiteren Apps wiederverwenden.",
+   "Energieeffizienz und Antwortzeit lassen sich gleichzeitig maximieren, da beide durch weniger Arbeit besser werden.",
+   "Kommunikation, GUI und Nebenläufigkeit beeinflussen sich gegenseitig und sollten gemeinsam betrachtet werden."
   ],
   "correct": [
-   0,
-   2,
-   4
+   1,
+   3,
+   5
   ],
   "optExpl": [
-   "Richtig: Das Curriculum nennt Energieeffizienz ausdrücklich als Querschnittsthema. Der Verbrauch entsteht in vielen Bausteinen.",
-   "Falsch: Kommunikation, GUI und Nebenläufigkeit liegen in verschiedenen Bausteinen. Eine Lösung in einem einzelnen reicht nicht.",
-   "Richtig: Das Curriculum nennt mögliche wechselseitige Abhängigkeiten von Querschnittskonzepten. Gebündelte Netzwerkzugriffe ändern etwa auch die Aktualisierung der Oberfläche.",
-   "Falsch: Software bestimmt über Netzwerk, Aktualisierung und Threads wesentlich mit, wie viel Energie verbraucht wird.",
-   "Richtig: Das Curriculum weist darauf hin, dass Querschnittskonzepte systemübergreifend wiederverwendbar sein können.",
-   "Falsch: Dann sind Kommunikationsmuster und Threads längst festgelegt. Querschnittskonzepte gehören in den Entwurf."
+   "Falsch: Messung ist wichtig, aber die grundlegenden Entscheidungen (z. B. Pull oder Push) sind früh strukturbildend und später teuer zu ändern.",
+   "Richtig: Seltenere Funkaktivität spart Akku, verzögert aber Daten für die Oberfläche. Das ist eine typische Wechselwirkung zwischen Konzepten.",
+   "Falsch: Software bestimmt über Netzwerkzugriffe, Bildschirmaktualisierungen und Hintergrundaktivität wesentlich mit. Das Thema betrifft mehrere Bausteine.",
+   "Richtig: Konzepte sind unabhängig von der konkreten Fachlichkeit und deshalb übertragbar.",
+   "Falsch: Vorabladen und häufige Aktualisierung verbessern die Antwortzeit, kosten aber Energie. Es besteht ein Zielkonflikt.",
+   "Richtig: Z. B. bestimmt die Aktualisierungsrate der GUI, wie oft Daten geholt werden und wie lange Threads laufen."
   ],
-  "explanation": "Energieeffizienz ist ein Querschnittsthema, das mit Kommunikation, GUI und Nebenläufigkeit zusammenhängt und als wiederverwendbares Konzept entworfen wird. Fallen: Lösung in einem Baustein, Hardware als Ursache, späte Betrachtung."
+  "explanation": "Energieeffizienz hängt mit Kommunikation, GUI und Nebenläufigkeit zusammen. Maßnahmen verschieben oft Lasten und stehen im Zielkonflikt mit Aktualität und Antwortzeit. Ein Regelwerk dafür ist wiederverwendbar. Nicht stimmt, dass Hardware oder ein einzelner Baustein das Thema abschließend löst."
  },
  {
   "id": "c3q97",
@@ -8695,32 +8763,29 @@ const QUESTIONS = [
   "lz": "LZ 03-07",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Team stellt einen Preisberechnungsdienst bereit, den zwei interne Teams und externe Partnerfirmen nutzen. Die Implementierung soll im nächsten Quartal ausgetauscht werden. Welche Aussagen zum Schnittstellenentwurf treffen zu?",
+  "q": "Welche Aussagen zum Entwurf einer Schnittstelle treffen zu, hinter der die Implementierung später ausgetauscht werden soll?",
   "options": [
-   "Schnittstelle und Implementierung trennen, damit sich die Implementierung ohne Anpassung der Nutzer ersetzen lässt.",
-   "Interne Datenstrukturen offenlegen, um den Nutzern maximale Flexibilität zu geben.",
-   "Interne und externe Schnittstellen unterschiedlich behandeln, etwa bei Stabilität und Versionierung.",
-   "Interne und externe Schnittstellen müssen gleich behandelt werden, damit niemand benachteiligt wird.",
-   "Die Schnittstelle leicht erlernbar, schwer zu missbrauchen und aus Nutzersicht funktional vollständig gestalten.",
-   "Die Schnittstelle eng an die aktuelle Implementierung anlehnen, damit der Austausch kaum auffällt.",
-   "Zusicherungen wie Fehlerverhalten und Antwortzeit dokumentieren."
+   "Eine schmale Schnittstelle erleichtert den Austausch, weil weniger Verhalten erhalten werden muss.",
+   "Das Offenlegen interner Datenstrukturen erhöht die Austauschbarkeit, weil Nutzer selbst entscheiden, wie sie darauf zugreifen.",
+   "Zusicherungen wie Fehlerverhalten und Antwortzeit gehören zum Vertrag, auch wenn sie nicht in der Signatur stehen.",
+   "Die Signatur genügt als Vertrag, solange die Typen eng gefasst sind.",
+   "Die Schnittstelle sollte vom Bedarf der Nutzer her entworfen werden und nicht aus der aktuellen Implementierung abgeleitet.",
+   "Je enger die Schnittstelle an die aktuelle Implementierung angelehnt ist, desto leichter fällt der spätere Austausch."
   ],
   "correct": [
    0,
    2,
-   4,
-   6
+   4
   ],
   "optExpl": [
-   "Richtig: Das ist die Trennung von Schnittstelle und Implementierung aus dem Curriculum: Implementierungen können bei Bedarf ausgetauscht werden.",
-   "Falsch: Offengelegte Interna binden Nutzer an Details, die sich beim Austausch ändern. Das macht den Austausch teuer.",
-   "Richtig: Das Curriculum nennt die Notwendigkeit unterschiedlicher Behandlung interner und externer Schnittstellen. Externe Nutzer sind unbekannt und lassen sich nicht kurzfristig abstimmen.",
-   "Falsch: Gleichbehandlung ignoriert unterschiedliche Anforderungen an Stabilität, Dokumentation und Änderungsprozess.",
-   "Richtig: Das sind die wünschenswerten Eigenschaften aus dem Curriculum. Sie senken Fehlnutzung und Supportaufwand.",
-   "Falsch: Die Nähe zur alten Implementierung bindet die Schnittstelle an deren Besonderheiten und erschwert gerade den Austausch.",
-   "Richtig: Zur Schnittstelle gehören neben der Syntax auch Semantik und zugesicherte Qualitäten. Nur so bleibt der Austausch kompatibel."
+   "Richtig: Jede Operation und jedes beobachtbare Verhalten ist ein Versprechen, das die neue Implementierung halten muss. Eine schmale Schnittstelle begrenzt diese Bindung, kostet aber ggf. Komfort für Nutzer.",
+   "Falsch: Offengelegte Datenstrukturen binden Nutzer an die konkrete Implementierung. Wird sie ausgetauscht, müssen alle Nutzer angepasst werden.",
+   "Richtig: Nutzer verlassen sich auf Fehlerverhalten, Laufzeit und Reihenfolge. Fehlen diese Zusicherungen im Vertrag, verletzt eine neue Implementierung unbemerkt Erwartungen.",
+   "Falsch: Enge Typen beschränken nur die Syntax. Semantik, Fehlerfälle und Qualitäten bleiben offen und müssen zusätzlich beschrieben werden.",
+   "Richtig: Wer die Schnittstelle aus der Implementierung ableitet, überträgt deren Eigenheiten in den Vertrag. Aus Nutzersicht entworfen bleibt sie unabhängig von der konkreten Umsetzung.",
+   "Falsch: Das Gegenteil trifft zu: Je mehr Implementierungsdetails in der Schnittstelle stecken, desto mehr müsste die neue Implementierung nachbilden, und desto stärker sind Nutzer daran gebunden."
   ],
-  "explanation": "Gute Schnittstellen trennen Vertrag und Implementierung, unterscheiden intern und extern, sind leicht erlernbar und halten Zusicherungen fest. Fallen: Interna offenlegen, Gleichbehandlung, Anlehnung an die Implementierung."
+  "explanation": "Austauschbarkeit entsteht durch eine aus Nutzersicht geschnittene, schmale Schnittstelle mit explizitem Vertrag samt Zusicherungen. Fallen: Offenlegen von Interna als vermeintliche Flexibilität, Signatur als alleiniger Vertrag und Anlehnung an die aktuelle Implementierung."
  },
  {
   "id": "c5q32",
@@ -8764,7 +8829,7 @@ const QUESTIONS = [
    "Dem Anliegen des Stakeholders mit der höchsten Position folgen.",
    "Zielkonflikte und Konsequenzen sichtbar machen, kurz- und langfristige Ziele unterscheiden und mit den Stakeholdern abstimmen.",
    "Die Anliegen des Betriebs zurückstellen, weil sie nicht zur Funktionalität beitragen.",
-   "Technische Schulden ausblenden, weil sie für Stakeholder keine Rolle spielen."
+   "Technische Schulden allein dem Entwicklungsteam zur Bewertung überlassen."
   ],
   "correct": [
    0,
@@ -8775,9 +8840,9 @@ const QUESTIONS = [
    "Falsch: Position ersetzt keine Abwägung. Konflikte sind anhand von Anforderungen und Konsequenzen zu klären.",
    "Richtig: Termin, Betriebssicherheit und technische Schulden zielen auf verschiedene Zeithorizonte. Das offene Abwägen schafft tragfähige Entscheidungen.",
    "Falsch: Betriebsanforderungen betreffen Qualitäten wie Zuverlässigkeit und Beobachtbarkeit und beeinflussen den Entwurf.",
-   "Falsch: Technische Schulden wirken auf Kosten, Änderbarkeit und Termine späterer Releases. Das betrifft auch das Produktmanagement."
+   "Falsch: Technische Schulden wirken auf Kosten, Änderbarkeit und Termine späterer Releases. Das betrifft auch das Produktmanagement und muss mit den Stakeholdern abgewogen werden."
   ],
-  "explanation": "Anliegen werden identifiziert, Zielkonflikte und ihre Konsequenzen offen gemacht und kurz- gegen langfristige Ziele abgewogen. Fallen: Entscheidung nach Hierarchie, Betrieb und technische Schulden ausblenden."
+  "explanation": "Anliegen werden identifiziert, Zielkonflikte und ihre Konsequenzen offen gemacht und kurz- gegen langfristige Ziele abgewogen. Fallen: Entscheidung nach Hierarchie, Betriebsanliegen zurückstellen und technische Schulden nur intern bewerten."
  },
  {
   "id": "c3q98",
@@ -8785,34 +8850,29 @@ const QUESTIONS = [
   "lz": "LZ 03-03",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Team soll eine neue Plattform entwerfen. Für Teile steht Technologie bereits fest (ein erprobter Authentifizierungsdienst und ein Altsystem-Kern), andere Teile sind fachlich noch offen. Welche Überlegungen zum Entwurfsvorgehen sind sinnvoll?",
+  "q": "Für Teile einer Plattform stehen Komponenten fest (erprobter Authentifizierungsdienst, Altsystem-Kern), andere Teile sind fachlich offen. Welche Aussagen zum Entwurfsvorgehen treffen zu?",
   "options": [
-   "Für Teile mit feststehenden Komponenten bietet sich ein Bottom-up-Vorgehen an.",
-   "Man muss sich auf eine Richtung festlegen, Mischformen verwirren das Team.",
-   "Für fachlich offene Teile bietet sich ein Top-down-Vorgehen an, um die Struktur aus den Anforderungen abzuleiten.",
-   "Bottom-up heißt, ohne Kenntnis der Anforderungen zu beginnen.",
-   "Beide Richtungen kombinieren und iterativ aufeinander abstimmen.",
-   "Top-down eignet sich für kleine Systeme, für Plattformen ist es ungeeignet.",
-   "Die Struktur schrittweise über Sichten (Baustein-, Laufzeit-, Verteilungssicht) konkretisieren und absichern.",
-   "Vorhandene Komponenten ignorieren, um den Entwurf nicht einzuengen."
+   "Bei Bottom-up spielen Anforderungen keine Rolle, weil die vorhandenen Komponenten die Struktur vorgeben.",
+   "Die feststehenden Komponenten wirken als Randbedingungen auf die Struktur und müssen früh in den Entwurf einfließen.",
+   "Ein früher Prototyp, der die entworfenen Schnittstellen mit einer vorhandenen Komponente zusammenbringt, liefert schnelles Feedback.",
+   "Das sichtenbasierte Vorgehen schließt Top-down und Bottom-up aus, da es keine Richtung kennt.",
+   "Bei Mischformen entstehen zwangsläufig zwei getrennte Architekturen, die das Team parallel pflegen muss.",
+   "Vorhandene Komponenten können die Kopplung erhöhen, wenn ihre Schnittstellen die eigene Struktur prägen; ein Adapter kann das mildern."
   ],
   "correct": [
-   0,
+   1,
    2,
-   4,
-   6
+   5
   ],
   "optExpl": [
-   "Richtig: Vorhandene Bausteine werden zu größeren Einheiten zusammengesetzt. Das passt, wenn Teile vorgegeben sind.",
-   "Falsch: In der Praxis werden beide Richtungen kombiniert und iterativ gewechselt. Eine starre Festlegung bringt keinen Vorteil.",
-   "Richtig: Top-down zerlegt das Ganze schrittweise anhand der Anforderungen. Das hilft, wo noch nichts feststeht.",
-   "Falsch: Auch Bottom-up muss sich an Anforderungen messen lassen. Es beschreibt die Richtung des Zusammensetzens, nicht das Ignorieren von Zielen.",
-   "Richtig: Erkenntnisse aus festen Teilen beeinflussen den Gesamtentwurf und umgekehrt. Iteratives Abstimmen deckt Widersprüche früh auf.",
-   "Falsch: Die Eignung hängt davon ab, ob und wie viel feststeht, nicht von der Größe.",
-   "Richtig: Sichtenbasierte Architekturentwicklung ist ein im Curriculum genanntes Vorgehen und lässt sich mit beiden Richtungen verbinden.",
-   "Falsch: Vorgegebene Komponenten sind Randbedingungen. Sie zu ignorieren führt zu einem Entwurf, der sich nicht umsetzen lässt."
+   "Falsch: Auch Bottom-up muss die Anforderungen erfüllen. Vorhandene Komponenten werden daran gemessen, ob sie dazu beitragen.",
+   "Richtig: Sie schränken den Lösungsraum ein; wer sie spät berücksichtigt, riskiert späte, teure Anpassungen.",
+   "Richtig: Er prüft früh, ob Top-down-Entwurf und Vorhandenes zusammenpassen, und verringert so das Integrationsrisiko.",
+   "Falsch: Sichten lassen sich mit beiden Richtungen kombinieren, z. B. zur Überprüfung der Struktur aus verschiedenen Blickwinkeln.",
+   "Falsch: Top-down und Bottom-up sind Wege zu derselben Architektur. Sie werden iterativ abgestimmt, nicht getrennt geführt.",
+   "Richtig: Bottom-up neigt zu enger Kopplung. Eine eigene Schnittstelle oder ein Adapter schützt die Struktur vor Details der Komponente."
   ],
-  "explanation": "Bottom-up passt zu feststehenden Teilen, Top-down zu fachlich offenen; beide werden kombiniert und iterativ abgestimmt, ergänzt durch sichtenbasiertes Vorgehen. Fallen: starre Festlegung, Bottom-up ohne Anforderungen, Größe als Kriterium, Vorgaben ignorieren."
+  "explanation": "Bei teils feststehenden Komponenten werden Top-down und Bottom-up kombiniert: Vorhandenes als Randbedingung früh berücksichtigen, per Prototyp Feedback holen, Kopplung an fremde Schnittstellen begrenzen. Fallen: Bottom-up ohne Anforderungen, Sichten als Gegensatz zu den Richtungen."
  },
  {
   "id": "c4q51",
@@ -8848,31 +8908,31 @@ const QUESTIONS = [
   "lz": "LZ 03-05",
   "r": "R1",
   "type": "multi",
-  "q": "Das Team muss entscheiden, ob es für einen Teil des Systems eine NoSQL-Datenbank einsetzt. Niemand im Team hat Erfahrung damit, und die erwartete Datenmenge ist unklar. Der Release-Termin in drei Monaten steht fest. Welche Vorgehensweisen reduzieren das Risiko?",
+  "q": "Der Einsatz einer im Team unbekannten Datenbanktechnologie ist unsicher, der Release-Termin steht fest. Welche Aussagen zum Umgang mit der Entscheidung treffen zu?",
   "options": [
-   "Einen kurzen Proof of Concept mit realistischen Datenmengen durchführen.",
-   "Die Entscheidung bis kurz vor dem Release verschieben.",
-   "In überschaubaren Iterationen entscheiden und die Entscheidung anhand der Ergebnisse bestätigen oder korrigieren.",
-   "Die Datenbank einführen und Erfahrungen sammeln, ohne einen Rückfallplan.",
-   "Die Datenhaltung hinter einer Schnittstelle kapseln, damit ein späterer Wechsel möglich bleibt.",
-   "Dem Marktführer folgen, ohne die Anforderungen zu prüfen.",
-   "Die Datenmenge schätzen und die Entscheidung dann endgültig festschreiben."
+   "Ein zeitlich begrenzter Proof of Concept mit realistischen Datenmengen kann Annahmen vor der verbindlichen Entscheidung prüfen.",
+   "Die Entscheidung bis kurz vor dem Release zu verschieben, hält alle Optionen offen und ist deshalb risikoärmer.",
+   "Bei festem Termin ist ein Rückfallplan sinnvoll, der festlegt, bis wann und nach welchen Kriterien auf eine bekannte Technologie zurückgegriffen wird.",
+   "Die Erfahrungen des Marktführers mit der Technologie ersetzen die Prüfung gegen die eigenen Anforderungen.",
+   "Ein Proof of Concept ist nur aussagekräftig, wenn er den vollständigen Funktionsumfang des Systemteils umfasst.",
+   "Nach einer Schätzung der Datenmenge kann die Technologieentscheidung als endgültig gelten.",
+   "Eine Abstraktionsschicht um die Datenhaltung senkt die Kosten einer späteren Korrektur, verursacht aber Zusatzaufwand und kann Besonderheiten der Technologie verdecken."
   ],
   "correct": [
    0,
    2,
-   4
+   6
   ],
   "optExpl": [
-   "Richtig: Er ersetzt Annahmen über Eignung und Menge durch Messwerte, solange der Termin noch Spielraum lässt.",
-   "Falsch: Aufschieben verschiebt das Risiko in eine Phase, in der Korrekturen teuer sind, und liefert keine neuen Erkenntnisse.",
-   "Richtig: Iteratives Vorgehen erhöht die Prognostizierbarkeit und verkleinert das Risiko von Entscheidungen unter Unsicherheit.",
-   "Falsch: Ohne Rückfallplan trägt das Team das volle Risiko. Bei fester Frist wäre ein Scheitern kaum noch korrigierbar.",
-   "Richtig: Kapselung begrenzt, was von der Entscheidung abhängt. Das senkt die Kosten einer Korrektur.",
-   "Falsch: Beliebtheit ersetzt keine Eignungsprüfung für die eigenen Anforderungen und Randbedingungen.",
-   "Falsch: Eine Schätzung bleibt Annahme. Eine endgültige Festlegung verhindert, aus Erkenntnissen zu lernen."
+   "Richtig: Ein begrenzter Proof of Concept ersetzt Annahmen über Eignung und Datenmenge durch Messwerte, solange der Termin noch Spielraum lässt.",
+   "Falsch: Wer verschiebt, hält Optionen nur scheinbar offen. Die Zeit für Korrekturen schrumpft, und es entstehen implizite Festlegungen. Das Verschieben liefert selbst keine neuen Erkenntnisse.",
+   "Richtig: Bei festem Termin begrenzt ein Rückfallplan den Schaden einer Fehlentscheidung. Entscheidend ist, dass Frist und Kriterien vorher feststehen, sonst wird er zu spät genutzt.",
+   "Falsch: Die Eignung hängt von den eigenen Anforderungen, Datenmengen und Randbedingungen ab. Dass die Technologie bei einem anderen Unternehmen funktioniert, belegt dies nicht.",
+   "Falsch: Ein Proof of Concept soll nur die kritischen Fragen klären, etwa Datenmenge und Zugriffsmuster. Mit vollem Funktionsumfang wäre er zu teuer und zu spät.",
+   "Falsch: Eine Schätzung bleibt Annahme. Eine endgültige Festlegung verhindert, aus den Ergebnissen weiterer Iterationen zu lernen und die Entscheidung zu korrigieren.",
+   "Richtig: Kapselung begrenzt, was von der Entscheidung abhängt, und senkt damit Korrekturkosten. Sie kostet jedoch Aufwand und kann Eigenschaften der Technologie, etwa spezielle Abfragefunktionen, verdecken."
   ],
-  "explanation": "Unsicherheit reduziert man durch frühe Prüfung (Proof of Concept), iteratives Entscheiden und Kapselung, damit Korrekturen günstig bleiben. Fallen: Aufschieben, Einführen ohne Rückfall, Modewahl, endgültige Festschreibung auf Schätzung."
+  "explanation": "Unsicherheit wird durch gezielte frühe Prüfung (Proof of Concept), einen Rückfallplan mit vorab festgelegten Kriterien und begrenzte Abhängigkeiten reduziert; jede Maßnahme hat Kosten. Fallen: Aufschieben als Risikominderung, Vollumfang-Prototyp, Marktführer als Beleg, endgültige Festschreibung."
  },
  {
   "id": "n1",
@@ -8888,34 +8948,39 @@ const QUESTIONS = [
   ],
   "rows": [
    {
-    "text": "Eine Neuentwicklung mit überblickbarem Gesamtproblem: erst die großen Bausteine, dann schrittweise Verfeinerung.",
+    "text": "Das Team will früh lauffähige Teile integrieren und testen, obwohl das Gesamtbild noch unscharf ist.",
+    "cat": 1
+   },
+   {
+    "text": "Die Schnittstellen zwischen den großen Teilen sollen vor der Detailarbeit abgestimmt werden, damit Teams parallel arbeiten können.",
     "cat": 0
    },
    {
-    "text": "Eine vorhandene Bibliothek und ein gesetztes Framework bestimmen große Teile der Struktur.",
+    "text": "Mehrere bestehende Dienste verschiedener Abteilungen sollen zu einem neuen Gesamtprodukt verbunden werden.",
     "cat": 1
    },
    {
-    "text": "Aus mehreren bestehenden Diensten soll eine neue Gesamtlösung zusammengesetzt werden.",
-    "cat": 1
-   },
-   {
-    "text": "Zuerst werden Kontext und erste Bausteinebene festgelegt, die Details folgen später.",
+    "text": "Der Nutzen für die Kund:innen soll im Blick bleiben, und die Bausteine sollen daraus abgeleitet werden.",
     "cat": 0
    },
    {
-    "text": "Ein Altsystem liefert viele Teile, die weiterverwendet werden müssen.",
+    "text": "Ein Drittanbieter-Zahlungsdienst und seine Schnittstellen stehen fest und prägen die Struktur großer Teile.",
     "cat": 1
+   },
+   {
+    "text": "Das Gesamtproblem ist überblickbar, und Stakeholder wollen früh sehen, welche Leistungen das System erbringt.",
+    "cat": 0
    }
   ],
   "rowExpl": [
-   "Ist das Gesamtproblem überblickbar, etwa bei einer Neuentwicklung, geht man vom Ganzen zu den Teilen: erst große Bausteine, dann schrittweise Verfeinerung. Das ist Top-down.",
-   "Wenn Bibliothek und Framework große Teile der Struktur vorgeben, baut man auf Vorhandenem auf und passt den Entwurf daran an. Das spricht für Bottom-up.",
-   "Eine Gesamtlösung aus bestehenden Diensten zusammenzusetzen heißt, aus vorhandenen Teilen größere Strukturen zu bilden. Das ist typisch Bottom-up.",
-   "Zuerst Kontext und erste Bausteinebene festzulegen und Details später zu klären, geht vom Ganzen zu den Teilen. Das ist Top-down, nicht Bottom-up.",
-   "Liefert ein Altsystem viele Teile, die weiterverwendet werden müssen, bestimmt das Vorhandene den Entwurf. Das spricht für Bottom-up; in der Praxis kombiniert man beides."
+   "Eher Bottom-up: Schnelle Test- und Feedback-Ergebnisse sind ein Vorteil, wenn man aus konkreten Teilen aufbaut. Top-down liefert erst spät integrierbare Ergebnisse.",
+   "Eher Top-down: Schnittstellenorientierung und das Vorab-Festlegen der Grobstruktur sind typisch für das Vorgehen vom Ganzen zu den Teilen.",
+   "Eher Bottom-up: Aus Vorhandenem entsteht die größere Struktur. Das Risiko ist fehlende Orientierung und enge Kopplung.",
+   "Eher Top-down: Es ist fachlich nah an Stakeholdern und behält den Kundennutzen im Blick, wenn man vom Ganzen ausgeht.",
+   "Eher Bottom-up: Gesetzte Teile bestimmen den Lösungsraum, und die Struktur wird um sie herum aufgebaut.",
+   "Eher Top-down: Bei überblickbarem Gesamtproblem (z. B. Neuentwicklung) lohnt es sich, groß zu beginnen und schrittweise zu verfeinern."
   ],
-  "explanation": "Top-down geht vom Ganzen zu den Teilen und passt, wenn das Gesamtproblem überblickbar ist, etwa bei Neuentwicklungen. Bottom-up setzt aus vorhandenen Teilen größere Strukturen zusammen und passt, wenn viel Bestehendes genutzt werden muss. In der Praxis kombiniert man beides iterativ."
+  "explanation": "Top-down: Gesamtbild überblickbar, Schnittstellen und Kundennutzen vorab. Bottom-up: Vorhandenes und Gesetztes prägt die Struktur, schnelles Feedback durch lauffähige Teile. In der Praxis werden beide kombiniert."
  },
  {
   "id": "n2",
@@ -8925,27 +8990,27 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Ein Team beginnt einen Neuentwurf top-down, stößt aber auf ein gesetztes Framework, das große Teile der Struktur vorgibt. Welche Aussagen zum Vorgehen treffen zu?",
   "options": [
-   "Das Team kann zusätzlich Sichten erarbeiten, um die Architektur aus mehreren Blickwinkeln zu entwickeln.",
-   "Bottom-up ist nur für Altsysteme zulässig, bei Neuentwicklungen nicht.",
-   "„Das Riskanteste zuerst klären“ ist eine Heuristik, die einen guten Startpunkt liefert.",
-   "Heuristiken wie „Teile und herrsche“ liefern verbindliche Ergebnisse und ersetzen die Bewertung des Entwurfs.",
-   "Die Richtung darf wechseln: Top-down und Bottom-up werden in der Praxis kombiniert und iterativ eingesetzt.",
-   "Die einmal gewählte Richtung muss konsequent bis zum Ende beibehalten werden."
+   "Das Team kann zusätzlich Sichten (z. B. Baustein-, Laufzeit- und Verteilungssicht) erarbeiten, um die Struktur aus mehreren Blickwinkeln abzusichern.",
+   "Das gesetzte Framework zeigt, dass der Top-down-Ansatz falsch war; das Team sollte komplett neu bottom-up beginnen.",
+   "„Das Riskanteste zuerst klären“ ist eine Heuristik, die einen guten Startpunkt liefert, aber keine Bewertung ersetzt.",
+   "Eine Heuristik wie „Teile und herrsche“ liefert bei richtiger Anwendung eine tragfähige Zerlegung, sodass eine anschließende Bewertung entfallen kann.",
+   "Bei Konflikten zwischen Framework und fachlicher Zielstruktur wird das Framework angepasst, weil Technik der Fachlichkeit folgen muss.",
+   "Die Richtung darf wechseln: Top-down und Bottom-up werden in der Praxis kombiniert und iterativ eingesetzt."
   ],
   "correct": [
    0,
    2,
-   4
+   5
   ],
   "optExpl": [
-   "Richtig: Sichtenbasiertes Vorgehen ist ein eigener Ansatz und lässt sich mit Top-down und Bottom-up verbinden. So entwickelt das Team die Architektur aus mehreren Blickwinkeln, auch wenn ein Framework Teile vorgibt.",
-   "Falsch: Fehlende Verallgemeinerung: Bottom-up passt überall dort, wo viel Bestehendes genutzt werden muss, also auch in Neuentwicklungen, etwa bei einem gesetzten Framework. Es ist nicht auf Altsysteme beschränkt.",
-   "Richtig: Unsicherheiten früh zu klären senkt das Risiko späterer, teurer Korrekturen. Die Heuristik „Das Riskanteste zuerst klären“ liefert deshalb einen guten Startpunkt für den Entwurf.",
-   "Falsch: Heuristiken wie „Teile und herrsche“ sind Erfahrungsregeln und gute Startpunkte, liefern aber keine verbindlichen Ergebnisse. Sie ersetzen die Bewertung des Entwurfs nicht.",
-   "Richtig: Man wechselt die Richtung je nach Wissensstand; Top-down und Bottom-up ergänzen sich und werden in der Praxis iterativ kombiniert, etwa wenn ein Framework die Struktur vorprägt.",
-   "Falsch: „Genau eine Richtung konsequent“ ist ein Trugschluss. In der Praxis wird kombiniert und die Richtung bei neuem Wissen gewechselt; ein starres Festhalten verschenkt diese Flexibilität."
+   "Richtig: Sichtenbasiertes Vorgehen lässt sich mit Top-down und Bottom-up kombinieren und deckt unterschiedliche Fragestellungen ab.",
+   "Falsch: Der bisherige Entwurf bleibt gültig. Das Framework ist eine Randbedingung, die über Bottom-up-Anteile einbezogen wird.",
+   "Richtig: Heuristiken geben Orientierung für den Einstieg; ob der Entwurf trägt, zeigt erst seine Bewertung.",
+   "Falsch: Heuristiken sind Erfahrungsregeln, keine Garantien. Das Ergebnis muss weiter gegen Anforderungen und Qualitäten bewertet werden.",
+   "Falsch: Das ist eine Abwägung im Einzelfall. Ein gesetztes Framework kann auch die fachliche Struktur beeinflussen; Kosten und Risiken sind abzuwägen.",
+   "Richtig: Je nach Wissensstand und Randbedingungen wechselt man zwischen den Richtungen."
   ],
-  "explanation": "Top-down, Bottom-up und sichtenbasiertes Vorgehen werden kombiniert und iterativ genutzt; Heuristiken wie „Riskantestes zuerst klären“ sind Startpunkte, keine Garantie. Fallen: eine Richtung bis zum Ende erzwingen und Heuristiken als Ergebnis lesen."
+  "explanation": "Top-down und Bottom-up werden kombiniert und iterativ eingesetzt; Heuristiken (Riskantestes zuerst, Teile und herrsche) geben Startpunkte, ersetzen aber keine Bewertung; Sichten ergänzen. Fallen: Neustart statt Anpassung, Heuristiken als verbindlich."
  },
  {
   "id": "n3",
@@ -8953,23 +9018,23 @@ const QUESTIONS = [
   "lz": "LZ 03-03",
   "r": "R1",
   "type": "single",
-  "q": "Das Team kennt eine Technologie nicht, von der der Entwurf stark abhängt. Welche Heuristik passt am ehesten, und was folgt daraus?",
+  "q": "Der Entwurf hängt stark von einer Technologie ab, die dem Team unbekannt ist. Welches Vorgehen ist am ehesten angemessen?",
   "options": [
-   "„Bewährtes wiederverwenden“: Das Team nimmt die Technologie ohne Prüfung, weil sie verbreitet ist.",
-   "„Das Riskanteste zuerst klären“: Das Team prüft die Technologie früh, etwa mit einem Prototyp.",
-   "„Teile und herrsche“: Das Team zerlegt das Problem so lange, bis die Technologie unwichtig wird.",
-   "Das Team klärt die Technologie erst nach dem vollständigen Entwurf."
+   "Die Technologie hinter einer Abstraktionsschicht verbergen und ihre Bewertung auf später verschieben.",
+   "Den Entwurf auf Basis der bekannten Bausteine abschließen und die Technologie erst bei der Implementierung bewerten.",
+   "Die Unsicherheit früh klären, etwa mit einem Prototyp oder Spike, bevor weitere Entscheidungen darauf aufbauen.",
+   "Auf eine verbreitete, bewährte Technologie wechseln, ohne vorher zu prüfen, ob sie die Anforderungen erfüllt."
   ],
   "correct": [
-   1
+   2
   ],
   "optExpl": [
-   "Falsch: Verwechslung von Wiederverwendung und Bewertung: Verbreitung ersetzt keine Prüfung. Heuristiken sind Startpunkte, keine Freibriefe, und eine unbekannte, stark prägende Technologie bleibt ein ungeklärtes Risiko.",
-   "Richtig: Die größte Unsicherheit wird früh geklärt, bevor viele Entscheidungen darauf aufbauen. Ein Prototyp zeigt rechtzeitig, ob die Technologie den Entwurf trägt, und senkt das Risiko teurer Korrekturen.",
-   "Falsch: Zerlegen allein beseitigt die Unsicherheit nicht. „Teile und herrsche“ strukturiert das Problem, aber die Technologie bleibt ein Risiko, solange sie nicht geprüft wurde.",
-   "Falsch: Eine späte Klärung macht Korrekturen teuer: Erweist sich die Technologie nach dem vollständigen Entwurf als ungeeignet, müssen viele darauf aufbauende Entscheidungen zurückgenommen werden."
+   "Falsch: Die Abstraktionsschicht begrenzt zwar die Änderungskosten, beseitigt aber nicht das Risiko, dass die Technologie den Entwurf nicht trägt. Die Unsicherheit bleibt ungeklärt und wirkt weiter.",
+   "Falsch: Je später sich eine Technologie als ungeeignet erweist, desto mehr darauf aufbauende Entscheidungen müssen zurückgenommen werden. Das größte Risiko gehört an den Anfang, nicht ans Ende.",
+   "Richtig: Das entspricht der Heuristik, das Riskanteste zuerst zu klären: Ein kleiner Test zeigt rechtzeitig, ob die Technologie den Entwurf trägt, und senkt das Risiko teurer Korrekturen.",
+   "Falsch: Wiederverwendung von Bewährtem ist eine Heuristik, kein Freibrief: Ohne Prüfung gegen die Anforderungen wird ein Risiko nur gegen ein anderes getauscht."
   ],
-  "explanation": "„Das Riskanteste zuerst klären“ passt, wenn eine unbekannte Technologie den Entwurf stark prägt: Man prüft sie früh, etwa per Prototyp. Fallen: Zerlegen als Ersatz für Klärung, Verbreitung als Beleg und spätes Prüfen."
+  "explanation": "Bei einer unbekannten, entwurfsprägenden Technologie gilt: Das Riskanteste zuerst klären, etwa per Prototyp. Fallen: Abstraktion als Ersatz für Klärung, spätes Prüfen und Bewährtes ohne Abgleich mit den Anforderungen."
  },
  {
   "id": "n4",
@@ -8977,29 +9042,29 @@ const QUESTIONS = [
   "lz": "LZ 03-04",
   "r": "R2",
   "type": "multi",
-  "q": "Ein Dienst empfängt Nachrichten von vielen Partnern; manche senden zusätzliche, unbekannte Felder. Welche Aussagen zum Prinzip „streng senden, tolerant annehmen“ (Postel’s Law) treffen zu?",
+  "q": "Welche Aussagen zum Robustheitsprinzip „streng senden, tolerant annehmen“ (Postel’s Law) treffen zu?",
   "options": [
-   "Eigene Nachrichten halten den Schnittstellenvertrag strikt ein.",
-   "Unbekannte zusätzliche Felder in empfangenen Nachrichten werden ignoriert, statt die Nachricht abzulehnen.",
-   "Jede Abweichung eines Partners wird sofort mit einem Fehler abgelehnt.",
-   "Notwendige Angaben werden dennoch geprüft; Toleranz bedeutet nicht, Offensichtlich-Falsches zu akzeptieren.",
-   "Das Prinzip gilt nur für Eingaben; eigene Ausgaben dürfen vom Vertrag abweichen.",
-   "Tolerant annehmen heißt, Eingaben ungeprüft zu übernehmen."
+   "Eigene ausgehende Nachrichten halten den Schnittstellenvertrag ein, auch wenn Empfänger Abweichungen tolerieren würden.",
+   "Unbekannte Zusatzfelder in empfangenen Nachrichten werden ignoriert; das erleichtert die Weiterentwicklung von Schnittstellen.",
+   "Tolerantes Annehmen kann Vertragsverstöße von Sendern verdecken, sodass diese dauerhaft bestehen bleiben.",
+   "Tolerantes Annehmen heißt, auch fehlende Pflichtangaben durch Standardwerte zu ersetzen, damit der Empfänger robust bleibt.",
+   "Das Prinzip setzt voraus, dass Sender und Empfänger stets dieselbe Schnittstellenversion verwenden.",
+   "Wer tolerant annimmt, muss den Schnittstellenvertrag nicht mehr dokumentieren."
   ],
   "correct": [
    0,
    1,
-   3
+   2
   ],
   "optExpl": [
-   "Richtig: „Streng senden“ heißt, selbst nur vertragskonforme Nachrichten zu erzeugen. Das ist die erste Hälfte von Postel’s Law und macht das eigene Verhalten für Partner verlässlich.",
-   "Richtig: Das ist die Toleranz beim Annehmen: Unbekannte Zusatzfelder werden ignoriert, statt die Nachricht abzulehnen. Das erleichtert die Weiterentwicklung von Schnittstellen, weil Sender neue Felder ergänzen können.",
-   "Falsch: Das wäre das Gegenteil von tolerantem Annehmen. Wer jede Abweichung sofort ablehnt, ist beim Empfang streng und bricht bei harmlosen Erweiterungen, die das Prinzip gerade erlauben will.",
-   "Richtig: Toleranz gilt für Unwesentliches, notwendige Inhalte müssen stimmen. Offensichtlich Falsches oder fehlende Pflichtangaben werden also weiterhin geprüft und nicht einfach akzeptiert.",
-   "Falsch: Einseitige Auslegung: Das Prinzip verlangt gerade strenges Senden. Eigene Ausgaben müssen den Vertrag einhalten; die Toleranz betrifft nur das, was man annimmt.",
-   "Falsch: Begriffsverwechslung von Toleranz und Prüfungsverzicht: Tolerant annehmen heißt, Unwesentliches zu verzeihen, nicht Eingaben ungeprüft zu übernehmen. Notwendige Angaben müssen weiterhin validiert werden."
+   "Richtig: „Streng senden“ bedeutet, selbst nur vertragskonforme Nachrichten zu erzeugen. Nur so können sich Partner auf das eigene Verhalten verlassen.",
+   "Richtig: Das ist die Toleranz beim Annehmen. Sender können neue Felder ergänzen, ohne bestehende Empfänger zu brechen, was die unabhängige Evolution von Schnittstellen erleichtert.",
+   "Richtig: Das ist ein bekannter Nachteil. Weil Abweichungen ohne Fehler durchgehen, merken Sender nicht, dass sie den Vertrag verletzen, und die Abweichung verfestigt sich.",
+   "Falsch: Toleranz betrifft Unwesentliches wie unbekannte Zusatzfelder. Fehlende Pflichtangaben müssen erkannt und abgelehnt werden; stilles Auffüllen mit Standardwerten erzeugt falsche Daten.",
+   "Falsch: Das Prinzip soll gerade ermöglichen, dass Sender und Empfänger in unterschiedlichen Versionen vorliegen, solange Änderungen abwärtskompatibel erweiternd sind.",
+   "Falsch: Der Vertrag ist die Grundlage für striktes Senden und für die Frage, was als wesentlich gilt und was toleriert werden darf. Er muss weiterhin dokumentiert sein."
   ],
-  "explanation": "Postel’s Law: streng in dem, was man sendet, tolerant in dem, was man annimmt. Toleranz heißt nicht „ungeprüft“. Fallen: Prüfungen weglassen, das Prinzip nur auf Eingaben beziehen und jede Abweichung ablehnen."
+  "explanation": "Postel’s Law: streng in dem, was man sendet, tolerant in dem, was man annimmt. Toleranz gilt nur für Unwesentliches und hat Preise (verdeckte Vertragsverstöße). Fallen: Pflichtangaben stillschweigend ergänzen, gleiche Versionen voraussetzen oder den Vertrag für entbehrlich halten."
  },
  {
   "id": "n5",
@@ -9015,34 +9080,39 @@ const QUESTIONS = [
   ],
   "rows": [
    {
-    "text": "Alle Schnittstellen des Systems verwenden dieselbe Fehlerstruktur und dieselbe Benennung.",
+    "text": "Alle Dienste verwenden für Zeitangaben dasselbe Format.",
     "cat": 1
    },
    {
-    "text": "Die Fachlogik hängt von einer Speicher-Schnittstelle ab, nicht von einer konkreten Datenbankklasse.",
+    "text": "Die Fachlogik arbeitet mit einem eigenen Modell „Sendung“, ohne zu wissen, welcher Logistikanbieter dahintersteht.",
     "cat": 0
    },
    {
-    "text": "Alle Dienste protokollieren im selben Format und mit denselben Pflichtfeldern.",
+    "text": "Alle REST-Schnittstellen des Systems folgen denselben Namens- und Fehlerkonventionen.",
     "cat": 1
    },
    {
-    "text": "Das Berichtsmodul nutzt eine Schnittstelle „Exporter“, statt direkt eine PDF-Klasse aufzurufen.",
+    "text": "Clients rufen „Dokument speichern“ auf, ohne die Persistenztechnologie zu kennen.",
     "cat": 0
    },
    {
-    "text": "Gleichartige Aufgaben werden im ganzen System nach demselben Muster gelöst.",
+    "text": "In allen Bausteinen wird Konfiguration über denselben Mechanismus geladen.",
     "cat": 1
+   },
+   {
+    "text": "Das Berichtsmodul erzeugt Ausgaben über einen Exporter, hinter dem PDF- und Excel-Erzeugung austauschbar sind.",
+    "cat": 0
    }
   ],
   "rowExpl": [
-   "Gleiche Fehlerstruktur und Benennung über alle Schnittstellen bedeuten, Gleichartiges gleichartig zu lösen. Das ist Einheitlichkeit; Abstraktion würde von Implementierungen entkoppeln.",
-   "Die Fachlogik hängt von einer Schnittstelle statt von einer konkreten Datenbankklasse ab. Das ist Abstraktion: Man hängt von Abstraktionen, nicht von Implementierungen ab.",
-   "Dasselbe Logformat mit denselben Pflichtfeldern in allen Diensten löst Gleichartiges gleichartig. Das ist Einheitlichkeit, keine Entkopplung durch Abstraktion.",
-   "Das Berichtsmodul nutzt die Schnittstelle „Exporter“ statt einer PDF-Klasse und hängt damit von einer Abstraktion ab, nicht von einer Implementierung. Das ist Abstraktion.",
-   "Gleichartige Aufgaben im ganzen System nach demselben Muster zu lösen, ist die Definition von Einheitlichkeit. Mit Abhängigkeit von Schnittstellen hat das nichts zu tun."
+   "Dasselbe Zeitformat in allen Diensten bedeutet, Gleichartiges gleichartig zu lösen. Das ist Einheitlichkeit; es wird nichts hinter einer Schicht verborgen.",
+   "Die Fachlogik kennt nur ein eigenes Modell und nicht die Details des Anbieters. Das ist Abstraktion: Unwesentliches wird ausgeblendet, damit sich die Nutzer auf das Wesentliche konzentrieren.",
+   "Gleiche Namens- und Fehlerkonventionen über alle Schnittstellen sind Einheitlichkeit. Eine Abstraktion würde dagegen Implementierungsdetails verbergen.",
+   "Der Client nutzt eine Operation auf fachlicher Ebene und kennt die Technologie dahinter nicht. Das ist Abstraktion, keine Vereinheitlichung.",
+   "Ein gemeinsamer Konfigurationsmechanismus löst die gleichartige Aufgabe überall gleich. Das ist Einheitlichkeit, auch wenn er dem Nutzer technische Details abnehmen mag.",
+   "Hinter dem Exporter sind konkrete Formate austauschbar. Das Berichtsmodul hängt von einer Abstraktion statt von konkreten Implementierungen ab."
   ],
-  "explanation": "Abstraktion bedeutet, von Abstraktionen statt von Implementierungen abzuhängen. Einheitlichkeit bedeutet, Gleichartiges gleichartig zu lösen."
+  "explanation": "Abstraktion blendet Unwesentliches aus und trennt Nutzung von konkreter Umsetzung. Einheitlichkeit löst Gleichartiges überall gleichartig. Falle: Einheitliche Mechanismen können auch Details verbergen, entscheidend ist, ob Austauschbarkeit hinter einer Schnittstelle oder Gleichartigkeit der Lösung im Vordergrund steht."
  },
  {
   "id": "n6",
@@ -9051,41 +9121,41 @@ const QUESTIONS = [
   "r": "R1",
   "type": "k",
   "points": 2,
-  "q": "Ist die Aussage ein Querschnittsthema (das Problem) oder ein Querschnittskonzept (die Lösung)?",
+  "q": "Beschreibt die Aussage ein Querschnittsthema oder ein Querschnittskonzept?",
   "categories": [
-   "Querschnittsthema (Problem)",
-   "Querschnittskonzept (Lösung)"
+   "Querschnittsthema",
+   "Querschnittskonzept"
   ],
   "rows": [
    {
-    "text": "Wie gehen alle Bausteine mit Netzwerkfehlern um?",
+    "text": "Zugriffe auf personenbezogene Daten müssen in allen Bausteinen nachvollziehbar sein.",
     "cat": 0
    },
    {
-    "text": "Wiederholungen werden begrenzt, und Empfänger sind idempotent.",
+    "text": "Alle Aufrufe nach außen laufen über Circuit Breaker mit begrenzten Wiederholungen und Backoff.",
     "cat": 1
    },
    {
-    "text": "Wie bleibt die Oberfläche bei langen Aufgaben reaktionsfähig?",
+    "text": "Texte, Datums- und Zahlenformate müssen für mehrere Länder anpassbar sein.",
     "cat": 0
    },
    {
-    "text": "Lange Aufgaben laufen im Hintergrund, der Fortschritt wird gemeldet.",
+    "text": "Ein zentraler Audit-Log-Dienst mit einheitlichem Ereignisformat wird von allen Bausteinen genutzt.",
     "cat": 1
    },
    {
-    "text": "Wie werden Daten im ganzen System dauerhaft gespeichert?",
+    "text": "Die Anwendung soll im Betrieb ohne Neustart umkonfigurierbar sein, und das in mehreren Bausteinen.",
     "cat": 0
    }
   ],
   "rowExpl": [
-   "Die Frage, wie alle Bausteine mit Netzwerkfehlern umgehen, benennt ein Problem, das viele Bausteine betrifft. Das ist ein Querschnittsthema; die Antwort darauf wäre das Konzept.",
-   "Begrenzte Wiederholungen und idempotente Empfänger sind eine übergreifende, einheitliche Antwort auf Netzwerkfehler. Das ist ein Querschnittskonzept, kein Problem.",
-   "Die Frage, wie die Oberfläche bei langen Aufgaben reaktionsfähig bleibt, benennt ein Problem. Das ist ein Querschnittsthema und noch keine Lösung.",
-   "Lange Aufgaben im Hintergrund auszuführen und den Fortschritt zu melden, ist die Lösung für die Reaktionsfähigkeit. Das ist ein Querschnittskonzept, nicht das Thema selbst.",
-   "Wie Daten im ganzen System dauerhaft gespeichert werden, ist als Frage formuliert und betrifft viele Bausteine. Das ist ein Querschnittsthema; erst die einheitliche Antwort wäre ein Konzept."
+   "Das ist eine Anforderung, die viele Bausteine betrifft, ohne zu sagen, wie sie erfüllt wird. Das ist ein Querschnittsthema; ein einheitlicher Audit-Mechanismus wäre das zugehörige Konzept.",
+   "Das ist eine konkrete, übergreifende Lösung für den Umgang mit ausfallenden Nachbarsystemen. Das ist ein Querschnittskonzept; das Thema dahinter wäre „Fehlertoleranz“.",
+   "Die Aussage benennt, was in vielen Bausteinen geregelt werden muss, aber keine Umsetzung. Das ist ein Querschnittsthema (Internationalisierung); die Lösung wäre ein Konzept, etwa zentrale Ressourcendateien.",
+   "Ein gemeinsam genutzter Dienst mit festem Format legt fest, wie Nachvollziehbarkeit umgesetzt wird. Das ist ein Querschnittskonzept und kein Thema.",
+   "Das ist eine übergreifende Anforderung ohne festgelegte Lösung. Das ist ein Querschnittsthema (Konfigurierbarkeit); erst etwa ein zentraler Konfigurationsdienst wäre ein Konzept."
   ],
-  "explanation": "Ein Querschnittsthema ist das Problem oder die Frage, die viele Bausteine betrifft. Das Querschnittskonzept ist die übergreifende, einheitliche Lösung dazu."
+  "explanation": "Ein Querschnittsthema beschreibt, was in vielen Bausteinen geregelt werden muss (Anforderung oder Fragestellung). Ein Querschnittskonzept legt fest, wie es einheitlich gelöst wird. Entscheidend ist, ob die Aussage eine Lösung festlegt."
  },
  {
   "id": "n7",
@@ -9093,29 +9163,29 @@ const QUESTIONS = [
   "lz": "LZ 03-10",
   "r": "R1",
   "type": "multi",
-  "q": "Ein Team entscheidet, dass Bausteine asynchron über Nachrichten kommunizieren. Welche Wechselwirkungen mit anderen Querschnittsthemen müssen bedacht werden?",
+  "q": "Bausteine kommunizieren asynchron über Nachrichten. Welche Wechselwirkungen mit anderen Querschnittsthemen sind zu bedenken?",
   "options": [
-   "Keine, denn asynchrone Kommunikation macht die Fehlerbehandlung überflüssig.",
-   "Wechselwirkungen entstehen nur, wenn das System auf mehrere Server verteilt ist.",
-   "Fehlerbehandlung: Nachrichten können verloren gehen oder doppelt ankommen, daher braucht es Wiederholungen und idempotente Empfänger.",
-   "Persistenz: Der Zustand muss zwischen Nachrichten gültig bleiben, etwa durch Transaktionen oder Wiederaufnahme.",
+   "Persistenz: Durch die asynchrone Verarbeitung lassen sich Änderungen über mehrere Bausteine hinweg wieder in einer ACID-Transaktion bündeln.",
    "Oberfläche: Rückmeldungen kommen verzögert, daher braucht es verständliche Statusanzeigen statt endlosen Wartens.",
-   "Nur die Oberfläche ist betroffen, Persistenz und Fehlerbehandlung bleiben unberührt."
+   "Die Wechselwirkungen betreffen nur verteilte Systeme; bei Nachrichten innerhalb eines Prozesses entfallen sie.",
+   "Fehlerbehandlung: Nachrichten können verloren gehen oder doppelt ankommen, daher braucht es Wiederholungen und idempotente Empfänger.",
+   "Reihenfolge: Der Nachrichtenbroker garantiert die Zustellung in Sendereihenfolge, sodass Empfänger keine Reihenfolge behandeln müssen.",
+   "Persistenz: Der Zustand muss zwischen den Nachrichten gültig bleiben, etwa durch Transaktionen oder Wiederaufnahme."
   ],
   "correct": [
-   2,
+   1,
    3,
-   4
+   5
   ],
   "optExpl": [
-   "Falsch: Fehlschluss: Auch bei asynchroner Kommunikation können Fehler auftreten; sie zeigen sich nur später und indirekter. Fehlerbehandlung wird dadurch nicht überflüssig, sondern anspruchsvoller.",
-   "Falsch: Wechselwirkungen hängen an den Querschnittsthemen selbst, nicht an der Anzahl der Server. Schon innerhalb eines Systems beeinflussen sich Kommunikation, Persistenz, Fehlerbehandlung und Oberfläche.",
-   "Richtig: Die Wahl bei der Kommunikation bestimmt, was die Fehlerbehandlung leisten muss. Nachrichten können verloren gehen oder doppelt ankommen, daher braucht es Wiederholungen und idempotente Empfänger.",
-   "Richtig: Persistenz und Kommunikation hängen eng zusammen. Der Zustand muss zwischen Nachrichten gültig bleiben, etwa durch Transaktionen oder Wiederaufnahme nach Fehlern.",
-   "Richtig: Asynchronität wirkt bis in die Gestaltung der Oberfläche. Rückmeldungen kommen verzögert, daher braucht es verständliche Statusanzeigen statt endlosen Wartens.",
-   "Falsch: Verengung auf eine Einzelwirkung: Querschnittsthemen beeinflussen sich gegenseitig. Die Kommunikationsentscheidung wirkt auch auf Persistenz und Fehlerbehandlung, nicht nur auf die Oberfläche."
+   "Falsch: Asynchronität hebt die gemeinsame Transaktion eher auf. Konsistenz entsteht über Wiederholung, Kompensation oder eventuelle Konsistenz.",
+   "Richtig: Der Nutzer erhält das Ergebnis nicht im selben Aufruf; die Oberfläche muss Zwischenzustände sichtbar machen.",
+   "Falsch: Auch im Prozess gibt es Reihenfolge, Zustand, verzögerte Rückmeldung und Fehler in Handlern. Verteilung verschärft die Themen nur.",
+   "Richtig: Zustellgarantien sind meist höchstens at-least-once; Duplikate müssen Empfänger verkraften.",
+   "Falsch: Reihenfolgegarantien gelten höchstens eingeschränkt, etwa je Partition; bei Wiederholungen oder parallelen Empfängern kann sie verletzt werden.",
+   "Richtig: Eine halb verarbeitete Nachrichtenkette darf keine inkonsistenten Daten hinterlassen; Ablauf muss wieder aufnehmbar sein."
   ],
-  "explanation": "Die Wahl bei der Kommunikation wirkt auf Fehlerbehandlung, Persistenz und Oberfläche. Fallen: Wechselwirkungen verneinen, einzelne Themen isoliert betrachten und sie an die Verteilung koppeln."
+  "explanation": "Asynchrone Kommunikation entkoppelt zeitlich, schafft aber neue Anforderungen: Verlust und Duplikate verlangen Wiederholung und Idempotenz, Zustand muss zwischen Nachrichten konsistent bleiben und die Oberfläche muss verzögerte Rückmeldungen darstellen. Reihenfolge ist nicht allgemein garantiert, ACID-Transaktionen über Bausteine hinweg entfallen."
  },
  {
   "id": "n8",
@@ -9125,7 +9195,7 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Dieselbe Architektur soll dem Management und der Entwicklung vermittelt werden. Welche Aussagen zur Dokumentation und Kommunikation für diese Zielgruppen treffen zu?",
   "options": [
-   "Das Management braucht vor allem Klassendiagramme, weil sie am genauesten sind.",
+   "Das Management braucht vor allem Schnittstellenspezifikationen, damit es die Umsetzung steuern kann.",
    "Beide Zielgruppen erhalten dasselbe vollständige Dokument, damit nichts verloren geht.",
    "Die Entwicklung braucht Bausteine, Schnittstellen und Konzepte.",
    "Inhalt, Form und Detailgrad richten sich an den Anliegen der jeweiligen Stakeholder aus.",
@@ -9137,13 +9207,13 @@ const QUESTIONS = [
    4
   ],
   "optExpl": [
-   "Falsch: Genauigkeit ist nicht das Kriterium für diese Zielgruppe. Zu viel Detail wie Klassendiagramme überfordert das Management, das einen Überblick mit Risiken und Kosten braucht.",
+   "Falsch: Schnittstellenspezifikationen sind Entwicklerdetails. Das Management braucht Überblick, Risiken und Kosten, um zu entscheiden, nicht um die Umsetzung im Detail zu steuern.",
    "Falsch: Ein Dokument für alle ignoriert unterschiedliche Anliegen. Zielgruppengerecht heißt, Inhalt und Detailgrad je Zielgruppe anzupassen, statt alle mit demselben Gesamtwerk zu bedienen.",
    "Richtig: Das sind die Inhalte, mit denen Entwickler:innen arbeiten. Bausteine, Schnittstellen und Konzepte liefern ihnen die Vorgaben für die Umsetzung.",
    "Richtig: Das ist die Kernaussage zur zielgruppengerechten Kommunikation: Inhalt, Form und Detailgrad richten sich an den Anliegen der jeweiligen Stakeholder aus.",
    "Richtig: Das Management braucht Überblick, Risiken und Kosten, um Entscheidungen zu treffen. Technische Detailtiefe ist für diese Zielgruppe nicht nötig."
   ],
-  "explanation": "Architektur wird entsprechend den Anliegen der Stakeholder dokumentiert: Management braucht Überblick, Risiken und Kosten, Entwicklung Bausteine, Schnittstellen und Konzepte. Fallen: ein Dokument für alle und zu viel Detail für das Management."
+  "explanation": "Architektur wird entsprechend den Anliegen der Stakeholder dokumentiert: Management braucht Überblick, Risiken und Kosten, Entwicklung Bausteine, Schnittstellen und Konzepte. Fallen: ein Dokument für alle und Entwicklerdetails wie Schnittstellenspezifikationen für das Management."
  },
  {
   "id": "n9",
@@ -9175,7 +9245,7 @@ const QUESTIONS = [
     "cat": 0
    },
    {
-    "text": "Mündliche Kommunikation ersetzt bei kleinen Teams die schriftliche Dokumentation vollständig.",
+    "text": "Für das Management werden die Abschnitte der Entwicklerdokumentation unverändert übernommen.",
     "cat": 1
    }
   ],
@@ -9184,9 +9254,9 @@ const QUESTIONS = [
    "Auch wenn alle dabei waren: Ergebnisse aus Meetings müssen in die Dokumentation zurückfließen, sonst gehen sie verloren und Mündliches und Schriftliches laufen auseinander. Die Aussage ist falsch.",
    "Ein Template gibt Struktur und hilft zugleich zu prüfen, ob nichts fehlt. Die Aussage ist deshalb richtig.",
    "Mehrere Autor:innen schreiben oft unterschiedlich. Konsolidierte Beiträge machen die Dokumentation einheitlich lesbar, deshalb ist die Aussage richtig.",
-   "Auch kleine Teams brauchen schriftliche Dokumentation, mündliche Absprache ersetzt sie nicht vollständig. Beides ergänzt sich, deshalb ist die Aussage falsch."
+   "Das Management braucht andere Inhalte und einen anderen Detailgrad, etwa Überblick, Risiken und Kosten. Unveränderte Entwicklerabschnitte kommunizieren das nicht. Die Aussage ist falsch."
   ],
-  "explanation": "Mündliche und schriftliche Kommunikation werden in Einklang gehalten: Präsentationen nutzen die Dokumentation, Ergebnisse aus Meetings fließen zurück. Templates geben Struktur und prüfen die Vollständigkeit, Beiträge werden konsolidiert. Falsch: Rückfluss weglassen und mündlich statt schriftlich."
+  "explanation": "Mündliche und schriftliche Kommunikation werden in Einklang gehalten: Präsentationen nutzen die Dokumentation, Ergebnisse aus Meetings fließen zurück. Templates geben Struktur und prüfen die Vollständigkeit, Beiträge werden konsolidiert. Falsch: Rückfluss weglassen und Entwicklerdoku unverändert ans Management geben."
  },
  {
   "id": "n10",
@@ -9242,9 +9312,9 @@ const QUESTIONS = [
    "Alle Sichten beschreiben dasselbe System und müssen zueinander konsistent sein.",
    "In der Verteilungssicht werden Bausteine Artefakten und Artefakte Knoten zugeordnet.",
    "Die Verteilungssicht ersetzt die Bausteinsicht, weil sie das reale System zeigt.",
-   "Die Kontextsicht zeigt das Innenleben des Systems, damit die Nachbarn verständlich sind.",
+   "Die Kontextsicht legt die interne Zerlegung fest, aus der die Bausteinsicht abgeleitet wird.",
    "Die Whitebox eines Bausteins darf keine neuen externen Schnittstellen einführen.",
-   "Jede Sicht darf eigene Bausteine erfinden, solange sie für sich verständlich ist."
+   "Die Laufzeitsicht darf Bausteine anders benennen als die Bausteinsicht, wenn das Szenario dadurch einfacher wird."
   ],
   "correct": [
    0,
@@ -9255,11 +9325,11 @@ const QUESTIONS = [
    "Richtig: Sichten sind unterschiedliche Blickwinkel auf dasselbe System. Deshalb dürfen sie sich nicht widersprechen, sondern müssen zueinander konsistent sein.",
    "Richtig: Das ist die Abbildung von Software auf Hardware bzw. Ausführungsumgebung: Bausteine werden Artefakten und Artefakte Knoten zugeordnet. So bleibt die Verteilungssicht mit der Bausteinsicht verknüpft.",
    "Falsch: Verwechslung von Ersatz und Ergänzung: Beide Sichten zeigen Verschiedenes, nämlich die Struktur der Bausteine bzw. die Abbildung auf Infrastruktur. Die Verteilungssicht ersetzt die Bausteinsicht nicht.",
-   "Falsch: Begriffsverwechslung: Die Kontextsicht zeigt das System als Blackbox mit seinen Nachbarn. Das Innenleben gehört in die Bausteinsicht und nicht in den Kontext.",
+   "Falsch: Die Kontextsicht zeigt das System als Blackbox mit seinen Nachbarn und enthält keine interne Zerlegung. Diese entsteht erst in der Bausteinsicht.",
    "Richtig: Die Whitebox muss zur Blackbox konsistent bleiben. Neue externe Schnittstellen in der Verfeinerung würden den Vertrag nach außen verändern und die Sichten widersprüchlich machen.",
-   "Falsch: Erfundene Bausteine machen die Sichten widersprüchlich. Verständlichkeit für sich allein genügt nicht, weil alle Sichten dasselbe System beschreiben und dieselben Bausteine verwenden müssen."
+   "Falsch: Alle Sichten beschreiben dasselbe System und müssen dieselben Bausteine mit denselben Namen verwenden. Abweichende Benennungen machen die Sichten nicht mehr verknüpfbar."
   ],
-  "explanation": "Sichten beschreiben dasselbe System konsistent: Die Whitebox hält sich an die Blackbox, die Verteilungssicht ordnet Bausteine Artefakten und Artefakte Knoten zu, die Kontextsicht zeigt das System als Blackbox. Fallen: eigene Bausteine je Sicht, Sichten als Ersatz füreinander und Innenleben im Kontext."
+  "explanation": "Sichten beschreiben dasselbe System konsistent: Die Whitebox hält sich an die Blackbox, die Verteilungssicht ordnet Bausteine Artefakten und Artefakte Knoten zu. Fallen: abweichende Bausteine oder Namen je Sicht, Sichten als Ersatz füreinander und eine Kontextsicht, die Zerlegung festlegt."
  },
  {
   "id": "n12",
@@ -9314,7 +9384,7 @@ const QUESTIONS = [
   "options": [
    "Problem und Einflussfaktoren klären, bevor Lösungen verglichen werden.",
    "Sofort die bekannteste Technologie wählen und die Begründung später nachliefern.",
-   "Nur eine Alternative betrachten, um Zeit zu sparen.",
+   "Alternativen sammeln, aber nach den Präferenzen des Teams statt an den Qualitätszielen bewerten.",
    "Mehrere Alternativen sammeln und an den Qualitätszielen bewerten.",
    "Die Entscheidung und ihre Gründe festhalten und kommunizieren."
   ],
@@ -9326,11 +9396,11 @@ const QUESTIONS = [
   "optExpl": [
    "Richtig: Ohne klares Problem lassen sich Alternativen nicht sinnvoll bewerten. Erst wenn Problem und Einflussfaktoren geklärt sind, ist ein belastbarer Vergleich möglich.",
    "Falsch: Die Technologie zuerst zu wählen kehrt die Reihenfolge um. Die Begründung ist Teil der Entscheidung, nicht ein Nachtrag; sonst wird sie zur nachträglichen Rechtfertigung.",
-   "Falsch: Mit nur einer Alternative gibt es keine Abwägung. Zeitersparnis ersetzt keine Entscheidung, und ohne Vergleich bleibt unklar, ob die Lösung zu den Zielen passt.",
+   "Falsch: Alternativen sind an den Qualitätszielen und Rahmenbedingungen zu bewerten, damit die Entscheidung nachvollziehbar und begründet ist.",
    "Richtig: Bewertet wird anhand der priorisierten Qualitätsziele. Mehrere Alternativen zu sammeln macht die Abwägung erst möglich und zeigt, welche Lösung die Ziele am besten trägt.",
    "Richtig: So bleibt die Entscheidung nachvollziehbar und wird von den Beteiligten getragen. Festgehaltene Gründe helfen später, die Entscheidung zu verstehen und gegebenenfalls zu überprüfen."
   ],
-  "explanation": "Entscheidungen trifft man systematisch: Problem und Einflussfaktoren klären, Alternativen sammeln, an den Qualitätszielen bewerten, entscheiden, festhalten und kommunizieren. Fallen: Technologie zuerst, Begründung später und nur eine Alternative."
+  "explanation": "Entscheidungen trifft man systematisch: Problem und Einflussfaktoren klären, Alternativen sammeln, an den Qualitätszielen bewerten, entscheiden, festhalten und kommunizieren. Fallen: Technologie zuerst, Begründung später und Bewertung nach Teampräferenzen statt Qualitätszielen."
  },
  {
   "id": "n14",
@@ -9340,10 +9410,10 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Ein Team entscheidet sich für eine Microservice-Architektur. Welche Folgeentscheidungen ziehen sich daraus typischerweise nach?",
   "options": [
-   "Nur die Wahl der Programmiersprache ist betroffen.",
+   "Die Programmiersprache ist damit für alle Services verbindlich festgelegt.",
    "Wie die Services miteinander kommunizieren.",
    "Wo und wie die Daten der einzelnen Services gehalten werden.",
-   "Keine, denn die Entscheidung betrifft nur die Struktur des Codes.",
+   "Die Services werden auf einem gemeinsamen Knoten betrieben, damit die Kommunikation entfällt.",
    "Wie Betrieb, Deployment und Monitoring der vielen Services organisiert werden.",
    "Folgeentscheidungen müssen nicht festgehalten werden, weil sie sich aus der ersten Entscheidung ergeben."
   ],
@@ -9353,14 +9423,14 @@ const QUESTIONS = [
    4
   ],
   "optExpl": [
-   "Falsch: Verengung: Das Spektrum der Folgen ist breiter als die Sprachwahl. Eine Microservice-Entscheidung betrifft unter anderem Kommunikation, Datenhaltung und Betrieb.",
+   "Falsch: Die Entscheidung für Microservices legt keine einheitliche Programmiersprache fest. Die Sprachwahl ist eine eigene Folgeentscheidung.",
    "Richtig: Kommunikation muss neu entschieden werden, weil die Services nicht mehr im selben Prozess laufen. Protokolle und Muster der Interaktion sind eine typische Folgeentscheidung.",
    "Richtig: Jeder Service verwaltet typischerweise seine eigenen Daten. Daraus folgt die Entscheidung, wo und wie diese gehalten werden und wie sie zwischen Services konsistent bleiben.",
-   "Falsch: Fehlschluss: Die Entscheidung betrifft nicht nur die Struktur des Codes. Entscheidungen hängen voneinander ab und ziehen Folgeentscheidungen nach sich, etwa zu Kommunikation und Betrieb.",
+   "Falsch: Services kommunizieren weiterhin, und wie sie verteilt und betrieben werden, ist eine Folgeentscheidung.",
    "Richtig: Die Betriebskomplexität steigt mit der Zahl der Services und verlangt eigene Entscheidungen zu Organisation von Betrieb, Deployment und Monitoring.",
    "Falsch: Auch Folgeentscheidungen und ihre Abhängigkeiten sollten nachvollziehbar sein. Dass sie sich aus der ersten Entscheidung ergeben, ist kein Grund, sie nicht festzuhalten."
   ],
-  "explanation": "Eine Microservice-Entscheidung erzwingt Folgeentscheidungen zu Kommunikation, Datenhaltung, Betrieb, Deployment und Monitoring. Abhängigkeiten zwischen Entscheidungen erkennt und dokumentiert man. Fallen: Folgen verneinen oder auf die Sprachwahl verengen."
+  "explanation": "Eine Microservice-Entscheidung erzwingt Folgeentscheidungen zu Kommunikation, Datenhaltung, Betrieb, Deployment und Monitoring. Abhängigkeiten zwischen Entscheidungen erkennt und dokumentiert man. Fallen: Folgen verneinen, eine feste Programmiersprache unterstellen oder den gemeinsamen Knoten als Ersatz für Kommunikation sehen."
  },
  {
   "id": "n15",
@@ -9456,12 +9526,12 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Ein Team diskutiert, was „Qualität“ bei Software bedeutet und wie sie sich zur Funktionalität verhält. Welche Aussagen treffen zu?",
   "options": [
-   "Eine einzelne Anforderung betrifft immer genau eine Qualität.",
+   "Qualitätsmerkmale wie Sicherheit und Performanz lassen sich unabhängig voneinander maximieren.",
    "Qualitätsmodelle wie ISO 25010 gliedern Qualität in Qualitätsmerkmale.",
    "Die Veränderung einer Qualität kann andere beeinflussen, daher sind Abwägungen nötig.",
-   "Architekt:innen können Qualitäten eines Systems nicht beeinflussen.",
+   "Qualität entsteht erst in der Implementierung; die Architektur hat darauf wenig Einfluss.",
    "Manche Kategorisierungen, etwa die des IREB, trennen Funktionalität und Qualität.",
-   "Qualität bedeutet bei Software nur Fehlerfreiheit."
+   "In ISO 25010 gehört die Funktionalität nicht zum Qualitätsmodell."
   ],
   "correct": [
    1,
@@ -9469,14 +9539,14 @@ const QUESTIONS = [
    4
   ],
   "optExpl": [
-   "Falsch: Eine Anforderung kann mehrere Qualitäten berühren, etwa Sicherheit und Benutzbarkeit. Die Zuordnung „genau eine Qualität je Anforderung“ ist eine unzulässige Vereinfachung.",
+   "Falsch: Qualitäten beeinflussen sich gegenseitig, etwa Sicherheit und Benutzbarkeit oder Leistungseffizienz und Speicherbedarf. Deshalb sind Abwägungen nötig.",
    "Richtig: Die Hauptkategorien eines Qualitätsmodells wie ISO 25010 heißen Qualitätsmerkmale. Sie gliedern den vagen Begriff Qualität in benennbare Eigenschaften.",
    "Richtig: Die Veränderung einer Qualität kann andere beeinflussen, daher sind Abwägungen nötig. Beispiele sind Sicherheit gegen Benutzbarkeit oder Leistungseffizienz gegen Speicherbedarf.",
-   "Falsch: Architekturentscheidungen prägen die Qualitäten eines Systems wesentlich. Architekt:innen können sie also sehr wohl beeinflussen, etwa über Struktur und Querschnittskonzepte.",
+   "Falsch: Architekturentscheidungen prägen die Qualitäten eines Systems wesentlich, etwa über Struktur und Querschnittskonzepte. Die Implementierung kann sie nur begrenzt nachträglich verändern.",
    "Richtig: Es gibt zwei Lesarten von Qualität, und die Trennung von Funktionalität und Qualität ist eine verbreitete, etwa in der Kategorisierung des IREB.",
-   "Falsch: Begriffsverengung: Qualität umfasst viele Merkmale wie Änderbarkeit, Sicherheit oder Leistungseffizienz. Fehlerfreiheit ist nur ein Aspekt davon."
+   "Falsch: ISO 25010 führt Funktionale Eignung als eigenes Qualitätsmerkmal. Die Trennung von Funktionalität und Qualität gibt es nur in anderen Kategorisierungen wie der des IREB."
   ],
-  "explanation": "Qualitätsmerkmale gliedern Qualität; manche Kategorisierungen trennen Funktionalität und Qualität. Qualitäten stehen in Wechselwirkung, und Architekt:innen beeinflussen sie. Fallen: Qualität gleich Fehlerfreiheit und ein Merkmal je Anforderung."
+  "explanation": "Qualitätsmerkmale gliedern Qualität; manche Kategorisierungen trennen Funktionalität und Qualität, ISO 25010 rechnet sie dagegen mit ein. Qualitäten stehen in Wechselwirkung, und Architekt:innen beeinflussen sie. Fallen: unabhängige Maximierung, Qualität erst in der Implementierung."
  },
  {
   "id": "n18",
@@ -9486,12 +9556,12 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Ein Team wertet Antwortzeiten aus: Der Mittelwert liegt bei 0,8 s, einzelne Nutzer:innen warten aber regelmäßig mehr als 5 s. Welche Aussagen treffen zu?",
   "options": [
-   "Die Messung ersetzt jede qualitative Bewertung der Architektur.",
+   "Die Messung zeigt, ob die Architektur die Ursache der langen Wartezeiten ist.",
    "Ein Szenario sollte ein Perzentil nennen, z. B. „95 % der Anfragen unter 1 s“.",
    "Der Mittelwert kann Ausreißer verdecken und so ein falsches Bild vermitteln.",
-   "Eine einzelne Metrik beweist, dass die Architektur gut ist.",
+   "Das 95. Perzentil allein zeigt zuverlässig, ob die Architektur die Qualitätsanforderung insgesamt erfüllt.",
    "Neben dem Mittelwert sollten Perzentile betrachtet werden.",
-   "Der Mittelwert genügt; Perzentile sind überflüssig."
+   "Perzentile gehören in die Auswertung von Lasttests, nicht in die Formulierung von Szenarien."
   ],
   "correct": [
    1,
@@ -9499,14 +9569,14 @@ const QUESTIONS = [
    4
   ],
   "optExpl": [
-   "Falsch: Qualitative und quantitative Verfahren ergänzen sich. Eine Messung liefert Zahlen, ersetzt aber nicht die qualitative Bewertung der Architektur, etwa durch Szenarien oder Reviews.",
+   "Falsch: Die Messung zeigt, dass es langsame Anfragen gibt, nicht warum. Die Ursache, etwa Architektur, Datenbank oder Infrastruktur, klären erst weitere Analysen wie Profiling oder eine qualitative Bewertung.",
    "Richtig: Ein Szenario mit Perzentil wie „95 % der Anfragen unter 1 s“ macht die Anforderung überprüfbar und berücksichtigt auch langsame Fälle, die der Mittelwert nicht erfasst.",
    "Richtig: Wenige sehr langsame Anfragen fallen im Mittelwert kaum auf. Er kann Ausreißer verdecken und so ein falsches Bild vermitteln, wie hier bei 0,8 s Mittel und regelmäßigen Wartezeiten über 5 s.",
-   "Falsch: Eine einzelne Metrik ist nur ein Hinweis und beweist nicht, dass die Architektur gut ist. Aussagekräftig wird die Bewertung erst im Zusammenspiel mehrerer Befunde.",
+   "Falsch: Ein Perzentil beschreibt nur einen Ausschnitt der Verteilung, etwa die langsamsten 5 % bleiben unberücksichtigt. Ob die Anforderung insgesamt erfüllt ist, zeigt erst das Zusammenspiel mehrerer Messgrößen und Szenarien.",
    "Richtig: Perzentile zeigen, wie viele Anfragen eine Grenze überschreiten, und ergänzen den Mittelwert um die Verteilung. So werden die langsamen Fälle sichtbar.",
-   "Falsch: Der Mittelwert kann Ausreißer verbergen, wie das Beispiel zeigt. Perzentile sind deshalb nicht überflüssig, sondern nötig, um die Nutzererfahrung realistisch zu beurteilen."
+   "Falsch: Gerade Szenarien nennen häufig ein Perzentil, etwa „95 % der Anfragen unter 1 s“, weil sich so die Anforderung überprüfbar machen lässt und langsame Fälle nicht im Mittelwert untergehen."
   ],
-  "explanation": "Neben dem Mittelwert betrachtet man Perzentile, weil der Mittelwert Ausreißer verbirgt; Szenarien nennen daher oft ein Perzentil. Eine Metrik allein beweist nichts. Fallen: nur den Mittelwert nutzen und Messung als Ersatz für Bewertung."
+  "explanation": "Neben dem Mittelwert betrachtet man Perzentile, weil der Mittelwert Ausreißer verbirgt; Szenarien nennen daher oft ein Perzentil. Fallen: Messung als Ursachenklärung, ein einzelnes Perzentil als Gesamtbeleg und Perzentile nur für Lasttests."
  },
  {
   "id": "n19",
@@ -9602,11 +9672,11 @@ const QUESTIONS = [
   "type": "multi",
   "q": "Welche Befunde einer Konformitätsprüfung gelten als Problemindikatoren?",
   "options": [
-   "Viele Kommentare im Quelltext.",
+   "Fehlende Kommentare an öffentlichen Methoden.",
    "Eine Vermischung fachlicher und technischer Aspekte in einem Baustein.",
-   "Ein einheitliches Schichtenschema im ganzen System.",
+   "Abhängigkeiten, die der geplanten Schichtung entsprechen und in der Bausteinsicht dokumentiert sind.",
    "Zyklen oder ungewollte Abhängigkeiten zwischen Bausteinen.",
-   "Eine gut lesbare Dokumentation.",
+   "Ein Adapter-Baustein, der als einziger ein Fremdsystem anspricht.",
    "Ein hoher Fan-out, also viele ausgehende Abhängigkeiten eines Bausteins."
   ],
   "correct": [
@@ -9615,14 +9685,14 @@ const QUESTIONS = [
    5
   ],
   "optExpl": [
-   "Falsch: Kommentare sind kein Indikator für Abweichungen von der Architektur. Eine Konformitätsprüfung sucht Verstöße gegen Struktur und Abhängigkeitsregeln, nicht die Menge an Kommentaren.",
+   "Falsch: Fehlende Kommentare betreffen die Implementierung, nicht die Einhaltung von Struktur und Abhängigkeitsregeln der Architektur. Eine Konformitätsprüfung sucht nach Abweichungen vom Entwurf.",
    "Richtig: Eine Vermischung fachlicher und technischer Aspekte in einem Baustein deutet auf verletzte Trennungen hin und weicht vom beabsichtigten Entwurf ab.",
-   "Falsch: Ein einheitliches Schichtenschema entspricht dem Entwurf, solange die Regeln eingehalten werden. Es ist daher kein Problemindikator, sondern ein Zeichen für Konformität.",
+   "Falsch: Dokumentierte, regelkonforme Abhängigkeiten sind das Soll. Eine Konformitätsprüfung sucht Abweichungen von der Planung, nicht Übereinstimmungen.",
    "Richtig: Zyklen oder ungewollte Abhängigkeiten widersprechen typischen Abhängigkeitsregeln des Entwurfs. Sie sind klassische Befunde einer Konformitätsprüfung.",
-   "Falsch: Eine gut lesbare Dokumentation ist erwünscht und kein Problem. Sie sagt nichts über Verstöße der Implementierung gegen die Architektur aus.",
+   "Falsch: Genau das ist beabsichtigt: Die Anbindung ist an einer Stelle gekapselt. Das ist ein gewollter Zustand und kein Befund einer Konformitätsprüfung.",
    "Richtig: Ein hoher Fan-out, also viele ausgehende Abhängigkeiten eines Bausteins, bedeutet hohe Kopplung. Diese weist auf Probleme hin, weil der Baustein von vielen anderen abhängt und schwer änderbar wird."
   ],
-  "explanation": "Typische Problemindikatoren sind Zyklen oder ungewollte Abhängigkeiten, vermischte fachliche und technische Aspekte und hohe Kopplung (Fan-out). Fallen: Kommentare oder gute Dokumentation als Problem lesen."
+  "explanation": "Typische Problemindikatoren sind Zyklen oder ungewollte Abhängigkeiten, vermischte fachliche und technische Aspekte und hohe Kopplung (Fan-out). Fallen: fehlende Kommentare, dokumentierte regelkonforme Abhängigkeiten oder ein gekapselter Adapter zeigen kein Problem an."
  },
  {
   "id": "n22",
@@ -9642,7 +9712,7 @@ const QUESTIONS = [
     "cat": 0
    },
    {
-    "text": "Budget- und Termintreue garantieren.",
+    "text": "Das Vorgehensmodell des Projekts (z. B. Scrum oder Wasserfall) festlegen.",
     "cat": 1
    },
    {
@@ -9660,12 +9730,12 @@ const QUESTIONS = [
   ],
   "rowExpl": [
    "Architektur schafft die strukturellen Voraussetzungen für Funktion und Qualität, etwa durch Zerlegung und Querschnittskonzepte. Das gehört zu ihrem Kern, deshalb kann sie es leisten.",
-   "Budget- und Termintreue hängen von Planung, Steuerung und vielen weiteren Faktoren ab. Architektur kann dazu beitragen, garantieren kann sie sie nicht, es liegt außerhalb ihrer Reichweite.",
+   "Welches Vorgehensmodell ein Projekt nutzt, entscheidet die Projekt- bzw. Organisationsebene. Architektur muss mit dem Modell zurechtkommen, legt es aber nicht fest, daher außerhalb ihrer Reichweite.",
    "Gute Strukturierung hält Komplexität beherrschbar und fördert das Verständnis aller Beteiligten. Das ist eine zentrale Leistung von Architektur und liegt in ihrer Reichweite.",
    "Welche Features und Qualitätsanforderungen gewünscht sind, legen die Stakeholder fest. Architektur setzt sie um und entscheidet sie nicht selbst, daher außerhalb ihrer Reichweite.",
    "Architektur gibt Richtlinien vor, an denen sich die Entwicklung orientiert, und lenkt sie so. Das ist ein Mittel, das ihr zur Verfügung steht, deshalb kann sie es leisten."
   ],
-  "explanation": "Architektur schafft die strukturellen Voraussetzungen für Funktion und Qualität, hält Komplexität beherrschbar, fördert Verständnis und gibt Richtlinien vor. Budget, Termine und Features liegen außerhalb ihrer Reichweite."
+  "explanation": "Architektur schafft die strukturellen Voraussetzungen für Funktion und Qualität, hält Komplexität beherrschbar, fördert Verständnis und gibt Richtlinien vor. Das Vorgehensmodell und die Festlegung der Features liegen außerhalb ihrer Reichweite."
  },
  {
   "id": "n23",
@@ -9681,7 +9751,7 @@ const QUESTIONS = [
   ],
   "rows": [
    {
-    "text": "Der Partnerdienst ist zu 99,9 % verfügbar, bestätigt hat das niemand.",
+    "text": "Der Entwurf geht von einer Verfügbarkeit des Partnerdienstes von 99,9 % aus.",
     "cat": 0
    },
    {
@@ -9689,7 +9759,7 @@ const QUESTIONS = [
     "cat": 1
    },
    {
-    "text": "Die Nutzer:innen haben schnelle Verbindungen; geprüft wurde das nie.",
+    "text": "Der Entwurf setzt voraus, dass die Nutzer:innen schnelle Verbindungen haben.",
     "cat": 0
    },
    {
@@ -9702,9 +9772,9 @@ const QUESTIONS = [
    }
   ],
   "rowExpl": [
-   "Die Verfügbarkeit des Partnerdienstes wird unterstellt, aber nicht bestätigt. Ein unterstellter, nicht gesicherter Sachverhalt ist eine Annahme und sollte geprüft werden, keine Randbedingung.",
+   "Die Verfügbarkeit des Partnerdienstes wird im Entwurf unterstellt, ohne dass sie von außen vorgegeben oder belegt wäre. Ein unterstellter, nicht gesicherter Sachverhalt ist eine Annahme und sollte geprüft werden.",
    "Dass das Unternehmen PostgreSQL vorschreibt, ist eine Vorgabe von außen. Sie ist gegeben und schränkt den Lösungsraum ein, daher eine Randbedingung und keine Annahme.",
-   "Schnelle Verbindungen der Nutzer:innen werden angenommen, ohne dass sie geprüft wurden. Das ist ein unterstellter, nicht gesicherter Sachverhalt und damit eine Annahme.",
+   "Schnelle Verbindungen der Nutzer:innen werden vom Entwurf vorausgesetzt, nicht aber von außen vorgegeben oder belegt. Das ist ein unterstellter, nicht gesicherter Sachverhalt und damit eine Annahme.",
    "Die gesetzliche Pflicht, personenbezogene Daten in der EU zu speichern, ist vorgegeben und nicht verhandelbar. Sie schränkt den Lösungsraum ein und ist eine Randbedingung.",
    "Die Schätzung des Teams zum Lastvolumen ist nicht gesichert, sondern eine Einschätzung. Sie ist unterstellt statt vorgegeben, deshalb eine Annahme, die man explizit festhalten und prüfen sollte."
   ],
@@ -9724,34 +9794,39 @@ const QUESTIONS = [
   ],
   "rows": [
    {
-    "text": "Fachkontext und Fachmodell des Systems.",
-    "cat": 0
-   },
-   {
-    "text": "Wahl von Datenbank, Technologien und Deployment.",
+    "text": "Physisches Datenbankschema mit Indizes und Partitionierung.",
     "cat": 1
    },
    {
-    "text": "Welche Leistungen das System in der Domäne erbringt.",
+    "text": "Welche Geschäftsobjekte (z. B. Police, Tarif) es gibt und wie sie zusammenhängen.",
     "cat": 0
    },
    {
-    "text": "Realisierung durch Muster wie Schichten.",
+    "text": "Welche Abläufe von der Antragstellung bis zur Policierung das System unterstützen soll.",
+    "cat": 0
+   },
+   {
+    "text": "Die Wahl einer Schichtenarchitektur im Hinblick auf Änderbarkeit.",
     "cat": 1
    },
    {
-    "text": "Das Datenmodell der Domäne.",
+    "text": "Mit welchen fachlichen Akteuren und Nachbarsystemen das System Leistungen austauscht.",
     "cat": 0
+   },
+   {
+    "text": "Die Festlegung der Betriebsumgebung (Container, Cluster).",
+    "cat": 1
    }
   ],
   "rowExpl": [
-   "Fachkontext und Fachmodell beschreiben, was das System in der Domäne leistet. Das gehört zur fachlichen Architektur, nicht zur technischen Realisierung.",
-   "Datenbank, Technologien und Deployment beschreiben, wie das System realisiert wird. Das ist technische Architektur; die fachliche Architektur sagt nur, was geleistet wird.",
-   "Welche Leistungen das System in der Domäne erbringt, beschreibt das Was und nicht das Wie. Das gehört zur fachlichen Architektur.",
-   "Muster wie Schichten sind ein Mittel der Realisierung und gehören zur technischen Architektur. Sie sagen nichts über die fachlichen Leistungen aus.",
-   "Das Datenmodell der Domäne bildet die fachlichen Begriffe und ihre Zusammenhänge ab. Es gehört zur fachlichen Architektur, nicht zur technischen Realisierung."
+   "Technisch: Indizes und Partitionierung sind Realisierungsentscheidungen. Das fachliche Datenmodell wäre dagegen fachlich.",
+   "Fachlich: Das ist das Fachmodell der Domäne, unabhängig von der technischen Realisierung.",
+   "Fachlich: Es geht um den Nutzen aus Sicht der Domäne (was soll das System leisten).",
+   "Technisch: Ein Architekturmuster ist eine Entscheidung zur technischen Realisierung und richtet sich nach Qualitätsanforderungen.",
+   "Fachlich: Der Fachkontext beschreibt die Beziehungen zur Domäne, nicht die Technik der Anbindung.",
+   "Technisch: Deployment und Betrieb gehören zur technischen Realisierung."
   ],
-  "explanation": "Die fachliche Architektur beschreibt, was das System in der Domäne leistet (Fachkontext, Fachmodell, Datenmodell). Die technische Architektur beschreibt, wie es realisiert wird (Muster, Technologien, Datenbank, Deployment)."
+  "explanation": "Fachliche Architektur: was das System aus Sicht der Domäne leistet (Fachkontext, Fachmodell, fachliche Datenmodelle). Technische Architektur: wie es realisiert wird (Muster, Datenbank, Deployment). Falle: fachliches vs. physisches Datenmodell."
  },
  {
   "id": "n25",
@@ -9767,7 +9842,7 @@ const QUESTIONS = [
   ],
   "rows": [
    {
-    "text": "Feedback sollte erst eingeholt werden, wenn der Entwurf vollständig ausgearbeitet ist.",
+    "text": "Eine Iteration ist erst abgeschlossen, wenn der Entwurf vollständig und fehlerfrei vorliegt.",
     "cat": 1
    },
    {
@@ -9775,26 +9850,26 @@ const QUESTIONS = [
     "cat": 0
    },
    {
-    "text": "Demos und Prototypen sind systematische Wege, Feedback zu holen.",
+    "text": "Prototypen und Reviews sind systematische Wege, Annahmen früh zu überprüfen und Feedback zu holen.",
     "cat": 0
    },
    {
-    "text": "Jede Iteration liefert Fakten statt Vermutungen.",
+    "text": "Feedback ist von mehreren Seiten sinnvoll, etwa von Stakeholdern, Entwicklungsteam und Betrieb.",
     "cat": 0
    },
    {
-    "text": "Feedback sollte dem Zufall überlassen werden, damit es unvoreingenommen bleibt.",
+    "text": "Wer iterativ entwirft, kann die Klärung der wichtigsten Qualitätsanforderungen auf spätere Iterationen verschieben.",
     "cat": 1
    }
   ],
   "rowExpl": [
-   "Feedback erst nach vollständiger Ausarbeitung kommt zu spät, Fehlannahmen wären dann teuer zu korrigieren. Man holt es früh ein, deshalb ist die Aussage falsch.",
-   "Iterationen überprüfen Annahmen früh und senken so das Risiko, dass sich erst spät zeigt, dass der Entwurf nicht trägt. Die Aussage ist richtig.",
-   "Demos und Prototypen gehören neben Reviews und Messwerten zu den systematischen Wegen, Feedback zu bekommen. Die Aussage ist deshalb richtig.",
-   "Jede Iteration liefert durch Überprüfung Fakten, die Vermutungen ersetzen. Das ist der Kern des Nutzens von Iterationen, die Aussage ist richtig.",
-   "Feedback wird früh und systematisch geholt, nicht dem Zufall überlassen. Zufälliges Feedback ist unzuverlässig und sichert keine Überprüfung der Annahmen, daher ist die Aussage falsch."
+   "Das ist falsch. Eine Iteration liefert bewusst einen Zwischenstand, der überprüft und in der nächsten Runde verfeinert wird; Vollständigkeit ist nicht ihr Maß.",
+   "Das ist richtig. Früh gewonnene Fakten ersetzen Vermutungen, bevor teure Entscheidungen verfestigt sind.",
+   "Das ist richtig. Beide machen Annahmen prüfbar, bevor sie sich im ganzen System auswirken.",
+   "Das ist richtig. Jede Gruppe sieht andere Probleme der Architektur; Feedback von nur einer Seite lässt Risiken unentdeckt.",
+   "Das ist falsch. Iteratives Vorgehen ersetzt keine Anforderungsklärung; die wichtigsten Qualitätsanforderungen treiben die ersten Entwurfsentscheidungen und sollten früh feststehen."
   ],
-  "explanation": "Iterationen senken das Risiko, weil man Annahmen früh überprüft und Fakten statt Vermutungen erhält. Feedback holt man früh und systematisch (Reviews, Demos, Prototypen, Messwerte), nicht erst nach vollständiger Ausarbeitung und nicht zufällig."
+  "explanation": "Iterationen und Feedback liefern früh Fakten und senken Risiken. Sie ersetzen weder die frühe Klärung der wichtigsten Anforderungen noch verlangen sie einen vollständigen Entwurf je Runde."
  },
  {
   "id": "n26",
@@ -9814,7 +9889,7 @@ const QUESTIONS = [
     "cat": 0
    },
    {
-    "text": "Je umfangreicher die Dokumentation, desto besser.",
+    "text": "Eine korrekte Dokumentation beschreibt jeden Baustein bis zur untersten Ebene.",
     "cat": 1
    },
    {
@@ -9832,11 +9907,11 @@ const QUESTIONS = [
   ],
   "rowExpl": [
    "Verständlichkeit hängt davon ab, wer liest. Deshalb beurteilt die Zielgruppe, ob die Dokumentation verständlich ist, und die Aussage ist richtig.",
-   "Umfang ist kein Qualitätsmaß. Eine umfangreichere Dokumentation ist nicht automatisch besser, sie kann angemessen verfehlen; die Aussage ist falsch.",
+   "Korrektheit heißt, dass die Dokumentation mit dem System übereinstimmt, nicht dass sie jede Ebene abdeckt. Die Aussage ist falsch.",
    "Form, Inhalt und Detailgrad richten sich nach der Zielgruppe, weil unterschiedliche Leser:innen Unterschiedliches brauchen. Die Aussage ist deshalb richtig.",
    "Angemessen bedeutet, nur so viel zu dokumentieren wie nötig. Das passt zum Qualitätsmerkmal Angemessenheit, deshalb ist die Aussage richtig.",
    "Der Autor kennt das System zu gut, um die Verständlichkeit für andere zu beurteilen. Das kann die Zielgruppe am besten, deshalb ist die Aussage falsch."
   ],
-  "explanation": "Gute Dokumentation ist verständlich (beurteilt von der Zielgruppe), korrekt, effizient, angemessen und wartbar. Umfang ist kein Qualitätsmaß; Form, Inhalt und Detailgrad richten sich an der Zielgruppe aus."
+  "explanation": "Gute Dokumentation ist verständlich (beurteilt von der Zielgruppe), korrekt, effizient, angemessen und wartbar. Korrektheit heißt Übereinstimmung mit dem System, nicht Detailtiefe; Form, Inhalt und Detailgrad richten sich an der Zielgruppe aus."
  }
 ];
