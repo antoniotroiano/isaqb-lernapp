@@ -9506,7 +9506,7 @@ const QUESTIONS = [
   "r": "R2",
   "type": "k",
   "points": 2,
-  "q": "Ist der Datentyp ein Produkt (UND) oder eine Summe (ODER)?",
+  "q": "Ist der Datentyp ein Produkt oder eine Summe?",
   "categories": [
    "Produkt (UND)",
    "Summe (ODER)"

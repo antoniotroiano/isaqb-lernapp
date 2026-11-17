@@ -7054,7 +7054,7 @@ const QUESTIONS_EN = {
   "explanation": "One ADR per decision with status, context, decision and consequences; a new ADR supersedes an old one instead of overwriting it. ADR-worthy are decisions with considerable impact, hard to reverse or with follow-up decisions, not every minor matter."
  },
  "n16": {
-  "q": "Is the data type a product (AND) or a sum (OR)?",
+  "q": "Is the data type a product or a sum?",
   "categories": [
    "Product (AND)",
    "Sum (OR)"
