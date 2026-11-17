@@ -5151,7 +5151,7 @@ const QUESTIONS_EN = {
   "explanation": "White box: sub-building blocks, relationships, important interfaces between them and rationale for the decomposition. Not included: classes/methods, allocation to servers, organisational assignments."
  },
  "c2q31": {
-  "q": "A corporation is discussing Conway's law. Which statements about it are correct?",
+  "q": "A corporation is discussing the classic Conway's law. Which statements about it are correct?",
   "options": [
    "It only applies to distributed systems such as microservices.",
    "It obliges organizations to structure teams according to the architecture.",
@@ -5166,7 +5166,7 @@ const QUESTIONS_EN = {
   "optExpl": [
    "Wrong: Conway's law applies to any system structure, not just distributed systems. The modules of a monolith also often mirror the communication structure of the teams that build them.",
    "Wrong: Conway's law is an observation, not a rule. You can use it deliberately, for example via the inverse Conway manoeuvre, but you are not obliged to structure teams according to the architecture.",
-   "Wrong: The direction is reversed. According to Conway, the system structure mirrors the communication structure of the organization, not the other way round. The deliberate reverse direction is the Inverse Conway Maneuver.",
+   "Wrong: The direction is reversed. According to the classic Conway's law, the system structure mirrors the communication structure of the organization. That the architecture also feeds back into the organization in practice, and can meet resistance there, is an extension; the deliberate reverse direction is the Inverse Conway Maneuver.",
    "Correct: Where teams communicate little, interfaces and system boundaries tend to emerge between their parts. That is the core of the observation: system structure follows communication structure.",
    "Correct: In the curriculum, Conway appears under organisational constraints, i.e. the structure of teams and clients. It is not a technical constraint, but it does influence how the system is split."
   ],
@@ -6610,6 +6610,25 @@ const QUESTIONS_EN = {
    "Wrong: Technical debt affects costs, modifiability and deadlines of later releases. This also concerns product management and has to be weighed together with the stakeholders."
   ],
   "explanation": "Concerns are identified, conflicts of goals and their consequences are made open, and short- versus long-term goals are weighed. Traps: decisions by hierarchy, putting operations concerns on hold and assessing technical debt only internally."
+ },
+ "c2q38": {
+  "q": "A team plans a building-block cut that runs across the existing team boundaries. Which statement about the interaction between architecture and organization is most accurate?",
+  "options": [
+   "The architecture has no influence on the organization because Conway's law only works from organization to system.",
+   "The architecture can meet resistance in the organization; team structure and building-block cut should be considered together.",
+   "The organization adapts to the building-block cut by itself, so no coordination is needed.",
+   "The existing team boundaries are to be fixed as a technical constraint and no longer questioned in the design."
+  ],
+  "correct": [
+   1
+  ],
+  "optExpl": [
+   "Wrong: The classic Conway's law describes the direction organization → system. In practice, however, an architecture also feeds back into the organization, for example when it demands new collaboration, responsibilities or team boundaries.",
+   "Correct: A building-block cut across team boundaries forces coordination across teams and can meet resistance. As an organizational constraint this means: consider team structure and building-block cut together.",
+   "Wrong: Organizations do not adapt by themselves. Without a deliberate change of teams or communication paths, the existing structure usually prevails and the architecture gets diluted.",
+   "Wrong: Team boundaries are an organizational, not a technical constraint. They can be changed, even if that means effort and resistance, and should be considered in the design."
+  ],
+  "explanation": "Conway's law classically works from the organization to the system, but also the other way round: an architecture influences the organization and can meet resistance there. Therefore consider team structure and building-block cut together. Traps: assuming a one-way effect, expecting the organization to adapt by itself and treating team boundaries as fixed."
  },
  "c3q98": {
   "q": "For parts of a platform, components are fixed (proven authentication service, legacy core); other parts are still open in domain terms. Which statements about the design approach are correct?",

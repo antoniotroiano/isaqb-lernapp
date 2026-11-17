@@ -6903,7 +6903,7 @@ const QUESTIONS = [
   "lz": "LZ 02-02",
   "r": "R2",
   "type": "multi",
-  "q": "Ein Konzern diskutiert Conways Gesetz. Welche Aussagen dazu treffen zu?",
+  "q": "Ein Konzern diskutiert das klassische Conways Gesetz. Welche Aussagen dazu treffen zu?",
   "options": [
    "Es gilt nur für verteilte Systeme wie Microservices.",
    "Es verpflichtet dazu, Teams nach der Architektur zu schneiden.",
@@ -6918,7 +6918,7 @@ const QUESTIONS = [
   "optExpl": [
    "Falsch: Conways Gesetz betrifft jede Systemstruktur, nicht nur verteilte Systeme. Auch die Module eines Monolithen spiegeln häufig die Kommunikationsstruktur der Teams wider, die sie bauen.",
    "Falsch: Conways Gesetz ist eine Beobachtung, keine Vorschrift. Man kann es bewusst nutzen, etwa mit dem Inverse Conway Maneuver, ist aber nicht verpflichtet, Teams nach der Architektur zu schneiden.",
-   "Falsch: Die Wirkrichtung ist vertauscht. Nach Conway spiegelt die Systemstruktur die Kommunikationsstruktur der Organisation, nicht umgekehrt. Die bewusste Gegenrichtung ist das Inverse Conway Maneuver.",
+   "Falsch: Die Wirkrichtung ist vertauscht. Nach dem klassischen Conway spiegelt die Systemstruktur die Kommunikationsstruktur der Organisation. Dass die Architektur in der Praxis auch auf die Organisation zurückwirkt und dort auf Widerstand stoßen kann, ist eine Erweiterung, die bewusste Gegenrichtung ist das Inverse Conway Maneuver.",
    "Richtig: Wo Teams kaum miteinander kommunizieren, entstehen bevorzugt Schnittstellen und Systemgrenzen zwischen ihren Teilen. Das ist der Kern der Beobachtung: Systemstruktur folgt Kommunikationsstruktur.",
    "Richtig: Conway steht im Curriculum bei den organisatorischen Randbedingungen, also bei der Struktur von Teams und Auftraggebenden. Es ist keine technische Randbedingung, beeinflusst aber den Systemschnitt."
   ],
@@ -8843,6 +8843,30 @@ const QUESTIONS = [
    "Falsch: Technische Schulden wirken auf Kosten, Änderbarkeit und Termine späterer Releases. Das betrifft auch das Produktmanagement und muss mit den Stakeholdern abgewogen werden."
   ],
   "explanation": "Anliegen werden identifiziert, Zielkonflikte und ihre Konsequenzen offen gemacht und kurz- gegen langfristige Ziele abgewogen. Fallen: Entscheidung nach Hierarchie, Betriebsanliegen zurückstellen und technische Schulden nur intern bewerten."
+ },
+ {
+  "id": "c2q38",
+  "chapter": 2,
+  "lz": "LZ 02-02",
+  "r": "R2",
+  "type": "single",
+  "q": "Ein Team plant einen Bausteinschnitt, der quer zu den bestehenden Teamgrenzen verläuft. Welche Aussage zur Wechselwirkung zwischen Architektur und Organisation trifft am ehesten zu?",
+  "options": [
+   "Die Architektur hat keinen Einfluss auf die Organisation, weil Conways Gesetz nur von der Organisation zum System wirkt.",
+   "Die Architektur kann in der Organisation auf Widerstand stoßen; Teamzuschnitt und Bausteinschnitt sollten gemeinsam betrachtet werden.",
+   "Die Organisation passt sich dem Bausteinschnitt von selbst an, sodass kein Abstimmungsbedarf entsteht.",
+   "Die bestehenden Teamgrenzen sind als technische Randbedingung festzuschreiben und im Entwurf nicht mehr zu hinterfragen."
+  ],
+  "correct": [
+   1
+  ],
+  "optExpl": [
+   "Falsch: Das klassische Conway beschreibt die Richtung Organisation → System. In der Praxis wirkt eine Architektur aber auch auf die Organisation zurück, etwa wenn sie neue Zusammenarbeit, Verantwortlichkeiten oder Teamgrenzen verlangt.",
+   "Richtig: Ein Bausteinschnitt quer zu den Teamgrenzen erzwingt Abstimmung über Teams hinweg und kann auf Widerstand stoßen. Als organisatorische Randbedingung heißt das: Teamzuschnitt und Bausteinschnitt gemeinsam betrachten.",
+   "Falsch: Organisationen passen sich nicht von selbst an. Ohne bewusste Änderung der Teams oder Kommunikationswege setzt sich meist die bestehende Struktur durch, und die Architektur wird verwässert.",
+   "Falsch: Teamgrenzen sind eine organisatorische, keine technische Randbedingung. Sie sind veränderbar, auch wenn das Aufwand und Widerstand bedeutet, und sollten im Entwurf mit betrachtet werden."
+  ],
+  "explanation": "Conways Gesetz wirkt klassisch von der Organisation auf das System, aber auch umgekehrt: Eine Architektur beeinflusst die Organisation und kann dort auf Widerstand stoßen. Deshalb Teamzuschnitt und Bausteinschnitt gemeinsam betrachten. Fallen: Wirkung nur in eine Richtung annehmen, Selbstanpassung der Organisation erwarten und Teamgrenzen als unveränderlich behandeln."
  },
  {
   "id": "c3q98",
